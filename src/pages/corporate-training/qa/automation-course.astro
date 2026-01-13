@@ -1,0 +1,130 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos de la Automatización de Pruebas",
+    description:
+      "Introduce los conceptos esenciales de automatización de testing, frameworks y herramientas fundamentales para comenzar a automatizar pruebas de software.",
+    topics: [
+      "Principios y beneficios de la automatización de pruebas",
+      "Cuándo automatizar y cuándo no: análisis ROI",
+      "Pirámide de testing y estrategias de automatización",
+      "Comparativa de frameworks: Selenium, Cypress, Playwright",
+      "Configuración del entorno de automatización",
+    ],
+    icon: "Settings",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Automatización de Pruebas Web con Selenium",
+    description:
+      "Domina Selenium WebDriver para crear scripts de automatización robustos y mantenibles para aplicaciones web.",
+    topics: [
+      "Localizadores y estrategias de selección de elementos",
+      "WebDriver API y comandos esenciales",
+      "Patrones de diseño: Page Object Model (POM)",
+      "Manejo de waits, alerts y ventanas múltiples",
+      "Buenas prácticas y código mantenible",
+    ],
+    icon: "Globe",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Testing Moderno con Cypress y Playwright",
+    description:
+      "Aprende a utilizar frameworks modernos de automatización para crear pruebas rápidas, confiables y fáciles de mantener.",
+    topics: [
+      "Arquitectura y ventajas de Cypress",
+      "Pruebas E2E con Playwright y multi-browser testing",
+      "Manejo de APIs y mocking de datos",
+      "Visual regression testing",
+      "Debugging y generación de reportes",
+    ],
+    icon: "Code",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Automatización de APIs y Testing de Integración",
+    description:
+      "Implementa pruebas automatizadas para APIs REST, validación de contratos y testing de servicios backend.",
+    topics: [
+      "Testing de APIs REST con Postman y Newman",
+      "Automatización con REST Assured y SuperTest",
+      "Contract testing y validación de esquemas",
+      "Pruebas de rendimiento y carga con JMeter",
+      "Estrategias de testing para microservicios",
+    ],
+    icon: "Server",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Integración CI/CD y Optimización",
+    description:
+      "Integra tus pruebas automatizadas en pipelines de CI/CD y aprende a optimizar la ejecución y mantenimiento de tu suite de tests.",
+    topics: [
+      "Integración con Jenkins, GitHub Actions y GitLab CI",
+      "Ejecución paralela y optimización de tiempos",
+      "Reportes avanzados y análisis de métricas",
+      "Gestión de datos de prueba y ambientes",
+      "Proyecto final: Pipeline completo de automatización",
+    ],
+    icon: "Zap",
+  },
+];
+
+const instructor = {
+  name: "Nombre Apellido",
+  title: "Senior QA Automation Engineer",
+  description:
+    "Nombre Apellido es ingeniero de automatización QA con más de 10 años de experiencia implementando estrategias de testing automatizado en empresas tecnológicas globales. Especialista en frameworks modernos, CI/CD y arquitecturas de testing escalables.",
+  certifications: [
+    "ISTQB Advanced Test Automation Engineer",
+    "Selenium WebDriver Certified Professional",
+    "AWS Certified DevOps Engineer",
+  ],
+  experience: "10+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "17 de Febrero de 2025",
+  duration: "45 horas (8 semanas)",
+  schedule: "Lunes y Miércoles / 18:00 - 21:00",
+  regularPrice: "547 €",
+  earlyBirdPrice: "497 €",
+};
+
+const courseId = "enterprise-automation";
+const courseName = "Automatización QA";
+---
+
+<Layout title="Automatización QA">
+  <div class="mb-6">
+      <Breadcrumbs />
+    </div>
+  <h1
+    class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16"
+  >
+    Automatización QA
+  </h1>
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+
+  
+</Layout>

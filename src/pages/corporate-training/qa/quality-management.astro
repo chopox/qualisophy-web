@@ -1,0 +1,127 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos de la Gestión de Calidad",
+    description:
+      "Introduce los conceptos esenciales de calidad de software, estándares internacionales y cómo establecer una cultura de calidad en equipos de desarrollo.",
+    topics: [
+      "Conceptos fundamentales de calidad de software",
+      "Estándares ISO 25010 y modelos de calidad",
+      "Ciclo de vida del aseguramiento de calidad",
+      "Roles y responsabilidades en un equipo de QA",
+      "Cultura de calidad y mejora continua",
+    ],
+    icon: "Award",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Planificación y Estrategia de QA",
+    description:
+      "Aprende a diseñar estrategias de testing efectivas, planificar recursos y crear planes de calidad alineados con los objetivos del negocio.",
+    topics: [
+      "Elaboración de planes de testing y estrategias de QA",
+      "Análisis de riesgos y priorización de pruebas",
+      "Estimación de esfuerzo y gestión de recursos",
+      "Definición de criterios de entrada y salida",
+      "Integración de QA en metodologías ágiles",
+    ],
+    icon: "ClipboardList",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Métricas y KPIs de Calidad",
+    description:
+      "Domina el uso de métricas clave para medir la efectividad del testing, identificar tendencias y tomar decisiones basadas en datos.",
+    topics: [
+      "Métricas de cobertura y efectividad de pruebas",
+      "Indicadores de calidad del producto (defect density, test coverage)",
+      "KPIs de proceso y eficiencia del equipo de QA",
+      "Reportes y dashboards de calidad",
+      "Análisis de tendencias y mejora predictiva",
+    ],
+    icon: "BarChart",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Gestión del Ciclo de Vida de Defectos",
+    description:
+      "Aprende a gestionar eficientemente el proceso completo de bugs, desde su detección hasta su resolución y seguimiento.",
+    topics: [
+      "Ciclo de vida de un defecto y estados",
+      "Clasificación y priorización de bugs",
+      "Herramientas de gestión: Jira, Azure DevOps, Bugzilla",
+      "Técnicas de reporting y comunicación efectiva",
+      "Root cause analysis y prevención de defectos",
+    ],
+    icon: "AlertCircle",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Mejora Continua y Optimización de Procesos",
+    description:
+      "Implementa estrategias de mejora continua, retrospectivas efectivas y optimización de procesos de QA para elevar la madurez del equipo.",
+    topics: [
+      "Modelos de madurez en testing (TMMi, CMMI)",
+      "Retrospectivas y análisis de lecciones aprendidas",
+      "Automatización y optimización de procesos de QA",
+      "Implementación de mejoras y seguimiento",
+      "Caso práctico: Plan de mejora continua integral",
+    ],
+    icon: "TrendingUp",
+  },
+];
+
+const instructor = {
+  name: "Nombre Apellido",
+  title: "QA Manager & Quality Assurance Lead",
+  description:
+    "Nombre Apellido es especialista en gestión de calidad de software con más de 15 años de experiencia liderando equipos de QA en empresas tecnológicas internacionales. Experto en implementación de procesos de calidad, métricas avanzadas y transformación de equipos hacia la excelencia en testing.",
+  certifications: [
+    "ISTQB Advanced Test Manager",
+    "Certified Quality Analyst (CQA)",
+    "Six Sigma Black Belt",
+  ],
+  experience: "15+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "17 de Febrero de 2025",
+  duration: "40 horas (7 semanas)",
+  schedule: "Martes y Jueves / 18:00 - 21:00",
+  regularPrice: "497 €",
+  earlyBirdPrice: "447 €",
+};
+
+const courseId = "enterprise-quality";
+const courseName = "Gestión de Calidad de Software";
+---
+
+<Layout title="Gestión de Calidad de Software">
+  <div class="mb-6">
+      <Breadcrumbs />
+    </div>
+  <h1
+    class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16"
+  >
+    Gestión de Calidad de Software
+  </h1>
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+</Layout>

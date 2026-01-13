@@ -1,0 +1,120 @@
+---
+/**
+ * Main layout wrapping all site pages.
+ * Includes Header, Footer, Sidebar, and the floating ChatBox.
+ */
+
+import "@/styles/global.css";
+
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { Sidebar } from "@/components/react/layout/Sidebar";
+import { ChatBox } from "@/components/react/shared/ChatBox";
+
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+
+export interface Props {
+  title: string;
+  description?: string;
+  bodyClass?: string;
+  showHeader?: boolean;
+  hideChatBox?: boolean;
+  showFooter?: boolean;
+  fullWidth?: boolean;
+}
+
+const {
+  title,
+  description = "Qualisophy - Practical training, personalized consulting, and real opportunities for professional growth.",
+  bodyClass = "",
+  showHeader = true,
+  hideChatBox = false,
+  showFooter = true,
+  fullWidth = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="min-h-screen">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="/fonts/favicon.ico" />
+    <link
+      rel="preload"
+      href="/fonts/Inter-Variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/WorkSans-Variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Comfortaa:wght@400;600;700&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Comfortaa:wght@400;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+  </head>
+
+  <body
+    class={`font-sans antialiased min-h-screen flex flex-col ${bodyClass || "bg-white"}`}
+  >
+    <Analytics framework="astro" client:only="react" />
+    <SpeedInsights framework="astro" client:only="react" />
+
+    {showHeader && <Header />}
+
+    <main class="flex-1">
+      {
+        fullWidth ? (
+          <slot />
+        ) : (
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+            <slot />
+          </div>
+        )
+      }
+    </main>
+
+    {showFooter && <Footer />}
+
+    <Sidebar client:visible />
+
+    {/* Wrap the ChatBox in a container with ID */}
+    <div id="chatbox-container">
+      {!hideChatBox && <ChatBox client:load />}
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  /* CHAT VISIBILITY LOGIC
+     When the body has the class 'menu-open' (added by the Header),
+     we hide the chat container.
+  */
+  body.menu-open #chatbox-container {
+    display: none !important;
+    pointer-events: none;
+  }
+
+  /* Prevent scroll when the menu is open */
+  body.menu-open {
+    overflow: hidden;
+  }
+</style>

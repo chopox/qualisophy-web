@@ -1,0 +1,43 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { CorporateAreasList } from "@/components/react/corporate-training/CorporateAreasList";
+import { CorporateTraining } from "@/components/react/corporate-training/Corporate-training";
+import { CorporateTrainingHero } from "@/components/react/corporate-training/CorporateTrainingHero";
+import { CustomTrainingProgram } from "@/components/react/corporate-training/CustomTrainingProgram";
+import { CompanyCarousel } from "@/components/react/corporate-training/CompanyCarousel";
+import { ContactForm } from "@/components/react/contact/ContactForm";
+import { Button } from "@/components/react/shared/Button";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+---
+
+<Layout title="Formación para Empresas - Qualisophy">
+  <CorporateTrainingHero client:load />
+
+  <div class="max-w-7xl mx-auto px-6 pt-8">
+    <Breadcrumbs />
+  </div>
+
+  <CorporateAreasList client:load />
+
+  <CorporateTraining client:load />
+
+  <CustomTrainingProgram client:load />
+
+  <CompanyCarousel client:load />
+
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-heading sm:text-4xl font-bold text-slate-800 text-center mb-8 sm:mb-12">
+        Solicita tu programa de formación personalizado
+      </h2>
+      <p class="text-slate-600 mb-8">
+        Cuéntanos tus objetivos y diseñaremos un plan de formación adaptado a
+        las necesidades de tu empresa. Nuestro equipo te contactará para
+        coordinar una propuesta.
+      </p>
+
+      {/* We pass the source to distinguish it in Make */}
+      <ContactForm client:load source="Solicitud Formación Empresas" />
+    </div>
+  </section>
+</Layout>

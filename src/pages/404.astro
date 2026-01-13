@@ -1,0 +1,18 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { NotFound } from "@/components/react/shared/NotFound";
+
+const title = "Page Not Found | Qualisophy";
+---
+
+<Layout
+  title={title}
+  bodyClass="bg-secondary"
+  showHeader={false}
+  hideChatBox={true}
+  showFooter={false}
+  fullWidth={true}
+>
+  <NotFound client:load />
+</Layout>
+

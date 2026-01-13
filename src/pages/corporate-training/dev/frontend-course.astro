@@ -1,0 +1,114 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos del Desarrollo Web",
+    description:
+      "Aprende los pilares esenciales del desarrollo web moderno, incluyendo HTML, CSS y conceptos básicos de accesibilidad.",
+    topics: [
+      "Estructura y semántica en HTML5",
+      "Diseño adaptable con CSS3",
+      "Buenas prácticas de accesibilidad web (WCAG)",
+      "SEO básico para desarrolladores",
+      "Introducción a los preprocesadores CSS (Sass, Less)",
+    ],
+    icon: "Globe",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "JavaScript Moderno y Lógica de Programación",
+    description:
+      "Domina los fundamentos de JavaScript moderno, el lenguaje del navegador, y aprende a escribir código limpio y eficiente.",
+    topics: [
+      "Variables, tipos de datos y estructuras de control",
+      "Funciones, objetos y arrays",
+      "Programación asíncrona: Promesas y async/await",
+      "Manipulación del DOM y eventos",
+      "Buenas prácticas y patrones básicos",
+    ],
+    icon: "Code",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Frameworks Frontend y Componentes Reactivos",
+    description:
+      "Descubre cómo los frameworks modernos como React, Vue o Svelte transforman la forma de crear interfaces dinámicas.",
+    topics: [
+      "Concepto de componentes y reactividad",
+      "Introducción a React y hooks",
+      "Gestión de estado global (Context, Redux)",
+      "Rutas y navegación SPA",
+      "Buenas prácticas de arquitectura frontend",
+    ],
+    icon: "Layers",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Testing y Mejores Prácticas de Frontend",
+    description:
+      "Aprende a garantizar la calidad de tu código mediante pruebas unitarias, de integración y E2E.",
+    topics: [
+      "Testing unitario con Jest",
+      "Testing de componentes con React Testing Library",
+      "Pruebas end-to-end con Cypress",
+      "Integración de tests en CI/CD",
+      "Métricas de calidad y análisis de cobertura",
+    ],
+    icon: "CheckCircle",
+  },
+];
+
+const instructor = {
+  name: "Nombre Apellido",
+  title: "Senior Frontend Engineer",
+  description:
+    "Nombre Apellido es desarrolladora frontend con más de 10 años de experiencia trabajando en startups y empresas internacionales. Experta en React, testing automatizado y accesibilidad digital.",
+  certifications: [
+    "Frontend Developer Nanodegree – Udacity",
+    "React Advanced Certification – Meta",
+    "Certified Scrum Master – Scrum Alliance",
+  ],
+  experience: "10+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "17 de Febrero de 2025",
+  duration: "40 horas (7 semanas)",
+  schedule: "Lunes y Miércoles / 18:00 - 21:00",
+  regularPrice: "497 €",
+  earlyBirdPrice: "447 €",
+};
+
+const courseId = "enterprise-frontend";
+const courseName = "Frontend Moderno";
+---
+
+<Layout title="Frontend Moderno">
+  <div class="mb-6">
+      <Breadcrumbs />
+    </div>
+  <h1
+    class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16"
+  >
+    Frontend para Desarrolladores
+  </h1>
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+
+  
+</Layout>

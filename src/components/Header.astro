@@ -1,0 +1,247 @@
+---
+import { Image } from "astro:assets";
+import logoImage from "@/assets/logo-q.png";
+import Menu from "@lucide/astro/icons/menu";
+import { LanguageSelector } from "@/components/react/shared/LanguageSelector";
+
+const currentPath = Astro.url.pathname;
+const isHome = currentPath === "/";
+const isContact = currentPath === "/contact";
+const isLearning = currentPath.includes("/learning");
+const isPartnership = currentPath === "/partnership";
+const isCorporate = currentPath.includes("/corporate-training");
+const isFormaciones = isLearning || isCorporate;
+const isTalentInclusion = currentPath === "/talent-inclusion";
+
+---
+
+<header class="bg-secondary text-white shadow-lg relative z-50">
+  <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="block">
+      <Image
+        loading="eager"
+        src={logoImage}
+        alt="Qualisophy Logo"
+        width={50}
+        height={25}
+        format="webp"
+        quality={90}
+        densities={[1, 2]}
+        sizes="80px"
+        decoding="async"
+      />
+    </a>
+
+    {/* Desktop Menu */}
+    <ul class="hidden md:flex items-center space-x-8 relative">
+      <li>
+        <a
+          href="/"
+          class={`transition-colors hover:text-primary ${isHome ? "text-primary font-semibold" : "text-slate-300"}`}
+          data-i18n="nav.home">Inicio</a
+        >
+      </li>
+
+      <li>
+        <a
+          href="/talent-inclusion"
+          class:list={[
+            "relative transition-colors hover:text-primary",
+            "before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary",
+            "before:opacity-30 before:blur-md before:animate-pulse",
+            "hover:before:opacity-75 hover:before:blur-lg",
+            isTalentInclusion ? "text-primary font-semibold" : "text-slate-300",
+          ]}
+        >
+          <span class="relative z-10" data-i18n="nav.talent"
+            >Inclusión laboral</span
+          >
+        </a>
+      </li>
+
+      <li class="relative group">
+  <button
+    class={`flex items-center space-x-1 transition-colors hover:text-primary focus:outline-none
+      ${isFormaciones ? "text-primary font-semibold" : "text-slate-300"}`}
+  >
+    <span data-i18n="nav.training">Formaciones</span>
+
+    <span
+      class="transform transition-transform duration-300 group-hover:rotate-180 text-lg"
+      >▾</span
+    >
+  </button>
+
+  <ul
+    class="absolute left-0 mt-2 w-56 bg-secondary text-slate-800 rounded-lg shadow-2xl border border-white/10 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300 z-50"
+  >
+    <li>
+      <a
+        href="/learning"
+        class={`block px-4 py-2 rounded-lg text-white hover:bg-white/20 transition-colors
+          ${isLearning ? "font-semibold" : ""}`}
+        data-i18n="nav.courses">Cursos</a
+      >
+    </li>
+    <li>
+      <a
+        href="/corporate-training"
+        class={`block px-4 py-2 rounded-lg text-white hover:bg-white/20 transition-colors
+          ${isCorporate ? "font-semibold" : ""}`}
+        data-i18n="nav.corporate">Formación Empresas</a
+      >
+    </li>
+  </ul>
+</li>
+
+      <li>
+        <a
+          href="/partnership"
+          class={`transition-colors hover:text-primary ${isPartnership ? "text-primary font-semibold" : "text-slate-300"}`}
+          data-i18n="nav.partnership">Partnership</a
+        >
+      </li>
+
+      <li>
+        <a
+          href="/contact"
+          class={`transition-colors hover:text-primary ${isContact ? "text-primary font-semibold" : "text-slate-300"}`}
+          data-i18n="nav.contact">Contacto</a
+        >
+      </li>
+
+      {/* Language Selector - Desktop */}
+      <li>
+        <LanguageSelector client:load />
+      </li>
+    </ul>
+
+    {/* Hamburger Button */}
+    <button
+      data-sidebar-toggle
+      class="md:hidden text-white hover:text-primary transition-colors"
+      aria-label="Toggle mobile menu"
+    >
+      <Menu />
+    </button>
+  </nav>
+
+  {/* Sidebar Móvil */}
+  <aside
+    id="mobile-sidebar"
+    class="fixed top-0 right-0 h-full w-64 bg-secondary shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-[9999] flex flex-col p-6 space-y-6"
+  >
+    <button
+      id="close-sidebar"
+      class="self-end text-white hover:text-primary transition-colors text-2xl font-bold"
+      aria-label="Close menu">×</button
+    >
+
+    <a
+      href="/"
+      class={`block transition-colors hover:text-primary ${isHome ? "text-primary font-semibold" : "text-slate-300"}`}
+      data-i18n="nav.home">Inicio</a
+    >
+
+    <a
+      href="/talent-inclusion"
+      class:list={[
+        "w-fit relative transition-colors hover:text-primary",
+        "before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary",
+        "before:opacity-30 before:blur-md before:animate-pulse",
+        "hover:before:opacity-75 hover:before:blur-lg",
+        isTalentInclusion ? "text-primary font-semibold" : "text-slate-300",
+      ]}
+    >
+      <span class="relative z-10" data-i18n="nav.talent">Inclusión laboral</span
+      >
+    </a>
+
+    <a
+      href="/learning"
+      class={`block transition-colors hover:text-primary ${isLearning ? "text-primary font-semibold" : "text-slate-300"}`}
+      data-i18n="nav.courses">Cursos</a
+    >
+    <a
+      href="/corporate-training"
+      class={`block transition-colors hover:text-primary ${isCorporate ? "text-primary font-semibold" : "text-slate-300"}`}
+      data-i18n="nav.corporate">Formación Empresas</a
+    >
+    <a
+      href="/partnership"
+      class={`block transition-colors hover:text-primary ${isPartnership ? "text-primary font-semibold" : "text-slate-300"}`}
+      data-i18n="nav.partnership">Partnership</a
+    >
+    <a
+      href="/contact"
+      class={`block transition-colors hover:text-primary ${isContact ? "text-primary font-semibold" : "text-slate-300"}`}
+      data-i18n="nav.contact">Contacto</a
+    >
+
+    {/* Language Selector - Mobile */}
+    <div class="pt-4 border-t border-white/10">
+      <LanguageSelector client:load />
+    </div>
+  </aside>
+
+  {/* Dark Overlay */}
+  <div
+    id="sidebar-overlay"
+    class="hidden fixed inset-0 bg-black bg-opacity-50 z-[9998] transition-opacity duration-300 ease-in-out"
+  >
+  </div>
+
+  <script>
+    import { getCurrentLanguage, getTranslations } from "@/i18n/ui";
+
+    function updateTranslations() {
+      const lang = getCurrentLanguage();
+      const translations = getTranslations(lang);
+
+      // Update all elements with data-i18n attribute
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute(
+          "data-i18n"
+        ) as keyof typeof translations;
+        if (key && translations[key]) {
+          element.textContent = translations[key];
+        }
+      });
+    }
+
+    // Update translations on load
+    document.addEventListener("DOMContentLoaded", updateTranslations);
+
+    // Update translations when language changes
+    window.addEventListener("languageChanged", updateTranslations);
+  </script>
+
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggleButton = document.querySelector("[data-sidebar-toggle]");
+      const sidebar = document.querySelector("#mobile-sidebar");
+      const overlay = document.querySelector("#sidebar-overlay");
+      const closeButton = document.querySelector("#close-sidebar");
+
+      const openSidebar = () => {
+        sidebar.classList.remove("translate-x-full");
+        overlay.classList.remove("hidden");
+        document.body.classList.add("menu-open");
+      };
+
+      const closeSidebar = () => {
+        sidebar.classList.add("translate-x-full");
+        overlay.classList.add("hidden");
+        document.body.classList.remove("menu-open");
+      };
+
+      toggleButton?.addEventListener("click", openSidebar);
+      closeButton?.addEventListener("click", closeSidebar);
+      overlay?.addEventListener("click", closeSidebar);
+
+      sidebar.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeSidebar);
+      });
+    });
+  </script>
+</header>

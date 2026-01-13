@@ -1,0 +1,70 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import CoursesList from "@/components/react/course/CourseList";
+import StudentTestimonials from "@/components/react/course/StudentTestimonials";
+import { ViewTransitions } from "astro:transitions";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const heroBgImageUrl =
+  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80";
+---
+
+<Layout
+  title="Cursos - Formación Individual en QA, DevOps y Desarrollo - Qualisophy"
+>
+  <ViewTransitions />
+
+  <section
+    class="relative left-1/2 right-1/2 -mx-[50vw] w-screen
+      text-white overflow-hidden
+      py-32 md:py-48
+      -mt-[var(--navbar-height,4rem)]"
+  >
+    <div
+      class="absolute inset-0 bg-cover bg-center brightness-75"
+      style=`background-image: url(${heroBgImageUrl});`
+    >
+    </div>
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70"
+    >
+    </div>
+
+    <div
+      class="relative z-10 max-w-5xl mx-auto text-center px-6"
+      transition:animate="slide"
+    >
+      <h1
+        class="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading leading-tight mb-6 drop-shadow-lg"
+      >
+        Formación <span class="text-primary font-heading drop-shadow-md">Individual</span>
+      </h1>
+      <p
+        class="max-w-3xl mx-auto text-lg sm:text-xl leading-relaxed text-gray-100 font-primary drop-shadow-md"
+      >
+        Impulsa tu carrera con nuestros cursos prácticos. Domina las
+        herramientas de QA, Testing, DevOps y Desarrollo más demandadas.
+      </p>
+    </div>
+  </section>
+
+  <div class="container mx-auto px-6 pt-8">
+    <Breadcrumbs />
+  </div>
+
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <h2
+        class="text-center text-4xl font-bold text-secondary-DEFAULT font-heading mb-16"
+      >
+        Nuestros Cursos
+      </h2>
+
+      <CoursesList client:visible />
+    </div>
+  </section>
+
+  <section class="py-20">
+    <StudentTestimonials client:visible />
+  </section>
+</Layout>

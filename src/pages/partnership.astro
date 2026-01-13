@@ -1,0 +1,14 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { PartnershipProgram } from "@/components/react/partnership/PartnershipProgram";
+
+const title = "Programa de Colaboración - Qualisophy";
+const description =
+  "Conecta con el mejor talento de nuestros cursos para cubrir tus vacantes. Únete a nuestro programa de colaboración empresarial.";
+---
+
+<Layout title={title} description={description}>
+  <div class="max-w-6xl mx-auto">
+    <PartnershipProgram client:load />
+  </div>
+</Layout>

@@ -1,0 +1,127 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos del Desarrollo Full Stack",
+    description:
+      "Introduce los conceptos esenciales del desarrollo full stack, arquitectura de aplicaciones web y herramientas fundamentales para el desarrollo moderno.",
+    topics: [
+      "Arquitectura cliente-servidor y patrones MVC",
+      "Protocolo HTTP, REST y APIs modernas",
+      "Fundamentos de HTML5, CSS3 y JavaScript ES6+",
+      "Control de versiones con Git y GitHub",
+      "Configuración del entorno de desarrollo profesional",
+    ],
+    icon: "Globe",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Frontend Moderno con React y TypeScript",
+    description:
+      "Domina el desarrollo de interfaces de usuario interactivas utilizando React, TypeScript y las mejores prácticas del ecosistema frontend actual.",
+    topics: [
+      "Componentes funcionales, hooks y ciclo de vida",
+      "TypeScript: tipos, interfaces y programación tipada",
+      "Gestión de estado con Context API y Redux Toolkit",
+      "Enrutamiento con React Router",
+      "Estilizado moderno: CSS Modules, Styled Components y Tailwind CSS",
+    ],
+    icon: "Code",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Backend con Node.js y Express",
+    description:
+      "Aprende a construir APIs RESTful robustas y escalables utilizando Node.js, Express y bases de datos tanto SQL como NoSQL.",
+    topics: [
+      "Fundamentos de Node.js y programación asíncrona",
+      "Creación de APIs REST con Express.js",
+      "Autenticación y autorización (JWT, OAuth)",
+      "Integración con MongoDB y PostgreSQL",
+      "Manejo de errores, validación y seguridad en APIs",
+    ],
+    icon: "Server",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Integración Full Stack y Despliegue",
+    description:
+      "Conecta frontend y backend, implementa testing completo y despliega aplicaciones full stack en producción con las mejores prácticas DevOps.",
+    topics: [
+      "Integración de React con APIs backend",
+      "Testing: Jest, React Testing Library y Supertest",
+      "Containerización con Docker",
+      "CI/CD con GitHub Actions",
+      "Despliegue en Vercel, Railway y servicios cloud",
+    ],
+    icon: "Layers",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Proyecto Final Full Stack",
+    description:
+      "Aplica todos los conocimientos adquiridos construyendo una aplicación full stack completa desde cero hasta su despliegue en producción.",
+    topics: [
+      "Planificación y arquitectura del proyecto",
+      "Implementación de funcionalidades frontend y backend",
+      "Optimización de rendimiento y buenas prácticas",
+      "Testing integral de la aplicación",
+      "Documentación técnica y presentación del proyecto",
+    ],
+    icon: "CheckCircle",
+  },
+];
+
+const instructor = {
+  name: "Nombre Apellido",
+  title: "Senior Full Stack Engineer",
+  description:
+    "Nombre Apellido es ingeniero full stack con más de 12 años de experiencia desarrollando aplicaciones web escalables para empresas Fortune 500 y startups tecnológicas. Especialista en arquitecturas modernas, React, Node.js y metodologías ágiles.",
+  certifications: [
+    "AWS Certified Solutions Architect",
+    "Professional Scrum Developer – Scrum.org",
+    "MongoDB Certified Developer Associate",
+  ],
+  experience: "12+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "17 de Febrero de 2025",
+  duration: "50 horas (8 semanas)",
+  schedule: "Lunes y Miércoles / 18:00 - 21:00",
+  regularPrice: "597 €",
+  earlyBirdPrice: "537 €",
+};
+
+const courseId = "enterprise-fullstack";
+const courseName = "Curso Full Stack Development";
+---
+
+<Layout title="Curso Full Stack Development">
+  <div class="mb-6">
+      <Breadcrumbs />
+    </div>
+  <h1
+    class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16"
+  >
+    Curso Full Stack Development
+  </h1>
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+</Layout>

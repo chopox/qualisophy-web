@@ -1,0 +1,112 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos del Desarrollo Backend",
+    description:
+      "Aprende los conceptos esenciales del desarrollo del lado del servidor y cómo se comunican los clientes con los servidores.",
+    topics: [
+      "Arquitectura cliente-servidor y flujo de datos",
+      "Protocolos HTTP y REST",
+      "Estructura de un servidor backend moderno",
+      "Introducción a Node.js y Express",
+      "Buenas prácticas de organización de código",
+    ],
+    icon: "Server",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Construcción de APIs con Node.js y Express",
+    description:
+      "Diseña y desarrolla APIs RESTful escalables y seguras utilizando Node.js y Express.",
+    topics: [
+      "Creación de rutas y controladores",
+      "Middlewares y manejo de errores",
+      "Autenticación y autorización (JWT, OAuth)",
+      "Validación de datos y buenas prácticas",
+      "Versionado e implementación de APIs REST",
+    ],
+    icon: "Code",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Bases de Datos y Persistencia de Datos",
+    description:
+      "Gestiona datos de forma eficiente utilizando bases de datos SQL y NoSQL, y aprende a integrarlas con tus servicios backend.",
+    topics: [
+      "Introducción a SQL y NoSQL",
+      "Modelado y relaciones entre datos",
+      "ORMs y ODMs (Sequelize, Prisma, Mongoose)",
+      "Consultas optimizadas y rendimiento",
+      "Buenas prácticas de persistencia y seguridad de datos",
+    ],
+    icon: "Database",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Testing, Despliegue y Escalabilidad",
+    description:
+      "Implementa pruebas automatizadas, CI/CD y estrategias de despliegue para garantizar la calidad y escalabilidad de tus servicios.",
+    topics: [
+      "Testing de APIs con Jest y Supertest",
+      "Introducción a Docker y contenedores",
+      "CI/CD con GitHub Actions y otras herramientas",
+      "Despliegue en la nube (AWS, Render, Vercel)",
+      "Monitoreo, logging y mantenimiento de servicios",
+    ],
+    icon: "Cloud",
+  },
+];
+
+const instructor = {
+  name: "Nombre Apellido",
+  title: "Especialista en Backend y DevOps",
+  description:
+    "Nombre Apellido es un profesional con más de 12 años de experiencia en desarrollo backend, administración de servidores y despliegue de aplicaciones escalables. Ha liderado proyectos basados en Node.js, microservicios y entornos cloud.",
+  certifications: [
+    "AWS Certified Developer – Associate",
+    "Node.js Certified Developer",
+    "Docker & Kubernetes Fundamentals",
+  ],
+  experience: "12+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "10 de Marzo de 2025",
+  duration: "45 horas (8 semanas)",
+  schedule: "Martes y Jueves / 18:00 - 21:00",
+  regularPrice: "525 €",
+  earlyBirdPrice: "475 €",
+};
+
+const courseId = "enterprise-backend";
+const courseName = "Curso Backend Escalable";
+---
+
+<Layout title="Curso de Backend para Desarrolladores - Qualisophy">
+  <div class="mb-6">
+      <Breadcrumbs />
+    </div>
+  <h1
+    class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16"
+  >
+    Curso de Backend para Desarrolladores
+  </h1>
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+</Layout>

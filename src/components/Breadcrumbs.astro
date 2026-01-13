@@ -1,0 +1,105 @@
+---
+const { class: className } = Astro.props;
+
+const paths = Astro.url.pathname.split("/").filter(Boolean);
+
+// Map your folders/files to readable names
+const routeNameMap: Record<string, string> = {
+  // Main routes
+  "corporate-training": "Formación Empresas",
+  learning: "Cursos",
+  partnership: "Partnership",
+  contact: "Contacto",
+  "talent-inclusion": "Inclusión Laboral",
+  faq: "Preguntas Frecuentes",
+  "course-enrollment": "Matriculación",
+
+  // Categories
+  dev: "Desarrollo",
+  qa: "QA & Testing",
+  powerbi: "Data & Analytics",
+
+  // Specific Courses (File names -> Pretty Title)
+  "backend-course": "Backend",
+  "frontend-course": "Frontend",
+  "fullstack-course": "Fullstack Development",
+  "automation-course": "Automatización de pruebas",
+  "quality-management": "Gestión de calidad del software",
+  devops: "DevOps para QA",
+  "dashboards-course": "Dashboards y visualización",
+  "data-analytics": "Introdución a la analítica de datos con PowerBI",
+  "bdd-automation-e2e-course": "Curso BDD y Automatización E2E",
+  "devops-for-testers-course": "Coding and DevOps for Testers",
+  "software-quality-testing-course": "Testing y calidad del software",
+};
+
+// Function to format names if they are not in the map
+const formatName = (slug: string) => {
+  // 1. If it's in the map, use it
+  if (routeNameMap[slug]) return routeNameMap[slug];
+
+  // 2. If not, try cleaning it (remove hyphens and capitalize)
+  return slug.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+};
+
+let accumulatePath = "";
+---
+
+<nav
+  aria-label="Breadcrumb"
+  class:list={["text-sm text-slate-500 w-full", className]}
+>
+  <ol class="list-none p-0 inline-flex items-center flex-wrap gap-2">
+    {/* Home */}
+    <li class="flex items-center">
+      <a
+        href="/"
+        class="hover:text-primary transition-colors flex items-center gap-1"
+        aria-label="Ir al inicio"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+          ></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg
+        >
+      </a>
+    </li>
+
+    {/* 🔄 AUTOMATIC GENERATION */}
+    {
+      paths.map((path, index) => {
+        accumulatePath += `/${path}`;
+        const isLast = index === paths.length - 1;
+        const name = formatName(path);
+
+        return (
+          <li class="flex items-center">
+            {/* Separator */}
+            <span class="text-slate-400 mx-2">/</span>
+
+            {isLast ? (
+              <span class="text-secondary font-medium" aria-current="page">
+                {name}
+              </span>
+            ) : (
+              <a
+                href={accumulatePath}
+                class="hover:text-primary transition-colors"
+              >
+                {name}
+              </a>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>

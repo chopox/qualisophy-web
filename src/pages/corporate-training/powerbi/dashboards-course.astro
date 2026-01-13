@@ -1,0 +1,126 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos de Visualización de Datos",
+    description:
+      "Introduce los principios fundamentales del diseño de visualizaciones efectivas, psicología del color y mejores prácticas para comunicar información de manera clara y precisa.",
+    topics: [
+      "Principios de diseño visual y jerarquía de información",
+      "Psicología del color y paletas para dashboards",
+      "Tipos de gráficos y cuándo utilizarlos",
+      "Storytelling con datos: narrativa visual",
+      "Errores comunes en visualización y cómo evitarlos",
+    ],
+    icon: "Eye",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Diseño de Dashboards Efectivos",
+    description:
+      "Aprende a diseñar dashboards que faciliten la toma de decisiones mediante la correcta organización de información, definición de KPIs y creación de layouts intuitivos.",
+    topics: [
+      "Arquitectura de información para dashboards",
+      "Definición de KPIs y métricas relevantes",
+      "Layouts y wireframing de dashboards",
+      "Diseño responsive y adaptativo",
+      "Principios de usabilidad y experiencia de usuario",
+    ],
+    icon: "Layout",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Herramientas de Visualización Avanzada",
+    description:
+      "Domina herramientas líderes en el mercado como Power BI, Tableau y otras plataformas para crear visualizaciones profesionales e interactivas.",
+    topics: [
+      "Power BI: visualizaciones personalizadas y DAX avanzado",
+      "Tableau: cálculos de tabla y parámetros dinámicos",
+      "Visualizaciones interactivas con filtros y drill-down",
+      "Integración de múltiples fuentes de datos",
+      "Custom visuals y extensiones avanzadas",
+    ],
+    icon: "TrendingUp",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Interactividad y Análisis Dinámico",
+    description:
+      "Implementa elementos interactivos avanzados que permitan a los usuarios explorar datos de manera intuitiva y descubrir insights por sí mismos.",
+    topics: [
+      "Filtros avanzados y segmentación de datos",
+      "Drill-down, drill-through y cross-filtering",
+      "Tooltips personalizados y hover effects",
+      "Bookmarks y navegación entre páginas",
+      "Parámetros dinámicos y what-if analysis",
+    ],
+    icon: "MousePointer",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Proyecto Final: Dashboard Ejecutivo Completo",
+    description:
+      "Aplica todos los conocimientos adquiridos creando un dashboard ejecutivo completo, desde el análisis de requerimientos hasta la presentación final con stakeholders.",
+    topics: [
+      "Análisis de requerimientos y definición de objetivos",
+      "Preparación y modelado de datos",
+      "Diseño e implementación del dashboard",
+      "Testing de usabilidad y optimización",
+      "Presentación y documentación del proyecto",
+    ],
+    icon: "Award",
+  },
+];
+
+const instructor = {
+  name: "Nombre Apellido",
+  title: "Data Visualization Specialist & BI Consultant",
+  description:
+    "Nombre Apellido es especialista en visualización de datos con más de 12 años de experiencia diseñando dashboards estratégicos para empresas Fortune 500. Experto en Power BI, Tableau y principios de diseño visual para la toma de decisiones basada en datos.",
+  certifications: [
+    "Microsoft Certified: Power BI Data Analyst Associate",
+    "Tableau Desktop Specialist",
+    "Google Data Analytics Professional Certificate",
+  ],
+  experience: "12+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "17 de Febrero de 2025",
+  duration: "40 horas (7 semanas)",
+  schedule: "Martes y Jueves / 18:00 - 21:00",
+  regularPrice: "497 €",
+  earlyBirdPrice: "447 €",
+};
+const courseId = "enterprise-dashboards";
+const courseName = "Dashboards y Visualización";
+---
+
+<Layout title="Dashboards y Visualización">
+  <div class="mb-6">
+      <Breadcrumbs />
+    </div>
+  <h1
+    class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16"
+  >
+    Dashboards y Visualización
+  </h1>
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+</Layout>

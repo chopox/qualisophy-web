@@ -1,0 +1,49 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { TalentHero } from "@/components/react/talent/TalentHero.tsx";
+import { TalentReality } from "@/components/react/talent/TalentReality.tsx";
+import { TalentBarriers } from "@/components/react/talent/TalentBarriers.tsx";
+import { TalentCta } from "@/components/react/talent/TalentCta.tsx";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const title = "Inclusión Laboral de Personas con Autismo - Qualisophy";
+const description =
+  "Una oportunidad para transformar el mercado laboral español hacia la verdadera inclusión y diversidad.";
+---
+
+<Layout {title} {description}>
+  <section
+    class="relative left-1/2 right-1/2 -mx-[50vw] w-screen
+      text-white overflow-hidden
+      py-32 sm:py-40
+      -mt-[var(--navbar-height,4rem)]"
+  >
+    <div
+      class="absolute inset-0 bg-cover bg-center brightness-75"
+      style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80')"
+    >
+    </div>
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70"
+    >
+    </div>
+
+    <TalentHero client:load />
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+    <Breadcrumbs />
+  </div>
+
+  <section class="py-20">
+    <TalentReality client:visible />
+  </section>
+
+  <section class="py-20">
+    <TalentBarriers client:visible />
+  </section>
+
+  <section class="py-20">
+    <TalentCta client:visible />
+  </section>
+</Layout>

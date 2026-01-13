@@ -1,0 +1,16 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { FAQSection } from "@/components/react/shared/FAQSection";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+---
+
+<Layout
+  title="Preguntas Frecuentes - Qualisophy"
+  description="Resuelve todas tus dudas sobre nuestros cursos de formación en desarrollo, QA y DevOps."
+>
+  <div class="max-w-7xl mx-auto px-6 pt-8">
+    <Breadcrumbs />
+  </div>
+
+  <FAQSection client:load />
+</Layout>

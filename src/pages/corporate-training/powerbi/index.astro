@@ -1,0 +1,30 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PowerBiCoursesList from "@/components/react/course/PowerBICoursesList";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+---
+
+<Layout
+  title="Power BI y Análisis de Datos - Formación para Empresas | Qualisophy"
+>
+  <section class="pt-6 pb-12 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="mb-8">
+        <Breadcrumbs />
+      </div>
+
+      <div class="text-center">
+        <h1 class="text-4xl font-bold text-slate-800 mb-4">
+          Formación en Power BI y Data Analytics
+        </h1>
+        <p class="text-slate-600 max-w-2xl mx-auto mb-12">
+          Aprende a analizar datos, crear dashboards interactivos y generar
+          informes profesionales con Power BI. Programas adaptados al nivel de
+          tu empresa.
+        </p>
+      </div>
+    </div>
+
+    <PowerBiCoursesList client:load />
+  </section>
+</Layout>

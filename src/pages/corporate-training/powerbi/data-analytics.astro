@@ -1,0 +1,92 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Introducción",
+    description:
+      "Este módulo sentará las bases para entender la relevancia del análisis de datos en el entorno empresarial. Se abordará el papel que desempeña el analista de datos en la toma de decisiones, así como los tipos de informes más utilizados en las organizaciones modernas. Además, se presentará Power BI como una herramienta clave. Estudiaremos su propósito y cómo se integra en el flujo de trabajo del análisis de datos.",
+    topics: [
+      "Importancia del análisis de datos en las compañías y el Rol del analista de Datos",
+      "Tipos de informes más utilizados en la actualidad",
+      "Introducción a la herramienta Power BI",
+    ],
+    icon: "BookOpen",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Toma de Contacto con Power BI",
+    description:
+      "En este módulo se recorre el proceso completo de trabajo con Power BI: desde la conexión e importación de datos, su transformación y modelado, hasta la creación de informes visuales y su publicación. También se introduce el lenguaje DAX para realizar análisis más avanzados. El objetivo es proporcionar una visión práctica y estructurada del proceso de análisis de datos con esta herramienta.",
+    topics: [
+      "Configurar Orígenes de datos",
+      "Importar datos",
+      "Transformación de datos (Básica, Intermedia y Avanzada)",
+      "Modelado de datos",
+      "Expresiones para el análisis de datos con DAX",
+      "Visualización de datos y creación de informes",
+      "Publicación de informes",
+      "Configuraciones avanzadas y buenas prácticas",
+    ],
+    icon: "BarChart",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Caso Práctico",
+    description:
+      "Este módulo está dedicado a aplicar todo lo aprendido mediante la creación de un informe completo en Power BI, abordando desde la conexión de datos hasta la visualización final. Los participantes trabajarán en un caso práctico guiado, resolviendo dudas en tiempo real y consolidando conocimientos. Al final, se realizará una sesión de cierre para repasar conceptos clave y resolver preguntas finales.",
+    topics: ["Caso práctico: Creación de informe", "Dudas y cierre"],
+    icon: "CheckCircle",
+  },
+];
+
+const instructor = {
+  name: "Nombre Apellido",
+  title: "Data Analytics Specialist & Power BI Expert",
+  description:
+    "Nombre Apellido es especialista en análisis de datos con más de 10 años de experiencia ayudando a empresas a transformar datos en decisiones estratégicas. Experto en Power BI, visualización de datos y creación de dashboards interactivos para diferentes industrias.",
+  certifications: [
+    "Microsoft Certified: Power BI Data Analyst Associate",
+    "Microsoft Certified: Data Analyst Associate",
+    "Certified Business Intelligence Professional (CBIP)",
+  ],
+  experience: "10+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "Inicio de Octubre de 2025",
+  duration: "50 horas",
+  schedule: "Martes y Jueves / 18:00 - 21:00",
+  regularPrice: "450 €",
+  earlyBirdPrice: "405 €",
+};
+
+const courseId = "enterprise-analytics";
+const courseName = "Data Analytics Fundamentals";
+---
+
+<Layout title="Introducción a la Analítica de Datos con Power BI">
+  <div class="mb-6">
+      <Breadcrumbs />
+    </div>
+  <h1
+    class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16"
+  >
+    Introducción a la Analítica de Datos con Power BI
+  </h1>
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+</Layout>

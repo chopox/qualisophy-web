@@ -1,0 +1,238 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { CourseEnrollmentForm } from "@/components/react/course/CourseEnrollmentForm";
+import { InstructorCard } from "@/components/react/course/InstructorCard";
+
+// Get course ID from URL params
+const url = new URL(Astro.request.url);
+const courseId = url.searchParams.get("course") || "";
+
+// Course catalog with all details
+const courseCatalog: Record<
+  string,
+  {
+    id: string;
+    name: string;
+    description: string;
+    image: string;
+    startDate: string;
+    duration: string;
+    modality: string;
+    price: string;
+  }
+> = {
+  // Individual Courses
+  "individual-quality": {
+    id: "individual-quality",
+    name: "Testing y Calidad del Software",
+    description:
+      "Aprende testing desde cero hasta avanzado con herramientas modernas.",
+    image:
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1471&q=80",
+    startDate: "17 de Febrero, 2025",
+    duration: "40 horas (7 semanas)",
+    modality: "Online en vivo",
+    price: "497 €",
+  },
+  "individual-bdd": {
+    id: "individual-bdd",
+    name: "BDD y Automatización E2E",
+    description: "Automatización end-to-end con BDD y Cucumber.",
+    image:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1471&q=80",
+    startDate: "10 de Marzo, 2025",
+    duration: "32 horas (6 semanas)",
+    modality: "Online en vivo",
+    price: "447 €",
+  },
+  "individual-devops": {
+    id: "individual-devops",
+    name: "Coding and DevOps for Testers",
+    description: "Programación y DevOps esenciales para testers modernos.",
+    image:
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1471&q=80",
+    startDate: "15 de Marzo, 2025",
+    duration: "40 horas (7 semanas)",
+    modality: "Online en vivo",
+    price: "497 €",
+  },
+
+  // Enterprise Training Courses
+  "enterprise-frontend": {
+    id: "enterprise-frontend",
+    name: "Curso Frontend Moderno",
+    description: "Domina React, Vue y las últimas tecnologías frontend.",
+    image:
+      "https://images.unsplash.com/photo-1610563166150-b34df4f3bcd6?auto=format&fit=crop&w=1470&q=80",
+    startDate: "A consultar",
+    duration: "Personalizable",
+    modality: "Online / Presencial",
+    price: "447 €",
+  },
+  "enterprise-backend": {
+    id: "enterprise-backend",
+    name: "Curso Backend Escalable",
+    description: "Aprende a construir APIs robustas y escalables.",
+    image:
+      "https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=1470&q=80",
+    startDate: "A consultar",
+    duration: "Personalizable",
+    modality: "Online / Presencial",
+    price: "525 €",
+  },
+  "enterprise-fullstack": {
+    id: "enterprise-fullstack",
+    name: "Curso Full Stack Development",
+    description: "Conviértete en desarrollador Full Stack completo.",
+    image:
+      "https://images.unsplash.com/photo-1519241047957-be31d7379a5d?auto=format&fit=crop&w=1470&q=80",
+    startDate: "A consultar",
+    duration: "Personalizable",
+    modality: "Online / Presencial",
+    price: "597 €",
+  },
+  "enterprise-automation": {
+    id: "enterprise-automation",
+    name: "Automatización QA",
+    description: "Automatiza pruebas con las mejores herramientas del mercado.",
+    image:
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1470&q=80",
+    startDate: "A consultar",
+    duration: "Personalizable",
+    modality: "Online / Presencial",
+    price: "547 €",
+  },
+  "enterprise-devops": {
+    id: "enterprise-devops",
+    name: "DevOps para QA",
+    description: "Integra DevOps en tu proceso de testing.",
+    image:
+      "https://media.istockphoto.com/id/1309642115/es/foto/concepto-devops.webp?a=1&b=1&s=612x612&w=0&k=20&c=bYiNrKpJKZ6Myf1YGlhqCK-n6bRMPvBt4i_0-CmrDYw=",
+    startDate: "A consultar",
+    duration: "Personalizable",
+    modality: "Online / Presencial",
+    price: "547 €",
+  },
+  "enterprise-quality": {
+    id: "enterprise-quality",
+    name: "Gestión de Calidad del Software",
+    description: "Gestiona la calidad en proyectos empresariales.",
+    image:
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1470&q=80",
+    startDate: "A consultar",
+    duration: "Personalizable",
+    modality: "Online / Presencial",
+    price: "497 €",
+  },
+  "enterprise-dashboards": {
+    id: "enterprise-dashboards",
+    name: "Dashboards y Visualización",
+    description: "Crea dashboards impactantes con Power BI.",
+    image:
+      "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=1470&q=80",
+    startDate: "A consultar",
+    duration: "Personalizable",
+    modality: "Online / Presencial",
+    price: "497 €",
+  },
+  "enterprise-analytics": {
+    id: "enterprise-analytics",
+    name: "Data Analytics Fundamentals",
+    description: "Fundamentos de análisis de datos empresariales.",
+    image:
+      "https://images.unsplash.com/photo-1640158615573-cd28feb1bf4e?auto=format&fit=crop&w=1470&q=80",
+    startDate: "A consultar",
+    duration: "Personalizable",
+    modality: "Online / Presencial",
+    price: "450 €",
+  },
+};
+
+// Get selected course or null
+const selectedCourse =
+  courseId && courseCatalog[courseId] ? courseCatalog[courseId] : null;
+
+// Prepare course list for dropdown
+const courses = Object.values(courseCatalog).map((course) => ({
+  id: course.id,
+  name: course.name,
+}));
+
+// Course card data (only if course is selected)
+const courseCardData = selectedCourse
+  ? {
+      title: selectedCourse.name,
+      description: selectedCourse.description,
+      image: selectedCourse.image,
+      items: [
+        {
+          icon: "Calendar",
+          label: "Inicio",
+          value: selectedCourse.startDate,
+        },
+        {
+          icon: "Clock",
+          label: "Duración",
+          value: selectedCourse.duration,
+        },
+        {
+          icon: "Globe",
+          label: "Modalidad",
+          value: selectedCourse.modality,
+        },
+      ],
+      footer: {
+        label: "Precio",
+        value: selectedCourse.price,
+      },
+    }
+  : null;
+---
+
+<Layout title="Inscripción a Cursos - Qualisophy">
+  <div class="min-h-screen bg-gradient-to-b to-white py-12 px-4">
+    <div class="max-w-7xl mx-auto">
+      <!-- Breadcrumb -->
+      <nav class="text-sm text-slate-500 mb-8">
+        <a href="/" class="hover:text-primary">Inicio</a>
+        <span class="mx-2">/</span>
+        <a href="/learning" class="hover:text-primary">Cursos</a>
+        <span class="mx-2">/</span>
+        <span class="text-slate-800 font-medium">Inscripción</span>
+      </nav>
+
+      <!-- Two Column Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Left Column - Form -->
+        <div class:list={[courseCardData ? "lg:col-span-2" : "lg:col-span-3"]}>
+          <h1
+            class="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-slate-800"
+          >
+            Inscripción al Curso
+          </h1>
+          <p class="text-slate-600 mb-8">
+            Estás a un paso de comenzar tu aprendizaje. Completa tus datos para
+            reservar tu plaza.
+          </p>
+          <CourseEnrollmentForm client:load courses={courses} />
+        </div>
+
+        <!-- Right Column - Course Info Card (only if course is selected) -->
+        {
+          courseCardData && (
+            <div class="lg:col-span-1">
+              <InstructorCard
+                client:load
+                title={courseCardData.title}
+                description={courseCardData.description}
+                image={courseCardData.image}
+                items={courseCardData.items}
+                footer={courseCardData.footer}
+              />
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</Layout>
