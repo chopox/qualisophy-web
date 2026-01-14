@@ -1,81 +1,24 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-import { CompanyCarousel } from "@/components/react/corporate-training/CompanyCarousel.tsx";
-
-import StudentTestimonials from "@/components/react/course/StudentTestimonials.tsx";
-
-import { CoreServiceIntro } from "@/components/react/services/CoreServiceIntro";
-
-import { HighlightedCourses } from "@/components/react/course/HighlightedCourses";
-
-import { ContactCTA } from "@/components/react/shared/ContactCTA.tsx";
-
-import { HeroButtons } from "@/components/react/shared/HeroButtons";
-
-const heroBgImageUrl =
-  "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto-format&fit-crop&w=1920&q=80";
+// Componentes React
+import { HeroSection } from "@/components/react/home/HeroSection";
+import { MissionSection } from "@/components/react/home/MissionSection";
+import { InclusionPillars } from "@/components/react/home/InclusionPillars";
 ---
 
-<Layout
-  title="Qualisophy - Formación en Desarrollo, Calidad de Software y DevOps"
+<Layout 
+  title="Qualisophy - Inclusión Tecnológica" 
+  fullWidth={true} 
 >
-  <section
-    class="relative left-1/2 right-1/2 -mx-[50vw] w-screen
-text-white overflow-hidden
-py-24 md:py-32
--mt-[var(--navbar-height,4rem)]"
-  >
-    <div class="absolute inset-0 brightness-75">
-      <img
-        src={heroBgImageUrl}
-        alt=""
-        class="absolute inset-0 w-full h-full object-cover"
-        aria-hidden="true"
-      />
-    </div>
+  {/* Usamos un wrapper div si es necesario, pero los componentes 
+      ya tienen sus propios sections w-full 
+  */}
+  
+  <HeroSection />
 
-    <div
-      class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70"
-    >
-    </div>
+  <MissionSection imageSrc="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" />
 
-    <div class="relative z-10 max-w-5xl mx-auto text-center px-6">
-      <img
-        src="/src/assets/qualisophy-simple-no-background.png"
-        alt="Qualisophy Logo"
-        class="h-auto w-full max-w-[340px] md:max-w-none md:w-auto md:h-28 mx-auto mb-6 invert"
-      />
+  <InclusionPillars />
 
-      <p class="mt-4 text-xl md:text-2xl text-neutral-300 max-w-2xl mx-auto">
-        Formación en Desarrollo, Calidad de Software y DevOps
-      </p>
-
-      <HeroButtons client:load />
-    </div>
-  </section>
-
-  <section class="relative w-screen left-1/2 -translate-x-1/2 py-20">
-    <CoreServiceIntro client:visible />
-  </section>
-
-  <section class="relative w-screen left-1/2 -translate-x-1/2 py-20">
-    <div class="container mx-auto px-6">
-      <HighlightedCourses client:visible />
-    </div>
-  </section>
-
-  <section class="relative w-screen left-1/2 -translate-x-1/2 py-20">
-    <div class="container mx-auto px-6">
-      <CompanyCarousel client:visible />
-    </div>
-  </section>
-
-  <section class="relative w-screen left-1/2 -translate-x-1/2 py-20">
-    <StudentTestimonials client:visible />
-  </section>
-
-  <section class="relative w-screen left-1/2 -translate-x-1/2 py-20">
-    <ContactCTA client:visible />
-  </section>
 </Layout>
