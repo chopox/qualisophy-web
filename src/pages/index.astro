@@ -5,19 +5,20 @@ import Layout from "@/layouts/Layout.astro";
 import { HeroSection } from "@/components/react/home/HeroSection";
 import { MissionSection } from "@/components/react/home/MissionSection";
 import { InclusionPillars } from "@/components/react/home/InclusionPillars";
+import { ValuesSection } from "@/components/react/home/ValuesSection"; // <--- Nueva importación
 ---
 
 <Layout 
   title="Qualisophy - Inclusión Tecnológica" 
   fullWidth={true} 
 >
-  {/* Usamos un wrapper div si es necesario, pero los componentes 
-      ya tienen sus propios sections w-full 
-  */}
+
   
   <HeroSection />
 
   <MissionSection imageSrc="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" />
+
+  <ValuesSection />
 
   <InclusionPillars />
 

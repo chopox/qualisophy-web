@@ -59,13 +59,8 @@ const pillarsData: Pillar[] = [
 
 export const InclusionPillars: React.FC = () => {
   return (
-    <section className="bg-gray-50 py-12 md:py-20 w-full">
+    <section className=" py-12 md:py-20 w-full">
       <div className="flex justify-center w-full">
-        {/* CORRECCIÓN DE ANCHO (MOCKUP EXACTO):
-          - Móvil: px-0 (borde a borde).
-          - Escritorio: max-w-[96%] (MUCHO más ancho que 7xl, ocupando casi toda la pantalla).
-          - Padding: px-4 md:px-8 lg:px-12 (idéntico al mockup).
-        */}
         <div className="w-full md:max-w-[96%] px-0 md:px-8 lg:px-12">
           <div className="text-center mb-12 md:mb-24 px-4">
             <h2 className="text-secondary text-3xl md:text-5xl font-bold mb-6 font-heading">
@@ -88,12 +83,7 @@ export const InclusionPillars: React.FC = () => {
                 shadow-none md:shadow-lg 
                 border-b border-gray-200 md:border md:border-gray-100 
                 overflow-hidden transition-all duration-300 min-h-[500px]`}
-                /* CORRECCIÓN ALTURA: Restaurado a min-h-[500px] del mockup */
               >
-                {/* LADO IMAGEN (Dimensiones del Mockup):
-                  - md:w-5/12
-                  - lg:w-4/12 (En pantallas grandes se hace más estrecho para dejar sitio al texto)
-                */}
                 <div className="w-full md:w-5/12 lg:w-4/12 bg-secondary relative flex items-center justify-center p-16 lg:p-20 overflow-hidden min-h-[300px] md:min-h-full">
                   {/* Visual: Foto Real + Filtro Azul (Tu preferencia) */}
                   <img
@@ -110,11 +100,6 @@ export const InclusionPillars: React.FC = () => {
                   </div>
                 </div>
 
-                {/* LADO TEXTO (Dimensiones del Mockup):
-                  - md:w-7/12 
-                  - lg:w-8/12 (Más ancho en pantallas grandes)
-                  - Padding generoso (p-10 a p-24)
-                */}
                 <div className="w-full md:w-7/12 lg:w-8/12 p-10 md:p-16 lg:p-24 flex flex-col justify-center items-start">
                   <div className="flex items-center gap-3 mb-6">
                     <span className="w-12 h-[3px] bg-primary"></span>
