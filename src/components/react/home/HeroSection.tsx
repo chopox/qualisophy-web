@@ -38,7 +38,7 @@ export const HeroSection: React.FC = () => {
           <div className="flex flex-wrap justify-center gap-4 mt-4 font-primary">
             <a
               href="#programas"
-              className="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all transform hover:-translate-y-0.5 text-base border border-transparent"
+              className="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all transform  text-base border border-transparent"
             >
               Ver Programas
             </a>
