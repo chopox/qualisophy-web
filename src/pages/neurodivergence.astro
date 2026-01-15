@@ -1,0 +1,134 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+// Importación de Componentes desde la carpeta 'programs'
+import { ProgramHero } from "@/components/react/programs/ProgramHero";
+import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
+import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
+import { ProgramCurriculum } from "@/components/react/programs/ProgramCurriculum";
+import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
+
+// --- DATOS DEFINIDOS ---
+
+const methodologyData = {
+  title: "Metodología Inclusiva y Personalizada",
+  description: [
+    "Nuestro enfoque se centra en ajustes razonables y en la creación de un entorno seguro que promueve la confianza.",
+    "Ofrecemos capacitación especializada que respeta los ritmos individuales, potencia la hiperfocalización y canaliza el pensamiento analítico hacia resultados excepcionales en tecnología."
+  ],
+  checks: [
+    "Ritmos de aprendizaje adaptables",
+    "Espacios sensorialmente amigables",
+    "Enfoque en fortalezas cognitivas"
+  ],
+  imageSrc: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2069&auto=format&fit=crop"
+};
+
+const trainingFeatures = [
+  {
+    icon: "alt_route",
+    title: "Itinerarios Flexibles",
+    description: "Diseñamos rutas de aprendizaje no lineales. Ajustamos la velocidad y el contenido a tu estilo cognitivo, permitiéndote profundizar (deep-dive) en tus áreas de interés sin la presión de un ritmo estandarizado."
+  },
+  {
+    icon: "diversity_1",
+    title: "Apoyo Individualizado",
+    description: "No estarás solo. Contarás con mentores dedicados que comprenden la neurodiversidad. Te acompañarán con estrategias de gestión del tiempo y comunicación para superar cualquier barrera ejecutiva."
+  },
+  {
+    icon: "monitoring",
+    title: "Evaluación Continua",
+    description: "Olvídate de los exámenes tradicionales estresantes. Usamos un sistema de feedback constructivo basado en proyectos reales, enfocado en tu crecimiento y en potenciar tus fortalezas naturales."
+  }
+];
+
+const benefitsFeatures = [
+  {
+    icon: "desktop_windows",
+    title: "Entorno Libre de Distracciones",
+    description: "Plataformas digitales y espacios físicos optimizados sensorialmente para maximizar tu capacidad de hiperfoco."
+  },
+  {
+    icon: "psychology",
+    title: "Validación Cognitiva",
+    description: "Un espacio donde tu forma de pensar no es juzgada, sino celebrada como una herramienta potente de resolución de problemas."
+  },
+  {
+    icon: "school",
+    title: "Expertos en Neurodiversidad",
+    description: "Formadores y staff capacitados específicamente para entender y apoyar las necesidades del espectro autista y TDAH."
+  },
+  {
+    icon: "handshake",
+    title: "Conexión Directa con Empresas",
+    description: "Acceso exclusivo a nuestra red de partners tecnológicos que buscan activamente perfiles analíticos y detallistas como el tuyo."
+  }
+];
+
+const studyPlan = [
+  {
+    stepNumber: 1,
+    title: "Habilidades Blandas y Autogestión",
+    description: "Desarrollo de estrategias personalizadas para la organización, comunicación asertiva y manejo del tiempo. Incluye talleres sobre defensa personal (self-advocacy) en el entorno laboral."
+  },
+  {
+    stepNumber: 2,
+    title: "Capacitación Técnica Avanzada",
+    description: "Profundización en áreas de alta demanda como Análisis de Datos, QA Testing y Desarrollo Backend. Metodología basada en proyectos prácticos con soporte técnico constante."
+  },
+  {
+    stepNumber: 3,
+    title: "Inserción Laboral y Networking",
+    description: "Simulaciones de entrevistas técnicas y de RRHH adaptadas. Sesiones de networking con empresas aliadas y acompañamiento durante los primeros 3 meses de contratación."
+  }
+];
+---
+
+<Layout 
+  title="Talento Neurodivergente - Qualisophy"
+  description="Programas de formación y empleo diseñados para potenciar el talento de personas con TDAH y Autismo en el sector tecnológico."
+  fullWidth={true}
+>
+  
+  <ProgramHero 
+    client:load
+    title="Potenciando Habilidades Únicas: Talento Neurodivergente"
+    subtitle="Programas diseñados para la inclusión de personas con TDAH y Autismo en el sector tecnológico."
+    backgroundImage="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2069&auto=format&fit=crop"
+  />
+
+  <ProgramMethodology 
+    client:visible
+    {...methodologyData}
+  />
+
+  {/* SECCIÓN 1: FORMACIÓN -> LAYOUT ZIG-ZAG */}
+  <ProgramFeatures 
+    client:visible
+    title="Formación Personalizada"
+    subtitle="Un programa vivo que se adapta a ti, no al revés."
+    features={trainingFeatures}
+    variant="light"
+    layout="zigzag" 
+  />
+
+  {/* SECCIÓN 2: BENEFICIOS -> LAYOUT GRID 4 COLUMNAS */}
+<ProgramFeatures 
+    client:visible
+    title="¿Por qué elegirnos?"
+    subtitle="Diseñado específicamente para impulsar tu éxito profesional y bienestar."
+    features={benefitsFeatures}
+    variant="gray"
+    layout="grid4" 
+  />
+
+  <ProgramCurriculum 
+    client:visible
+    title="Plan de Estudios"
+    subtitle="Una ruta de aprendizaje estructurada para potenciar tus habilidades técnicas y blandas."
+    steps={studyPlan}
+  />
+
+  <ProgramCTA client:visible />
+
+</Layout>

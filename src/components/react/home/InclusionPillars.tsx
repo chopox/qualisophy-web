@@ -8,6 +8,7 @@ interface Pillar {
   icon: string; // Material Symbol name
   reverse: boolean;
   image: string; // Background image
+  link: string; // NUEVO: URL de destino para la página
 }
 
 const pillarsData: Pillar[] = [
@@ -21,6 +22,7 @@ const pillarsData: Pillar[] = [
     reverse: false,
     image:
       "https://images.unsplash.com/photo-1555421689-491a97ff2040?auto=format&fit=crop&q=80&w=1000",
+    link: "/neurodivergence", // Enlace a la página que acabamos de crear
   },
   {
     id: "migrant-talent",
@@ -32,6 +34,7 @@ const pillarsData: Pillar[] = [
     reverse: true,
     image:
       "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000",
+    link: "/migrant-talent", // Enlace futuro
   },
   {
     id: "social-impact",
@@ -43,6 +46,7 @@ const pillarsData: Pillar[] = [
     reverse: false,
     image:
       "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=1000",
+    link: "/social-impact", // Enlace futuro
   },
   {
     id: "reskilling",
@@ -54,6 +58,7 @@ const pillarsData: Pillar[] = [
     reverse: true,
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1000",
+    link: "/reskilling", // Enlace futuro
   },
 ];
 
@@ -85,7 +90,7 @@ export const InclusionPillars: React.FC = () => {
                 overflow-hidden transition-all duration-300 min-h-[500px]`}
               >
                 <div className="w-full md:w-5/12 lg:w-4/12 bg-secondary relative flex items-center justify-center p-16 lg:p-20 overflow-hidden min-h-[300px] md:min-h-full">
-                  {/* Visual: Foto Real + Filtro Azul (Tu preferencia) */}
+                  {/* Visual: Foto Real + Filtro Azul */}
                   <img
                     src={pillar.image}
                     alt=""
@@ -116,12 +121,16 @@ export const InclusionPillars: React.FC = () => {
                     {pillar.description}
                   </p>
 
-                  <button className="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold py-4 px-10 rounded-xl transition-all flex items-center gap-3 text-lg group-hover:shadow-lg font-primary">
+                  {/* CAMBIO: <button> reemplazado por <a> con href */}
+                  <a
+                    href={pillar.link}
+                    className="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold py-4 px-10 rounded-xl transition-all flex items-center gap-3 text-lg group-hover:shadow-lg font-primary"
+                  >
                     Saber más
                     <span className="material-symbols-outlined lg:text-2xl">
                       arrow_forward
                     </span>
-                  </button>
+                  </a>
                 </div>
               </div>
             ))}
