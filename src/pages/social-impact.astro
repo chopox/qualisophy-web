@@ -1,0 +1,134 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+// Componentes Reutilizables
+import { ProgramHero } from "@/components/react/programs/ProgramHero";
+import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
+import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
+import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
+
+// --- DATOS: RIESGO DE EXCLUSIÓN ---
+
+const techTrainingData = {
+  title: "Capacitación Digital",
+  description: [
+    "Proporcionamos las herramientas necesarias para dominar el mundo digital. Desde fundamentos de programación hasta análisis de datos.",
+    "Nuestro currículo está diseñado para construir habilidades IT esenciales que el mercado laboral demanda hoy."
+  ],
+  checks: [
+    "Fundamentos de Programación y Lógica",
+    "Herramientas de Colaboración (Git, Jira)",
+    "Proyectos Prácticos Reales"
+  ],
+  imageSrc: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80" // Coding workshop
+};
+
+const psychoSupportData = {
+  title: "Acompañamiento Psicosocial",
+  description: [
+    "Entendemos que el éxito va más allá del código. Ofrecemos un soporte holístico con profesionales dedicados.",
+    "Brindamos apoyo emocional y psicológico continuo, asegurando el bienestar integral y la confianza necesaria para la integración social."
+  ],
+  checks: [
+    "Sesiones de Coaching Individual",
+    "Talleres de Habilidades Blandas",
+    "Seguimiento Emocional Continuo"
+  ],
+  imageSrc: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80" // Mentoring session
+};
+
+const communitiesFeatures = [
+  {
+    icon: "groups",
+    title: "Herencia y Talento Gitano",
+    description: "Potenciamos la riqueza cultural gitana en la era digital, fomentando referentes tecnológicos positivos que unen tradición e innovación."
+  },
+  {
+    icon: "female",
+    title: "Empoderamiento Femenino",
+    description: "Impulsamos la independencia económica y el liderazgo de mujeres, transformando la resiliencia en carreras tecnológicas exitosas."
+  },
+  {
+    icon: "public", // Reemplazamos 'diversity_3' por algo más global
+    title: "Talento Global e Intercultural",
+    description: "Abrazamos la diversidad cultural como motor de innovación, convirtiendo la experiencia global en una ventaja competitiva."
+  },
+  {
+    icon: "rocket_launch",
+    title: "Nuevas Oportunidades",
+    description: "Redescubrimos el potencial profesional, ofreciendo una segunda oportunidad para reinventarse en el sector tech."
+  }
+];
+
+const resourcesFeatures = [
+  {
+    icon: "volunteer_activism",
+    title: "Becas y Ayudas",
+    description: "Apoyo financiero completo para cubrir materiales, transporte y necesidades básicas durante el periodo de formación."
+  },
+  {
+    icon: "diversity_3",
+    title: "Tutorías Personalizadas",
+    description: "Sesiones 1 a 1 con expertos de la industria que guían tu aprendizaje y resuelven dudas técnicas específicas."
+  },
+  {
+    icon: "work_history",
+    title: "Inserción Laboral Asistida",
+    description: "Conexión directa con nuestra red de empresas partners, preparación de CV y simulacros de entrevista."
+  }
+];
+---
+
+<Layout 
+  title="Riesgo de Exclusión - Qualisophy"
+  description="Tecnología para la igualdad de oportunidades. Capacitación y acompañamiento integral para transformar el futuro."
+  fullWidth={true}
+>
+  
+  {/* HERO */}
+  <ProgramHero 
+    client:load
+    title="Tecnología para la Igualdad de Oportunidades"
+    subtitle="Capacitación tecnológica y acompañamiento integral para transformar el futuro de personas en situación de vulnerabilidad."
+    backgroundImage="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80"
+    ctaText="Únete al Programa"
+  />
+
+  {/* FASE 1: Formación Técnica */}
+  <ProgramMethodology 
+    client:visible
+    {...techTrainingData}
+    reverse={false}
+  />
+
+  {/* FASE 2: Apoyo Psicosocial (Zig-Zag Inverso) */}
+  <ProgramMethodology 
+    client:visible
+    {...psychoSupportData}
+    reverse={true}
+  />
+
+  {/* COMUNIDADES (Grid 4 Columnas - Dark/Blue Style) */}
+  <ProgramFeatures 
+    client:visible
+    title="Nuestras Comunidades"
+    subtitle="Celebramos la diversidad y el potencial humano, transformando barreras en puentes."
+    features={communitiesFeatures}
+    variant="dark"
+    layout="grid4" 
+  />
+
+  {/* RECURSOS (Grid 3 Columnas - Light Style) */}
+  <ProgramFeatures 
+    client:visible
+    title="Recursos para el Éxito"
+    subtitle="Todo lo que necesitas para enfocarte en tu crecimiento profesional y personal, sin barreras."
+    features={resourcesFeatures}
+    variant="light"
+    layout="cards" 
+  />
+
+  {/* CTA FINAL */}
+  <ProgramCTA client:visible />
+
+</Layout>

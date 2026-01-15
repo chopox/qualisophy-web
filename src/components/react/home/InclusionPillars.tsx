@@ -34,7 +34,7 @@ const pillarsData: Pillar[] = [
     reverse: true,
     image:
       "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000",
-    link: "/migrant-talent", // Enlace futuro
+    link: "/migrant-talent",
   },
   {
     id: "social-impact",

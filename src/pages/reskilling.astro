@@ -1,0 +1,129 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+// Componentes Reutilizables
+import { ProgramHero } from "@/components/react/programs/ProgramHero";
+import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
+import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
+import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
+
+// --- DATOS: RESKILLING ---
+
+const experienceToInnovationData = {
+  title: "De la Experiencia a la Innovación",
+  description: [
+    "No empiezas de cero. Aprovechamos tus habilidades blandas existentes —liderazgo, gestión, comunicación— y las complementamos con las competencias técnicas más demandadas.",
+    "Un camino estructurado para convertir tu trayectoria en tu mayor activo."
+  ],
+  checks: [
+    "Diagnóstico de competencias transferibles",
+    "Plan de estudio personalizado",
+    "Valoración de experiencia previa"
+  ],
+  imageSrc: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80"
+};
+
+const transitionSupportData = {
+  title: "Acompañamiento en la Transición",
+  description: [
+    "El cambio profesional es un reto emocional y estratégico. Ofrecemos sesiones de estrategia de carrera uno a uno.",
+    "Te guiamos en cada paso, desde la reescritura de tu CV hasta la preparación de entrevistas técnicas para roles junior/mid."
+  ],
+  checks: [
+    "Mentoring de Carrera 1:1",
+    "Rebranding Profesional (LinkedIn, CV)",
+    "Simulacros de Entrevista Técnica"
+  ],
+  imageSrc: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80"
+};
+
+const pillarsData = [
+  {
+    icon: "supervisor_account",
+    title: "Mentores Senior",
+    description: "Aprende directamente de profesionales activos en la industria que han recorrido caminos similares y conocen las exigencias actuales."
+  },
+  {
+    icon: "terminal",
+    title: "Proyectos Reales",
+    description: "Olvida la teoría abstracta. Desarrollarás un portafolio robusto resolviendo problemas reales de empresas asociadas."
+  },
+  {
+    icon: "domain",
+    title: "Prácticas en Empresa",
+    description: "Oportunidades reales de aplicar tus conocimientos en entornos corporativos para ganar experiencia práctica y visibilidad."
+  }
+];
+
+const transformationRoutes = [
+  {
+    icon: "analytics", 
+    title: "Data Analyst",
+    description: "Tu capacidad analítica y atención al detalle (Finanzas/Admin) son la base perfecta para dominar SQL, Python y visualización de datos."
+  },
+  {
+    icon: "campaign", 
+    title: "Digital Marketing",
+    description: "Lleva tu persuasión comercial al mundo digital. Aprende Growth Hacking, SEO/SEM y automatización de marketing."
+  },
+  {
+    icon: "bug_report", 
+    title: "QA Tester",
+    description: "Tu empatía con el cliente (Atención al Cliente) y resolución de problemas te hacen ideal para asegurar la calidad del software."
+  }
+];
+---
+
+<Layout 
+  title="Reciclaje Laboral - Qualisophy"
+  description="Tu reinvención profesional comienza aquí. Transformamos tu experiencia previa en nuevas competencias digitales."
+  fullWidth={true}
+>
+  
+  {/* HERO */}
+  <ProgramHero 
+    client:load
+    title="Tu Reinvención Profesional Comienza Aquí"
+    subtitle="Transformamos tu experiencia previa en nuevas competencias digitales para el mercado tecnológico actual."
+    backgroundImage="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80"
+    ctaText="Ver Programas"
+  />
+
+  {/* FASE 1: Experiencia (Zig-Zag Normal) */}
+  <ProgramMethodology 
+    client:visible
+    {...experienceToInnovationData}
+    reverse={false}
+  />
+
+  {/* FASE 2: Transición (Zig-Zag Inverso) */}
+  <ProgramMethodology 
+    client:visible
+    {...transitionSupportData}
+    reverse={true}
+  />
+
+  {/* PILARES DEL PROGRAMA (3 Cards) */}
+  <ProgramFeatures 
+    client:visible
+    title="Pilares del Programa"
+    subtitle="Tres fundamentos que garantizan tu éxito en el nuevo rol."
+    features={pillarsData}
+    variant="gray"
+    layout="cards" 
+  />
+
+  {/* RUTAS DE TRANSFORMACIÓN (Grid 3 Columnas) */}
+  <ProgramFeatures 
+    client:visible
+    title="Rutas de Transformación Comunes"
+    subtitle="Descubre cómo tu perfil actual puede evolucionar hacia roles tecnológicos de alto impacto."
+    features={transformationRoutes}
+    variant="light"
+    layout="list"
+  />
+
+  {/* CTA FINAL */}
+  <ProgramCTA client:visible />
+
+</Layout>

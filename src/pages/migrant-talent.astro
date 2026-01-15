@@ -1,0 +1,105 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+// REUTILIZAMOS los componentes de la carpeta 'programs'
+import { ProgramHero } from "@/components/react/programs/ProgramHero";
+import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
+import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
+import { ProgramTestimonials } from "@/components/react/programs/ProgramTestimonials"; // El nuevo
+import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
+
+// --- DATOS ESPECÍFICOS PARA TALENTO MIGRANTE ---
+
+const validationData = {
+  title: "Validación de Competencias",
+  description: [
+    "Nuestro proceso detallado de mapeo de habilidades y validación profesional permite traducir tu experiencia internacional al contexto local.",
+    "No empezamos desde cero; empezamos desde quién eres."
+  ],
+  checks: [
+    "Análisis de perfil técnico y soft skills",
+    "Homologación de experiencia previa",
+    "Certificación de nivelación"
+  ],
+  imageSrc: "https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80"
+};
+
+const bridgeData = {
+  title: "Formación Puente",
+  description: [
+    "Programas de capacitación especializados diseñados para cerrar la brecha entre tus conocimientos actuales y las demandas específicas del mercado local.",
+    "Adaptación rápida y efectiva a la cultura laboral y técnica."
+  ],
+  checks: [
+    "Tech Stack Local (Herramientas demandadas)",
+    "Cultura Laboral y Metodologías Ágiles",
+    "Networking Estratégico"
+  ],
+  imageSrc: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80"
+};
+
+const pillarsFeatures = [
+  {
+    icon: "gavel", // Martillo/Legal
+    title: "Homologación y Guía",
+    description: "Asesoría legal y profesional completa para los procesos de homologación de títulos y regularización de estatus migratorio laboral."
+  },
+  {
+    icon: "hub", // Conexiones
+    title: "Networking Local",
+    description: "Conexiones directas con hubs tecnológicos locales, empresas aliadas y mentores que facilitan tu entrada al ecosistema."
+  },
+  {
+    icon: "school", // Educación
+    title: "Cursos de Adaptación",
+    description: "Upskilling técnico enfocado en las tecnologías más demandadas localmente, asegurando que tu perfil sea altamente competitivo."
+  }
+];
+---
+
+<Layout 
+  title="Talento Migrante - Qualisophy"
+  description="Integración sociolaboral tecnológica para talento sin fronteras. Validamos tus competencias y facilitamos tu inserción."
+  fullWidth={true}
+>
+  
+  {/* 1. HERO REUTILIZADO */}
+  <ProgramHero 
+    client:load
+    title="Talento Sin Fronteras: Integración Sociolaboral Tecnológica"
+    subtitle="Validamos tus competencias y facilitamos tu inserción en el mercado tecnológico local a través de un proceso integral y humano."
+    backgroundImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+    ctaText="Empezar Evaluación"
+  />
+
+  {/* 2. ZIG-ZAG FASE 1: Validación (Normal) */}
+  <ProgramMethodology 
+    client:visible
+    {...validationData}
+    reverse={false}
+  />
+
+  {/* 3. ZIG-ZAG FASE 2: Formación (Inverso - reverse={true}) */}
+  <ProgramMethodology 
+    client:visible
+    {...bridgeData}
+    reverse={true}
+  />
+
+  {/* 4. PILARES: Reutilizamos ProgramFeatures con layout de tarjetas */}
+  <ProgramFeatures 
+    client:visible
+    title="Pilares del Programa"
+    subtitle="Te apoyamos en cada paso de tu integración profesional con tres ejes fundamentales."
+    features={pillarsFeatures}
+    variant="light"
+    layout="cards" 
+  />
+
+  {/* 5. TESTIMONIOS (Componente Nuevo) */}
+  <ProgramTestimonials client:visible />
+
+  {/* 6. CTA REUTILIZADO */}
+  <ProgramCTA client:visible />
+
+</Layout>
