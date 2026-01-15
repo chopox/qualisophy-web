@@ -1,7 +1,8 @@
 import React from "react";
 
 interface ProgramHeroProps {
-  title: string;
+  // CAMBIO AQUÍ: De 'string' a 'React.ReactNode' para aceptar JSX
+  title: React.ReactNode;
   subtitle: string;
   ctaText?: string;
   onCtaClick?: () => void;
@@ -17,19 +18,23 @@ export const ProgramHero: React.FC<ProgramHeroProps> = ({
 }) => {
   return (
     <section className="relative w-full overflow-hidden min-h-[600px] flex items-center">
+      {/* 1. Imagen de Fondo */}
       <div className="absolute inset-0 z-0">
         <img
           src={backgroundImage}
-          alt={title}
+          alt="Hero background"
           className="w-full h-full object-cover"
           loading="eager"
         />
       </div>
 
+      {/* 2. Overlay Azul */}
       <div className="absolute inset-0 z-0 bg-secondary/90 mix-blend-multiply" />
 
+      {/* 3. Contenido */}
       <div className="relative z-10 layout-container flex flex-col items-center justify-center w-full px-6 lg:px-8 py-20 mx-auto max-w-7xl">
         <div className="max-w-5xl text-center flex flex-col gap-6">
+          {/* Título: Ahora renderiza el nodo de React (texto + spans) */}
           <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight font-heading drop-shadow-md">
             {title}
           </h1>
@@ -41,7 +46,7 @@ export const ProgramHero: React.FC<ProgramHeroProps> = ({
           <div className="flex justify-center mt-6">
             <button
               onClick={onCtaClick}
-              className="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-10 rounded-lg shadow-lg transition-all transform text-base border border-transparent font-primary"
+              className="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-10 rounded-lg shadow-lg transition-all transform hover:-translate-y-1 text-base border border-transparent font-primary"
             >
               {ctaText}
             </button>

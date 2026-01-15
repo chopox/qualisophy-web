@@ -5,101 +5,109 @@ import Layout from "@/layouts/Layout.astro";
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
 import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
-import { ProgramTestimonials } from "@/components/react/programs/ProgramTestimonials"; // El nuevo
+import { ProgramTestimonials } from "@/components/react/programs/ProgramTestimonials"; 
 import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
 
-// --- DATOS ESPECÍFICOS PARA TALENTO MIGRANTE ---
+// --- DATOS: MIGRANT TALENT (ENFOQUE ALIANZAS/ONGs) ---
 
-const validationData = {
-  title: "Validación de Competencias",
+// FASE 1: Identificación (Antes Validación)
+const mappingData = {
+  title: "Identificación y Traducción de Talento",
   description: [
-    "Nuestro proceso detallado de mapeo de habilidades y validación profesional permite traducir tu experiencia internacional al contexto local.",
-    "No empezamos desde cero; empezamos desde quién eres."
+    "No hacemos simples evaluaciones. Ayudamos a las organizaciones a 'traducir' la experiencia internacional de sus beneficiarios al lenguaje del mercado local.",
+    "Convertimos trayectorias no tradicionales en perfiles atractivos para empresas tecnológicas, identificando competencias transferibles que el CV estándar ignora."
   ],
   checks: [
-    "Análisis de perfil técnico y soft skills",
-    "Homologación de experiencia previa",
-    "Certificación de nivelación"
+    "Mapeo de Skills Técnicas y Transversales",
+    "Traducción de Experiencia al Contexto Local",
+    "Detección de Potencial de Liderazgo"
   ],
   imageSrc: "https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80"
 };
 
+// FASE 2: Adaptación (Antes Formación Puente)
 const bridgeData = {
-  title: "Formación Puente",
+  title: "Adaptación Técnica y Cultural",
   description: [
-    "Programas de capacitación especializados diseñados para cerrar la brecha entre tus conocimientos actuales y las demandas específicas del mercado local.",
-    "Adaptación rápida y efectiva a la cultura laboral y técnica."
+    "El talento ya existe; solo necesita contexto. Creamos puentes formativos ágiles para cubrir las brechas específicas del mercado local.",
+    "Preparamos a los candidatos no solo en tecnología, sino en la cultura corporativa y metodologías de trabajo de las empresas destino."
   ],
   checks: [
-    "Tech Stack Local (Herramientas demandadas)",
-    "Cultura Laboral y Metodologías Ágiles",
-    "Networking Estratégico"
+    "Upskilling en Herramientas Locales Demandadas",
+    "Inmersión en Cultura Corporativa Ágil",
+    "Mentoring para la Entrevista Técnica"
   ],
   imageSrc: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80"
 };
 
+// 4 PILARES DEL PROGRAMA (Actualizado)
 const pillarsFeatures = [
   {
-    icon: "gavel", // Martillo/Legal
-    title: "Homologación y Guía",
-    description: "Asesoría legal y profesional completa para los procesos de homologación de títulos y regularización de estatus migratorio laboral."
+    icon: "manage_search", // Icono de búsqueda/diagnóstico
+    title: "Diagnóstico Integral",
+    description: "Analizamos el perfil completo del candidato, más allá de los títulos, para entender su verdadero potencial de empleabilidad."
   },
   {
-    icon: "hub", // Conexiones
-    title: "Networking Local",
-    description: "Conexiones directas con hubs tecnológicos locales, empresas aliadas y mentores que facilitan tu entrada al ecosistema."
+    icon: "school", // Formación
+    title: "Nivelación Estratégica",
+    description: "Formación quirúrgica para cerrar brechas técnicas específicas y aumentar la empleabilidad en tiempo récord."
   },
   {
-    icon: "school", // Educación
-    title: "Cursos de Adaptación",
-    description: "Upskilling técnico enfocado en las tecnologías más demandadas localmente, asegurando que tu perfil sea altamente competitivo."
+    icon: "diversity_3", // Acompañamiento
+    title: "Red de Mentores",
+    description: "Acompañamiento psicosocial y profesional por parte de expertos del sector que guían la transición cultural."
+  },
+  {
+    icon: "handshake", // Alianzas
+    title: "Conexión Corporativa",
+    description: "Intermediación directa con empresas partners comprometidas con la diversidad, facilitando la contratación final."
   }
 ];
 ---
 
 <Layout 
   title="Talento Migrante - Qualisophy"
-  description="Integración sociolaboral tecnológica para talento sin fronteras. Validamos tus competencias y facilitamos tu inserción."
+  description="Creamos alianzas estratégicas para la integración laboral de talento migrante y refugiado en el sector tecnológico."
   fullWidth={true}
 >
   
-  {/* 1. HERO REUTILIZADO */}
+  {/* 1. HERO - Enfoque B2B / Colaborativo */}
   <ProgramHero 
     client:load
-    title="Talento Sin Fronteras: Integración Sociolaboral Tecnológica"
-    subtitle="Validamos tus competencias y facilitamos tu inserción en el mercado tecnológico local a través de un proceso integral y humano."
+    title="Alianzas que Transforman Vidas: Inclusión Tecnológica"
+    subtitle="Colaboramos con ONGs e instituciones para conectar el talento global con oportunidades locales, creando un ecosistema de impacto real."
     backgroundImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-    ctaText="Empezar Evaluación"
+    ctaText="Colaborar con Nosotros" 
   />
 
-  {/* 2. ZIG-ZAG FASE 1: Validación (Normal) */}
+  {/* 2. ZIG-ZAG FASE 1: Identificación */}
   <ProgramMethodology 
     client:visible
-    {...validationData}
+    {...mappingData}
     reverse={false}
   />
 
-  {/* 3. ZIG-ZAG FASE 2: Formación (Inverso - reverse={true}) */}
+  {/* 3. ZIG-ZAG FASE 2: Adaptación */}
   <ProgramMethodology 
     client:visible
     {...bridgeData}
     reverse={true}
   />
 
-  {/* 4. PILARES: Reutilizamos ProgramFeatures con layout de tarjetas */}
+  {/* 4. PILARES: 4 Columnas (Nuevo layout 'grid4' y color Dark para resaltar) */}
   <ProgramFeatures 
     client:visible
-    title="Pilares del Programa"
-    subtitle="Te apoyamos en cada paso de tu integración profesional con tres ejes fundamentales."
+    title="Pilares de Intervención"
+    subtitle="Un modelo integral diseñado para maximizar la tasa de éxito en la inserción laboral."
     features={pillarsFeatures}
-    variant="light"
-    layout="cards" 
+    variant="gray"
+    layout="grid4" 
   />
 
-  {/* 5. TESTIMONIOS (Componente Nuevo) */}
+  {/* 5. TESTIMONIOS FUNCIONALES */}
   <ProgramTestimonials client:visible />
 
-  {/* 6. CTA REUTILIZADO */}
+  {/* 6. CTA FINAL */}
   <ProgramCTA client:visible />
 
 </Layout>
