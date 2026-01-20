@@ -6,7 +6,7 @@ interface MethodologyProps {
   checks: string[];
   imageSrc: string;
   reverse?: boolean;
-  variant?: "white" | "blue"; // NEW PROP
+  variant?: "white" | "blue";
 }
 
 export const ProgramMethodology: React.FC<MethodologyProps> = ({
@@ -15,30 +15,32 @@ export const ProgramMethodology: React.FC<MethodologyProps> = ({
   checks,
   imageSrc,
   reverse = false,
-  variant = "white", // Default to white
+  variant = "white",
 }) => {
   const isBlue = variant === "blue";
 
   return (
     <section
       className={`
-        px-6 py-16 lg:px-12 lg:py-24 flex justify-center w-full
+        px-6 py-20 lg:px-12 lg:py-32 flex justify-center w-full transition-colors duration-300
         ${isBlue ? "bg-secondary" : "bg-white"}
       `}
     >
       <div
         className={`
-          max-w-7xl w-full flex flex-col gap-16 lg:gap-24 items-center
+          max-w-7xl w-full flex flex-col lg:flex-row gap-12 lg:gap-20 items-center
           ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"} 
         `}
       >
-        {/* Lado Imagen */}
-        <div className="w-full lg:w-1/2">
-          <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-gray-100 relative group">
+        {/* --- LADO IMAGEN (40-45% del ancho) --- */}
+        <div className="w-full lg:w-5/12 relative">
+          <div className="relative w-full aspect-square lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gray-200 group">
+            {/* Decoración detrás (sutil) */}
             <div
-              className={`absolute -inset-4 bg-primary/10 rounded-2xl transform ${
-                reverse ? "rotate-2" : "-rotate-2"
-              } -z-10 transition-transform duration-500`}
+              className={`absolute -inset-4 rounded-3xl transform transition-transform duration-500 -z-10
+                ${reverse ? "rotate-3 translate-x-2" : "-rotate-3 -translate-x-2"}
+                ${isBlue ? "bg-white/10" : "bg-primary/10"}
+              `}
             ></div>
 
             <img
@@ -47,63 +49,78 @@ export const ProgramMethodology: React.FC<MethodologyProps> = ({
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-secondary/10 mix-blend-multiply"></div>
+
+            {/* Overlay sutil para unificar tono */}
+            <div
+              className={`absolute inset-0 mix-blend-multiply ${isBlue ? "bg-secondary/20" : "bg-primary/5"}`}
+            ></div>
           </div>
         </div>
 
-        {/* Lado Contenido */}
-        <div className="w-full lg:w-1/2 flex flex-col gap-8">
-          <div className="flex flex-col gap-5 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary w-fit mx-auto lg:mx-0">
+        {/* --- LADO CONTENIDO (55-60% del ancho) --- */}
+        <div className="w-full lg:w-7/12 flex flex-col gap-8 lg:pl-4">
+          <div className="flex flex-col gap-6 text-center lg:text-left">
+            {/* Etiqueta */}
+            <div
+              className={`
+              inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider w-fit mx-auto lg:mx-0
+              ${isBlue ? "bg-white/10 text-white" : "bg-primary/10 text-primary"}
+            `}
+            >
               <span className="material-symbols-outlined text-sm">
                 verified
               </span>
-              <span className="text-xs font-bold uppercase tracking-wide">
-                {reverse ? "Fase 2" : "Fase 1"}
-              </span>
+              <span>{reverse ? "Fase 2" : "Fase 1"}</span>
             </div>
 
+            {/* Título */}
             <h2
               className={`
-                text-3xl font-bold leading-tight md:text-4xl lg:text-5xl font-heading
+                text-3xl lg:text-5xl font-bold leading-tight font-heading
                 ${isBlue ? "text-white" : "text-secondary"}
               `}
             >
               {title}
             </h2>
 
-            {description.map((paragraph, index) => (
-              <p
-                key={index}
-                className={`
-                  text-lg lg:text-xl font-normal leading-relaxed font-primary
-                  ${isBlue ? "text-gray-300" : "text-gray-600"}
-                `}
-              >
-                {paragraph}
-              </p>
-            ))}
+            {/* Descripción */}
+            <div className="space-y-4">
+              {description.map((paragraph, index) => (
+                <p
+                  key={index}
+                  className={`
+                    text-lg leading-relaxed font-primary font-light
+                    ${isBlue ? "text-gray-300" : "text-gray-600"}
+                  `}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </div>
 
-          <div className="flex flex-col gap-4 mt-4">
+          {/* Checks */}
+          <div className="grid grid-cols-1 gap-4 pt-4">
             {checks.map((check, index) => (
               <div
                 key={index}
                 className={`
-                  flex items-center gap-4 p-4 rounded-xl border transition-colors
+                  flex items-start gap-4 p-4 rounded-xl border transition-all duration-300 hover:-translate-y-1
                   ${
                     isBlue
-                      ? "bg-white/5 border-white/10 hover:border-primary/50"
-                      : "bg-gray-50 border-gray-100 hover:border-primary/20"
+                      ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/30"
+                      : "bg-gray-50 border-gray-100 hover:bg-white hover:shadow-lg hover:border-primary/20"
                   }
                 `}
               >
-                <span className="material-symbols-outlined text-primary text-2xl shrink-0">
+                <span
+                  className={`material-symbols-outlined text-2xl mt-0.5 ${isBlue ? "text-primary" : "text-primary"}`}
+                >
                   check_circle
                 </span>
                 <span
                   className={`
-                    text-lg font-medium font-primary
+                    text-base lg:text-lg font-medium font-primary
                     ${isBlue ? "text-gray-100" : "text-secondary"}
                   `}
                 >

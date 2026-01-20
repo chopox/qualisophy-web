@@ -29,7 +29,7 @@ export const ProgramFeatures: React.FC<ProgramFeaturesProps> = ({
   if (isGray) sectionBg = "bg-gray-50";
   if (isDark) sectionBg = "bg-secondary";
 
-  // --- LAYOUT 1: ZIG-ZAG (CORREGIDO) ---
+  // --- LAYOUT 1: ZIG-ZAG ---
   const renderZigZag = () => (
     <div className="flex flex-col gap-16 lg:gap-24">
       {features.map((feature, index) => {
@@ -54,14 +54,14 @@ export const ProgramFeatures: React.FC<ProgramFeaturesProps> = ({
                   `}
                 ></div>
 
-                {/* Contenedor del Icono: Adaptado para Dark Mode */}
+                {/* Contenedor del Icono */}
                 <div
                   className={`
                     relative size-48 lg:size-64 rounded-3xl flex items-center justify-center transform group-hover:-rotate-2 transition-all duration-300 shadow-xl
                     ${
                       isDark
-                        ? "bg-white/5 border border-white/10 backdrop-blur-sm" // Dark Mode: Glassmorphism
-                        : "bg-white border border-gray-100" // Light Mode: Tarjeta blanca
+                        ? "bg-white/5 border border-white/10 backdrop-blur-sm"
+                        : "bg-white border border-gray-100"
                     }
                   `}
                 >
@@ -94,7 +94,6 @@ export const ProgramFeatures: React.FC<ProgramFeaturesProps> = ({
                 ></span>
               </div>
 
-              {/* Título Corregido para Dark Mode */}
               <h3
                 className={`
                   text-2xl md:text-4xl font-bold font-heading
@@ -104,7 +103,6 @@ export const ProgramFeatures: React.FC<ProgramFeaturesProps> = ({
                 {feature.title}
               </h3>
 
-              {/* Descripción Corregida para Dark Mode */}
               <p
                 className={`
                   text-lg leading-relaxed font-primary
@@ -169,46 +167,56 @@ export const ProgramFeatures: React.FC<ProgramFeaturesProps> = ({
     </div>
   );
 
-  // --- LAYOUT 3: GRID 4 COLUMNAS ---
+  // --- LAYOUT 3: GRID 4 COLUMNAS (MEJORADO) ---
   const renderGrid4 = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {features.map((feature, index) => (
         <div
           key={index}
           className={`
-            flex flex-col items-start gap-5 p-6 rounded-2xl transition-all duration-300 border h-full
+            group flex flex-col items-start gap-6 p-8 rounded-3xl transition-all duration-300 border h-full relative overflow-hidden
             ${
-              isGray
-                ? "bg-white border-gray-100 shadow-sm hover:shadow-lg hover:border-primary/20 "
-                : isDark
-                  ? "bg-white/5 border-white/10 hover:bg-white/10"
-                  : "bg-gray-50 border-transparent hover:bg-white hover:shadow-lg"
+              isDark
+                ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1" // Estilo Dark (Partnership)
+                : "bg-white border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-primary/20" // Estilo Light (Comunidades)
             }
           `}
         >
+          {/* Fondo degradado sutil al hacer hover en modo claro */}
+          {!isDark && (
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+          )}
+
+          {/* Contenedor del Icono: Más grande y con cambio de color al hover */}
           <div
-            className={`size-14 rounded-xl flex items-center justify-center ${
-              isDark
-                ? "bg-primary/20 text-primary"
-                : "bg-primary/10 text-primary"
-            }`}
+            className={`
+              relative z-10 size-16 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-sm
+              ${
+                isDark
+                  ? "bg-white/10 text-white group-hover:bg-primary group-hover:text-white"
+                  : "bg-blue-50 text-primary group-hover:bg-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-md"
+              }
+            `}
           >
-            <span className="material-symbols-outlined text-[32px]">
+            <span className="material-symbols-outlined text-[36px]">
               {feature.icon}
             </span>
           </div>
 
-          <div className="flex flex-col gap-3 text-left">
+          {/* Contenido de Texto */}
+          <div className="relative z-10 flex flex-col gap-3 text-left">
             <h3
-              className={`text-lg font-bold font-heading leading-tight ${
-                isDark ? "text-white" : "text-secondary"
+              className={`text-xl font-bold font-heading leading-tight transition-colors ${
+                isDark
+                  ? "text-white"
+                  : "text-secondary group-hover:text-primary"
               }`}
             >
               {feature.title}
             </h3>
             <p
               className={`text-sm leading-relaxed font-primary ${
-                isDark ? "text-gray-400" : "text-gray-600"
+                isDark ? "text-gray-300" : "text-gray-600"
               }`}
             >
               {feature.description}

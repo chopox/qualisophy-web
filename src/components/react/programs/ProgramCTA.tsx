@@ -1,4 +1,4 @@
-// ... imports
+import React from "react";
 
 interface CTAProps {
   variant?: "white" | "blue";
@@ -10,18 +10,11 @@ export const ProgramCTA: React.FC<CTAProps> = ({ variant = "white" }) => {
   return (
     <section
       className={`
-        px-6 py-20 lg:px-12 flex justify-center text-center w-full relative overflow-hidden border-t 
-        ${isBlue ? "bg-secondary border-white/10" : "bg-gray-50 border-gray-100"}
+        px-6 py-20 lg:px-12 flex justify-center text-center w-full relative overflow-hidden
+        ${isBlue ? "bg-secondary" : "bg-white"}
       `}
     >
       {/* Background decoration */}
-      <div
-        className="absolute inset-0 z-0 opacity-40"
-        style={{
-          backgroundImage: `radial-gradient(${isBlue ? "#475569" : "#cbd5e1"} 1px, transparent 1px)`,
-          backgroundSize: "32px 32px",
-        }}
-      />
 
       <div className="max-w-4xl w-full flex flex-col items-center gap-8 relative z-10">
         <div className="flex flex-col gap-4">
@@ -31,7 +24,7 @@ export const ProgramCTA: React.FC<CTAProps> = ({ variant = "white" }) => {
               ${isBlue ? "text-white" : "text-secondary"}
             `}
           >
-            ¿Listo para transformar tu carrera?
+            ¿Listo para multiplicar el impacto de tu organización?
           </h2>
           <p
             className={`
@@ -39,19 +32,27 @@ export const ProgramCTA: React.FC<CTAProps> = ({ variant = "white" }) => {
               ${isBlue ? "text-gray-300" : "text-gray-600"}
             `}
           >
-            Únete a una comunidad que valora tu forma única de ver el mundo. Las
-            inscripciones para el próximo ciclo están abiertas.
+            Aliémonos para crear futuros. Escríbenos directamente o agenda una
+            reunión con nuestro equipo para explorar vías de colaboración.
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 mt-4">
-          <button className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold leading-normal shadow-lg hover:bg-primary/90 hover:-translate-y-0.5 transition-all font-primary">
-            Inscribirse al Programa
-          </button>
+        <div className="flex flex-col sm:flex-row gap-4 mt-8">
+          {/* BOTÓN 1: Escribir mail (Primary) */}
           <a
-            href="/contact"
+            href="mailto:colaboraciones@qualisophy.com"
+            className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold leading-normal shadow-lg hover:bg-primary/90 transition-all font-primary min-w-[220px]"
+          >
+            Hablemos de una Alianza
+          </a>
+
+          {/* BOTÓN 2: Agendar Reunión (Outline) */}
+          <a
+            href="https://calendar.app.google/6TZSzsQn4q9kATzMA"
+            target="_blank"
+            rel="noopener noreferrer"
             className={`
-              flex cursor-pointer items-center justify-center rounded-xl h-14 px-8 border-2 text-lg font-bold transition-all font-primary
+              flex cursor-pointer items-center justify-center rounded-xl h-14 px-8 border-2 text-lg font-bold transition-all font-primary min-w-[220px]
               ${
                 isBlue
                   ? "border-white/20 text-white hover:bg-white hover:text-secondary"
@@ -59,7 +60,7 @@ export const ProgramCTA: React.FC<CTAProps> = ({ variant = "white" }) => {
               }
             `}
           >
-            Solicitar Información
+            Agendar Reunión
           </a>
         </div>
       </div>

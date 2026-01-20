@@ -1,8 +1,8 @@
 import React from "react";
 
 interface ProgramHeroProps {
-  title: string; // CAMBIO: Volvemos a string simple
-  highlight?: string; // NUEVO: Propiedad opcional para el texto azul
+  title: string;
+  highlight?: string;
   subtitle: string;
   ctaText?: string;
   onCtaClick?: () => void;
@@ -29,26 +29,30 @@ export const ProgramHero: React.FC<ProgramHeroProps> = ({
         />
       </div>
 
-      {/* 2. Overlay Azul */}
-      <div className="absolute inset-0 z-0 bg-secondary/90 mix-blend-multiply" />
+      {/* 2. Overlay Azul - Más fuerte y con degradado para mejor lectura */}
+      <div className="absolute inset-0 z-0 bg-secondary/90 mix-blend-multiply opacity-95" />
+      {/* Opción alternativa: bg-gradient-to-r from-secondary to-secondary/80 */}
 
       {/* 3. Contenido */}
       <div className="relative z-10 layout-container flex flex-col items-center justify-center w-full px-6 lg:px-8 py-20 mx-auto max-w-7xl">
         <div className="max-w-5xl text-center flex flex-col gap-6">
-          {/* Título: Renderiza el título normal y, si existe highlight, lo añade en azul */}
-          <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight font-heading drop-shadow-md">
+          <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight font-heading drop-shadow-lg">
             {title}{" "}
-            {highlight && <span className="text-primary">{highlight}</span>}
+            {highlight && (
+              <span className="text-primary block md:inline mt-2 md:mt-0">
+                {highlight}
+              </span>
+            )}
           </h1>
 
-          <p className="text-gray-100 text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto font-primary drop-shadow-sm">
+          <p className="text-gray-100 text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto font-primary drop-shadow-md">
             {subtitle}
           </p>
 
-          <div className="flex justify-center mt-6">
+          <div className="flex justify-center mt-8">
             <button
               onClick={onCtaClick}
-              className="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-10 rounded-lg shadow-lg transition-all transform hover:-translate-y-1 text-base border border-transparent font-primary"
+              className="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-lg shadow-xl transition-all transform text-lg border border-transparent font-primary"
             >
               {ctaText}
             </button>
