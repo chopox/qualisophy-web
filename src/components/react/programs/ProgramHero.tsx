@@ -1,8 +1,8 @@
 import React from "react";
 
 interface ProgramHeroProps {
-  // CAMBIO AQUÍ: De 'string' a 'React.ReactNode' para aceptar JSX
-  title: React.ReactNode;
+  title: string; // CAMBIO: Volvemos a string simple
+  highlight?: string; // NUEVO: Propiedad opcional para el texto azul
   subtitle: string;
   ctaText?: string;
   onCtaClick?: () => void;
@@ -11,6 +11,7 @@ interface ProgramHeroProps {
 
 export const ProgramHero: React.FC<ProgramHeroProps> = ({
   title,
+  highlight,
   subtitle,
   ctaText = "Ver detalles del programa",
   onCtaClick,
@@ -34,9 +35,10 @@ export const ProgramHero: React.FC<ProgramHeroProps> = ({
       {/* 3. Contenido */}
       <div className="relative z-10 layout-container flex flex-col items-center justify-center w-full px-6 lg:px-8 py-20 mx-auto max-w-7xl">
         <div className="max-w-5xl text-center flex flex-col gap-6">
-          {/* Título: Ahora renderiza el nodo de React (texto + spans) */}
+          {/* Título: Renderiza el título normal y, si existe highlight, lo añade en azul */}
           <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight font-heading drop-shadow-md">
-            {title}
+            {title}{" "}
+            {highlight && <span className="text-primary">{highlight}</span>}
           </h1>
 
           <p className="text-gray-100 text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto font-primary drop-shadow-sm">

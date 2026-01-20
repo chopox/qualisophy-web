@@ -1,16 +1,16 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-// REUTILIZAMOS los componentes de la carpeta 'programs'
+// Importación de componentes reactivos
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
 import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
 import { ProgramTestimonials } from "@/components/react/programs/ProgramTestimonials"; 
 import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
 
-// --- DATOS: MIGRANT TALENT (ENFOQUE ALIANZAS/ONGs) ---
+// --- DATOS DEL PROGRAMA ---
 
-// FASE 1: Identificación (Antes Validación)
+// FASE 1: Identificación
 const mappingData = {
   title: "Identificación y Traducción de Talento",
   description: [
@@ -25,7 +25,7 @@ const mappingData = {
   imageSrc: "https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80"
 };
 
-// FASE 2: Adaptación (Antes Formación Puente)
+// FASE 2: Adaptación
 const bridgeData = {
   title: "Adaptación Técnica y Cultural",
   description: [
@@ -40,25 +40,25 @@ const bridgeData = {
   imageSrc: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80"
 };
 
-// 4 PILARES DEL PROGRAMA (Actualizado)
+// PILARES DEL PROGRAMA
 const pillarsFeatures = [
   {
-    icon: "manage_search", // Icono de búsqueda/diagnóstico
+    icon: "manage_search", 
     title: "Diagnóstico Integral",
     description: "Analizamos el perfil completo del candidato, más allá de los títulos, para entender su verdadero potencial de empleabilidad."
   },
   {
-    icon: "school", // Formación
+    icon: "school",
     title: "Nivelación Estratégica",
     description: "Formación quirúrgica para cerrar brechas técnicas específicas y aumentar la empleabilidad en tiempo récord."
   },
   {
-    icon: "diversity_3", // Acompañamiento
+    icon: "diversity_3",
     title: "Red de Mentores",
     description: "Acompañamiento psicosocial y profesional por parte de expertos del sector que guían la transición cultural."
   },
   {
-    icon: "handshake", // Alianzas
+    icon: "handshake",
     title: "Conexión Corporativa",
     description: "Intermediación directa con empresas partners comprometidas con la diversidad, facilitando la contratación final."
   }
@@ -71,43 +71,53 @@ const pillarsFeatures = [
   fullWidth={true}
 >
   
-  {/* 1. HERO - Enfoque B2B / Colaborativo */}
+  {/* 1. HERO - Fondo Azul */}
+  {/* SOLUCIÓN: Usamos 'title' para la parte blanca y 'highlight' para la parte azul */}
   <ProgramHero 
     client:load
-    title="Alianzas que Transforman Vidas: Inclusión Tecnológica"
+    title="Alianzas que Transforman Vidas:" 
+    highlight="Inclusión Tecnológica"
     subtitle="Colaboramos con ONGs e instituciones para conectar el talento global con oportunidades locales, creando un ecosistema de impacto real."
     backgroundImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
     ctaText="Colaborar con Nosotros" 
   />
 
-  {/* 2. ZIG-ZAG FASE 1: Identificación */}
+  {/* 2. METODOLOGÍA FASE 1 - Fondo BLANCO */}
   <ProgramMethodology 
     client:visible
     {...mappingData}
     reverse={false}
+    variant="white"
   />
 
-  {/* 3. ZIG-ZAG FASE 2: Adaptación */}
+  {/* 3. METODOLOGÍA FASE 2 - Fondo AZUL */}
   <ProgramMethodology 
     client:visible
     {...bridgeData}
     reverse={true}
+    variant="blue"
   />
 
-  {/* 4. PILARES: 4 Columnas (Nuevo layout 'grid4' y color Dark para resaltar) */}
+  {/* 4. PILARES - Fondo BLANCO */}
   <ProgramFeatures 
     client:visible
     title="Pilares de Intervención"
     subtitle="Un modelo integral diseñado para maximizar la tasa de éxito en la inserción laboral."
     features={pillarsFeatures}
-    variant="gray"
+    variant="light"
     layout="grid4" 
   />
 
-  {/* 5. TESTIMONIOS FUNCIONALES */}
-  <ProgramTestimonials client:visible />
+  {/* 5. TESTIMONIOS - Fondo AZUL */}
+  <ProgramTestimonials 
+    client:visible 
+    variant="blue"
+  />
 
-  {/* 6. CTA FINAL */}
-  <ProgramCTA client:visible />
+  {/* 6. CTA FINAL - Fondo BLANCO */}
+  <ProgramCTA 
+    client:visible 
+    variant="white"
+  />
 
 </Layout>
