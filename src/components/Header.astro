@@ -1,195 +1,227 @@
 ---
 import { Image } from "astro:assets";
-import logoImage from "@/assets/logo-q.png";
+import logoText from "@/assets/logo-q.png";
+import logoIcon from "@/assets/logo-q-2.png";
 import Menu from "@lucide/astro/icons/menu";
 import { LanguageSelector } from "@/components/react/shared/LanguageSelector";
 
 const currentPath = Astro.url.pathname;
+
+// Lógica para marcar activo el menú
 const isHome = currentPath === "/";
 const isContact = currentPath === "/contact";
-const isLearning = currentPath.includes("/learning");
 const isPartnership = currentPath === "/partnership";
-const isCorporate = currentPath.includes("/corporate-training");
-const isFormaciones = isLearning || isCorporate;
-const isTalentInclusion = currentPath === "/talent-inclusion";
 
+// Grupo Programas
+const isNeuro = currentPath === "/neurodivergence";
+const isMigrant = currentPath === "/migrant-talent";
+const isSocial = currentPath === "/social-impact";
+const isProgramsGroup = isNeuro || isMigrant || isSocial;
+
+// Grupo Cursos
+const isReskilling = currentPath === "/reskilling";
+const isCorporate = currentPath.includes("/corporate-training");
+const isCoursesGroup = isReskilling || isCorporate;
+
+// Clases comunes para los items del menú desplegable - Estilo unificado
+const dropdownItemClass = "block px-4 py-2 rounded-lg transition-all duration-200 text-sm";
+// Sin font-bold para igualar a LanguageSelector
+const dropdownActiveItemClass = "text-primary bg-blue-50"; 
+const dropdownInactiveItemClass = "text-gray-700 hover:text-primary hover:bg-gray-50";
 ---
 
-<header class="bg-secondary text-white shadow-lg relative z-50">
-  <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="/" class="block">
-      <Image
-        loading="eager"
-        src={logoImage}
-        alt="Qualisophy Logo"
-        width={50}
-        height={25}
-        format="webp"
-        quality={90}
-        densities={[1, 2]}
-        sizes="80px"
-        decoding="async"
-      />
+<header class="sticky top-0 z-50 bg-white text-secondary shadow-sm border-b border-gray-100 transition-all duration-300">
+  <nav class="container mx-auto px-6 flex items-center justify-between h-20">
+
+    {/* --- LOGOS --- */}
+    <a href="/" class="block shrink-0 py-2">
+      {/* 1. Logo Móvil (Solo Icono) */}
+      <div class="md:hidden flex items-center">
+        <Image
+          loading="eager"
+          src={logoIcon}
+          alt="Qualisophy Logo"
+          width={60}
+          height={60}
+          format="webp"
+          class="w-12 h-auto"
+        />
+      </div>
+
+      {/* 2. Logo Escritorio (Texto/Completo) */}
+      <div class="hidden md:flex items-center">
+        <Image
+          loading="eager"
+          src={logoText}
+          alt="Qualisophy Logo"
+          width={240}
+          height={70}
+          format="webp"
+          class="w-56 lg:w-60 h-auto object-contain"
+        />
+      </div>
     </a>
 
-    {/* Desktop Menu */}
-    <ul class="hidden md:flex items-center space-x-8 relative">
-      <li>
+    {/* --- DESKTOP MENU --- */}
+    <ul class="hidden lg:flex items-center space-x-6 xl:space-x-10 font-medium text-[15px] h-full">
+
+      {/* Inicio */}
+      <li class="h-full flex items-center">
         <a
           href="/"
-          class={`transition-colors hover:text-primary ${isHome ? "text-primary font-semibold" : "text-slate-300"}`}
+          class={`transition-colors hover:text-primary ${isHome ? "text-primary font-bold" : "text-secondary"}`}
           data-i18n="nav.home">Inicio</a
         >
       </li>
 
-      <li>
-        <a
-          href="/talent-inclusion"
-          class:list={[
-            "relative transition-colors hover:text-primary",
-            "before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary",
-            "before:opacity-30 before:blur-md before:animate-pulse",
-            "hover:before:opacity-75 hover:before:blur-lg",
-            isTalentInclusion ? "text-primary font-semibold" : "text-slate-300",
-          ]}
+      {/* DROPDOWN 1: Programas Formativos */}
+      <li class="relative group h-full flex items-center">
+        <button
+          class={`flex items-center space-x-1 transition-colors hover:text-primary focus:outline-none h-full
+            ${isProgramsGroup ? "text-primary font-bold" : "text-secondary"}`}
         >
-          <span class="relative z-10" data-i18n="nav.talent"
-            >Inclusión laboral</span
-          >
-        </a>
+          <span>Programas Formativos</span>
+          <span class="transform transition-transform duration-300 group-hover:rotate-180 text-xs mt-0.5">▼</span>
+        </button>
+
+        {/* Menú Desplegable: Añadido -mt-5 para subirlo y alinearlo con LanguageSelector */}
+        <div class="absolute top-full left-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 p-2 z-50 -mt-5">
+          <div class="flex flex-col gap-1">
+            <a href="/neurodivergence" class={`${dropdownItemClass} ${isNeuro ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>
+              Neurodivergencia
+            </a>
+            <a href="/migrant-talent" class={`${dropdownItemClass} ${isMigrant ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>
+              Talento Migrante
+            </a>
+            <a href="/social-impact" class={`${dropdownItemClass} ${isSocial ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>
+              Riesgo de Exclusión
+            </a>
+          </div>
+        </div>
       </li>
 
-      <li class="relative group">
-  <button
-    class={`flex items-center space-x-1 transition-colors hover:text-primary focus:outline-none
-      ${isFormaciones ? "text-primary font-semibold" : "text-slate-300"}`}
-  >
-    <span data-i18n="nav.training">Formaciones</span>
+      {/* DROPDOWN 2: Nuestros Cursos */}
+      <li class="relative group h-full flex items-center">
+        <button
+          class={`flex items-center space-x-1 transition-colors hover:text-primary focus:outline-none h-full
+            ${isCoursesGroup ? "text-primary font-bold" : "text-secondary"}`}
+        >
+          <span>Nuestros Cursos</span>
+          <span class="transform transition-transform duration-300 group-hover:rotate-180 text-xs mt-0.5">▼</span>
+        </button>
 
-    <span
-      class="transform transition-transform duration-300 group-hover:rotate-180 text-lg"
-      >▾</span
-    >
-  </button>
+        {/* Menú Desplegable: Añadido -mt-5 para subirlo y alinearlo con LanguageSelector */}
+        <div class="absolute top-full left-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 p-2 z-50 -mt-5">
+          <div class="flex flex-col gap-1">
+            <a href="/reskilling" class={`${dropdownItemClass} ${isReskilling ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>
+              Reciclaje Laboral
+            </a>
+            <a href="/corporate-training" class={`${dropdownItemClass} ${isCorporate ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>
+              Formación Empresas
+            </a>
+          </div>
+        </div>
+      </li>
 
-  <ul
-    class="absolute left-0 mt-2 w-56 bg-secondary text-slate-800 rounded-lg shadow-2xl border border-white/10 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300 z-50"
-  >
-    <li>
-      <a
-        href="/learning"
-        class={`block px-4 py-2 rounded-lg text-white hover:bg-white/20 transition-colors
-          ${isLearning ? "font-semibold" : ""}`}
-        data-i18n="nav.courses">Cursos</a
-      >
-    </li>
-    <li>
-      <a
-        href="/corporate-training"
-        class={`block px-4 py-2 rounded-lg text-white hover:bg-white/20 transition-colors
-          ${isCorporate ? "font-semibold" : ""}`}
-        data-i18n="nav.corporate">Formación Empresas</a
-      >
-    </li>
-  </ul>
-</li>
-
-      <li>
+      {/* Partnership */}
+      <li class="h-full flex items-center">
         <a
           href="/partnership"
-          class={`transition-colors hover:text-primary ${isPartnership ? "text-primary font-semibold" : "text-slate-300"}`}
+          class={`transition-colors hover:text-primary ${isPartnership ? "text-primary font-bold" : "text-secondary"}`}
           data-i18n="nav.partnership">Partnership</a
         >
       </li>
 
-      <li>
+      {/* Contacto */}
+      <li class="h-full flex items-center">
         <a
           href="/contact"
-          class={`transition-colors hover:text-primary ${isContact ? "text-primary font-semibold" : "text-slate-300"}`}
+          class={`transition-colors hover:text-primary ${isContact ? "text-primary font-bold" : "text-secondary"}`}
           data-i18n="nav.contact">Contacto</a
         >
       </li>
 
-      {/* Language Selector - Desktop */}
-      <li>
-        <LanguageSelector client:load />
+      {/* Selector de Idioma */}
+      <li class="pl-4 border-l border-gray-200 h-10 flex items-center">
+        <div class="text-secondary hover:text-primary font-medium">
+            <LanguageSelector client:load />
+        </div>
       </li>
     </ul>
 
-    {/* Hamburger Button */}
+    {/* Hamburger Button (Mobile) */}
     <button
       data-sidebar-toggle
-      class="md:hidden text-white hover:text-primary transition-colors"
+      class="lg:hidden text-secondary hover:text-primary transition-colors p-2"
       aria-label="Toggle mobile menu"
     >
-      <Menu />
+      <Menu class="w-8 h-8" />
     </button>
   </nav>
 
-  {/* Sidebar Móvil */}
+  {/* --- SIDEBAR MÓVIL --- */}
   <aside
     id="mobile-sidebar"
-    class="fixed top-0 right-0 h-full w-64 bg-secondary shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-[9999] flex flex-col p-6 space-y-6"
+    class="fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-[10000] flex flex-col overflow-y-auto"
   >
-    <button
-      id="close-sidebar"
-      class="self-end text-white hover:text-primary transition-colors text-2xl font-bold"
-      aria-label="Close menu">×</button
-    >
+    <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50 h-20 shrink-0">
+      <span class="font-bold text-xl text-secondary">Menú</span>
+      <button
+        id="close-sidebar"
+        class="text-gray-400 hover:text-primary transition-colors p-2"
+        aria-label="Close menu">
+        <span class="material-symbols-outlined text-3xl">close</span>
+      </button>
+    </div>
 
-    <a
-      href="/"
-      class={`block transition-colors hover:text-primary ${isHome ? "text-primary font-semibold" : "text-slate-300"}`}
-      data-i18n="nav.home">Inicio</a
-    >
+    {/* Padding bottom extra para que quepa el desplegable de idioma */}
+    <div class="p-6 flex flex-col space-y-1 pb-32">
+        <a href="/" class={`py-3 px-4 rounded-xl hover:bg-gray-50 ${isHome ? "text-primary font-bold bg-blue-50" : "text-secondary font-medium"}`}>
+            Inicio
+        </a>
 
-    <a
-      href="/talent-inclusion"
-      class:list={[
-        "w-fit relative transition-colors hover:text-primary",
-        "before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary",
-        "before:opacity-30 before:blur-md before:animate-pulse",
-        "hover:before:opacity-75 hover:before:blur-lg",
-        isTalentInclusion ? "text-primary font-semibold" : "text-slate-300",
-      ]}
-    >
-      <span class="relative z-10" data-i18n="nav.talent">Inclusión laboral</span
-      >
-    </a>
+        <div class="pt-6 pb-2 px-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Programas Formativos</div>
+        <a href="/neurodivergence" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isNeuro ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Neurodivergencia</a>
+        <a href="/migrant-talent" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isMigrant ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Talento Migrante</a>
+        <a href="/social-impact" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isSocial ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Riesgo de Exclusión</a>
 
-    <a
-      href="/learning"
-      class={`block transition-colors hover:text-primary ${isLearning ? "text-primary font-semibold" : "text-slate-300"}`}
-      data-i18n="nav.courses">Cursos</a
-    >
-    <a
-      href="/corporate-training"
-      class={`block transition-colors hover:text-primary ${isCorporate ? "text-primary font-semibold" : "text-slate-300"}`}
-      data-i18n="nav.corporate">Formación Empresas</a
-    >
-    <a
-      href="/partnership"
-      class={`block transition-colors hover:text-primary ${isPartnership ? "text-primary font-semibold" : "text-slate-300"}`}
-      data-i18n="nav.partnership">Partnership</a
-    >
-    <a
-      href="/contact"
-      class={`block transition-colors hover:text-primary ${isContact ? "text-primary font-semibold" : "text-slate-300"}`}
-      data-i18n="nav.contact">Contacto</a
-    >
+        <div class="pt-6 pb-2 px-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Nuestros Cursos</div>
+        <a href="/reskilling" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isReskilling ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Reciclaje Laboral</a>
+        <a href="/corporate-training" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isCorporate ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Formación Empresas</a>
 
-    {/* Language Selector - Mobile */}
-    <div class="pt-4 border-t border-white/10">
-      <LanguageSelector client:load />
+        <div class="my-4 border-t border-gray-100"></div>
+
+        <a href="/partnership" class={`py-3 px-4 rounded-xl hover:bg-gray-50 ${isPartnership ? "text-primary font-bold bg-blue-50" : "text-secondary font-medium"}`}>
+            Partnership
+        </a>
+        <a href="/contact" class={`py-3 px-4 rounded-xl hover:bg-gray-50 ${isContact ? "text-primary font-bold bg-blue-50" : "text-secondary font-medium"}`}>
+            Contacto
+        </a>
+
+        <div class="pt-6 mt-2 px-4">
+             <div class="text-secondary font-medium p-2 bg-gray-50 rounded-lg inline-block w-full text-center">
+                <LanguageSelector client:load />
+             </div>
+        </div>
     </div>
   </aside>
 
-  {/* Dark Overlay */}
   <div
     id="sidebar-overlay"
-    class="hidden fixed inset-0 bg-black bg-opacity-50 z-[9998] transition-opacity duration-300 ease-in-out"
+    class="hidden fixed inset-0 bg-secondary/20 z-[9998] backdrop-blur-sm transition-opacity duration-300 ease-in-out"
   >
   </div>
+
+  <style is:global>
+    body.menu-open iframe,
+    body.menu-open .intercom-lightweight-app,
+    body.menu-open #hubspot-messages-iframe-container,
+    body.menu-open div[class*="chat"] {
+      display: none !important;
+      visibility: hidden !important;
+      z-index: -1 !important;
+    }
+  </style>
 
   <script>
     import { getCurrentLanguage, getTranslations } from "@/i18n/ui";
@@ -197,22 +229,15 @@ const isTalentInclusion = currentPath === "/talent-inclusion";
     function updateTranslations() {
       const lang = getCurrentLanguage();
       const translations = getTranslations(lang);
-
-      // Update all elements with data-i18n attribute
       document.querySelectorAll("[data-i18n]").forEach((element) => {
-        const key = element.getAttribute(
-          "data-i18n"
-        ) as keyof typeof translations;
+        const key = element.getAttribute("data-i18n") as keyof typeof translations;
         if (key && translations[key]) {
           element.textContent = translations[key];
         }
       });
     }
 
-    // Update translations on load
     document.addEventListener("DOMContentLoaded", updateTranslations);
-
-    // Update translations when language changes
     window.addEventListener("languageChanged", updateTranslations);
   </script>
 
@@ -226,22 +251,20 @@ const isTalentInclusion = currentPath === "/talent-inclusion";
       const openSidebar = () => {
         sidebar.classList.remove("translate-x-full");
         overlay.classList.remove("hidden");
+        document.body.classList.add("overflow-hidden");
         document.body.classList.add("menu-open");
       };
 
       const closeSidebar = () => {
         sidebar.classList.add("translate-x-full");
         overlay.classList.add("hidden");
+        document.body.classList.remove("overflow-hidden");
         document.body.classList.remove("menu-open");
       };
 
       toggleButton?.addEventListener("click", openSidebar);
       closeButton?.addEventListener("click", closeSidebar);
       overlay?.addEventListener("click", closeSidebar);
-
-      sidebar.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", closeSidebar);
-      });
     });
   </script>
 </header>
