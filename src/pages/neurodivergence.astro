@@ -90,45 +90,55 @@ const studyPlan = [
   fullWidth={true}
 >
   
+  {/* 1. HERO - Fondo Azul (Imagen + Overlay) */}
   <ProgramHero 
     client:load
-    title="Potenciando Habilidades Únicas: Talento Neurodivergente"
+    title={"Potenciando Habilidades Únicas:"} 
+    highlight={"Talento Neurodivergente"}
     subtitle="Programas diseñados para la inclusión de personas con TDAH y Autismo en el sector tecnológico."
     backgroundImage="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2069&auto=format&fit=crop"
   />
 
+  {/* 2. METODOLOGÍA - Fondo BLANCO */}
   <ProgramMethodology 
     client:visible
     {...methodologyData}
+    variant="white"
   />
 
-  {/* SECCIÓN 1: FORMACIÓN -> LAYOUT ZIG-ZAG */}
+  {/* 3. FORMACIÓN (Features 1) - Fondo AZUL (variant="dark") */}
   <ProgramFeatures 
     client:visible
     title="Formación Personalizada"
     subtitle="Un programa vivo que se adapta a ti, no al revés."
     features={trainingFeatures}
-    variant="light"
+    variant="dark" 
     layout="zigzag" 
   />
 
-  {/* SECCIÓN 2: BENEFICIOS -> LAYOUT GRID 4 COLUMNAS */}
-<ProgramFeatures 
+  {/* 4. BENEFICIOS (Features 2) - Fondo BLANCO */}
+  <ProgramFeatures 
     client:visible
     title="¿Por qué elegirnos?"
     subtitle="Diseñado específicamente para impulsar tu éxito profesional y bienestar."
     features={benefitsFeatures}
-    variant="gray"
+    variant="light"
     layout="grid4" 
   />
 
+  {/* 5. PLAN DE ESTUDIOS (Curriculum) - Fondo AZUL */}
   <ProgramCurriculum 
     client:visible
     title="Plan de Estudios"
     subtitle="Una ruta de aprendizaje estructurada para potenciar tus habilidades técnicas y blandas."
     steps={studyPlan}
+    variant="blue"
   />
 
-  <ProgramCTA client:visible />
+  {/* 6. CTA - Fondo BLANCO */}
+  <ProgramCTA 
+    client:visible 
+    variant="white"
+  />
 
 </Layout>

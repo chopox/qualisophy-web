@@ -10,45 +10,37 @@ interface ProgramCurriculumProps {
   title: string;
   subtitle: string;
   steps: StudyStep[];
+  variant?: "white" | "blue";
 }
 
 export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
   title,
   subtitle,
   steps,
+  variant = "white",
 }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const accordionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const handleDotClick = (index: number) => {
-    // 1. Abrimos el acordeón
-    setOpenIndex(index);
+  const isBlue = variant === "blue";
 
-    // 2. Lógica de Scroll Inteligente
+  const handleDotClick = (index: number) => {
+    setOpenIndex(index);
     setTimeout(() => {
       const element = accordionRefs.current[index];
       if (element) {
         const rect = element.getBoundingClientRect();
-
-        // Configuración de márgenes "seguros"
-        const headerOffset = 120; // Altura del header sticky + un poco de aire
-        const bottomOffset = 100; // Margen inferior para no quedar pegado abajo
+        const headerOffset = 120;
+        const bottomOffset = 100;
         const viewportHeight = window.innerHeight;
-
-        // Comprobamos si el elemento (su cabecera) está visible en la "zona segura" de la pantalla
         const isComfortablyVisible =
           rect.top >= headerOffset && rect.top <= viewportHeight - bottomOffset;
 
-        // SOLO hacemos scroll si está fuera de la vista
         if (!isComfortablyVisible) {
           const scrollTop =
             window.scrollY || document.documentElement.scrollTop;
           const targetPosition = rect.top + scrollTop - headerOffset;
-
-          window.scrollTo({
-            top: targetPosition,
-            behavior: "smooth",
-          });
+          window.scrollTo({ top: targetPosition, behavior: "smooth" });
         }
       }
     }, 150);
@@ -59,14 +51,29 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
   };
 
   return (
-    <section className="px-6 py-16 lg:px-12 lg:py-24 flex justify-center bg-white w-full">
+    <section
+      className={`
+        px-6 py-16 lg:px-12 lg:py-24 flex justify-center w-full transition-colors
+        ${isBlue ? "bg-secondary" : "bg-white"}
+      `}
+    >
       <div className="max-w-7xl w-full flex flex-col gap-16">
         {/* CABECERA */}
         <div className="flex flex-col gap-6 text-center md:text-left">
-          <h2 className="text-secondary text-3xl font-bold leading-tight md:text-4xl lg:text-5xl font-heading">
+          <h2
+            className={`
+              text-3xl font-bold leading-tight md:text-4xl lg:text-5xl font-heading
+              ${isBlue ? "text-white" : "text-secondary"}
+            `}
+          >
             {title}
           </h2>
-          <p className="text-gray-600 text-lg lg:text-xl font-normal font-primary">
+          <p
+            className={`
+              text-lg lg:text-xl font-normal font-primary
+              ${isBlue ? "text-gray-300" : "text-gray-600"}
+            `}
+          >
             {subtitle}
           </p>
         </div>
@@ -75,7 +82,12 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
         <div className="hidden md:block w-full px-4 lg:px-12 mb-8">
           <div className="relative flex justify-between items-start w-full">
             {/* LÍNEA CONECTORA (z-0 para ir detrás) */}
-            <div className="absolute top-8 left-24 right-24 h-[3px] bg-gray-200 -translate-y-1/2 z-0"></div>
+            <div
+              className={`
+                absolute top-8 left-24 right-24 h-[3px] -translate-y-1/2 z-0
+                ${isBlue ? "bg-white/20" : "bg-gray-200"}
+              `}
+            ></div>
 
             {/* Nodos */}
             {steps.map((step, index) => {
@@ -89,11 +101,13 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                 >
                   <div
                     className={`
-                      size-16 rounded-full flex items-center justify-center text-2xl font-bold transition-all duration-300 border-4 cursor-pointer shadow-md
+                      size-16 rounded-full flex items-center justify-center text-2xl font-bold transition-all duration-300 border-4 cursor-pointer shadow-md relative z-20
                       ${
                         isActive
-                          ? "bg-primary border-primary text-white scale-110 shadow-xl" // ACTIVO: Color Primario
-                          : "bg-secondary border-secondary text-white hover:bg-secondary/90" // INACTIVO: Color Secundario
+                          ? "bg-primary border-primary text-white scale-110 shadow-xl"
+                          : isBlue
+                            ? "bg-secondary border-white/20 text-white hover:border-white hover:bg-secondary" // Fondo sólido bg-secondary para tapar línea
+                            : "bg-white border-gray-200 text-gray-500 hover:border-primary hover:text-primary hover:bg-white" // Fondo sólido bg-white
                       }
                     `}
                   >
@@ -106,7 +120,9 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                       ${
                         isActive
                           ? "text-primary font-bold"
-                          : "text-gray-500 group-hover:text-secondary"
+                          : isBlue
+                            ? "text-gray-400 group-hover:text-white"
+                            : "text-gray-500 group-hover:text-secondary"
                       }
                     `}
                   >
@@ -126,24 +142,26 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
             return (
               <div
                 key={index}
-                // Corregimos el tipo de ref con la función de callback
                 ref={(el) => {
                   accordionRefs.current[index] = el;
                 }}
                 className={`
-                  group flex flex-col rounded-2xl border bg-white overflow-hidden transition-all duration-300
+                  group flex flex-col rounded-2xl border overflow-hidden transition-all duration-300
                   ${
                     isOpen
-                      ? "border-primary shadow-md ring-1 ring-primary/20"
-                      : "border-gray-200 hover:border-gray-300"
+                      ? isBlue
+                        ? "border-white/20 bg-white/5 shadow-xl ring-1 ring-white/10"
+                        : "border-primary shadow-md ring-1 ring-primary/20 bg-white"
+                      : isBlue
+                        ? "bg-white/5 border-white/10 hover:bg-white/10"
+                        : "bg-gray-50 border-gray-200 hover:border-gray-300"
                   }
                 `}
               >
                 <button
                   onClick={() => toggleStep(index)}
                   className={`
-                    flex items-center justify-between gap-6 p-6 lg:p-8 w-full text-left transition-colors cursor-pointer
-                    ${isOpen ? "bg-white" : "bg-gray-50 hover:bg-white"}
+                    flex items-center justify-between gap-6 p-6 lg:p-8 w-full text-left transition-colors cursor-pointer bg-transparent
                   `}
                 >
                   <div className="flex items-center gap-6">
@@ -153,7 +171,9 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                         ${
                           isOpen
                             ? "bg-primary text-white border-primary"
-                            : "bg-white text-primary border-primary"
+                            : isBlue
+                              ? "bg-transparent text-white border-white/30"
+                              : "bg-white text-primary border-primary"
                         }
                       `}
                     >
@@ -161,9 +181,18 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                     </span>
 
                     <p
-                      className={`text-lg md:text-xl font-bold leading-normal font-heading ${
-                        isOpen ? "text-primary" : "text-secondary"
-                      }`}
+                      className={`
+                        text-lg md:text-xl font-bold leading-normal font-heading
+                        ${
+                          isBlue
+                            ? isOpen
+                              ? "text-white"
+                              : "text-gray-200"
+                            : isOpen
+                              ? "text-primary"
+                              : "text-secondary"
+                        }
+                      `}
                     >
                       {step.title}
                     </p>
@@ -172,7 +201,15 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                   <span
                     className={`
                       material-symbols-outlined text-2xl transition-transform duration-300 shrink-0
-                      ${isOpen ? "rotate-180 text-primary" : "text-gray-400"}
+                      ${
+                        isOpen
+                          ? isBlue
+                            ? "rotate-180 text-white"
+                            : "rotate-180 text-primary"
+                          : isBlue
+                            ? "text-gray-400"
+                            : "text-gray-400"
+                      }
                     `}
                   >
                     expand_more
@@ -182,16 +219,17 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                 <div
                   className={`
                     grid transition-all duration-300 ease-in-out
-                    ${
-                      isOpen
-                        ? "grid-rows-[1fr] opacity-100"
-                        : "grid-rows-[0fr] opacity-0"
-                    }
+                    ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}
                   `}
                 >
                   <div className="overflow-hidden">
                     <div className="px-6 lg:px-8 pb-8 pt-0 pl-[5.5rem] lg:pl-[6.5rem]">
-                      <p className="text-gray-600 text-lg font-normal leading-relaxed font-primary">
+                      <p
+                        className={`
+                            text-lg font-normal leading-relaxed font-primary
+                            ${isBlue ? "text-gray-300" : "text-gray-600"}
+                        `}
+                      >
                         {step.description}
                       </p>
                     </div>
