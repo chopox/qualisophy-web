@@ -52,6 +52,11 @@ const pillarsData = [
     icon: "domain",
     title: "Prácticas en Empresa",
     description: "Oportunidades reales de aplicar tus conocimientos en entornos corporativos para ganar experiencia práctica y visibilidad."
+  },
+  {
+    icon: "hub", // NUEVO PILAR
+    title: "Networking Estratégico",
+    description: "Accede a eventos exclusivos y conecta con una comunidad activa que te abrirá puertas en el ecosistema tecnológico."
   }
 ];
 
@@ -70,6 +75,11 @@ const transformationRoutes = [
     icon: "bug_report", 
     title: "QA Tester",
     description: "Tu empatía con el cliente (Atención al Cliente) y resolución de problemas te hacen ideal para asegurar la calidad del software."
+  },
+  {
+    icon: "view_kanban", // NUEVA RUTA
+    title: "IT Project Manager",
+    description: "Tu experiencia gestionando equipos es oro. Certifícate en metodologías ágiles (Scrum/Kanban) para liderar el desarrollo de producto."
   }
 ];
 ---
@@ -80,50 +90,56 @@ const transformationRoutes = [
   fullWidth={true}
 >
   
-  {/* HERO */}
+  {/* 1. HERO - Fondo Azul */}
   <ProgramHero 
     client:load
-    title="Tu Reinvención Profesional Comienza Aquí"
+    title={"Tu Reinvención Profesional"}
+    highlight={"Comienza Aquí"}
     subtitle="Transformamos tu experiencia previa en nuevas competencias digitales para el mercado tecnológico actual."
     backgroundImage="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80"
     ctaText="Ver Programas"
   />
 
-  {/* FASE 1: Experiencia (Zig-Zag Normal) */}
+  {/* 2. FASE 1: Experiencia - Fondo BLANCO */}
   <ProgramMethodology 
     client:visible
     {...experienceToInnovationData}
     reverse={false}
+    variant="white"
   />
 
-  {/* FASE 2: Transición (Zig-Zag Inverso) */}
+  {/* 3. FASE 2: Transición - Fondo AZUL (Alternancia) */}
   <ProgramMethodology 
     client:visible
     {...transitionSupportData}
     reverse={true}
+    variant="blue" 
   />
 
-  {/* PILARES DEL PROGRAMA (3 Cards) */}
+  {/* 4. PILARES - Fondo BLANCO (Grid de 4 elementos) */}
   <ProgramFeatures 
     client:visible
     title="Pilares del Programa"
-    subtitle="Tres fundamentos que garantizan tu éxito en el nuevo rol."
+    subtitle="Cuatro fundamentos que garantizan tu éxito en el nuevo rol."
     features={pillarsData}
-    variant="gray"
+    variant="light" 
     layout="cards" 
   />
 
-  {/* RUTAS DE TRANSFORMACIÓN (Grid 3 Columnas) */}
+  {/* 5. RUTAS DE TRANSFORMACIÓN - Fondo OSCURO (Glassmorphism - Grid de 4 elementos) */}
   <ProgramFeatures 
     client:visible
     title="Rutas de Transformación Comunes"
     subtitle="Descubre cómo tu perfil actual puede evolucionar hacia roles tecnológicos de alto impacto."
     features={transformationRoutes}
-    variant="light"
+    variant="dark" 
     layout="list"
   />
 
-  {/* CTA FINAL */}
-  <ProgramCTA client:visible />
+  {/* 6. CTA FINAL - Fondo BLANCO */}
+  <ProgramCTA 
+    client:visible 
+    variant="white"
+  />
 
 </Layout>
