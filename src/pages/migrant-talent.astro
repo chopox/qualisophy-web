@@ -72,7 +72,6 @@ const pillarsFeatures = [
 >
   
   {/* 1. HERO - Fondo Azul */}
-  {/* SOLUCIÓN: Usamos 'title' para la parte blanca y 'highlight' para la parte azul */}
   <ProgramHero 
     client:load
     title="Alianzas que Transforman Vidas:" 
@@ -90,7 +89,8 @@ const pillarsFeatures = [
     variant="white"
   />
 
-  {/* 3. METODOLOGÍA FASE 2 - Fondo AZUL */}
+  {/* 3. METODOLOGÍA FASE 2 - Fondo GRIS */}
+  {/* variant="blue" ahora renderiza fondo GRIS CLARO */}
   <ProgramMethodology 
     client:visible
     {...bridgeData}
@@ -108,7 +108,8 @@ const pillarsFeatures = [
     layout="grid4" 
   />
 
-  {/* 5. TESTIMONIOS - Fondo AZUL */}
+  {/* 5. TESTIMONIOS - Fondo GRIS */}
+  {/* variant="blue" -> GRIS CLARO */}
   <ProgramTestimonials 
     client:visible 
     variant="blue"

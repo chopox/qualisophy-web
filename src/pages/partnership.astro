@@ -6,7 +6,8 @@ import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
 import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
 import { ProgramCurriculum } from "@/components/react/programs/ProgramCurriculum";
-import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
+// CAMBIO: Importamos el CTA específico para Partnership
+import { PartnershipCTA } from "@/components/react/partnership/PartnershipCTA";
 
 // --- DATOS: PARTNERSHIP / B2B ---
 
@@ -93,32 +94,31 @@ const partnershipProcess = [
     variant="white"
   />
 
-  {/* 3. MODELOS DE COLABORACIÓN - Fondo BLANCO (Diseño Pilares) */}
-  {/* Usamos layout="pillars" para que luzca moderno y abierto sobre fondo blanco */}
+  {/* 3. MODELOS DE COLABORACIÓN - Fondo GRIS */}
+  {/* variant="dark" renderiza bg-gray-50 en el nuevo sistema */}
   <ProgramFeatures 
     client:visible
     title="Modelos de Colaboración Flexible"
     subtitle="Adapta la alianza a tus necesidades de contratación, formación y estrategia de RSC."
     features={collaborationModels}
-    variant="light" 
+    variant="dark" 
     layout="pillars" 
   />
 
-  {/* 4. ROADMAP - Fondo AZUL (Oscuro) */}
-  {/* Esto rompe el ritmo visual antes de llegar al CTA final */}
+  {/* 4. ROADMAP - Fondo BLANCO */}
   <ProgramCurriculum 
     client:visible
     title="Roadmap de la Alianza"
     subtitle="Un proceso estructurado, sencillo y eficaz para garantizar el éxito de la colaboración."
     steps={partnershipProcess}
-    variant="blue"
+    variant="white"
   />
 
-  {/* 5. CTA FINAL - Fondo BLANCO */}
-  {/* Conecta limpio con el Footer oscuro */}
-  <ProgramCTA 
+  {/* 5. CTA FINAL - Fondo GRIS */}
+  {/* CAMBIO: Usamos PartnershipCTA con variant="gray" */}
+  <PartnershipCTA 
     client:visible 
-    variant="white"
+    variant="gray"
   />
 
 </Layout>

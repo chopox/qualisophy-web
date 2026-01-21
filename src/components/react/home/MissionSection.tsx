@@ -45,14 +45,13 @@ export const MissionSection: React.FC<MissionSectionProps> = ({
                     check_circle
                   </span>
                   <span className="text-secondary font-medium">
-                    Mentoría Expert
+                    Mentoría Experta
                   </span>
                 </div>
               </div>
             </div>
 
             {/* Contenido de Imagen */}
-
             <div className="w-full md:flex-1 h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-xl relative bg-gray-100 group order-2">
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"

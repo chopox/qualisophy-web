@@ -68,10 +68,10 @@ export const ProgramTestimonials: React.FC<ProgramTestimonialsProps> = ({
   const [scrollLeft, setScrollLeft] = useState(0);
   const [isResetting, setIsResetting] = useState(false);
 
-  // Determinamos si el fondo es azul para ajustar estilos
-  const isBlue = variant === "blue";
+  // En el nuevo sistema, "blue" significa fondo GRIS CLARO
+  const isGrayVariant = variant === "blue";
 
-  // --- 1. Inicialización: Posicionar en el medio (Set 2) ---
+  // --- 1. Inicialización ---
   useEffect(() => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
@@ -80,24 +80,20 @@ export const ProgramTestimonials: React.FC<ProgramTestimonialsProps> = ({
     }
   }, []);
 
-  // --- 2. Lógica de "Teletransporte" Infinito ---
+  // --- 2. Lógica Scroll Infinito ---
   const handleScroll = () => {
     if (!scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
-
     const totalWidth = container.scrollWidth;
     const singleSetWidth = totalWidth / 3;
     const currentScroll = container.scrollLeft;
-
     const itemWidth = (container.children[0] as HTMLElement).offsetWidth + 24;
-
     const absoluteIndex = Math.round(currentScroll / itemWidth);
     setRealIndex(absoluteIndex % originalTestimonials.length);
 
     if (isDragging || isResetting) return;
 
     const tolerance = 10;
-
     if (currentScroll >= singleSetWidth * 2 - tolerance) {
       disableSmoothScroll(() => {
         container.scrollLeft = currentScroll - singleSetWidth;
@@ -114,9 +110,7 @@ export const ProgramTestimonials: React.FC<ProgramTestimonialsProps> = ({
     setIsResetting(true);
     scrollContainerRef.current.style.scrollBehavior = "auto";
     scrollContainerRef.current.style.scrollSnapType = "none";
-
     callback();
-
     requestAnimationFrame(() => {
       if (scrollContainerRef.current) {
         scrollContainerRef.current.style.scrollBehavior = "smooth";
@@ -126,7 +120,7 @@ export const ProgramTestimonials: React.FC<ProgramTestimonialsProps> = ({
     });
   };
 
-  // --- 3. Lógica de Arrastre (Drag) ---
+  // --- 3. Dragging ---
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!scrollContainerRef.current) return;
     setIsDragging(true);
@@ -143,7 +137,6 @@ export const ProgramTestimonials: React.FC<ProgramTestimonialsProps> = ({
     scrollContainerRef.current.style.scrollSnapType = "x mandatory";
     scrollContainerRef.current.style.scrollBehavior = "smooth";
     scrollContainerRef.current.style.cursor = "grab";
-
     const itemWidth =
       (scrollContainerRef.current.children[0] as HTMLElement).offsetWidth + 24;
     const nearestIndex = Math.round(
@@ -163,13 +156,12 @@ export const ProgramTestimonials: React.FC<ProgramTestimonialsProps> = ({
     scrollContainerRef.current.scrollLeft = scrollLeft - walk;
   };
 
-  // --- 4. Navegación con Botones ---
+  // --- 4. Navegación ---
   const scrollByAmount = (direction: "left" | "right") => {
     if (!scrollContainerRef.current) return;
     const itemWidth =
       (scrollContainerRef.current.children[0] as HTMLElement).offsetWidth + 24;
     const scrollAmount = direction === "right" ? itemWidth : -itemWidth;
-
     scrollContainerRef.current.scrollBy({
       left: scrollAmount,
       behavior: "smooth",
@@ -178,58 +170,40 @@ export const ProgramTestimonials: React.FC<ProgramTestimonialsProps> = ({
 
   return (
     <section
-      className={`py-20 lg:py-28 px-6 lg:px-12 w-full transition-colors duration-300 border-t ${
-        isBlue ? "bg-secondary border-white/5" : "bg-white border-gray-100"
-      }`}
+      className={`py-20 lg:py-28 px-6 lg:px-12 w-full transition-colors duration-300 border-t 
+        ${isGrayVariant ? "bg-gray-50 border-gray-200" : "bg-white border-gray-100"}
+      `}
     >
       <div className="max-w-7xl mx-auto w-full">
-        {/* Cabecera */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
           <div className="max-w-2xl">
-            <h2
-              className={`text-3xl md:text-5xl font-bold mb-6 font-heading ${
-                isBlue ? "text-white" : "text-secondary"
-              }`}
-            >
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 font-heading text-secondary">
               Impacto Real
             </h2>
             <div className="w-20 h-1.5 bg-primary rounded-full mb-6"></div>
-            <p
-              className={`text-lg md:text-xl font-primary ${
-                isBlue ? "text-gray-300" : "text-gray-600"
-              }`}
-            >
+            <p className="text-lg md:text-xl font-primary text-gray-600">
               Lo que dicen las organizaciones y profesionales que colaboran con
               nosotros.
             </p>
           </div>
 
-          {/* Botones de Navegación */}
           <div className="hidden md:flex gap-3">
             <button
               onClick={() => scrollByAmount("left")}
-              className={`size-12 rounded-full border flex items-center justify-center transition-all active:scale-95 ${
-                isBlue
-                  ? "border-white/20 text-white hover:bg-white hover:text-secondary hover:border-white"
-                  : "border-gray-200 text-secondary hover:bg-primary hover:text-white hover:border-primary"
-              }`}
+              className="size-12 rounded-full border border-gray-200 text-secondary flex items-center justify-center transition-all active:scale-95 hover:bg-primary hover:text-white hover:border-primary"
             >
               <span className="material-symbols-outlined">arrow_back</span>
             </button>
             <button
               onClick={() => scrollByAmount("right")}
-              className={`size-12 rounded-full flex items-center justify-center transition-all shadow-lg active:scale-95 ${
-                isBlue
-                  ? "bg-white text-secondary hover:bg-gray-100"
-                  : "bg-secondary text-white hover:bg-primary"
-              }`}
+              className="size-12 rounded-full bg-secondary text-white flex items-center justify-center transition-all shadow-lg active:scale-95 hover:bg-primary"
             >
               <span className="material-symbols-outlined">arrow_forward</span>
             </button>
           </div>
         </div>
 
-        {/* --- CONTAINER INFINITO --- */}
+        {/* --- CARDS --- */}
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
@@ -247,37 +221,21 @@ export const ProgramTestimonials: React.FC<ProgramTestimonialsProps> = ({
           {testimonials.map((item, index) => (
             <div
               key={`${item.id}-${index}`}
-              className={`min-w-full md:min-w-[calc(33.333%-1rem)] snap-start p-8 rounded-3xl transition-all duration-300 border relative group min-h-[350px] flex flex-col justify-between ${
-                isBlue
-                  ? "bg-white/5 border-white/10 hover:bg-white/10"
-                  : "bg-gray-50 border-gray-100 hover:bg-white hover:shadow-xl"
-              }`}
+              className={`min-w-full md:min-w-[calc(33.333%-1rem)] snap-start p-8 rounded-3xl transition-all duration-300 border relative group min-h-[350px] flex flex-col justify-between shadow-sm hover:shadow-xl hover:-translate-y-1
+                ${isGrayVariant ? "bg-white border-gray-200" : "bg-gray-50 border-gray-100"}
+              `}
             >
               <div>
-                <span
-                  className={`material-symbols-outlined text-5xl absolute top-6 right-6 transition-colors ${
-                    isBlue
-                      ? "text-white/10 group-hover:text-white/20"
-                      : "text-primary/10 group-hover:text-primary/20"
-                  }`}
-                >
+                <span className="material-symbols-outlined text-5xl absolute top-6 right-6 text-primary/10 group-hover:text-primary/20 transition-colors">
                   format_quote
                 </span>
-                <p
-                  className={`mb-8 relative z-10 italic font-primary leading-relaxed text-lg ${
-                    isBlue ? "text-gray-300" : "text-gray-600"
-                  }`}
-                >
+                <p className="mb-8 relative z-10 italic font-primary leading-relaxed text-lg text-gray-600">
                   "{item.quote}"
                 </p>
               </div>
 
               <div className="flex items-center gap-4 mt-auto">
-                <div
-                  className={`size-14 rounded-full overflow-hidden border-2 shadow-sm shrink-0 ${
-                    isBlue ? "border-white/20" : "border-white"
-                  }`}
-                >
+                <div className="size-14 rounded-full overflow-hidden border-2 border-white shadow-sm shrink-0">
                   <img
                     src={item.image}
                     alt={item.name}
@@ -285,11 +243,7 @@ export const ProgramTestimonials: React.FC<ProgramTestimonialsProps> = ({
                   />
                 </div>
                 <div>
-                  <p
-                    className={`font-bold text-base font-heading ${
-                      isBlue ? "text-white" : "text-secondary"
-                    }`}
-                  >
+                  <p className="font-bold text-base font-heading text-secondary">
                     {item.name}
                   </p>
                   <p className="text-sm text-primary font-medium">
@@ -301,30 +255,18 @@ export const ProgramTestimonials: React.FC<ProgramTestimonialsProps> = ({
           ))}
         </div>
 
-        {/* --- INDICADORES DE PROGRESIÓN (Dots Cíclicos) --- */}
+        {/* --- INDICADORES --- */}
         <div className="flex justify-center items-center gap-3 mt-4">
           {originalTestimonials.map((_, idx) => (
             <div
               key={idx}
-              className={`
-                h-2.5 rounded-full transition-all duration-500
-                ${
-                  idx === realIndex
-                    ? "w-12 bg-primary"
-                    : isBlue
-                      ? "w-2.5 bg-gray-600"
-                      : "w-2.5 bg-gray-200"
-                }
-              `}
+              className={`h-2.5 rounded-full transition-all duration-500 ${
+                idx === realIndex ? "w-12 bg-primary" : "w-2.5 bg-gray-300"
+              }`}
             />
           ))}
         </div>
-
-        <style>{`
-          .no-scrollbar::-webkit-scrollbar {
-            display: none;
-          }
-        `}</style>
+        <style>{`.no-scrollbar::-webkit-scrollbar { display: none; }`}</style>
       </div>
     </section>
   );

@@ -90,7 +90,7 @@ const studyPlan = [
   fullWidth={true}
 >
   
-  {/* 1. HERO - Fondo Azul (Imagen + Overlay) */}
+  {/* 1. HERO - Fondo Azul */}
   <ProgramHero 
     client:load
     title={"Potenciando Habilidades Únicas:"} 
@@ -106,7 +106,8 @@ const studyPlan = [
     variant="white"
   />
 
-  {/* 3. FORMACIÓN (Features 1) - Fondo AZUL (variant="dark") */}
+  {/* 3. FORMACIÓN (Features 1) - Fondo GRIS */}
+  {/* variant="dark" ahora se renderiza como Gris Claro */}
   <ProgramFeatures 
     client:visible
     title="Formación Personalizada"
@@ -126,7 +127,8 @@ const studyPlan = [
     layout="grid4" 
   />
 
-  {/* 5. PLAN DE ESTUDIOS (Curriculum) - Fondo AZUL */}
+  {/* 5. PLAN DE ESTUDIOS - Fondo GRIS */}
+  {/* variant="blue" ahora se renderiza como Gris Claro */}
   <ProgramCurriculum 
     client:visible
     title="Plan de Estudios"

@@ -5,21 +5,24 @@ import Layout from "@/layouts/Layout.astro";
 import { HeroSection } from "@/components/react/home/HeroSection";
 import { MissionSection } from "@/components/react/home/MissionSection";
 import { InclusionPillars } from "@/components/react/home/InclusionPillars";
-import { ValuesSection } from "@/components/react/home/ValuesSection"; // <--- Nueva importación
+import { ValuesSection } from "@/components/react/home/ValuesSection";
 ---
 
 <Layout 
   title="Qualisophy - Inclusión Tecnológica" 
   fullWidth={true} 
 >
-
   
+  {/* 1. HERO (Imagen Completa) */}
   <HeroSection client:load />
 
+  {/* 2. MISIÓN (Fondo Blanco) */}
   <MissionSection imageSrc="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" />
 
+  {/* 3. VALORES (Fondo Gris Claro) */}
   <ValuesSection />
 
+  {/* 4. PILARES (Fondo Blanco) */}
   <InclusionPillars />
 
 </Layout>

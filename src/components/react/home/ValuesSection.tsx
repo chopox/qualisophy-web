@@ -40,13 +40,9 @@ const valuesData: ValueItem[] = [
 
 export const ValuesSection: React.FC = () => {
   return (
-    <section className="bg-white py-16 md:py-28 w-full">
+    // CAMBIO: Fondo cambiado a bg-gray-50 para crear la alternancia
+    <section className="bg-gray-50 py-16 md:py-28 w-full border-y border-gray-100">
       <div className="flex justify-center w-full">
-        {/* CORRECCIÓN DE ANCHO:
-            - Igualamos exactamente al contenedor de InclusionPillars.
-            - Antes: max-w-5xl (muy estrecho).
-            - Ahora: md:max-w-[96%] (ocupa casi toda la pantalla).
-        */}
         <div className="w-full md:max-w-[96%] px-4 md:px-8 lg:px-12">
           {/* Cabecera de la Sección */}
           <div className="text-center mb-16 md:mb-24">
@@ -66,15 +62,12 @@ export const ValuesSection: React.FC = () => {
             </p>
           </div>
 
-          {/* Grid de Cuadrícula 2x2
-              - Mantenemos md:grid-cols-2 para la estética de cuadrícula.
-              - Al ser el contenedor más ancho (96%), las tarjetas serán más grandes
-                y respirarán mejor, alineándose con los pilares de arriba.
-          */}
+          {/* Grid de Cuadrícula 2x2 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
             {valuesData.map((value) => (
               <div
                 key={value.id}
+                // Las tarjetas se mantienen blancas (bg-white) para resaltar sobre el fondo gris
                 className="group flex flex-col items-center text-center p-8 lg:p-12 rounded-[2rem] transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-200 hover:border-primary/30 bg-white relative z-10"
               >
                 {/* Fondo sutil al hacer hover */}

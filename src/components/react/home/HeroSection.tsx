@@ -98,7 +98,7 @@ export const HeroSection: React.FC = () => {
             <div className="flex flex-wrap justify-center gap-4 mt-4 font-primary">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all transform  text-base border border-transparent cursor-pointer"
+                className="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all transform hover:-translate-y-1 text-base border border-transparent cursor-pointer"
               >
                 Ver Programas
               </button>
@@ -116,26 +116,19 @@ export const HeroSection: React.FC = () => {
       {/* --- VENTANA MODAL --- */}
       {isModalOpen && (
         <div
-          // Z-INDEX ALTO: z-[9999] para tapar el chatbox y el header
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-secondary/90 backdrop-blur-sm animate-in fade-in duration-200 p-4"
           onClick={handleBackdropClick}
         >
-          {/* Contenedor del Modal:
-             - max-h-[90vh]: Asegura que no sea más alto que la pantalla en móviles.
-             - w-full max-w-4xl: Ancho controlado.
-             - flex flex-col: Para gestionar el scroll interno.
-             - shadow-2xl: Profundidad.
-          */}
           <div className="bg-white rounded-3xl w-full max-w-4xl shadow-2xl relative animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
-            {/* Botón Cerrar (Sticky para que siempre se vea) */}
+            {/* Botón Cerrar */}
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute right-2 z-10 p-1 rounded-full   text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition-colors"
             >
               <span className="material-symbols-outlined text-2xl">close</span>
             </button>
 
-            {/* Cabecera del Modal (Fija) */}
+            {/* Cabecera del Modal */}
             <div className="p-6 md:p-8 pb-2 text-center shrink-0">
               <h2 className="text-2xl md:text-3xl font-bold text-secondary font-heading mb-2">
                 Nuestros Programas
@@ -146,9 +139,7 @@ export const HeroSection: React.FC = () => {
               </p>
             </div>
 
-            {/* Grid de Programas (Scrollable) 
-                - overflow-y-auto: El scroll ocurre AQUÍ dentro, no en toda la página.
-            */}
+            {/* Grid de Programas */}
             <div className="p-6 md:p-8 pt-2 overflow-y-auto custom-scrollbar">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {programs.map((program) => (
@@ -181,7 +172,7 @@ export const HeroSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Footer del Modal (Fijo abajo) */}
+            {/* Footer del Modal */}
             <div className="p-4 md:p-6 bg-gray-50 text-center border-t border-gray-100 rounded-b-3xl shrink-0">
               <p className="text-xs md:text-sm text-gray-500 font-primary">
                 ¿No sabes cuál elegir?{" "}

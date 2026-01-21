@@ -22,7 +22,8 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const accordionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const isBlue = variant === "blue";
+  // En el nuevo sistema de diseño, "blue" se interpreta como la variante GRIS CLARO
+  const isGrayVariant = variant === "blue";
 
   const handleDotClick = (index: number) => {
     setOpenIndex(index);
@@ -54,26 +55,16 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
     <section
       className={`
         px-6 py-16 lg:px-12 lg:py-24 flex justify-center w-full transition-colors
-        ${isBlue ? "bg-secondary" : "bg-white"}
+        ${isGrayVariant ? "bg-gray-50" : "bg-white"}
       `}
     >
       <div className="max-w-7xl w-full flex flex-col gap-16">
-        {/* CABECERA */}
+        {/* CABECERA (Siempre texto oscuro) */}
         <div className="flex flex-col gap-6 text-center md:text-left">
-          <h2
-            className={`
-              text-3xl font-bold leading-tight md:text-4xl lg:text-5xl font-heading
-              ${isBlue ? "text-white" : "text-secondary"}
-            `}
-          >
+          <h2 className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl font-heading text-secondary">
             {title}
           </h2>
-          <p
-            className={`
-              text-lg lg:text-xl font-normal font-primary
-              ${isBlue ? "text-gray-300" : "text-gray-600"}
-            `}
-          >
+          <p className="text-lg lg:text-xl font-normal font-primary text-gray-600">
             {subtitle}
           </p>
         </div>
@@ -81,13 +72,8 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
         {/* --- LÍNEA TEMPORAL (Desktop) --- */}
         <div className="hidden md:block w-full px-4 lg:px-12 mb-8">
           <div className="relative flex justify-between items-start w-full">
-            {/* LÍNEA CONECTORA (z-0 para ir detrás) */}
-            <div
-              className={`
-                absolute top-8 left-24 right-24 h-[3px] -translate-y-1/2 z-0
-                ${isBlue ? "bg-white/20" : "bg-gray-200"}
-              `}
-            ></div>
+            {/* LÍNEA CONECTORA (Gris suave siempre) */}
+            <div className="absolute top-8 left-24 right-24 h-[3px] -translate-y-1/2 z-0 bg-gray-200"></div>
 
             {/* Nodos */}
             {steps.map((step, index) => {
@@ -105,9 +91,9 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                       ${
                         isActive
                           ? "bg-primary border-primary text-white scale-110 shadow-xl"
-                          : isBlue
-                            ? "bg-secondary border-white/20 text-white hover:border-white hover:bg-secondary" // Fondo sólido bg-secondary para tapar línea
-                            : "bg-white border-gray-200 text-gray-500 hover:border-primary hover:text-primary hover:bg-white" // Fondo sólido bg-white
+                          : isGrayVariant
+                            ? "bg-white border-gray-200 text-gray-500 hover:border-primary hover:text-primary" // Nodo blanco sobre fondo gris
+                            : "bg-gray-50 border-gray-200 text-gray-500 hover:border-primary hover:text-primary" // Nodo gris sobre fondo blanco
                       }
                     `}
                   >
@@ -120,9 +106,7 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                       ${
                         isActive
                           ? "text-primary font-bold"
-                          : isBlue
-                            ? "text-gray-400 group-hover:text-white"
-                            : "text-gray-500 group-hover:text-secondary"
+                          : "text-gray-500 group-hover:text-secondary"
                       }
                     `}
                   >
@@ -146,23 +130,19 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                   accordionRefs.current[index] = el;
                 }}
                 className={`
-                  group flex flex-col rounded-2xl border overflow-hidden transition-all duration-300
+                  group flex flex-col rounded-2xl overflow-hidden transition-all duration-300 border
                   ${
                     isOpen
-                      ? isBlue
-                        ? "border-white/20 bg-white/5 shadow-xl ring-1 ring-white/10"
-                        : "border-primary shadow-md ring-1 ring-primary/20 bg-white"
-                      : isBlue
-                        ? "bg-white/5 border-white/10 hover:bg-white/10"
-                        : "bg-gray-50 border-gray-200 hover:border-gray-300"
+                      ? "border-primary shadow-md ring-1 ring-primary/20 bg-white" // Abierto siempre blanco
+                      : isGrayVariant
+                        ? "bg-white border-gray-200 hover:border-gray-300" // Cerrado sobre fondo gris: Blanco
+                        : "bg-gray-50 border-gray-200 hover:border-gray-300" // Cerrado sobre fondo blanco: Gris
                   }
                 `}
               >
                 <button
                   onClick={() => toggleStep(index)}
-                  className={`
-                    flex items-center justify-between gap-6 p-6 lg:p-8 w-full text-left transition-colors cursor-pointer bg-transparent
-                  `}
+                  className="flex items-center justify-between gap-6 p-6 lg:p-8 w-full text-left transition-colors cursor-pointer bg-transparent"
                 >
                   <div className="flex items-center gap-6">
                     <span
@@ -171,9 +151,7 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                         ${
                           isOpen
                             ? "bg-primary text-white border-primary"
-                            : isBlue
-                              ? "bg-transparent text-white border-white/30"
-                              : "bg-white text-primary border-primary"
+                            : "bg-white text-primary border-primary/30"
                         }
                       `}
                     >
@@ -183,15 +161,7 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                     <p
                       className={`
                         text-lg md:text-xl font-bold leading-normal font-heading
-                        ${
-                          isBlue
-                            ? isOpen
-                              ? "text-white"
-                              : "text-gray-200"
-                            : isOpen
-                              ? "text-primary"
-                              : "text-secondary"
-                        }
+                        ${isOpen ? "text-primary" : "text-secondary"}
                       `}
                     >
                       {step.title}
@@ -201,15 +171,7 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                   <span
                     className={`
                       material-symbols-outlined text-2xl transition-transform duration-300 shrink-0
-                      ${
-                        isOpen
-                          ? isBlue
-                            ? "rotate-180 text-white"
-                            : "rotate-180 text-primary"
-                          : isBlue
-                            ? "text-gray-400"
-                            : "text-gray-400"
-                      }
+                      ${isOpen ? "rotate-180 text-primary" : "text-gray-400"}
                     `}
                   >
                     expand_more
@@ -224,12 +186,7 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                 >
                   <div className="overflow-hidden">
                     <div className="px-6 lg:px-8 pb-8 pt-0 pl-[5.5rem] lg:pl-[6.5rem]">
-                      <p
-                        className={`
-                            text-lg font-normal leading-relaxed font-primary
-                            ${isBlue ? "text-gray-300" : "text-gray-600"}
-                        `}
-                      >
+                      <p className="text-lg font-normal leading-relaxed font-primary text-gray-600">
                         {step.description}
                       </p>
                     </div>
