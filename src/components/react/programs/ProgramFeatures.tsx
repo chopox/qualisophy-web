@@ -11,7 +11,8 @@ interface ProgramFeaturesProps {
   subtitle: string;
   features: FeatureItem[];
   variant?: "light" | "gray" | "dark";
-  layout?: "cards" | "zigzag" | "list" | "grid4";
+  // AÑADIDO: "pillars" a la definición de tipos
+  layout?: "cards" | "zigzag" | "list" | "grid4" | "pillars";
 }
 
 export const ProgramFeatures: React.FC<ProgramFeaturesProps> = ({
@@ -167,7 +168,7 @@ export const ProgramFeatures: React.FC<ProgramFeaturesProps> = ({
     </div>
   );
 
-  // --- LAYOUT 3: GRID 4 COLUMNAS (MEJORADO) ---
+  // --- LAYOUT 3: GRID 4 COLUMNAS ---
   const renderGrid4 = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {features.map((feature, index) => (
@@ -177,8 +178,8 @@ export const ProgramFeatures: React.FC<ProgramFeaturesProps> = ({
             group flex flex-col items-start gap-6 p-8 rounded-3xl transition-all duration-300 border h-full relative overflow-hidden
             ${
               isDark
-                ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1" // Estilo Dark (Partnership)
-                : "bg-white border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-primary/20" // Estilo Light (Comunidades)
+                ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1"
+                : "bg-white border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-primary/20"
             }
           `}
         >
@@ -187,7 +188,7 @@ export const ProgramFeatures: React.FC<ProgramFeaturesProps> = ({
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
           )}
 
-          {/* Contenedor del Icono: Más grande y con cambio de color al hover */}
+          {/* Contenedor del Icono */}
           <div
             className={`
               relative z-10 size-16 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-sm
@@ -227,6 +228,46 @@ export const ProgramFeatures: React.FC<ProgramFeaturesProps> = ({
     </div>
   );
 
+  // --- LAYOUT 4: PILARES FLOTANTES (NUEVO) ---
+  const renderPillars = () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-20 lg:gap-x-24 max-w-5xl mx-auto">
+      {features.map((feature, index) => (
+        <div
+          key={index}
+          className="flex flex-col items-center md:items-start text-center md:text-left gap-6 group"
+        >
+          {/* Contenedor del Icono: Grande, sin borde, forma orgánica */}
+          <div className="relative size-32 lg:size-40 shrink-0">
+            {/* Blob de fondo */}
+            <div
+              className={`
+                absolute inset-0 bg-primary/10 rounded-[3rem] rotate-3 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-105
+                ${index % 2 === 0 ? "rounded-bl-[4rem]" : "rounded-tr-[4rem] -rotate-3"}
+             `}
+            ></div>
+
+            {/* Icono central */}
+            <div className="absolute inset-0 flex items-center justify-center text-primary transition-transform duration-300 group-hover:scale-110">
+              <span className="material-symbols-outlined text-[64px] lg:text-[80px]">
+                {feature.icon}
+              </span>
+            </div>
+          </div>
+
+          {/* Textos: Limpios, sin contenedores */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-2xl font-bold font-heading leading-tight text-secondary group-hover:text-primary transition-colors">
+              {feature.title}
+            </h3>
+            <p className="text-base lg:text-lg leading-relaxed font-primary text-gray-600 max-w-md">
+              {feature.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <section
       className={`px-6 py-20 lg:px-12 lg:py-28 flex justify-center w-full relative overflow-hidden ${sectionBg}`}
@@ -253,6 +294,8 @@ export const ProgramFeatures: React.FC<ProgramFeaturesProps> = ({
         {layout === "zigzag" && renderZigZag()}
         {layout === "list" && renderList()}
         {layout === "grid4" && renderGrid4()}
+        {/* AÑADIDO: Renderizado de Pilares */}
+        {layout === "pillars" && renderPillars()}
         {/* Fallback */}
         {layout === "cards" && renderList()}
       </div>

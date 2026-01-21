@@ -1,14 +1,124 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { PartnershipProgram } from "@/components/react/partnership/PartnershipProgram";
 
-const title = "Programa de Colaboración - Qualisophy";
-const description =
-  "Conecta con el mejor talento de nuestros cursos para cubrir tus vacantes. Únete a nuestro programa de colaboración empresarial.";
+// Reutilizamos los componentes del sistema de diseño actual
+import { ProgramHero } from "@/components/react/programs/ProgramHero";
+import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
+import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
+import { ProgramCurriculum } from "@/components/react/programs/ProgramCurriculum";
+import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
+
+// --- DATOS: PARTNERSHIP / B2B ---
+
+// 1. PROPUESTA DE VALOR (Zig-Zag)
+const valuePropData = {
+  title: "Más que Selección: Integración Estratégica",
+  description: [
+    "Las empresas líderes ya no buscan solo cubrir vacantes; buscan talento que aporte diversidad cognitiva y resiliencia. Qualisophy actúa como tu socio estratégico, no como un proveedor transaccional.",
+    "Te conectamos con perfiles altamente motivados y formados en las tecnologías que realmente necesitas, reduciendo drásticamente la rotación y mejorando el clima laboral."
+  ],
+  checks: [
+    "Reducción del Coste de Rotación (Churn Rate)",
+    "Impacto Directo en Objetivos ESG y RSC",
+    "Talento con Soft Skills de Alta Resiliencia"
+  ],
+  imageSrc: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80"
+};
+
+// 2. MODELOS DE COLABORACIÓN (Pilares)
+const collaborationModels = [
+  {
+    icon: "person_search",
+    title: "Hiring Partner",
+    description: "Acceso prioritario a nuestra bolsa de talento validado. Incorpora perfiles Junior/Mid con acompañamiento inicial incluido para garantizar el 'fit' cultural."
+  },
+  {
+    icon: "corporate_fare",
+    title: "Upskilling Ad-hoc",
+    description: "Diseñamos 'Bootcamps' a medida para tu stack tecnológico. Formamos a tus futuros empleados o reciclamos a tu plantilla actual según tus necesidades."
+  },
+  {
+    icon: "volunteer_activism",
+    title: "Voluntariado Corporativo",
+    description: "Involucra a tus equipos técnicos como mentores. Una potente herramienta de fidelización y 'team building' que conecta a tus seniors con nuestro propósito."
+  },
+  {
+    icon: "domain",
+    title: "Sponsoring & Becas",
+    description: "Financia becas para colectivos vulnerables o apadrina una promoción completa, posicionando tu marca empleadora como líder en impacto social."
+  }
+];
+
+// 3. ROADMAP (Línea de tiempo)
+const partnershipProcess = [
+  {
+    stepNumber: 1,
+    title: "Diagnóstico y Cultura",
+    description: "Nos reunimos para entender no solo tus vacantes técnicas, sino tu cultura de equipo y objetivos de negocio. Analizamos dónde el talento diverso aporta más valor."
+  },
+  {
+    stepNumber: 2,
+    title: "Diseño de la Propuesta",
+    description: "Definimos el modelo de colaboración ideal (Hiring directo, Formación o Voluntariado) y establecemos los KPIs de éxito y el cronograma de incorporación."
+  },
+  {
+    stepNumber: 3,
+    title: "Selección y Acompañamiento",
+    description: "Presentamos candidatos finalistas. Durante los primeros 3 meses, nuestros psicólogos acompañan tanto al talento como a tus managers para asegurar la integración."
+  }
+];
 ---
 
-<Layout title={title} description={description}>
-  <div class="max-w-6xl mx-auto">
-    <PartnershipProgram client:load />
-  </div>
+<Layout 
+  title="Partnership - Qualisophy"
+  description="Colabora con Qualisophy. Soluciones de talento diverso e impacto social para empresas tecnológicas líderes."
+  fullWidth={true}
+>
+  
+  {/* 1. HERO - Fondo Azul */}
+  <ProgramHero 
+    client:load
+    title={"Talento que Transforma:"}
+    highlight={"Alianzas Corporativas"}
+    subtitle="Ayudamos a empresas visionarias a integrar diversidad real en sus equipos tecnológicos, impulsando la innovación y el impacto social."
+    backgroundImage="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80"
+    ctaText="Agendar Reunión"
+  />
+
+  {/* 2. PROPUESTA DE VALOR - Fondo BLANCO */}
+  <ProgramMethodology 
+    client:visible
+    {...valuePropData}
+    reverse={false}
+    variant="white"
+  />
+
+  {/* 3. MODELOS DE COLABORACIÓN - Fondo BLANCO (Diseño Pilares) */}
+  {/* Usamos layout="pillars" para que luzca moderno y abierto sobre fondo blanco */}
+  <ProgramFeatures 
+    client:visible
+    title="Modelos de Colaboración Flexible"
+    subtitle="Adapta la alianza a tus necesidades de contratación, formación y estrategia de RSC."
+    features={collaborationModels}
+    variant="light" 
+    layout="pillars" 
+  />
+
+  {/* 4. ROADMAP - Fondo AZUL (Oscuro) */}
+  {/* Esto rompe el ritmo visual antes de llegar al CTA final */}
+  <ProgramCurriculum 
+    client:visible
+    title="Roadmap de la Alianza"
+    subtitle="Un proceso estructurado, sencillo y eficaz para garantizar el éxito de la colaboración."
+    steps={partnershipProcess}
+    variant="blue"
+  />
+
+  {/* 5. CTA FINAL - Fondo BLANCO */}
+  {/* Conecta limpio con el Footer oscuro */}
+  <ProgramCTA 
+    client:visible 
+    variant="white"
+  />
+
 </Layout>
