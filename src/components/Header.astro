@@ -23,23 +23,20 @@ const isReskilling = currentPath === "/reskilling";
 const isCorporate = currentPath.includes("/corporate-training");
 const isCoursesGroup = isReskilling || isCorporate;
 
-// Clases comunes para los items del menú desplegable (interno)
-const dropdownItemClass = "block px-4 py-2 rounded-lg transition-all duration-200 text-sm";
-const dropdownActiveItemClass = "text-primary bg-blue-50 font-medium"; 
-const dropdownInactiveItemClass = "text-gray-700 hover:text-primary hover:bg-gray-50";
+// --- CLASES DROPDOWN (Estilo Bloque Completo) ---
+// Eliminamos 'rounded' y usamos 'border-l-4' transparente por defecto para evitar saltos
+const dropdownItemClass = "block w-full text-left px-6 py-3 text-sm border-l-4 border-transparent transition-all duration-200";
 
-// --- NUEVAS CLASES PARA EL HEADER (Full Height + Radial Gradient Glow) ---
+// Activo: Fondo azul, texto primario, SIN borde (solo fondo, como pediste para el selector)
+const dropdownActiveItemClass = "text-primary bg-blue-50 font-bold"; 
 
-// Base: Ocupa toda la altura, centrado verticalmente.
+// Inactivo: Texto gris. Hover: Fondo gris y línea lateral azul.
+const dropdownInactiveItemClass = "text-gray-600 hover:text-primary hover:bg-gray-50 ";
+
+// --- CLASES HEADER ---
+// 'flex' ya está aquí, no hace falta repetirlo abajo (evita conflicto flex/block)
 const navItemBaseClass = "h-full px-5 lg:px-6 flex items-center transition-all duration-300 font-medium text-[15px] relative z-10";
-
-// Activo: Degradado RADIAL desde el centro hacia todos los bordes.
-// bg-[radial-gradient(...)]: Crea un brillo elíptico desde el centro.
-// from-blue-100/60: El centro es azul suave con 60% de opacidad.
-// to-transparent: Se desvanece completamente hacia los extremos.
 const navItemActiveClass = "text-primary font-bold bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100/60 to-transparent";
-
-// Inactivo: Hover sutil estándar
 const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50/50";
 
 ---
@@ -49,7 +46,6 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
 
     {/* --- LOGOS --- */}
     <a href="/" class="block shrink-0 h-full flex items-center">
-      {/* 1. Logo Móvil (Solo Icono) */}
       <div class="md:hidden flex items-center">
         <Image
           loading="eager"
@@ -61,8 +57,6 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
           class="w-10 h-auto"
         />
       </div>
-
-      {/* 2. Logo Escritorio (Texto/Completo) */}
       <div class="hidden md:flex items-center">
         <Image
           loading="eager"
@@ -80,7 +74,7 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
     <ul class="hidden lg:flex items-center h-full gap-1">
 
       {/* Inicio */}
-      <li class="h-full relative">
+      <li class="h-full">
         <a
           href="/"
           class={`${navItemBaseClass} ${isHome ? navItemActiveClass : navItemInactiveClass}`}
@@ -92,7 +86,7 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
       <li class="relative group h-full">
         <div class="h-full">
             <button
-            class={`focus:outline-none cursor-pointer ${navItemBaseClass}
+            class={`focus:outline-none cursor-pointer justify-center ${navItemBaseClass}
                 ${isProgramsGroup ? navItemActiveClass : navItemInactiveClass}`}
             >
             <span class="mr-1">Programas Formativos</span>
@@ -100,9 +94,13 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
             </button>
         </div>
 
-        {/* Menú Desplegable */}
-        <div class="absolute top-full left-0 w-60 bg-white rounded-b-xl rounded-tr-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 p-2 z-50">
-          <div class="flex flex-col gap-1">
+        {/* Menú Desplegable 
+            - min-w-full: Asegura que sea al menos tan ancho como el botón.
+            - p-0: Sin padding para que el hover ocupe todo.
+            - -mt-[1px]: Pegado al borde.
+        */}
+        <div class="absolute top-full left-0 min-w-full w-max bg-white rounded-b-xl rounded-t-none shadow-xl border border-gray-100 border-t-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-0 p-0 z-50 -mt-[1px] overflow-hidden">
+          <div class="flex flex-col">
             <a href="/neurodivergence" class={`${dropdownItemClass} ${isNeuro ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>
               Neurodivergencia
             </a>
@@ -120,7 +118,7 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
       <li class="relative group h-full">
          <div class="h-full">
             <button
-            class={`focus:outline-none cursor-pointer ${navItemBaseClass}
+            class={`focus:outline-none cursor-pointer justify-center ${navItemBaseClass}
                 ${isCoursesGroup ? navItemActiveClass : navItemInactiveClass}`}
             >
             <span class="mr-1">Nuestras Formaciones</span>
@@ -129,8 +127,8 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
          </div>
 
         {/* Menú Desplegable */}
-        <div class="absolute top-full left-0 w-60 bg-white rounded-b-xl rounded-tr-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 p-2 z-50">
-          <div class="flex flex-col gap-1">
+        <div class="absolute top-full left-0 min-w-full w-max bg-white rounded-b-xl rounded-t-none shadow-xl border border-gray-100 border-t-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-0 p-0 z-50 -mt-[1px] overflow-hidden">
+          <div class="flex flex-col">
             <a href="/reskilling" class={`${dropdownItemClass} ${isReskilling ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>
               Reconversión Laboral
             </a>
@@ -142,7 +140,7 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
       </li>
 
       {/* Partnership */}
-      <li class="h-full relative">
+      <li class="h-full">
         <a
           href="/partnership"
           class={`${navItemBaseClass} ${isPartnership ? navItemActiveClass : navItemInactiveClass}`}
@@ -151,7 +149,7 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
       </li>
 
       {/* Contacto */}
-      <li class="h-full relative">
+      <li class="h-full">
         <a
           href="/contact"
           class={`${navItemBaseClass} ${isContact ? navItemActiveClass : navItemInactiveClass}`}
@@ -159,9 +157,9 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
         >
       </li>
 
-      {/* Selector de Idioma - Separado visualmente */}
+      {/* Selector de Idioma */}
       <li class="h-full flex items-center ml-4 pl-4 border-l border-gray-200">
-        <div class="text-secondary hover:text-primary font-medium">
+        <div class="text-secondary hover:text-primary font-medium h-full">
             <LanguageSelector client:load />
         </div>
       </li>
@@ -177,7 +175,7 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
     </button>
   </nav>
 
-  {/* --- SIDEBAR MÓVIL (Sin cambios) --- */}
+  {/* --- SIDEBAR MÓVIL --- */}
   <aside
     id="mobile-sidebar"
     class="fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-[10000] flex flex-col overflow-y-auto"
@@ -193,7 +191,7 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
     </div>
 
     <div class="p-6 flex flex-col space-y-1 pb-32">
-        <a href="/" class={`py-3 px-4 rounded-xl hover:bg-gray-50 ${isHome ? "text-primary font-bold bg-blue-50" : "text-secondary font-medium"}`}>
+        <a href="/" class={`block py-3 px-4 rounded-xl hover:bg-gray-50 ${isHome ? "text-primary font-bold bg-blue-50" : "text-secondary font-medium"}`}>
             Inicio
         </a>
 
@@ -203,15 +201,15 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
         <a href="/social-impact" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isSocial ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Riesgo de Exclusión</a>
 
         <div class="pt-6 pb-2 px-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Nuestras Formaciones</div>
-        <a href="/reskilling" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isReskilling ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Reciclaje Laboral</a>
+        <a href="/reskilling" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isReskilling ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Reconversión Laboral</a>
         <a href="/corporate-training" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isCorporate ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Formación Empresas</a>
 
         <div class="my-4 border-t border-gray-100"></div>
 
-        <a href="/partnership" class={`py-3 px-4 rounded-xl hover:bg-gray-50 ${isPartnership ? "text-primary font-bold bg-blue-50" : "text-secondary font-medium"}`}>
+        <a href="/partnership" class={`block py-3 px-4 rounded-xl hover:bg-gray-50 ${isPartnership ? "text-primary font-bold bg-blue-50" : "text-secondary font-medium"}`}>
             Partnership
         </a>
-        <a href="/contact" class={`py-3 px-4 rounded-xl hover:bg-gray-50 ${isContact ? "text-primary font-bold bg-blue-50" : "text-secondary font-medium"}`}>
+        <a href="/contact" class={`block py-3 px-4 rounded-xl hover:bg-gray-50 ${isContact ? "text-primary font-bold bg-blue-50" : "text-secondary font-medium"}`}>
             Contacto
         </a>
 
