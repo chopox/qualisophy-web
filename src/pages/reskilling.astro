@@ -5,7 +5,9 @@ import Layout from "@/layouts/Layout.astro";
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
 import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
-import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
+// ELIMINADO: ProgramCTA (Ya no lo necesitamos aquí)
+// NUEVA IMPORTACIÓN
+import { ReskillingCourses } from "@/components/react/programs/ReskillingCourses";
 
 // --- DATOS: RESKILLING ---
 
@@ -54,7 +56,7 @@ const pillarsData = [
     description: "Oportunidades reales de aplicar tus conocimientos en entornos corporativos para ganar experiencia práctica y visibilidad."
   },
   {
-    icon: "hub", // NUEVO PILAR
+    icon: "hub", 
     title: "Networking Estratégico",
     description: "Accede a eventos exclusivos y conecta con una comunidad activa que te abrirá puertas en el ecosistema tecnológico."
   }
@@ -77,7 +79,7 @@ const transformationRoutes = [
     description: "Tu empatía con el cliente (Atención al Cliente) y resolución de problemas te hacen ideal para asegurar la calidad del software."
   },
   {
-    icon: "view_kanban", // NUEVA RUTA
+    icon: "view_kanban", 
     title: "IT Project Manager",
     description: "Tu experiencia gestionando equipos es oro. Certifícate en metodologías ágiles (Scrum/Kanban) para liderar el desarrollo de producto."
   }
@@ -90,7 +92,7 @@ const transformationRoutes = [
   fullWidth={true}
 >
   
-  {/* 1. HERO - Fondo Azul */}
+  {/* 1. HERO - Fondo Azul (Imagen) */}
   <ProgramHero 
     client:load
     title={"Tu Reinvención Profesional"}
@@ -108,7 +110,7 @@ const transformationRoutes = [
     variant="white"
   />
 
-  {/* 3. FASE 2: Transición - Fondo AZUL (Alternancia) */}
+  {/* 3. FASE 2: Transición - Fondo GRIS (variant="blue") */}
   <ProgramMethodology 
     client:visible
     {...transitionSupportData}
@@ -116,7 +118,7 @@ const transformationRoutes = [
     variant="blue" 
   />
 
-  {/* 4. PILARES - Fondo BLANCO (Grid de 4 elementos) */}
+  {/* 4. PILARES - Fondo BLANCO */}
   <ProgramFeatures 
     client:visible
     title="Pilares del Programa"
@@ -126,8 +128,8 @@ const transformationRoutes = [
     layout="cards" 
   />
 
-  {/* 5. RUTAS DE TRANSFORMACIÓN - Fondo OSCURO (Glassmorphism - Grid de 4 elementos) */}
-<ProgramFeatures 
+  {/* 5. RUTAS - Fondo GRIS (variant="dark") */}
+  <ProgramFeatures 
     client:visible
     title="Rutas de Transformación Comunes"
     subtitle="Descubre cómo tu perfil actual puede evolucionar hacia roles tecnológicos de alto impacto."
@@ -136,10 +138,8 @@ const transformationRoutes = [
     layout="grid4" 
   />
 
-  {/* 6. CTA FINAL - Fondo BLANCO */}
-  <ProgramCTA 
-    client:visible 
-    variant="white"
-  />
+  {/* 6. CTA FINAL + MODAL DE CURSOS - Fondo BLANCO */}
+  {/* Esta sección actúa ahora como el cierre de la página, combinando CTA y acceso a cursos */}
+  <ReskillingCourses client:visible />
 
 </Layout>

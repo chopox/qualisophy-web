@@ -1,67 +1,55 @@
 import React from "react";
 
-interface CTAProps {
-  variant?: "white" | "blue";
+interface ProgramCTAProps {
+  variant?: "white" | "blue"; // En el nuevo sistema, "blue" se interpreta como GRIS CLARO
 }
 
-export const ProgramCTA: React.FC<CTAProps> = ({ variant = "white" }) => {
-  const isBlue = variant === "blue";
+export const ProgramCTA: React.FC<ProgramCTAProps> = ({
+  variant = "white",
+}) => {
+  // Interpretamos "blue" como la variante de fondo gris
+  const isGrayVariant = variant === "blue";
 
   return (
     <section
       className={`
-        px-6 py-20 lg:px-12 flex justify-center text-center w-full relative overflow-hidden
-        ${isBlue ? "bg-secondary" : "bg-white"}
+        px-6 py-24 lg:px-12 flex justify-center text-center w-full transition-colors duration-300
+        ${isGrayVariant ? "bg-gray-50 border-t border-gray-100" : "bg-white"}
       `}
     >
-      {/* Background decoration */}
+      <div className="max-w-3xl w-full flex flex-col items-center gap-8">
+        <h2
+          // El texto siempre es oscuro ahora (secondary), ya que el fondo siempre es claro (blanco o gris)
+          className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl font-heading text-secondary"
+        >
+          ¿Listo para dar el siguiente paso?
+        </h2>
 
-      <div className="max-w-4xl w-full flex flex-col items-center gap-8 relative z-10">
-        <div className="flex flex-col gap-4">
-          <h2
-            className={`
-              text-3xl font-bold leading-tight md:text-5xl font-heading
-              ${isBlue ? "text-white" : "text-secondary"}
-            `}
-          >
-            ¿Listo para multiplicar el impacto de tu organización?
-          </h2>
-          <p
-            className={`
-              text-lg lg:text-xl font-normal leading-relaxed font-primary max-w-2xl mx-auto
-              ${isBlue ? "text-gray-300" : "text-gray-600"}
-            `}
-          >
-            Aliémonos para crear futuros. Escríbenos directamente o agenda una
-            reunión con nuestro equipo para explorar vías de colaboración.
-          </p>
-        </div>
+        <p
+          // Texto descriptivo siempre oscuro (gray-600)
+          className="text-lg lg:text-xl font-normal leading-relaxed font-primary text-gray-600"
+        >
+          Explora nuestros programas detallados o agenda una consulta
+          personalizada con nuestro equipo de orientación.
+        </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 mt-8">
-          {/* BOTÓN 1: Escribir mail (Primary) */}
+        <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
+          {/* Botón Principal (Sólido) */}
           <a
-            href="mailto:colaboraciones@qualisophy.com"
-            className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold leading-normal shadow-lg hover:bg-primary/90 transition-all font-primary min-w-[220px]"
+            href="/contact"
+            className="flex items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-lg hover:bg-primary/90 hover:-translate-y-1 transition-all min-w-[200px]"
           >
-            Hablemos de una Alianza
+            Agendar Consulta
           </a>
 
-          {/* BOTÓN 2: Agendar Reunión (Outline) */}
-          <a
-            href="https://calendar.app.google/6TZSzsQn4q9kATzMA"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`
-              flex cursor-pointer items-center justify-center rounded-xl h-14 px-8 border-2 text-lg font-bold transition-all font-primary min-w-[220px]
-              ${
-                isBlue
-                  ? "border-white/20 text-white hover:bg-white hover:text-secondary"
-                  : "border-gray-200 text-secondary hover:border-secondary hover:bg-secondary hover:text-white"
-              }
-            `}
+          {/* Botón Secundario (Borde) */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            // Borde gris suave por defecto, se pone primario al hover. Funciona bien sobre blanco y sobre gris claro.
+            className="flex items-center justify-center rounded-xl h-14 px-8 border-2 border-gray-300 text-secondary text-lg font-bold hover:border-primary hover:text-primary transition-all min-w-[200px] bg-transparent"
           >
-            Agendar Reunión
-          </a>
+            Ver Programas Arriba
+          </button>
         </div>
       </div>
     </section>
