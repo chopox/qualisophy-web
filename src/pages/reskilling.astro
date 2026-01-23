@@ -5,7 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
 import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
-// ELIMINADO: ProgramCTA (Ya no lo necesitamos aquí)
+// ELIMINADO: ProgramCTA (Ya no lo necesitamos aquí, ReskillingCourses hace de CTA)
 // NUEVA IMPORTACIÓN
 import { ReskillingCourses } from "@/components/react/programs/ReskillingCourses";
 
@@ -100,6 +100,7 @@ const transformationRoutes = [
     subtitle="Transformamos tu experiencia previa en nuevas competencias digitales para el mercado tecnológico actual."
     backgroundImage="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80"
     ctaText="Ver Programas"
+    hasCourseTree={true} 
   />
 
   {/* 2. FASE 1: Experiencia - Fondo BLANCO */}
@@ -139,7 +140,6 @@ const transformationRoutes = [
   />
 
   {/* 6. CTA FINAL + MODAL DE CURSOS - Fondo BLANCO */}
-  {/* Esta sección actúa ahora como el cierre de la página, combinando CTA y acceso a cursos */}
   <ReskillingCourses client:visible />
 
 </Layout>
