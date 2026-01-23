@@ -8,30 +8,29 @@ const courseTreeData = [
     icon: "bug_report",
     description:
       "Asegura la calidad del software con metodologías ágiles y automatización.",
-    mainLink: "/corporate-training/qa",
-    // Colores basados en la imagen (Verde Mint)
+    mainLink: "/learning/qa",
     colorBg: "bg-emerald-50",
     colorText: "text-emerald-600",
     borderColor: "border-emerald-200",
     subBranches: [
       {
         title: "Testing Manual & QA",
-        href: "/learning/software-quality-testing-course",
+        href: "/learning/qa/software-quality-testing",
         icon: "rule",
       },
       {
         title: "Automatización con Cypress",
-        href: "/learning/bdd-automation-e2e-course",
+        href: "/learning/qa/bdd-automation",
         icon: "auto_mode",
       },
       {
         title: "DevOps for Testers",
-        href: "/learning/devops-for-testers-course",
+        href: "/learning/qa/devops-for-testers",
         icon: "terminal",
       },
       {
         title: "Gestión de Calidad (TQM)",
-        href: "/corporate-training/qa/quality-management",
+        href: "/learning/qa/quality-management",
         icon: "verified",
       },
     ],
@@ -42,24 +41,31 @@ const courseTreeData = [
     icon: "bar_chart",
     description:
       "Domina el análisis de datos y la visualización con el ecosistema Power Platform.",
-    mainLink: "/corporate-training/powerbi",
-    // Colores basados en la imagen (Naranja/Amarillo)
+    mainLink: "/learning/microsoft",
     colorBg: "bg-amber-50",
     colorText: "text-amber-600",
     borderColor: "border-amber-200",
     subBranches: [
       {
         title: "Power BI Dashboards",
-        href: "/corporate-training/powerbi/dashboards-course",
+        href: "/learning/microsoft/powerbi",
         icon: "leaderboard",
       },
       {
         title: "Data Analytics",
-        href: "/corporate-training/powerbi/data-analytics",
+        href: "/learning/microsoft/data-analytics",
         icon: "analytics",
       },
-      { title: "Excel Avanzado", href: "/learning", icon: "table_chart" },
-      { title: "Power Automate", href: "/learning", icon: "settings_suggest" },
+      {
+        title: "Excel Avanzado",
+        href: "/learning/microsoft/excel-advanced",
+        icon: "table_chart",
+      },
+      {
+        title: "Power Automate",
+        href: "/learning/microsoft/power-automate",
+        icon: "settings_suggest",
+      },
     ],
   },
   {
@@ -68,28 +74,31 @@ const courseTreeData = [
     icon: "code",
     description:
       "Construye soluciones robustas. Desde el Frontend hasta el Backend.",
-    mainLink: "/corporate-training/dev",
-    // Colores basados en la imagen (Azul)
+    mainLink: "/learning/dev",
     colorBg: "bg-blue-50",
     colorText: "text-blue-600",
     borderColor: "border-blue-200",
     subBranches: [
       {
         title: "Fullstack Developer",
-        href: "/corporate-training/dev/fullstack-course",
+        href: "/learning/dev/fullstack",
         icon: "layers",
       },
       {
-        title: "Frontend (React/Angular)",
-        href: "/corporate-training/dev/frontend-course",
+        title: "Frontend (React)",
+        href: "/learning/dev/frontend-react",
         icon: "html",
       },
       {
-        title: "Backend (Node/Java)",
-        href: "/corporate-training/dev/backend-course",
+        title: "Backend (Node.js)",
+        href: "/learning/dev/backend-node",
         icon: "storage",
       },
-      { title: "Arquitectura Cloud", href: "/learning", icon: "cloud" },
+      {
+        title: "Java & Spring Boot",
+        href: "/learning/dev/java-spring",
+        icon: "cloud",
+      },
     ],
   },
   {
@@ -98,20 +107,31 @@ const courseTreeData = [
     icon: "manage_accounts",
     description:
       "Lidera equipos y proyectos con metodologías ágiles y tradicionales.",
-    mainLink: "/learning",
-    // Colores basados en la imagen (Violeta)
+    mainLink: "/learning/pm",
     colorBg: "bg-purple-50",
     colorText: "text-purple-600",
     borderColor: "border-purple-200",
     subBranches: [
-      { title: "Scrum Master", href: "/learning", icon: "groups" },
-      { title: "Product Owner", href: "/learning", icon: "inventory" },
+      {
+        title: "Scrum Master",
+        href: "/learning/pm/scrum-master",
+        icon: "groups",
+      },
+      {
+        title: "Product Owner",
+        href: "/learning/pm/product-owner",
+        icon: "inventory",
+      },
       {
         title: "Gestión Ágil (Kanban)",
-        href: "/learning",
+        href: "/learning/pm/kanban",
         icon: "view_kanban",
       },
-      { title: "Liderazgo de Equipos", href: "/learning", icon: "diversity_3" },
+      {
+        title: "Liderazgo de Equipos",
+        href: "/learning/pm/leadership",
+        icon: "diversity_3",
+      },
     ],
   },
 ];
@@ -125,9 +145,8 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [selectedBranchId, setSelectedBranchId] = useState<string | null>("qa"); // Por defecto QA en desktop
+  const [selectedBranchId, setSelectedBranchId] = useState<string | null>("qa");
 
-  // Bloquear scroll
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -141,14 +160,12 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
 
   if (!isOpen) return null;
 
-  // Encontrar la rama activa para mostrar sus detalles (Desktop)
   const activeBranch =
     courseTreeData.find((b) => b.id === selectedBranchId) || courseTreeData[0];
 
   const handleBranchClick = (id: string) => {
-    // En móvil funciona como acordeón (toggle), en desktop como selección
     if (selectedBranchId === id && window.innerWidth < 768) {
-      setSelectedBranchId(null); // Cerrar en móvil si se vuelve a tocar
+      setSelectedBranchId(null);
     } else {
       setSelectedBranchId(id);
     }
@@ -159,9 +176,13 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
       className="fixed inset-0 z-[9999] flex items-center justify-center bg-secondary/90 backdrop-blur-sm animate-in fade-in duration-200 p-4"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      <div className="bg-white rounded-3xl w-full max-w-5xl shadow-2xl relative flex flex-col h-full max-h-[90vh] md:h-auto md:min-h-[600px] overflow-hidden">
-        {/* CABECERA MODAL */}
-        <div className="p-6 md:p-8 border-b border-gray-100 flex justify-between items-start shrink-0 bg-white z-10">
+      {/* CONTENEDOR PRINCIPAL:
+         - Mobile: max-h-[90vh] para no salir de pantalla.
+         - Desktop: md:h-[600px] FIJO para asegurar la estructura rígida.
+      */}
+      <div className="bg-white rounded-3xl w-full max-w-5xl shadow-2xl relative flex flex-col max-h-[90vh] md:h-[600px]">
+        {/* CABECERA (Fija arriba) */}
+        <div className="p-6 md:p-8 border-b border-gray-100 flex justify-between items-start shrink-0 bg-white z-10 relative rounded-t-3xl">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold font-heading text-secondary">
               Áreas de Formación
@@ -172,34 +193,36 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="absolute top-2 right-2 p-1 rounded-full text-gray-400 hover:text-gray-600 transition-colors z-50"
+            className="absolute top-5 right-5 p-2 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors z-50 cursor-pointer"
           >
             <span className="material-symbols-outlined text-xl">close</span>
           </button>
         </div>
 
-        {/* --- CONTENIDO --- */}
-        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
-          {/* IZQUIERDA: LISTA DE RAMAS (Mobile & Desktop) */}
-          <div className="w-full md:w-5/12 bg-gray-50/50 md:bg-white overflow-y-auto custom-scrollbar p-4 md:p-6 md:border-r border-gray-100">
+        {/* CUERPO CENTRAL (WRAPPER):
+           - Mobile: overflow-y-auto -> Permite scroll vertical de toda la lista si se expande.
+           - Desktop: md:overflow-hidden -> Bloquea el scroll general para mantener la estructura de 2 columnas rígida.
+        */}
+        <div className="flex flex-col md:flex-row flex-1 overflow-y-auto md:overflow-hidden">
+          {/* IZQUIERDA: LISTA DE RAMAS */}
+          {/* Desktop: md:overflow-hidden para quitar cualquier scrollbar indeseado en la izquierda */}
+          <div className="w-full md:w-5/12 bg-gray-50/50 md:bg-white p-4 md:p-6 md:border-r border-gray-100 md:overflow-hidden">
             <div className="flex flex-col gap-3">
               {courseTreeData.map((branch) => {
                 const isActive = selectedBranchId === branch.id;
 
                 return (
                   <div key={branch.id} className="flex flex-col">
-                    {/* Tarjeta de Rama */}
                     <button
                       onClick={() => handleBranchClick(branch.id)}
-                      className={`w-full flex items-center gap-4 p-4 rounded-xl text-left transition-all duration-300 border-2
+                      className={`w-full flex items-center gap-4 p-4 rounded-xl text-left transition-all duration-300 border-2 cursor-pointer
                         ${
                           isActive
-                            ? "bg-white border-primary shadow-md ring-1 ring-primary/10" // Estado Activo (Borde Naranja/Azul según tema, aquí usamos Primary)
+                            ? "bg-white border-primary shadow-md ring-1 ring-primary/10"
                             : "bg-white border-transparent hover:border-gray-200 hover:shadow-sm"
                         }
                       `}
                     >
-                      {/* Icono */}
                       <div
                         className={`shrink-0 size-12 rounded-lg flex items-center justify-center ${branch.colorBg} ${branch.colorText}`}
                       >
@@ -208,7 +231,6 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                         </span>
                       </div>
 
-                      {/* Texto */}
                       <div className="flex-1">
                         <span
                           className={`block font-bold text-base ${isActive ? "text-secondary" : "text-gray-600"}`}
@@ -217,7 +239,6 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                         </span>
                       </div>
 
-                      {/* Flecha */}
                       <span
                         className={`material-symbols-outlined text-gray-400 transition-transform duration-300 ${isActive ? "rotate-90 md:rotate-0 text-primary" : ""}`}
                       >
@@ -225,7 +246,7 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                       </span>
                     </button>
 
-                    {/* --- VISIBLE SOLO EN MÓVIL (ACORDEÓN) --- */}
+                    {/* ACORDEÓN MÓVIL */}
                     <div
                       className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isActive ? "max-h-[500px] opacity-100 mt-2" : "max-h-0 opacity-0"}`}
                     >
@@ -234,7 +255,6 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                           {branch.description}
                         </p>
                         <div className="flex flex-col gap-2">
-                          {/* Enlace a la Rama Principal */}
                           <a
                             href={branch.mainLink}
                             className="flex items-center gap-2 text-sm font-bold text-primary hover:underline mb-2"
@@ -244,7 +264,6 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                               open_in_new
                             </span>
                           </a>
-                          {/* Cursos Individuales Móvil */}
                           {branch.subBranches.map((course, idx) => (
                             <a
                               key={idx}
@@ -269,8 +288,8 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
           </div>
 
           {/* DERECHA: DETALLES DE LA RAMA (Solo Desktop) */}
-          <div className="hidden md:flex md:w-7/12 flex-col bg-white h-full overflow-hidden">
-            {/* Header de Detalle */}
+          <div className="hidden md:flex md:w-7/12 flex-col bg-white h-full">
+            {/* Header de Detalle (Fijo) */}
             <div className="p-8 pb-4 shrink-0">
               <div className="flex items-center justify-between mb-4">
                 <div
@@ -291,12 +310,13 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
               <h3 className="text-2xl font-bold font-heading text-secondary mb-2">
                 Cursos Disponibles
               </h3>
-              <p className="text-gray-500 font-primary text-base">
+
+              <p className="text-gray-500 font-primary text-base min-h-[3rem] flex items-center">
                 {activeBranch.description}
               </p>
             </div>
 
-            {/* Grid de Cursos Desktop */}
+            {/* Grid de Cursos Desktop (Con scroll interno) */}
             <div className="flex-1 overflow-y-auto p-8 pt-2 custom-scrollbar">
               <div className="grid grid-cols-1 gap-3">
                 {activeBranch.subBranches.map((course, idx) => (
@@ -320,13 +340,16 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                     </span>
                   </a>
                 ))}
+
+                {/* Espaciador final */}
+                <div className="h-4"></div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* FOOTER GLOBAL */}
-        <div className="p-4 bg-gray-50 border-t border-gray-100 text-center shrink-0">
+        {/* FOOTER (Fijo abajo) */}
+        <div className="p-4 bg-gray-50 border-t border-gray-100 text-center shrink-0 rounded-b-3xl">
           <a
             href="/learning"
             className="inline-flex items-center gap-2 text-primary font-bold text-sm hover:underline"

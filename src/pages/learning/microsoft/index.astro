@@ -1,0 +1,70 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { ProgramHero } from "@/components/react/programs/ProgramHero";
+import { ContentCard } from "@/components/react/shared/ContentCard";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courses = [
+  {
+    title: "Power BI para Business",
+    description: "Transforma datos en decisiones. Aprende a crear dashboards interactivos y modelos de datos empresariales.",
+    imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80",
+    href: "/learning/microsoft/powerbi",
+  },
+  {
+    title: "Excel Avanzado & Macros",
+    description: "Lleva tus hojas de cálculo al siguiente nivel con funciones avanzadas, tablas dinámicas y automatización VBA.",
+    imageUrl: "https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&q=80",
+    href: "/learning/microsoft/excel-advanced",
+  },
+  {
+    title: "Data Analytics & SQL",
+    description: "Fundamentos de análisis de datos. Aprende a extraer, limpiar y analizar grandes volúmenes de información.",
+    imageUrl: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80",
+    href: "/learning/microsoft/data-analytics",
+  },
+  {
+    title: "Power Automate",
+    description: "Automatiza flujos de trabajo repetitivos y aumenta tu productividad conectando tus aplicaciones favoritas.",
+    imageUrl: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80",
+    href: "/learning/microsoft/power-automate",
+  }
+];
+---
+
+<Layout title="Cursos de Microsoft & Data - Qualisophy">
+  <ProgramHero
+    client:load
+    title="Escuela de"
+    highlight="Microsoft & Data"
+    subtitle="Domina el ecosistema de datos. Herramientas de Business Intelligence y automatización para potenciar tu perfil analítico."
+    backgroundImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80"
+    ctaText="Ver Cursos de Datos"
+    onCtaClick={() => document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' })}
+  />
+
+  <div class="container mx-auto px-6 py-8">
+    <Breadcrumbs />
+  </div>
+
+  <section id="courses" class="py-12 pb-24 bg-white">
+    <div class="container mx-auto px-6">
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <h2 class="text-3xl font-bold font-heading text-secondary mb-4">Inteligencia de Negocio</h2>
+        <p class="text-gray-600 font-primary">Herramientas esenciales para el análisis y la gestión de la información.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {courses.map((course) => (
+          <ContentCard
+            title={course.title}
+            description={course.description}
+            imageUrl={course.imageUrl}
+            buttonText="Ver Programa"
+            buttonHref={course.href}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

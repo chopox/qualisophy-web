@@ -1,0 +1,73 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { ProgramHero } from "@/components/react/programs/ProgramHero";
+import { ContentCard } from "@/components/react/shared/ContentCard";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courses = [
+  {
+    title: "Testing y Calidad del Software",
+    description: "Domina los fundamentos del testing, diseño de casos de prueba y metodologías ágiles como Scrum aplicado a QA.",
+    imageUrl: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&q=80",
+    href: "/learning/qa/software-quality-testing",
+  },
+  {
+    title: "BDD y Automatización E2E",
+    description: "Aprende a automatizar pruebas funcionales utilizando Cucumber, Gherkin y Cypress en entornos de integración continua.",
+    imageUrl: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80",
+    href: "/learning/qa/bdd-automation",
+  },
+  {
+    title: "Coding & DevOps for Testers",
+    description: "Da el salto técnico: aprende JavaScript, Git, Docker y creación de Pipelines de CI/CD orientados al testing.",
+    imageUrl: "https://images.unsplash.com/photo-1667372393119-c81c0cda71cd?auto=format&fit=crop&q=80",
+    href: "/learning/qa/devops-for-testers",
+  },
+  {
+    title: "Gestión de Calidad (TQM)",
+    description: "Estrategias de gestión total de la calidad, métricas, KPIs y liderazgo de equipos de QA.",
+    imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80",
+    href: "/learning/qa/quality-management",
+  }
+];
+---
+
+<Layout title="Cursos de QA y Testing - Qualisophy">
+  {/* Hero Específico de QA */}
+  <ProgramHero
+    client:load
+    title="Escuela de"
+    highlight="QA & Testing"
+    subtitle="Formación especializada para asegurar la calidad del software. Desde fundamentos manuales hasta automatización avanzada y DevOps."
+    backgroundImage="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&q=80"
+    ctaText="Ver Cursos Abajo"
+    onCtaClick={() => document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' })}
+  />
+
+  <div class="container mx-auto px-6 py-8">
+    <Breadcrumbs />
+  </div>
+
+  {/* Listado de Cursos */}
+  <section id="courses" class="py-12 pb-24 bg-white">
+    <div class="container mx-auto px-6">
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <h2 class="text-3xl font-bold font-heading text-secondary mb-4">Itinerarios de Especialización QA</h2>
+        <p class="text-gray-600 font-primary">Elige el curso que mejor se adapte a tu nivel y objetivos profesionales.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {courses.map((course) => (
+          /* CORRECCIÓN: Eliminada la prop 'key' */
+          <ContentCard
+            title={course.title}
+            description={course.description}
+            imageUrl={course.imageUrl}
+            buttonText="Ver Programa"
+            buttonHref={course.href}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
