@@ -87,10 +87,10 @@ export const ReskillingCourses: React.FC = () => {
               {/* Botón 1: Abrir Modal de Cursos */}
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg min-w-[240px] cursor-pointer"
+                className="flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all transform text-lg min-w-[240px] cursor-pointer"
               >
                 <span className="material-symbols-outlined">auto_stories</span>
-                Ver Cursos Técnicos
+                Ver programas formativos
               </button>
 
               {/* Botón 2: Contacto / Asesoría */}

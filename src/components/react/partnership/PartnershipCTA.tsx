@@ -40,7 +40,7 @@ export const PartnershipCTA: React.FC<PartnershipCTAProps> = ({
           {/* Botón Principal (Mailto) */}
           <a
             href="mailto:colaboraciones@qualisophy.com"
-            className="flex items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-lg hover:bg-primary/90 hover:-translate-y-1 transition-all min-w-[240px]"
+            className="flex items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-lg hover:bg-primary/90 transition-all min-w-[240px]"
           >
             Hablemos de una Alianza
           </a>

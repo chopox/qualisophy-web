@@ -93,7 +93,7 @@ export const ProgramMethodology: React.FC<MethodologyProps> = ({
               <div
                 key={index}
                 className={`
-                  flex items-start gap-4 p-4 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-md
+                  flex items-start gap-4 p-4 rounded-xl border transition-all duration-300  hover:shadow-md
                   ${
                     isGrayVariant
                       ? "bg-white border-gray-200" // Sobre fondo gris: tarjeta blanca
