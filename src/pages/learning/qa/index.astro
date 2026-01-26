@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
-import { CourseGridCard } from "@/components/react/course/CourseGridCard"; // Importamos el nuevo componente
+import { CourseGridCard } from "@/components/react/course/CourseGridCard";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
 // Datos enriquecidos para la UI
@@ -10,7 +10,7 @@ const courses = [
     title: "Testing y Calidad del Software",
     description: "Domina los fundamentos del testing manual, diseño de casos de prueba, reporte de bugs y metodologías ágiles como Scrum aplicadas a QA.",
     imageUrl: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&q=80",
-    href: "/learning/qa/software-quality-testing-course", // Asegúrate que el link es correcto a tu archivo
+    href: "/learning/qa/software-quality-testing-course",
     level: "Principiante",
     duration: "40 Horas",
     modality: "Online",
@@ -49,9 +49,12 @@ const courses = [
 ];
 ---
 
-<Layout title="Cursos de QA y Testing - Qualisophy">
+<Layout 
+  title="Cursos de QA y Testing - Qualisophy" 
+  fullWidth={true}
+>
   
-  {/* Hero Banner (Estilo Consistente) */}
+  {/* Hero Banner ocupando todo el ancho */}
   <ProgramHero
     client:load
     title="Escuela de"
@@ -63,7 +66,7 @@ const courses = [
   />
 
   <div class="bg-gray-50/50 min-h-screen">
-    {/* Breadcrumbs */}
+    {/* Breadcrumbs con contenedor propio para márgenes correctos */}
     <div class="container mx-auto px-6 pt-8 pb-4">
         <Breadcrumbs />
     </div>
@@ -80,13 +83,12 @@ const courses = [
                     Explora nuestros programas diseñados para cubrir las necesidades actuales del mercado tecnológico en QA.
                 </p>
             </div>
-            {/* Aquí podrías poner filtros en el futuro si hay muchos cursos */}
             <div class="hidden md:block text-sm text-gray-400 font-medium">
                 Mostrando {courses.length} cursos
             </div>
         </div>
 
-        {/* Grid de Tarjetas Nuevas */}
+        {/* Grid de Tarjetas */}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {courses.map((course) => (
             <CourseGridCard

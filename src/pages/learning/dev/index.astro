@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
-import { ContentCard } from "@/components/react/shared/ContentCard";
+import { CourseGridCard } from "@/components/react/course/CourseGridCard";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
 const courses = [
@@ -10,29 +10,45 @@ const courses = [
     description: "Domina el desarrollo web completo. Desde la base de datos hasta el frontend con las tecnologías más modernas.",
     imageUrl: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&q=80",
     href: "/learning/dev/fullstack",
+    level: "Avanzado",
+    duration: "120 Horas",
+    modality: "Híbrido",
+    category: "Fullstack"
   },
   {
     title: "Frontend con React",
     description: "Especialízate en la creación de interfaces dinámicas y SPA utilizando React, Redux y Next.js.",
     imageUrl: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80",
     href: "/learning/dev/frontend-react",
+    level: "Intermedio",
+    duration: "60 Horas",
+    modality: "Online",
+    category: "Frontend"
   },
   {
     title: "Backend con Node.js",
     description: "Aprende a construir APIs RESTful escalables, microservicios y gestión de bases de datos.",
     imageUrl: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&q=80",
     href: "/learning/dev/backend-node",
+    level: "Intermedio",
+    duration: "50 Horas",
+    modality: "Online",
+    category: "Backend"
   },
   {
     title: "Java & Spring Boot",
     description: "El estándar empresarial. Desarrolla aplicaciones robustas y seguras para grandes organizaciones.",
     imageUrl: "https://images.unsplash.com/photo-1537884944318-390069bb8665?auto=format&fit=crop&q=80",
     href: "/learning/dev/java-spring",
+    level: "Avanzado",
+    duration: "80 Horas",
+    modality: "Online",
+    category: "Enterprise"
   }
 ];
 ---
 
-<Layout title="Cursos de Desarrollo Web - Qualisophy">
+<Layout title="Cursos de Desarrollo Web - Qualisophy" fullWidth={true}>
   <ProgramHero
     client:load
     title="Escuela de"
@@ -40,31 +56,40 @@ const courses = [
     subtitle="Construye el futuro digital. Programas intensivos en las tecnologías más demandadas del mercado: React, Node, Java y Cloud."
     backgroundImage="https://images.unsplash.com/photo-1605379399642-870262d3d051?auto=format&fit=crop&q=80"
     ctaText="Ver Itinerarios"
-    onCtaClick={() => document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' })}
+    onCtaClick={() => document.getElementById('courses-grid')?.scrollIntoView({ behavior: 'smooth' })}
   />
 
-  <div class="container mx-auto px-6 py-8">
-    <Breadcrumbs />
-  </div>
-
-  <section id="courses" class="py-12 pb-24 bg-white">
-    <div class="container mx-auto px-6">
-      <div class="max-w-3xl mx-auto text-center mb-16">
-        <h2 class="text-3xl font-bold font-heading text-secondary mb-4">Formación para Desarrolladores</h2>
-        <p class="text-gray-600 font-primary">Actualiza tu stack tecnológico o comienza tu carrera en programación.</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {courses.map((course) => (
-          <ContentCard
-            title={course.title}
-            description={course.description}
-            imageUrl={course.imageUrl}
-            buttonText="Ver Programa"
-            buttonHref={course.href}
-          />
-        ))}
-      </div>
+  <div class="bg-gray-50/50 min-h-screen">
+    <div class="container mx-auto px-6 pt-8 pb-4">
+        <Breadcrumbs />
     </div>
-  </section>
+
+    <section id="courses-grid" class="py-12 pb-24">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4 border-b border-gray-200 pb-6">
+                <div class="max-w-2xl">
+                    <h2 class="text-3xl font-bold font-heading text-secondary mb-2">Formación para Desarrolladores</h2>
+                    <p class="text-gray-600 font-primary">Actualiza tu stack tecnológico o comienza tu carrera en programación.</p>
+                </div>
+                <div class="hidden md:block text-sm text-gray-400 font-medium">Mostrando {courses.length} cursos</div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                {courses.map((course) => (
+                <CourseGridCard
+                    client:visible
+                    title={course.title}
+                    description={course.description}
+                    imageSrc={course.imageUrl}
+                    href={course.href}
+                    level={course.level as "Principiante" | "Intermedio" | "Avanzado"}
+                    duration={course.duration}
+                    modality={course.modality as "Online" | "Presencial" | "Híbrido"}
+                    category={course.category}
+                />
+                ))}
+            </div>
+        </div>
+    </section>
+  </div>
 </Layout>
