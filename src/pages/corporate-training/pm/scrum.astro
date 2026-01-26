@@ -1,0 +1,131 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Mindset Ágil y Fundamentos de Scrum",
+    description:
+      "Entiende por qué la agilidad es necesaria en entornos complejos y los pilares fundamentales del marco Scrum.",
+    topics: [
+      "Manifiesto Ágil: Valores y Principios",
+      "Gestión de proyectos tradicional (Waterfall) vs Ágil",
+      "Teoría de Scrum: Transparencia, Inspección y Adaptación",
+      "Complejidad Cynefin: Cuándo usar Scrum",
+      "Valores de Scrum: Coraje, Foco, Compromiso, Respeto y Apertura",
+    ],
+    icon: "RefreshCw",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Roles y Responsabilidades",
+    description:
+      "Profundiza en las responsabilidades de cada rol y cómo interactúan para entregar valor de forma continua.",
+    topics: [
+      "Scrum Master: El líder servicial y coach",
+      "Product Owner: La voz del cliente y gestor del valor",
+      "Developers: Autogestión y excelencia técnica",
+      "Gestión de stakeholders y expectativas",
+      "Antipatrones comunes en los roles",
+    ],
+    icon: "Users",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Eventos de Scrum (Ceremonias)",
+    description:
+      "Aprende a facilitar eventos efectivos que fomenten la colaboración y mantengan el ritmo del equipo.",
+    topics: [
+      "Sprint Planning: Definiendo el objetivo del Sprint",
+      "Daily Scrum: Sincronización diaria efectiva",
+      "Sprint Review: Inspección del incremento con stakeholders",
+      "Sprint Retrospective: Mejora continua del proceso",
+      "Refinamiento del Backlog (Backlog Grooming)",
+    ],
+    icon: "Calendar",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Artefactos y Definición de Hecho (DoD)",
+    description:
+      "Gestiona correctamente los artefactos para asegurar la transparencia y la calidad del entregable.",
+    topics: [
+      "Product Backlog vs Sprint Backlog",
+      "El Incremento de producto",
+      "Definition of Done (DoD) vs Criterios de Aceptación",
+      "Deuda técnica y su impacto",
+      "Herramientas visuales: Tableros y Burndown Charts",
+    ],
+    icon: "Layers",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Scrum Avanzado y Escalado",
+    description:
+      "Estrategias para resolver conflictos, gestionar múltiples equipos y aplicar Scrum en grandes organizaciones.",
+    topics: [
+      "Resolución de conflictos y dinámicas de equipo",
+      "Estimación ágil: Story Points y Planning Poker",
+      "Introducción a Scrum de Scrums y marcos de escalado (SAFe, LeSS)",
+      "Métricas ágiles: Velocidad y Lead Time",
+      "Simulación práctica de un Sprint completo",
+    ],
+    icon: "TrendingUp",
+  },
+];
+
+const instructor = {
+  name: "Agile Coach Senior",
+  title: "Professional Scrum Trainer (PST)",
+  description:
+    "Experto en transformación ágil con más de 12 años acompañando a organizaciones en su transición hacia la agilidad. Ha formado a más de 500 Scrum Masters y facilitado la adopción de Scrum en sectores banca, retail y tecnología.",
+  certifications: [
+    "Professional Scrum Master III (PSM III)",
+    "Certified Agile Coach (ICP-ACC)",
+    "SAFe Program Consultant (SPC)",
+  ],
+  experience: "12+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "A demanda (In-Company)",
+  duration: "16 horas (Workshop)",
+  schedule: "2 jornadas intensivas o 4 medias jornadas",
+  regularPrice: "Consultar",
+  earlyBirdPrice: "Consultar",
+};
+
+const courseId = "scrum-master-corporate";
+const courseName = "Certificación Scrum Master";
+---
+
+<Layout title="Curso Scrum Master para Empresas - Qualisophy">
+  <div class="max-w-7xl mx-auto px-6 pt-8 mb-6">
+      <Breadcrumbs />
+  </div>
+  
+  <h1
+    class="text-center text-3xl md:text-4xl font-bold text-slate-800 mb-8 md:mb-12 font-heading"
+  >
+    Certificación Scrum Master
+  </h1>
+
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  
+</Layout>

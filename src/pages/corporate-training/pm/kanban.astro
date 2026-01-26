@@ -1,0 +1,131 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Principios y Prácticas de Kanban",
+    description:
+      "Introducción al método Kanban como estrategia evolutiva para mejorar la entrega de servicios.",
+    topics: [
+      "Orígenes: De Toyota al trabajo del conocimiento",
+      "Los 4 principios básicos de Kanban",
+      "Las 6 prácticas generales",
+      "Diferencias clave entre Scrum y Kanban",
+      "Pensamiento Lean: Eliminación de desperdicios",
+    ],
+    icon: "Trello", // Icono de tablero
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Visualización del Trabajo",
+    description:
+      "Aprende a diseñar tableros Kanban que reflejen la realidad de tu proceso y hagan visibles los problemas.",
+    topics: [
+      "Mapeo del flujo de valor (Value Stream Mapping)",
+      "Diseño de tableros: Columnas, carriles y avatares",
+      "Tipos de elementos de trabajo y clases de servicio",
+      "Visualización de bloqueos y dependencias",
+      "Políticas explícitas del proceso",
+    ],
+    icon: "Layout",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Gestión del Flujo y Límites WIP",
+    description:
+      "La clave de Kanban: limitar el trabajo en curso (WIP) para mejorar la velocidad y calidad.",
+    topics: [
+      "Ley de Little: Por qué limitar el WIP funciona",
+      "Cómo establecer límites WIP efectivos",
+      "Sistema Pull vs Sistema Push",
+      "Gestión de cuellos de botella",
+      "Multitasking y coste de cambio de contexto",
+    ],
+    icon: "Filter",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Métricas de Flujo y Previsibilidad",
+    description:
+      "Deja de estimar con horas y empieza a predecir con datos. Uso de métricas de flujo para la toma de decisiones.",
+    topics: [
+      "Lead Time vs Cycle Time",
+      "Diagrama de Flujo Acumulativo (CFD)",
+      "Throughput (Tasa de entrega)",
+      "Histogramas y Scatter Plots",
+      "Previsión probabilística (Monte Carlo)",
+    ],
+    icon: "Activity",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Mejora Continua (Kaizen)",
+    description:
+      "Establece bucles de feedback para evolucionar el sistema y mejorar el rendimiento del equipo.",
+    topics: [
+      "Reuniones en Kanban (Cadencias)",
+      "Service Delivery Review",
+      "Operations Review",
+      "Gestión del cambio evolutivo",
+      "Taller: Diseño de un sistema Kanban real",
+    ],
+    icon: "RefreshCw",
+  },
+];
+
+const instructor = {
+  name: "Consultor Lean & Kanban",
+  title: "Accredited Kanban Trainer (AKT)",
+  description:
+    "Consultor experto en eficiencia de procesos y mejora continua. Ayuda a equipos de soporte, operaciones y desarrollo a salir del caos y conseguir un flujo de trabajo sostenible y predecible.",
+  certifications: [
+    "Kanban Management Professional (KMP)",
+    "Lean Six Sigma Green Belt",
+    "Professional Scrum with Kanban (PSK)",
+  ],
+  experience: "9+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "A demanda (In-Company)",
+  duration: "12 horas (Workshop)",
+  schedule: "3 sesiones de 4 horas",
+  regularPrice: "Consultar",
+  earlyBirdPrice: "Consultar",
+};
+
+const courseId = "kanban-corporate";
+const courseName = "Gestión Ágil con Kanban";
+---
+
+<Layout title="Curso Kanban para Empresas - Qualisophy">
+  <div class="max-w-7xl mx-auto px-6 pt-8 mb-6">
+      <Breadcrumbs />
+  </div>
+  
+  <h1
+    class="text-center text-3xl md:text-4xl font-bold text-slate-800 mb-8 md:mb-12 font-heading"
+  >
+    Gestión Ágil con Kanban
+  </h1>
+
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  
+</Layout>

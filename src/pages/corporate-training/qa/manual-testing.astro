@@ -1,0 +1,131 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos del Testing de Software",
+    description:
+      "Comprende los conceptos básicos de la calidad del software, el ciclo de vida del testing y la importancia de detectar errores tempranamente.",
+    topics: [
+      "¿Qué es el testing y por qué es necesario?",
+      "Los 7 principios del testing según ISTQB",
+      "Ciclo de vida del desarrollo de software (SDLC) y STLC",
+      "Diferencias entre QA (Quality Assurance) y QC (Quality Control)",
+      "Psicología del tester y comunicación efectiva",
+    ],
+    icon: "BookOpen", 
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Diseño de Casos de Prueba",
+    description:
+      "Aprende a diseñar casos de prueba efectivos utilizando técnicas de caja negra y caja blanca para asegurar la máxima cobertura.",
+    topics: [
+      "Análisis de requisitos y criterios de aceptación",
+      "Estructura de un caso de prueba efectivo",
+      "Técnicas: Partición de equivalencia y análisis de valores límite",
+      "Tablas de decisión y transición de estados",
+      "Gestión de datos de prueba",
+    ],
+    icon: "Edit", 
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Ejecución de Pruebas y Reporte de Defectos",
+    description:
+      "Domina el proceso de ejecución de tests y aprende a reportar incidencias (bugs) de manera clara y reproducible.",
+    topics: [
+      "Ciclo de vida de un defecto (Bug Lifecycle)",
+      "Cómo escribir un reporte de bug perfecto",
+      "Herramientas de gestión: Jira, Bugzilla, Trello",
+      "Clasificación de severidad y prioridad",
+      "Retesting y pruebas de regresión",
+    ],
+    icon: "Bug", 
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Tipos y Niveles de Pruebas",
+    description:
+      "Explora los diferentes niveles de pruebas y tipos de testing funcional y no funcional aplicables en entornos modernos.",
+    topics: [
+      "Niveles: Unitarias, Integración, Sistema y Aceptación (UAT)",
+      "Testing Funcional vs No Funcional",
+      "Pruebas de Usabilidad y Exploratorias",
+      "Smoke Testing y Sanity Testing",
+      "Introducción al testing en dispositivos móviles",
+    ],
+    icon: "Layers", 
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "QA en Metodologías Ágiles (Scrum)",
+    description:
+      "Integra el rol de QA dentro de un equipo ágil. Aprende a trabajar con Sprints, User Stories y mejora continua.",
+    topics: [
+      "El rol del QA en Scrum y Kanban",
+      "Testing de Historias de Usuario y Criterios de Aceptación",
+      "Participación en ceremonias ágiles (Planning, Daily, Retro)",
+      "Estrategias de testing continuo",
+      "Proyecto final: Ejecución de un ciclo completo de QA",
+    ],
+    icon: "Users", 
+  },
+];
+
+const instructor = {
+  name: "Instructor QA Senior", 
+  title: "Lead QA Engineer & Agile Coach",
+  description:
+    "Especialista en Aseguramiento de Calidad con más de 8 años liderando equipos de testing. Experto en metodologías ágiles y estandarización de procesos de QA para mejorar la eficiencia y reducir el time-to-market.",
+  certifications: [
+    "ISTQB Certified Tester Foundation Level (CTFL)",
+    "ISTQB Agile Tester",
+    "Certified Scrum Master (CSM)",
+  ],
+  experience: "8+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "Consultar próximas fechas", 
+  duration: "20 horas (Intensivo)",
+  schedule: "Horario flexible / In-Company",
+  regularPrice: "Consultar", 
+  earlyBirdPrice: "Consultar",
+};
+
+const courseId = "qa-manual-corporate";
+const courseName = "Testing Manual & QA";
+---
+
+<Layout title="Curso de Testing Manual & QA - Qualisophy">
+  <div class="max-w-7xl mx-auto px-6 pt-8 mb-6">
+      <Breadcrumbs />
+  </div>
+  
+  <h1
+    class="text-center text-3xl md:text-4xl font-bold text-slate-800 mb-8 md:mb-12 font-heading"
+  >
+    Testing Manual & QA
+  </h1>
+
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  
+</Layout>

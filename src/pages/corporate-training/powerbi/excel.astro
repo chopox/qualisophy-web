@@ -1,0 +1,131 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Funciones Avanzadas y Lógica de Negocio",
+    description:
+      "Domina las funciones más potentes de Excel para realizar cálculos complejos y análisis condicionales de forma eficiente.",
+    topics: [
+      "Funciones de Búsqueda: BUSCARX (XLOOKUP), INDICE y COINCIDIR",
+      "Lógica condicional avanzada: SI.CONJUNTO, SUMAR.SI.CONJUNTO",
+      "Manipulación de textos y fechas para limpieza de datos",
+      "Gestión de errores en fórmulas (SI.ERROR)",
+      "Nombres definidos y administración de rangos",
+    ],
+    icon: "Code",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Tablas Dinámicas y Análisis de Datos",
+    description:
+      "Aprende a resumir y analizar grandes volúmenes de datos utilizando tablas dinámicas profesionales.",
+    topics: [
+      "Creación y personalización de Tablas Dinámicas",
+      "Campos calculados y elementos calculados",
+      "Segmentación de datos y escalas de tiempo",
+      "Agrupación de datos (fechas, números, textos)",
+      "Diseño de informes dinámicos y legibles",
+    ],
+    icon: "PieChart",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Visualización de Datos y Dashboards",
+    description:
+      "Transforma datos fríos en historias visuales impactantes mediante gráficos avanzados y dashboards interactivos.",
+    topics: [
+      "Gráficos avanzados: Cascada, Embudo, Mapas y Combinados",
+      "Formato condicional con fórmulas y escalas de color",
+      "Creación de minigráficos (Sparklines)",
+      "Diseño de Dashboards interactivos en Excel",
+      "Buenas prácticas de visualización de datos",
+    ],
+    icon: "BarChart",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Introducción a Power Query y Modelo de Datos",
+    description:
+      "Automatiza la importación y limpieza de datos sin usar macros. El primer paso hacia el Business Intelligence moderno.",
+    topics: [
+      "Conexión a fuentes externas (CSV, Web, Bases de datos)",
+      "Transformación y limpieza de datos con Power Query (ETL)",
+      "Anexar y combinar consultas",
+      "Introducción al Modelo de Datos y Power Pivot",
+      "Relaciones entre tablas",
+    ],
+    icon: "Database",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Automatización Básica con Macros",
+    description:
+      "Aumenta la productividad automatizando tareas repetitivas mediante la grabadora de macros y nociones de VBA.",
+    topics: [
+      "Uso de la Grabadora de Macros",
+      "Edición básica de código VBA",
+      "Asignación de macros a botones y eventos",
+      "Automatización de reportes recurrentes",
+      "Seguridad y distribución de libros con macros",
+    ],
+    icon: "Zap",
+  },
+];
+
+const instructor = {
+  name: "Consultor Data & Analytics",
+  title: "Experto en Microsoft Excel & BI",
+  description:
+    "Consultor especializado en optimización de procesos de negocio mediante herramientas de Microsoft. Más de 15 años ayudando a departamentos financieros y de operaciones a reducir tiempos de reporte y mejorar la toma de decisiones.",
+  certifications: [
+    "Microsoft Office Specialist: Excel Expert",
+    "Data Analyst Associate (Power BI)",
+    "Microsoft Certified Trainer (MCT)",
+  ],
+  experience: "15+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "A demanda (In-Company)",
+  duration: "20 horas (Práctico)",
+  schedule: "Flexible / Adaptado a la empresa",
+  regularPrice: "Consultar",
+  earlyBirdPrice: "Consultar",
+};
+
+const courseId = "excel-business-corporate";
+const courseName = "Excel Avanzado para Negocios";
+---
+
+<Layout title="Curso Excel Avanzado para Empresas - Qualisophy">
+  <div class="max-w-7xl mx-auto px-6 pt-8 mb-6">
+      <Breadcrumbs />
+  </div>
+  
+  <h1
+    class="text-center text-3xl md:text-4xl font-bold text-slate-800 mb-8 md:mb-12 font-heading"
+  >
+    Excel Avanzado para Negocios
+  </h1>
+
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  
+</Layout>

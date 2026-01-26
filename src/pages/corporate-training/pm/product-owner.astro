@@ -1,0 +1,131 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "El Rol del Product Owner",
+    description:
+      "Define la responsabilidad del PO: maximizar el valor del producto y gestionar las expectativas de los stakeholders.",
+    topics: [
+      "El PO en el contexto Ágil vs Project Manager tradicional",
+      "Gestión de Stakeholders y comunicación",
+      "Tipos de Product Owner y antipatrones",
+      "Empatía con el usuario y Design Thinking básico",
+      "Colaboración con el Scrum Master y el equipo",
+    ],
+    icon: "UserCheck",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Visión y Estrategia de Producto",
+    description:
+      "Aprende a definir y comunicar una visión clara que alinee al equipo y al negocio hacia un objetivo común.",
+    topics: [
+      "Creación de la Visión del Producto (Product Vision Board)",
+      "Roadmapping Ágil vs Planificación tradicional",
+      "Definición de MVPs (Minimum Viable Product)",
+      "Objetivos de Negocio y OKRs",
+      "Análisis de mercado y competencia",
+    ],
+    icon: "Target",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Gestión Eficaz del Product Backlog",
+    description:
+      "Técnicas para mantener un Backlog saludable, priorizado y listo para ser desarrollado.",
+    topics: [
+      "Propiedades de un buen Backlog (DEEP)",
+      "Técnicas de Priorización: MoSCoW, Kano, WSJF (Weighted Shortest Job First)",
+      "Refinamiento del Backlog",
+      "Desglose de Epics en Features",
+      "Gestión de dependencias y riesgos",
+    ],
+    icon: "List",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Historias de Usuario y Requisitos",
+    description:
+      "Escribe requisitos desde la perspectiva del usuario para asegurar que el equipo construya lo correcto.",
+    topics: [
+      "Formato de Historia de Usuario (Como... Quiero... Para...)",
+      "Criterios de Aceptación y Gherkin",
+      "Las 3 Cs: Card, Conversation, Confirmation",
+      "Técnicas de Slicing (división) de historias (INVEST)",
+      "Definición de Ready (DoR)",
+    ],
+    icon: "Edit",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Métricas de Valor y Lanzamiento",
+    description:
+      "Mide el éxito del producto basándote en resultados (outcomes) y no solo en entregables (outputs).",
+    topics: [
+      "Planificación de Lanzamientos (Release Planning)",
+      "Métricas de Producto: NPS, Churn, Engagement",
+      "Evidencia basada en gestión (EBM)",
+      "Validación de hipótesis y tests A/B",
+      "Taller práctico: De la idea al Backlog priorizado",
+    ],
+    icon: "BarChart",
+  },
+];
+
+const instructor = {
+  name: "Senior Product Manager",
+  title: "Head of Product & Agile Coach",
+  description:
+    "Profesional con amplia trayectoria gestionando productos digitales B2B y B2C. Especialista en ayudar a las organizaciones a pasar de una mentalidad de 'fábrica de features' a equipos de producto empoderados y orientados a resultados.",
+  certifications: [
+    "Professional Scrum Product Owner (PSPO II)",
+    "Certified Product Manager (CPM)",
+    "Lean Inception Facilitator",
+  ],
+  experience: "10+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "A demanda (In-Company)",
+  duration: "20 horas",
+  schedule: "Adaptable a necesidades",
+  regularPrice: "Consultar",
+  earlyBirdPrice: "Consultar",
+};
+
+const courseId = "product-owner-corporate";
+const courseName = "Product Owner & Gestión del Valor";
+---
+
+<Layout title="Curso Product Owner para Empresas - Qualisophy">
+  <div class="max-w-7xl mx-auto px-6 pt-8 mb-6">
+      <Breadcrumbs />
+  </div>
+  
+  <h1
+    class="text-center text-3xl md:text-4xl font-bold text-slate-800 mb-8 md:mb-12 font-heading"
+  >
+    Product Owner & Gestión del Valor
+  </h1>
+
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  
+</Layout>

@@ -1,0 +1,131 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "El Rol del Líder Técnico Moderno",
+    description:
+      "Transición de contribuidor individual a líder. Entendiendo el cambio de mentalidad necesario para guiar equipos técnicos.",
+    topics: [
+      "Diferencia entre Manager, Líder y Tech Lead",
+      "El liderazgo servicial (Servant Leadership)",
+      "Síndrome del impostor en nuevos líderes",
+      "Equilibrio entre tareas técnicas y gestión",
+      "Construcción de confianza y autoridad moral",
+    ],
+    icon: "User",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Comunicación Efectiva y Feedback",
+    description:
+      "Herramientas para comunicarse con claridad, dar feedback difícil y fomentar una cultura de transparencia.",
+    topics: [
+      "Comunicación asertiva y escucha activa",
+      "Modelos de Feedback (SBI, CNV)",
+      "Gestión de conversaciones difíciles",
+      "Reuniones 1:1 efectivas",
+      "Comunicación con stakeholders no técnicos",
+    ],
+    icon: "MessageCircle",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Gestión de Equipos de Alto Rendimiento",
+    description:
+      "Cómo motivar, delegar y crear el entorno adecuado para que el equipo brille.",
+    topics: [
+      "Seguridad Psicológica (Proyecto Aristóteles)",
+      "Motivación 3.0: Autonomía, Maestría y Propósito",
+      "Delegación efectiva y empoderamiento (Management 3.0)",
+      "Gestión de la diversidad y resolución de conflictos",
+      "Fases de desarrollo de un equipo (Tuckman)",
+    ],
+    icon: "Users",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Desarrollo de Talento y Mentoring",
+    description:
+      "Estrategias para hacer crecer profesionalmente a los miembros de tu equipo y asegurar el plan de carrera.",
+    topics: [
+      "Diferencias entre Coaching y Mentoring",
+      "Planes de carrera y evaluación del desempeño",
+      "Contratación y Onboarding efectivo",
+      "Gestión del bajo rendimiento",
+      "Creación de una cultura de aprendizaje continuo",
+    ],
+    icon: "TrendingUp",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Gestión Estratégica y Toma de Decisiones",
+    description:
+      "Visión global, alineamiento con negocio y toma de decisiones en entornos de incertidumbre.",
+    topics: [
+      "Pensamiento sistémico",
+      "Gestión del cambio y resistencia",
+      "Toma de decisiones colaborativa",
+      "Negociación y gestión de expectativas",
+      "Bienestar del líder: Gestión del tiempo y estrés",
+    ],
+    icon: "Compass",
+  },
+];
+
+const instructor = {
+  name: "Executive Coach & Ex-CTO",
+  title: "Experto en Liderazgo Tecnológico",
+  description:
+    "Antiguo CTO con experiencia escalando equipos de ingeniería en startups y corporaciones. Actualmente ayuda a perfiles técnicos a desarrollar sus habilidades blandas para convertirse en los líderes que sus equipos necesitan.",
+  certifications: [
+    "Certified Executive Coach",
+    "Management 3.0 Facilitator",
+    "Emotional Intelligence Certified",
+  ],
+  experience: "15+ años liderando equipos",
+};
+
+const courseDetails = {
+  startDate: "A demanda (In-Company)",
+  duration: "24 horas (Executive Program)",
+  schedule: "Formato intensivo o semanal",
+  regularPrice: "Consultar",
+  earlyBirdPrice: "Consultar",
+};
+
+const courseId = "tech-leadership-corporate";
+const courseName = "Liderazgo de Equipos Técnicos";
+---
+
+<Layout title="Curso Liderazgo Técnico para Empresas - Qualisophy">
+  <div class="max-w-7xl mx-auto px-6 pt-8 mb-6">
+      <Breadcrumbs />
+  </div>
+  
+  <h1
+    class="text-center text-3xl md:text-4xl font-bold text-slate-800 mb-8 md:mb-12 font-heading"
+  >
+    Liderazgo de Equipos Técnicos
+  </h1>
+
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  
+</Layout>

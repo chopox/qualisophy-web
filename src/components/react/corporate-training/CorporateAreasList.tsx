@@ -1,177 +1,312 @@
 import React, { useState } from "react";
-import { ContentCard } from "@/components/react/shared/ContentCard";
 import { AnimatedSection } from "@/components/react/shared/AnimatedSection";
-import { Modal } from "@/components/react/shared/Modal";
-import { Info } from "lucide-react";
 import { useTranslations } from "@/hooks/useTranslations";
+import { motion, AnimatePresence } from "framer-motion"; // Usamos framer-motion para suavidad en el acordeón
 
-interface Course {
-  name: string;
-  url: string;
-}
-
-interface AreaCardData {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  buttonText: string;
-  buttonHref: string;
-  courses: Course[];
-}
+// --- DATOS DE LOS ITINERARIOS ---
+const trainingPaths = [
+  {
+    id: "qa",
+    title: "QA & Testing",
+    subtitle: "Aseguramiento de Calidad",
+    icon: "bug_report",
+    colorTheme: "emerald",
+    headerBg: "bg-emerald-600",
+    lightBg: "bg-emerald-50",
+    borderColor: "border-emerald-200",
+    textColor: "text-emerald-700",
+    mainLink: "/corporate-training/qa",
+    courses: [
+      {
+        title: "Testing Manual & QA",
+        href: "/corporate-training/qa/manual-testing",
+      },
+      {
+        title: "Automatización con Cypress",
+        href: "/corporate-training/qa/automation-course",
+      },
+      { title: "DevOps for Testers", href: "/corporate-training/qa/devOps" },
+      {
+        title: "Gestión de Calidad (TQM)",
+        href: "/corporate-training/qa/quality-management",
+      },
+    ],
+  },
+  {
+    id: "data",
+    title: "Microsoft & Data",
+    subtitle: "Business Intelligence",
+    icon: "bar_chart",
+    colorTheme: "amber",
+    headerBg: "bg-amber-500",
+    lightBg: "bg-amber-50",
+    borderColor: "border-amber-200",
+    textColor: "text-amber-700",
+    mainLink: "/corporate-training/powerbi",
+    courses: [
+      {
+        title: "Power BI Dashboards",
+        href: "/corporate-training/powerbi/dashboards-course",
+      },
+      {
+        title: "Data Analytics & SQL",
+        href: "/corporate-training/powerbi/data-analytics",
+      },
+      {
+        title: "Excel Avanzado Business",
+        href: "/corporate-training/powerbi/excel",
+      },
+      {
+        title: "Power Automate Flows",
+        href: "/corporate-training/powerbi/automate",
+      },
+    ],
+  },
+  {
+    id: "dev",
+    title: "Desarrollo",
+    subtitle: "Ingeniería de Software",
+    icon: "code",
+    colorTheme: "blue",
+    headerBg: "bg-blue-600",
+    lightBg: "bg-blue-50",
+    borderColor: "border-blue-200",
+    textColor: "text-blue-700",
+    mainLink: "/corporate-training/dev",
+    courses: [
+      {
+        title: "Fullstack Development",
+        href: "/corporate-training/dev/fullstack-course",
+      },
+      {
+        title: "Frontend (React/Vue)",
+        href: "/corporate-training/dev/frontend-course",
+      },
+      {
+        title: "Backend (Node.js/Java)",
+        href: "/corporate-training/dev/backend-course",
+      },
+      { title: "Arquitectura Cloud", href: "/corporate-training/dev/cloud" },
+    ],
+  },
+  {
+    id: "pm",
+    title: "Project Management",
+    subtitle: "Liderazgo y Agilidad",
+    icon: "manage_accounts",
+    colorTheme: "purple",
+    headerBg: "bg-purple-600",
+    lightBg: "bg-purple-50",
+    borderColor: "border-purple-200",
+    textColor: "text-purple-700",
+    mainLink: "/corporate-training/pm",
+    courses: [
+      { title: "Scrum Master", href: "/corporate-training/pm/scrum" },
+      { title: "Product Owner", href: "/corporate-training/pm/product-owner" },
+      { title: "Gestión Ágil (Kanban)", href: "/corporate-training/pm/kanban" },
+      {
+        title: "Liderazgo de Equipos",
+        href: "/corporate-training/pm/leadership",
+      },
+    ],
+  },
+];
 
 export const CorporateAreasList: React.FC = () => {
   const t = useTranslations();
+  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
 
-  const [openModal, setOpenModal] = useState<string | null>(null);
-
-  const areas: AreaCardData[] = [
-    {
-      id: "dev",
-      title: "Formación en Desarrollo (DEV)",
-      description:
-        "Potencia las habilidades técnicas de tus equipos en tecnologías modernas como Java, Node.js, React o Angular.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1470&q=80",
-      buttonText: t('button.viewTraining'),
-      buttonHref: "/corporate-training/dev",
-      // Now each course has name and url
-      courses: [
-        {
-          name: "Frontend Moderno (React, Vue, TypeScript, TailwindCSS)",
-          url: "/corporate-training/dev/frontend-course",
-        },
-        {
-          name: "Backend Escalable (Node.js, APIs REST, bases de datos)",
-          url: "/corporate-training/dev/backend-course",
-        },
-        {
-          name: "Full Stack Development (Ciclo completo: frontend + backend + CI/CD)",
-          url: "/corporate-training/dev/fullstack-course",
-        },
-      ],
-    },
-    {
-      id: "qa",
-      title: "Formación en Calidad y Testing (QA)",
-      description:
-        "Capacita a tus equipos en testing funcional, automatización, BDD y estrategias modernas de aseguramiento de calidad.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1470&q=80",
-      buttonText: t('button.viewTraining'),
-      buttonHref: "/corporate-training/qa",
-      courses: [
-        {
-          name: "Automatización de Pruebas (Selenium, Cypress, Playwright)",
-          url: "/corporate-training/qa/automation-course",
-        },
-        {
-          name: "DevOps para QA (Integración en pipelines CI/CD, Jenkins, Docker)",
-          url: "/corporate-training/qa/devops",
-        },
-        {
-          name: "Gestión de Calidad del Software (Estrategias QA, planificación, KPIs)",
-          url: "/corporate-training/qa/quality-management",
-        },
-      ],
-    },
-    {
-      id: "powerbi",
-      title: "Formación en Power BI y Análisis de Datos",
-      description:
-        "Forma a tus equipos en análisis de datos, dashboards interactivos y visualización avanzada con Power BI.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1556155092-8707de31f9c4?auto=format&fit=crop&w=1470&q=80",
-      buttonText: t('button.viewTraining'),
-      buttonHref: "/corporate-training/powerbi",
-      courses: [
-        {
-          name: "Dashboards y Visualización (Paneles interactivos, medición de KPIs)",
-          url: "/corporate-training/powerbi/dashboards-course",
-        },
-        {
-          name: "Introducción a la Analítica de Datos con Power BI (Limpiar, transformar y analizar datos)",
-          url: "/corporate-training/powerbi/data-analytics",
-        },
-      ],
-    },
-  ];
+  const toggleAccordion = (id: string) => {
+    setOpenAccordion(openAccordion === id ? null : id);
+  };
 
   return (
-    <>
-      <AnimatedSection className="py-12 bg-white">
-        <div className="container mx-auto px-6">
-          {/* Increased spacing below heading to separate it from the cards */}
-          <h2 className="text-3xl font-heading sm:text-4xl font-bold text-slate-800 text-center mb-8 sm:mb-12">
-            Formación para Empresas
+    <AnimatedSection className="py-20 bg-white relative">
+      <div className="container mx-auto px-6 relative z-10">
+        {/* CABECERA DE SECCIÓN */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">
+            Catálogo formativo
+          </span>
+          <h2 className="text-3xl font-heading sm:text-4xl font-bold text-slate-800 mb-4">
+            Formación para empresas
           </h2>
-
-          {/* Added top margin to grid to create more vertical breathing room */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mt-6">
-            {areas.map((area) => (
-              <div key={area.id} className="relative">
-                {/* Info button (i) */}
-                <button
-                  onClick={() => setOpenModal(area.id)}
-                  className="absolute top-4 right-4 z-10 p-2 bg-white/90 hover:bg-primary hover:text-white rounded-full shadow-md transition-all duration-200 hover:scale-110"
-                  aria-label={`Ver cursos de ${area.title}`}
-                >
-                  <Info className="w-5 h-5" />
-                </button>
-
-                <ContentCard
-                  title={area.title}
-                  description={area.description}
-                  imageUrl={area.imageUrl}
-                  buttonText={area.buttonText}
-                  buttonHref={area.buttonHref}
-                />
-              </div>
-            ))}
-          </div>
+          <p className="text-lg text-slate-600 font-primary">
+            Visualiza nuestros itinerarios formativos estándar. Puedes contratar
+            un itinerario completo o módulos sueltos según las necesidades de tu
+            equipo.
+          </p>
         </div>
-      </AnimatedSection>
 
-      {/* Modal for each area */}
-      {areas.map((area) => (
-        <Modal
-          key={area.id}
-          isOpen={openModal === area.id}
-          onClose={() => setOpenModal(null)}
-          title={`Cursos de ${area.title.split(" ")[2]}`} // Extrae "Desarrollo", "Calidad", "Power BI"
-        >
-          <div className="space-y-4">
-            <p className="text-gray-600 mb-6">
-              Estos son los cursos disponibles en esta área de formación:
-            </p>
-            <ul className="space-y-4">
-              {area.courses.map((course, index) => (
-                <li key={index}>
-                  {/* Now is clickable <a> */}
-                  <a
-                    href={course.url}
-                    className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg hover:bg-primary/10 hover:border-primary border-2 border-transparent transition-all duration-200 group cursor-pointer"
-                    onClick={() => setOpenModal(null)} // Close modal on click
-                  >
-                    <span className="flex-shrink-0 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform">
-                      {index + 1}
+        {/* ==============================================
+            VISTA DE ESCRITORIO (Diagrama Original)
+            Visible solo en lg (1024px) en adelante
+           ============================================== */}
+        <div className="hidden lg:grid grid-cols-4 gap-8">
+          {trainingPaths.map((path) => (
+            <div key={path.id} className="flex flex-col h-full group">
+              {/* 1. CABECERA DE COLUMNA */}
+              <div
+                className={`
+                rounded-2xl p-6 text-center shadow-lg mb-6 relative overflow-hidden transition-transform duration-300 
+                ${path.headerBg} text-white
+              `}
+              >
+                <div className="relative z-10 flex flex-col items-center gap-2">
+                  <div className="p-2 bg-white/20 rounded-full backdrop-blur-sm">
+                    <span className="material-symbols-outlined text-2xl">
+                      {path.icon}
                     </span>
-                    <div className="flex-1">
-                      <span className="text-gray-700 leading-relaxed group-hover:text-primary transition-colors">
-                        {course.name}
-                      </span>
-                      {/* Visual indicator that it's clickable */}
-                      <span className="text-primary text-sm opacity-0 group-hover:opacity-100 transition-opacity ml-2">
-                        →
+                  </div>
+                  <h3 className="font-bold text-xl font-heading leading-tight">
+                    {path.title}
+                  </h3>
+                  <p className="text-xs text-white/90 font-medium uppercase tracking-wide opacity-90">
+                    {path.subtitle}
+                  </p>
+                </div>
+                <div className="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
+              </div>
+
+              {/* LÍNEA CONECTORA */}
+              <div className="block w-px h-8 border-l-2 border-dashed border-gray-300 mx-auto -mt-6 mb-2 relative z-0"></div>
+
+              {/* 2. LISTA DE BLOQUES (CURSOS) */}
+              <div className="flex flex-col gap-3 flex-1">
+                {path.courses.map((course, idx) => (
+                  <a
+                    key={idx}
+                    href={course.href}
+                    className={`
+                        block p-4 rounded-xl border-2 text-center transition-all duration-200 relative
+                        bg-white border-gray-100 hover:shadow-md
+                        hover:border-${path.colorTheme}-200 
+                        group-hover/card:scale-105
+                    `}
+                  >
+                    <div
+                      className={`absolute left-0 top-0 bottom-0 w-1.5 rounded-l-xl ${path.headerBg} opacity-0 hover:opacity-100 transition-opacity`}
+                    ></div>
+                    <span className="text-sm font-bold text-slate-700 hover:text-primary transition-colors">
+                      {course.title}
+                    </span>
+                  </a>
+                ))}
+
+                {/* 3. BLOQUE VER MÁS */}
+                <div className="mt-auto pt-4 text-center">
+                  <a
+                    href={path.mainLink}
+                    className={`inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider ${path.textColor} hover:underline`}
+                  >
+                    Ver sección completa
+                    <span className="material-symbols-outlined text-sm">
+                      arrow_forward
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ==============================================
+            VISTA MÓVIL (Acordeón)
+            Visible solo hasta lg
+           ============================================== */}
+        <div className="lg:hidden flex flex-col gap-4">
+          {trainingPaths.map((path) => {
+            const isOpen = openAccordion === path.id;
+            return (
+              <div
+                key={path.id}
+                className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+              >
+                {/* Cabecera del Acordeón (Clickable) */}
+                <button
+                  onClick={() => toggleAccordion(path.id)}
+                  className={`w-full flex items-center justify-between p-5 text-left transition-colors duration-300 ${
+                    isOpen ? path.lightBg : "bg-white"
+                  }`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div
+                      className={`p-2 rounded-lg ${
+                        isOpen
+                          ? `${path.headerBg} text-white`
+                          : "bg-gray-100 text-gray-500"
+                      }`}
+                    >
+                      <span className="material-symbols-outlined text-xl">
+                        {path.icon}
                       </span>
                     </div>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Modal>
-      ))}
-    </>
+                    <div>
+                      <h3
+                        className={`font-bold font-heading text-lg ${
+                          isOpen ? path.textColor : "text-slate-700"
+                        }`}
+                      >
+                        {path.title}
+                      </h3>
+                      <p className="text-xs text-slate-500 font-medium uppercase tracking-wide">
+                        {path.subtitle}
+                      </p>
+                    </div>
+                  </div>
+                  <span
+                    className={`material-symbols-outlined transition-transform duration-300 ${
+                      isOpen ? `rotate-180 ${path.textColor}` : "text-gray-400"
+                    }`}
+                  >
+                    expand_more
+                  </span>
+                </button>
+
+                {/* Contenido Desplegable */}
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      <div className="p-5 pt-0 border-t border-gray-100">
+                        <div className="flex flex-col gap-2 mt-4">
+                          {path.courses.map((course, idx) => (
+                            <a
+                              key={idx}
+                              href={course.href}
+                              className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-slate-600 hover:text-primary transition-colors border border-transparent hover:border-gray-100"
+                            >
+                              <span
+                                className={`material-symbols-outlined text-sm ${path.textColor}`}
+                              >
+                                chevron_right
+                              </span>
+                              <span className="text-sm font-medium">
+                                {course.title}
+                              </span>
+                            </a>
+                          ))}
+
+                          <a
+                            href={path.mainLink}
+                            className={`mt-2 p-3 text-center text-xs font-bold uppercase tracking-wider ${path.textColor} bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors`}
+                          >
+                            Ver todos los cursos de {path.title}
+                          </a>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </AnimatedSection>
   );
 };

@@ -1,43 +1,75 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { CorporateAreasList } from "@/components/react/corporate-training/CorporateAreasList";
-import { CorporateTraining } from "@/components/react/corporate-training/Corporate-training";
 import { CorporateTrainingHero } from "@/components/react/corporate-training/CorporateTrainingHero";
 import { CustomTrainingProgram } from "@/components/react/corporate-training/CustomTrainingProgram";
 import { CompanyCarousel } from "@/components/react/corporate-training/CompanyCarousel";
 import { ContactForm } from "@/components/react/contact/ContactForm";
-import { Button } from "@/components/react/shared/Button";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 ---
 
-<Layout title="Formación para Empresas - Qualisophy">
+<Layout title="Formación para Empresas - Qualisophy" fullWidth={true}>
+  
+  {/* 1. HERO SECTION */}
   <CorporateTrainingHero client:load />
 
-  <div class="max-w-7xl mx-auto px-6 pt-8">
+  {/* 2. BREADCRUMBS (Contenedor limitado) */}
+  <div class="container mx-auto px-6 pt-8">
     <Breadcrumbs />
   </div>
 
+  {/* 3. CATÁLOGO DE ÁREAS (Usando las nuevas tarjetas) */}
   <CorporateAreasList client:load />
 
-  <CorporateTraining client:load />
-
+  {/* 4. METODOLOGÍA Y BENEFICIOS */}
   <CustomTrainingProgram client:load />
 
-  <CompanyCarousel client:load />
+  {/* 5. PRUEBA SOCIAL (LOGOS) */}
+  <div class="py-12">
+      <CompanyCarousel client:load />
+  </div>
 
-  <section class="py-20 bg-white">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-3xl font-heading sm:text-4xl font-bold text-slate-800 text-center mb-8 sm:mb-12">
-        Solicita tu programa de formación personalizado
-      </h2>
-      <p class="text-slate-600 mb-8">
-        Cuéntanos tus objetivos y diseñaremos un plan de formación adaptado a
-        las necesidades de tu empresa. Nuestro equipo te contactará para
-        coordinar una propuesta.
-      </p>
+  {/* 6. CONTACTO (Fondo diferenciado) */}
+  <section id="contact-form" class="py-24 bg-gray-50 relative">
+    {/* Decoración de fondo */}
+    <div class="absolute inset-0 bg-[url('/assets/pattern.svg')] opacity-[0.03]"></div>
 
-      {/* We pass the source to distinguish it in Make */}
-      <ContactForm client:load source="Solicitud Formación Empresas" />
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        
+        {/* Texto persuasivo a la izquierda */}
+        <div>
+            <h2 class="text-3xl font-heading sm:text-4xl font-bold text-slate-800 mb-6">
+                Diseñamos el plan perfecto para tu equipo
+            </h2>
+            <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                Cuéntanos tus objetivos y diseñaremos un plan de formación adaptado a
+                las necesidades de tu empresa. Ya sea un bootcamp intensivo o formación continua, 
+                tenemos la solución.
+            </p>
+            
+            <ul class="space-y-4 mb-8">
+                <li class="flex items-center gap-3 text-slate-700">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600 text-xs font-bold">✓</span>
+                    Bonificable por FUNDAE
+                </li>
+                <li class="flex items-center gap-3 text-slate-700">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600 text-xs font-bold">✓</span>
+                    Instructores Senior en activo
+                </li>
+                <li class="flex items-center gap-3 text-slate-700">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600 text-xs font-bold">✓</span>
+                    Adaptación de horarios y temario
+                </li>
+            </ul>
+        </div>
+
+        {/* Formulario a la derecha */}
+        <div>
+            <ContactForm client:load source="Solicitud Formación Empresas" />
+        </div>
+
+      </div>
     </div>
   </section>
 </Layout>

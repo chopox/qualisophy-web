@@ -1,0 +1,131 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Introducción a Power Automate",
+    description:
+      "Comprende el ecosistema de Power Platform y cómo Power Automate puede eliminar tareas repetitivas en tu organización.",
+    topics: [
+      "¿Qué es Power Automate? Tipos de flujos (Nube, Escritorio, Negocio)",
+      "Navegación por el entorno y licencias",
+      "Plantillas vs Flujos desde cero",
+      "Conectores estándar vs Premium",
+      "Casos de uso comunes en la empresa",
+    ],
+    icon: "Cloud",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Desencadenadores y Acciones",
+    description:
+      "Aprende a iniciar flujos automáticamente y conectarlos con herramientas como Outlook, SharePoint, Teams y Forms.",
+    topics: [
+      "Triggers: Automáticos, Instantáneos y Programados",
+      "Conexión con Microsoft 365 (Outlook, OneDrive)",
+      "Gestión de listas y archivos en SharePoint",
+      "Recolección de datos con Microsoft Forms",
+      "Notificaciones y alertas en Microsoft Teams",
+    ],
+    icon: "Activity",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Lógica de Control y Expresiones",
+    description:
+      "Añade inteligencia a tus flujos mediante condiciones, bucles y manejo de datos dinámicos.",
+    topics: [
+      "Condiciones (If/Else) y Switch",
+      "Bucles: Apply to each y Do until",
+      "Uso de contenido dinámico",
+      "Expresiones básicas (Fechas, Strings, Matemáticas)",
+      "Manejo de variables y composición de datos",
+    ],
+    icon: "GitBranch",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Automatización de Aprobaciones",
+    description:
+      "Digitaliza procesos burocráticos. Crea flujos de aprobación modernos para solicitudes de vacaciones, gastos o documentos.",
+    topics: [
+      "El conector de Aprobaciones (Approvals)",
+      "Tipos de aprobación: Todos deben aprobar vs Primero en responder",
+      "Aprobaciones personalizadas y reasignación",
+      "Integración de aprobaciones en Teams y Correo",
+      "Gestión de rechazos y escalado",
+    ],
+    icon: "CheckCircle",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Integración y Buenas Prácticas",
+    description:
+      "Aprende a gestionar errores, compartir flujos con el equipo y mantener un entorno ordenado y seguro.",
+    topics: [
+      "Gestión de errores (Configure run after)",
+      "Compartir flujos y gestión de propietarios",
+      "Exportación e importación de soluciones",
+      "Integración con Power BI (alertas de datos)",
+      "Proyecto final: Automatización de un proceso departamental",
+    ],
+    icon: "Settings",
+  },
+];
+
+const instructor = {
+  name: "Arquitecto Power Platform",
+  title: "Consultor de Automatización Senior",
+  description:
+    "Especialista en transformación digital y automatización de procesos (RPA/DPA). Ayuda a las empresas a ahorrar miles de horas anuales conectando aplicaciones y eliminando el trabajo manual mediante el ecosistema Microsoft.",
+  certifications: [
+    "Microsoft Certified: Power Automate RPA Developer Associate",
+    "Power Platform App Maker Associate",
+    "Microsoft 365 Certified: Developer Associate",
+  ],
+  experience: "10+ años en TI",
+};
+
+const courseDetails = {
+  startDate: "A demanda (In-Company)",
+  duration: "15 horas (Workshop)",
+  schedule: "Sesiones intensivas o extensivas",
+  regularPrice: "Consultar",
+  earlyBirdPrice: "Consultar",
+};
+
+const courseId = "power-automate-corporate";
+const courseName = "Automatización con Power Automate";
+---
+
+<Layout title="Curso Power Automate para Empresas - Qualisophy">
+  <div class="max-w-7xl mx-auto px-6 pt-8 mb-6">
+      <Breadcrumbs />
+  </div>
+  
+  <h1
+    class="text-center text-3xl md:text-4xl font-bold text-slate-800 mb-8 md:mb-12 font-heading"
+  >
+    Automatización con Power Automate
+  </h1>
+
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  
+</Layout>

@@ -1,55 +1,63 @@
-import { Button } from "@/components/react/shared/Button";
-import { motion } from "framer-motion";
+import React from "react";
 import { useTranslations } from "@/hooks/useTranslations";
+import { motion } from "framer-motion";
 
 export const CorporateTrainingHero = () => {
   const t = useTranslations();
+
+  const handleScrollToContact = () => {
+    const contactSection = document.getElementById("contact-form");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <section
-      className="
-        relative left-1/2 right-1/2 -mx-[50vw] w-screen
-        text-white overflow-hidden
-        py-24 md:py-32
-        -mt-[var(--navbar-height,4rem)]
-      "
-    >
-      {/* Background image */}
-      <div
-        className="
-          absolute inset-0 bg-cover bg-center brightness-75
-        "
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80')",
-        }}
-      ></div>
+    <section className="relative w-full overflow-hidden min-h-[600px] flex items-center">
+      {/* 1. IMAGEN DE FONDO */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80" // Imagen de ambiente corporativo profesional
+          alt="Corporate Training Team"
+          className="w-full h-full object-cover"
+          loading="eager"
+        />
+      </div>
 
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70"></div>
+      {/* 2. OVERLAY AZUL (Estilo Qualisophy) */}
+      <div className="absolute inset-0 z-0 bg-secondary/90 mix-blend-multiply opacity-95" />
 
-      {/* Content */}
-      {/* Wrap the content in a <motion.div> to animate it */}
-      <motion.div
-        className="relative z-10 max-w-5xl mx-auto text-center px-6"
-        initial={{ opacity: 0, y: 20 }} // Estado inicial
-        animate={{ opacity: 1, y: 0 }} // Estado final
-        transition={{ duration: 0.7, ease: "easeOut" }} // Transición
-      >
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading leading-tight mb-6 drop-shadow-lg">
-          Formación{" "}
-          <span className="text-primary font-heading drop-shadow-md">para Empresas</span>
-        </h1>
-        <p className="max-w-3xl mx-auto text-lg sm:text-xl leading-relaxed text-gray-100 font-primary drop-shadow-md mb-8">
-          Programas de formación técnica diseñados para transformar la capacidad
-          de tus equipos. Actualiza las competencias, impulsa la innovación y
-          aumenta la eficiencia de tu organización.
-        </p>
-        <a href="/contact">
-          <Button variant="primary" size="md">
-            {t('button.requestInfo')}
-          </Button>
-        </a>
-      </motion.div>
+      {/* 3. CONTENIDO CENTRADO */}
+      <div className="relative z-10 layout-container flex flex-col items-center justify-center w-full px-6 lg:px-8 py-20 mx-auto max-w-7xl">
+        <motion.div
+          className="max-w-5xl text-center flex flex-col gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          {/* Título */}
+          <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight font-heading drop-shadow-lg">
+            Formación <span className="text-primary">para Empresas</span>
+          </h1>
+
+          {/* Subtítulo */}
+          <p className="text-gray-100 text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto font-primary drop-shadow-md">
+            Programas técnicos a medida para transformar el talento de tu
+            organización. Impulsa la innovación, mejora la eficiencia y retén a
+            tus mejores profesionales con formación de alto impacto.
+          </p>
+
+          {/* Botón CTA */}
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={handleScrollToContact}
+              className="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-lg shadow-xl transition-all transform hover:-translate-y-1 text-lg border border-transparent font-primary cursor-pointer"
+            >
+              {t("button.requestInfo")}
+            </button>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 };
