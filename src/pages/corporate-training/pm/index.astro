@@ -1,6 +1,5 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import { CourseGridCard } from "@/components/react/course/CourseGridCard";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
@@ -50,49 +49,43 @@ const courses = [
 
 <Layout title="Formación en Project Management para Empresas - Qualisophy" fullWidth={true}>
   
-  <ProgramHero
-    client:load
-    title="Formación Corporativa en"
-    highlight="Project Management"
-    subtitle="Metodologías ágiles y habilidades directivas para transformar la forma en que tus equipos entregan valor."
-    backgroundImage="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80"
-    ctaText="Consultar disponibilidad"
-    onCtaClick={() => window.location.href = '/contact'}
-  />
-
-  <div class="bg-gray-50/50 min-h-screen">
-    <div class="container mx-auto px-6 pt-8 pb-4">
+  {/* SECCIÓN CABECERA (Estilo Dev - Fondo Blanco) */}
+  <section class="pt-6 pb-12 bg-white border-b border-gray-100">
+    <div class="container mx-auto px-6">
+      <div class="mb-8">
         <Breadcrumbs />
+      </div>
+
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl font-bold font-heading text-slate-800 mb-4">
+          Liderazgo y Agilidad Organizacional
+        </h1>
+        <p class="text-slate-600 text-lg">
+          Capacita a tus líderes y equipos en los marcos de trabajo más eficientes del mercado actual. Desde Scrum hasta Liderazgo Ejecutivo.
+        </p>
+      </div>
     </div>
+  </section>
 
-    <section id="courses-grid" class="py-12 pb-24">
-        <div class="container mx-auto px-6">
-        
-        <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4 border-b border-gray-200 pb-6">
-            <div class="max-w-2xl">
-                <h2 class="text-3xl font-bold font-heading text-secondary mb-2">Liderazgo y Agilidad Organizacional</h2>
-                <p class="text-gray-600 font-primary">
-                    Capacita a tus líderes y equipos en los marcos de trabajo más eficientes del mercado actual.
-                </p>
-            </div>
-        </div>
+  {/* SECCIÓN GRID (Estilo PM - Fondo Gris) */}
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {courses.map((course) => (
+          <CourseGridCard
+            client:visible
+            title={course.title}
+            description={course.description}
+            imageSrc={course.imageUrl}
+            href={course.href}
+            level={course.level as "Principiante" | "Intermedio" | "Avanzado"}
+            duration={course.duration}
+            modality={course.modality as "Online" | "Presencial" | "Híbrido"}
+            category={course.category}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {courses.map((course) => (
-            <CourseGridCard
-                client:visible
-                title={course.title}
-                description={course.description}
-                imageSrc={course.imageUrl}
-                href={course.href}
-                level={course.level as "Principiante" | "Intermedio" | "Avanzado"}
-                duration={course.duration}
-                modality={course.modality as "Online" | "Presencial" | "Híbrido"}
-                category={course.category}
-            />
-            ))}
-        </div>
-        </div>
-    </section>
-  </div>
 </Layout>

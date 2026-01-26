@@ -1,30 +1,91 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import PowerBiCoursesList from "@/components/react/course/PowerBICoursesList";
+import { CourseGridCard } from "@/components/react/course/CourseGridCard";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courses = [
+  {
+    title: "Power BI Dashboards",
+    description: "Aprende a conectar datos, modelarlos y crear cuadros de mando interactivos que faciliten la toma de decisiones estratégicas.",
+    imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80",
+    href: "/corporate-training/powerbi/dashboards-course",
+    level: "Principiante",
+    duration: "25h - Curso",
+    modality: "Online",
+    category: "Data Viz"
+  },
+  {
+    title: "Data Analytics & SQL",
+    description: "Fundamentos del análisis de datos. Extracción (SQL), Transformación y Carga (ETL) para preparar la información empresarial.",
+    imageUrl: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80",
+    href: "/corporate-training/powerbi/data-analytics",
+    level: "Intermedio",
+    duration: "30h - Práctico",
+    modality: "Online",
+    category: "Analytics"
+  },
+  {
+    title: "Excel Avanzado Business",
+    description: "Lleva las hojas de cálculo al siguiente nivel: Power Pivot, Power Query y automatización para financieros y analistas.",
+    imageUrl: "https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&q=80",
+    href: "/corporate-training/powerbi/excel",
+    level: "Avanzado",
+    duration: "20h - Intensivo",
+    modality: "Presencial / Online",
+    category: "Productivity"
+  },
+  {
+    title: "Power Automate Flows",
+    description: "Automatiza procesos repetitivos y conecta tus aplicaciones (Office 365, Teams, SharePoint) sin necesidad de código complejo.",
+    imageUrl: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80",
+    href: "/corporate-training/powerbi/automate",
+    level: "Intermedio",
+    duration: "15h - Workshop",
+    modality: "Online",
+    category: "Automation"
+  }
+];
 ---
 
-<Layout
-  title="Power BI y Análisis de Datos - Formación para Empresas | Qualisophy"
->
-  <section class="pt-6 pb-12 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
+<Layout title="Power BI y Data - Formación para Empresas | Qualisophy" fullWidth={true}>
+  
+  {/* SECCIÓN CABECERA */}
+  <section class="pt-6 pb-12 bg-white border-b border-gray-100">
+    <div class="container mx-auto px-6">
       <div class="mb-8">
         <Breadcrumbs />
       </div>
 
-      <div class="text-center">
-        <h1 class="text-4xl font-bold text-slate-800 mb-4">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl font-bold font-heading text-slate-800 mb-4">
           Formación en Power BI y Data Analytics
         </h1>
-        <p class="text-slate-600 max-w-2xl mx-auto mb-12">
-          Aprende a analizar datos, crear dashboards interactivos y generar
-          informes profesionales con Power BI. Programas adaptados al nivel de
-          tu empresa.
+        <p class="text-slate-600 text-lg">
+          Transforma tu organización en Data-Driven. Aprende a analizar datos, crear dashboards interactivos y automatizar flujos de trabajo.
         </p>
       </div>
     </div>
-
-    <PowerBiCoursesList client:load />
   </section>
+
+  {/* SECCIÓN GRID */}
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {courses.map((course) => (
+          <CourseGridCard
+            client:visible
+            title={course.title}
+            description={course.description}
+            imageSrc={course.imageUrl}
+            href={course.href}
+            level={course.level as "Principiante" | "Intermedio" | "Avanzado"}
+            duration={course.duration}
+            modality={course.modality as "Online" | "Presencial" | "Híbrido"}
+            category={course.category}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
 </Layout>

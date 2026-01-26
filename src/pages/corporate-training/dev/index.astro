@@ -1,28 +1,91 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import DevCoursesList from "@/components/react/course/DevCoursesList";
+import { CourseGridCard } from "@/components/react/course/CourseGridCard";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courses = [
+  {
+    title: "Fullstack Development",
+    description: "Formación completa 360º. Desde bases de datos y arquitectura backend hasta interfaces frontend modernas y despliegue.",
+    imageUrl: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&q=80",
+    href: "/corporate-training/dev/fullstack-course",
+    level: "Avanzado",
+    duration: "A medida",
+    modality: "Híbrido",
+    category: "Fullstack"
+  },
+  {
+    title: "Frontend Moderno (React/Vue)",
+    description: "Especialización en creación de SPAs, gestión de estado, hooks y rendimiento web con los frameworks más demandados.",
+    imageUrl: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80",
+    href: "/corporate-training/dev/frontend-course",
+    level: "Intermedio",
+    duration: "40h - Práctico",
+    modality: "Online",
+    category: "Frontend"
+  },
+  {
+    title: "Backend Escalable",
+    description: "Arquitectura de APIs REST, Microservicios, Node.js o Java Spring Boot. Seguridad y escalabilidad para tu servidor.",
+    imageUrl: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&q=80",
+    href: "/corporate-training/dev/backend-course",
+    level: "Avanzado",
+    duration: "40h - Práctico",
+    modality: "Online",
+    category: "Backend"
+  },
+  {
+    title: "Arquitectura Cloud",
+    description: "Despliegue y gestión de aplicaciones en la nube (AWS/Azure). Contenedores, Serverless y mejores prácticas DevOps.",
+    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80",
+    href: "/corporate-training/dev/cloud",
+    level: "Avanzado",
+    duration: "30h - Workshop",
+    modality: "Presencial",
+    category: "Cloud"
+  }
+];
 ---
 
-<Layout title="Desarrollo Web - Formación para Empresas | Qualisophy">
-  <section class="pt-6 pb-12 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
+<Layout title="Formación en Desarrollo Web para Empresas - Qualisophy" fullWidth={true}>
+  
+  {/* SECCIÓN CABECERA */}
+  <section class="pt-6 pb-12 bg-white border-b border-gray-100">
+    <div class="container mx-auto px-6">
       <div class="mb-8">
         <Breadcrumbs />
       </div>
 
-      <div class="text-center">
-        <h1 class="text-4xl font-bold text-slate-800 mb-4">
-          Formación en Desarrollo Web
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl font-bold font-heading text-slate-800 mb-4">
+          Formación en Desarrollo de Software
         </h1>
-        <p class="text-slate-600 max-w-2xl mx-auto mb-12">
-          Mejora las capacidades de tu equipo con programas de formación en
-          frontend, backend y desarrollo full stack. Cursos diseñados para
-          proyectos reales y metodologías ágiles.
+        <p class="text-slate-600 text-lg">
+          Mejora las capacidades de tu equipo con programas de formación en frontend, backend y arquitectura cloud. Código limpio y metodologías ágiles.
         </p>
       </div>
     </div>
-
-    <DevCoursesList client:load />
   </section>
+
+  {/* SECCIÓN GRID */}
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {courses.map((course) => (
+          <CourseGridCard
+            client:visible
+            title={course.title}
+            description={course.description}
+            imageSrc={course.imageUrl}
+            href={course.href}
+            level={course.level as "Principiante" | "Intermedio" | "Avanzado"}
+            duration={course.duration}
+            modality={course.modality as "Online" | "Presencial" | "Híbrido"}
+            category={course.category}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
 </Layout>
