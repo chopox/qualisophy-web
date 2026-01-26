@@ -1,73 +1,108 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
-import { ContentCard } from "@/components/react/shared/ContentCard";
+import { CourseGridCard } from "@/components/react/course/CourseGridCard"; // Importamos el nuevo componente
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
+// Datos enriquecidos para la UI
 const courses = [
   {
     title: "Testing y Calidad del Software",
-    description: "Domina los fundamentos del testing, diseño de casos de prueba y metodologías ágiles como Scrum aplicado a QA.",
+    description: "Domina los fundamentos del testing manual, diseño de casos de prueba, reporte de bugs y metodologías ágiles como Scrum aplicadas a QA.",
     imageUrl: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&q=80",
-    href: "/learning/qa/software-quality-testing",
+    href: "/learning/qa/software-quality-testing-course", // Asegúrate que el link es correcto a tu archivo
+    level: "Principiante",
+    duration: "40 Horas",
+    modality: "Online",
+    category: "QA Manual"
   },
   {
     title: "BDD y Automatización E2E",
-    description: "Aprende a automatizar pruebas funcionales utilizando Cucumber, Gherkin y Cypress en entornos de integración continua.",
+    description: "Aprende a automatizar pruebas funcionales utilizando Cucumber, Gherkin y Cypress. Integra tus pruebas en entornos de integración continua.",
     imageUrl: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80",
-    href: "/learning/qa/bdd-automation",
+    href: "/learning/qa/bdd-automation-e2e-course",
+    level: "Intermedio",
+    duration: "30 Horas",
+    modality: "Online",
+    category: "Automation"
   },
   {
     title: "Coding & DevOps for Testers",
-    description: "Da el salto técnico: aprende JavaScript, Git, Docker y creación de Pipelines de CI/CD orientados al testing.",
+    description: "Da el salto técnico: aprende JavaScript, Git, Docker y creación de Pipelines de CI/CD orientados específicamente al testing automatizado.",
     imageUrl: "https://images.unsplash.com/photo-1667372393119-c81c0cda71cd?auto=format&fit=crop&q=80",
-    href: "/learning/qa/devops-for-testers",
+    href: "/learning/qa/devops-for-testers-course",
+    level: "Avanzado",
+    duration: "48 Horas",
+    modality: "Online",
+    category: "DevOps"
   },
   {
     title: "Gestión de Calidad (TQM)",
-    description: "Estrategias de gestión total de la calidad, métricas, KPIs y liderazgo de equipos de QA.",
+    description: "Estrategias de gestión total de la calidad, definición de métricas, KPIs, liderazgo de equipos de QA y mejora de procesos.",
     imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80",
-    href: "/learning/qa/quality-management",
+    href: "/corporate-training/qa/quality-management",
+    level: "Avanzado",
+    duration: "25 Horas",
+    modality: "Híbrido",
+    category: "Management"
   }
 ];
 ---
 
 <Layout title="Cursos de QA y Testing - Qualisophy">
-  {/* Hero Específico de QA */}
+  
+  {/* Hero Banner (Estilo Consistente) */}
   <ProgramHero
     client:load
     title="Escuela de"
     highlight="QA & Testing"
     subtitle="Formación especializada para asegurar la calidad del software. Desde fundamentos manuales hasta automatización avanzada y DevOps."
     backgroundImage="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&q=80"
-    ctaText="Ver Cursos Abajo"
-    onCtaClick={() => document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' })}
+    ctaText="Ver Itinerarios"
+    onCtaClick={() => document.getElementById('courses-grid')?.scrollIntoView({ behavior: 'smooth' })}
   />
 
-  <div class="container mx-auto px-6 py-8">
-    <Breadcrumbs />
-  </div>
-
-  {/* Listado de Cursos */}
-  <section id="courses" class="py-12 pb-24 bg-white">
-    <div class="container mx-auto px-6">
-      <div class="max-w-3xl mx-auto text-center mb-16">
-        <h2 class="text-3xl font-bold font-heading text-secondary mb-4">Itinerarios de Especialización QA</h2>
-        <p class="text-gray-600 font-primary">Elige el curso que mejor se adapte a tu nivel y objetivos profesionales.</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {courses.map((course) => (
-          /* CORRECCIÓN: Eliminada la prop 'key' */
-          <ContentCard
-            title={course.title}
-            description={course.description}
-            imageUrl={course.imageUrl}
-            buttonText="Ver Programa"
-            buttonHref={course.href}
-          />
-        ))}
-      </div>
+  <div class="bg-gray-50/50 min-h-screen">
+    {/* Breadcrumbs */}
+    <div class="container mx-auto px-6 pt-8 pb-4">
+        <Breadcrumbs />
     </div>
-  </section>
+
+    {/* Sección de Cursos */}
+    <section id="courses-grid" class="py-12 pb-24">
+        <div class="container mx-auto px-6">
+        
+        {/* Encabezado de Sección */}
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4 border-b border-gray-200 pb-6">
+            <div class="max-w-2xl">
+                <h2 class="text-3xl font-bold font-heading text-secondary mb-2">Itinerarios de Especialización</h2>
+                <p class="text-gray-600 font-primary">
+                    Explora nuestros programas diseñados para cubrir las necesidades actuales del mercado tecnológico en QA.
+                </p>
+            </div>
+            {/* Aquí podrías poner filtros en el futuro si hay muchos cursos */}
+            <div class="hidden md:block text-sm text-gray-400 font-medium">
+                Mostrando {courses.length} cursos
+            </div>
+        </div>
+
+        {/* Grid de Tarjetas Nuevas */}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {courses.map((course) => (
+            <CourseGridCard
+                client:visible
+                title={course.title}
+                description={course.description}
+                imageSrc={course.imageUrl}
+                href={course.href}
+                level={course.level as "Principiante" | "Intermedio" | "Avanzado"}
+                duration={course.duration}
+                modality={course.modality as "Online" | "Presencial" | "Híbrido"}
+                category={course.category}
+            />
+            ))}
+        </div>
+        </div>
+    </section>
+  </div>
 </Layout>
