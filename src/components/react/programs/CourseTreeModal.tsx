@@ -176,10 +176,7 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
       className="fixed inset-0 z-[9999] flex items-center justify-center bg-secondary/90 backdrop-blur-sm animate-in fade-in duration-200 p-4"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      {/* CONTENEDOR PRINCIPAL:
-         - Mobile: max-h-[90vh] para no salir de pantalla.
-         - Desktop: md:h-[600px] FIJO para asegurar la estructura rígida.
-      */}
+      {/* CONTENEDOR PRINCIPAL: Altura fija en desktop (600px), flexible en móvil */}
       <div className="bg-white rounded-3xl w-full max-w-5xl shadow-2xl relative flex flex-col max-h-[90vh] md:h-[600px]">
         {/* CABECERA (Fija arriba) */}
         <div className="p-6 md:p-8 border-b border-gray-100 flex justify-between items-start shrink-0 bg-white z-10 relative rounded-t-3xl">
@@ -199,13 +196,9 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
           </button>
         </div>
 
-        {/* CUERPO CENTRAL (WRAPPER):
-           - Mobile: overflow-y-auto -> Permite scroll vertical de toda la lista si se expande.
-           - Desktop: md:overflow-hidden -> Bloquea el scroll general para mantener la estructura de 2 columnas rígida.
-        */}
+        {/* CUERPO CENTRAL */}
         <div className="flex flex-col md:flex-row flex-1 overflow-y-auto md:overflow-hidden">
           {/* IZQUIERDA: LISTA DE RAMAS */}
-          {/* Desktop: md:overflow-hidden para quitar cualquier scrollbar indeseado en la izquierda */}
           <div className="w-full md:w-5/12 bg-gray-50/50 md:bg-white p-4 md:p-6 md:border-r border-gray-100 md:overflow-hidden">
             <div className="flex flex-col gap-3">
               {courseTreeData.map((branch) => {
@@ -289,35 +282,38 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
 
           {/* DERECHA: DETALLES DE LA RAMA (Solo Desktop) */}
           <div className="hidden md:flex md:w-7/12 flex-col bg-white h-full">
-            {/* Header de Detalle (Fijo) */}
-            <div className="p-8 pb-4 shrink-0">
-              <div className="flex items-center justify-between mb-4">
+            {/* Header de Detalle - Compactado para dar espacio a los cursos */}
+            <div className="p-6 shrink-0 border-b border-gray-50">
+              <div className="flex items-center justify-between mb-3">
                 <div
-                  className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider ${activeBranch.colorBg} ${activeBranch.colorText}`}
+                  className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${activeBranch.colorBg} ${activeBranch.colorText}`}
                 >
                   {activeBranch.title}
                 </div>
                 <a
                   href={activeBranch.mainLink}
-                  className="flex items-center gap-1 text-sm font-bold text-gray-400 hover:text-primary transition-colors"
+                  className="flex items-center gap-1 text-xs font-bold text-gray-400 hover:text-primary transition-colors"
                 >
                   Ir a la sección
-                  <span className="material-symbols-outlined text-lg">
+                  <span className="material-symbols-outlined text-base">
                     arrow_forward
                   </span>
                 </a>
               </div>
-              <h3 className="text-2xl font-bold font-heading text-secondary mb-2">
-                Cursos Disponibles
-              </h3>
 
-              <p className="text-gray-500 font-primary text-base min-h-[3rem] flex items-center">
-                {activeBranch.description}
-              </p>
+              <div className="flex flex-col gap-1">
+                <h3 className="text-xl font-bold font-heading text-secondary">
+                  Cursos Disponibles
+                </h3>
+                {/* min-h reducido a 2.5rem para texto más pequeño */}
+                <p className="text-gray-500 font-primary text-sm min-h-[2.5rem] flex items-center leading-snug">
+                  {activeBranch.description}
+                </p>
+              </div>
             </div>
 
             {/* Grid de Cursos Desktop (Con scroll interno) */}
-            <div className="flex-1 overflow-y-auto p-8 pt-2 custom-scrollbar">
+            <div className="flex-1 overflow-y-auto p-6 pt-4 custom-scrollbar">
               <div className="grid grid-cols-1 gap-3">
                 {activeBranch.subBranches.map((course, idx) => (
                   <a
