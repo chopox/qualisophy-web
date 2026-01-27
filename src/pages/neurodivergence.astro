@@ -1,146 +1,148 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-// Importación de Componentes desde la carpeta 'programs'
+// Importación de Componentes
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
 import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
 import { ProgramCurriculum } from "@/components/react/programs/ProgramCurriculum";
 import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
 
-// --- DATOS DEFINIDOS ---
+// Componentes Nuevos Específicos
+import { TalentReality } from "@/components/react/talent/TalentReality";
+import { TalentBarriers } from "@/components/react/talent/TalentBarriers";
+import { TalentImpact } from "@/components/react/talent/TalentImpact";
+import { LegalCompliance } from "@/components/react/talent/LegalCompliance";
+import { SocialImpactQuote } from "@/components/react/talent/SocialImpactQuote";
 
-const methodologyData = {
-  title: "Metodología Inclusiva y Personalizada",
+// --- DATOS SECCIÓN 5: ESTRATEGIA 1 (Formación Dual) ---
+const dualTrainingData = {
+  title: "Estrategia 1: Formación Dual",
   description: [
-    "Nuestro enfoque se centra en ajustes razonables y en la creación de un entorno seguro que promueve la confianza.",
-    "Ofrecemos capacitación especializada que respeta los ritmos individuales, potencia la hiperfocalización y canaliza el pensamiento analítico hacia resultados excepcionales en tecnología."
+    "La Formación Dual actúa como un puente seguro hacia el empleo. Combinamos la adquisición de conocimientos técnicos con la experiencia directa en la empresa.",
+    "Este modelo permite una adaptación progresiva, reduciendo la incertidumbre tanto para el candidato como para la empresa contratante."
   ],
   checks: [
-    "Ritmos de aprendizaje adaptables",
-    "Espacios sensorialmente amigables",
-    "Enfoque en fortalezas cognitivas"
+    "Formación Teórica: Conocimientos adaptados.",
+    "Práctica Empresarial: Experiencia en entornos reales.",
+    "Inserción Laboral: Transición con garantías."
   ],
-  imageSrc: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2069&auto=format&fit=crop"
+  imageSrc: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
 };
 
-const trainingFeatures = [
-  {
-    icon: "alt_route",
-    title: "Itinerarios Flexibles",
-    description: "Diseñamos rutas de aprendizaje no lineales. Ajustamos la velocidad y el contenido a tu estilo cognitivo, permitiéndote profundizar (deep-dive) en tus áreas de interés sin la presión de un ritmo estandarizado."
-  },
-  {
-    icon: "diversity_1",
-    title: "Apoyo Individualizado",
-    description: "No estarás solo. Contarás con mentores dedicados que comprenden la neurodiversidad. Te acompañarán con estrategias de gestión del tiempo y comunicación para superar cualquier barrera ejecutiva."
-  },
-  {
-    icon: "monitoring",
-    title: "Evaluación Continua",
-    description: "Olvídate de los exámenes tradicionales estresantes. Usamos un sistema de feedback constructivo basado en proyectos reales, enfocado en tu crecimiento y en potenciar tus fortalezas naturales."
-  }
-];
-
-const benefitsFeatures = [
-  {
-    icon: "desktop_windows",
-    title: "Entorno Libre de Distracciones",
-    description: "Plataformas digitales y espacios físicos optimizados sensorialmente para maximizar tu capacidad de hiperfoco."
-  },
-  {
-    icon: "psychology",
-    title: "Validación Cognitiva",
-    description: "Un espacio donde tu forma de pensar no es juzgada, sino celebrada como una herramienta potente de resolución de problemas."
-  },
-  {
-    icon: "school",
-    title: "Expertos en Neurodiversidad",
-    description: "Formadores y staff capacitados específicamente para entender y apoyar las necesidades del espectro autista y TDAH."
-  },
+// --- DATOS SECCIÓN 6: ESTRATEGIA 2 (Facilitar Acceso) ---
+const strategyFeatures = [
   {
     icon: "handshake",
-    title: "Conexión Directa con Empresas",
-    description: "Acceso exclusivo a nuestra red de partners tecnológicos que buscan activamente perfiles analíticos y detallistas como el tuyo."
+    title: "Empleo con Apoyo",
+    description: "Acompañamiento especializado durante todo el proceso de integración laboral y seguimiento continuado."
+  },
+  {
+    icon: "compass_calibration",
+    title: "Orientación Profesional",
+    description: "Servicios de intermediación sociolaboral y asesoramiento personalizado para cada perfil."
+  },
+  {
+    icon: "diversity_3",
+    title: "Unidades Especializadas",
+    description: "Equipos expertos en discapacidad que faciliten la conexión entre talento y oportunidades."
+  },
+  {
+    icon: "psychology", // Añadido para completar el grid de 4 si usas layout grid4, o dejar 3 si usas otro
+    title: "Adaptación Técnica",
+    description: "Ajuste de puestos y herramientas para maximizar el rendimiento del talento neurodivergente."
   }
 ];
 
-const studyPlan = [
+// --- DATOS SECCIÓN 7: ITINERARIOS (4 Pasos) ---
+const itinerarySteps = [
   {
     stepNumber: 1,
-    title: "Habilidades Blandas y Autogestión",
-    description: "Desarrollo de estrategias personalizadas para la organización, comunicación asertiva y manejo del tiempo. Incluye talleres sobre defensa personal (self-advocacy) en el entorno laboral."
+    title: "Evaluación Individual",
+    description: "Análisis de capacidades, intereses y necesidades específicas de apoyo."
   },
   {
     stepNumber: 2,
-    title: "Capacitación Técnica Avanzada",
-    description: "Profundización en áreas de alta demanda como Análisis de Datos, QA Testing y Desarrollo Backend. Metodología basada en proyectos prácticos con soporte técnico constante."
+    title: "Planificación Adaptada",
+    description: "Diseño de rutas formativas y profesionales ajustadas a cada persona."
   },
   {
     stepNumber: 3,
-    title: "Inserción Laboral y Networking",
-    description: "Simulaciones de entrevistas técnicas y de RRHH adaptadas. Sesiones de networking con empresas aliadas y acompañamiento durante los primeros 3 meses de contratación."
+    title: "Acompañamiento Continuo",
+    description: "Seguimiento y adaptación del itinerario según evolución y logros."
+  },
+  {
+    stepNumber: 4,
+    title: "Inserción Sostenible",
+    description: "Integración laboral exitosa con perspectiva de desarrollo profesional."
   }
 ];
+
 ---
 
 <Layout 
   title="Talento Neurodivergente - Qualisophy"
-  description="Programas de formación y empleo diseñados para potenciar el talento de personas con TDAH y Autismo en el sector tecnológico."
+  description="Inclusión laboral de personas con autismo. Formación dual y estrategias para empresas."
   fullWidth={true}
 >
   
-  {/* 1. HERO - Fondo Azul */}
+  {/* SECCIÓN 0: HERO (Fondo Imagen/Azul) */}
   <ProgramHero 
     client:load
     title={"Potenciando Habilidades Únicas:"} 
     highlight={"Talento Neurodivergente"}
     subtitle="Programas diseñados para la inclusión de personas con TDAH y Autismo en el sector tecnológico."
     backgroundImage="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2069&auto=format&fit=crop"
+    onCtaClick={() => document.getElementById('program-cta')?.scrollIntoView({ behavior: 'smooth' })}
   />
 
-  {/* 2. METODOLOGÍA - Fondo BLANCO */}
+  {/* SECCIÓN 1: REALIDAD (Fondo BLANCO) */}
+  <TalentReality client:load />
+
+  {/* SECCIÓN 2: BARRERAS (Fondo GRIS) */}
+  <TalentBarriers client:load />
+
+  {/* SECCIÓN 3: IMPACTO (Fondo BLANCO) */}
+  <TalentImpact client:load />
+
+  {/* SECCIÓN 4: MARCO LEGAL (Fondo GRIS - Gráficos Circulares) */}
+  <LegalCompliance client:load />
+
+  {/* SECCIÓN 5: ESTRATEGIA 1 - FORMACIÓN DUAL (Fondo BLANCO) */}
   <ProgramMethodology 
     client:visible
-    {...methodologyData}
+    {...dualTrainingData}
     variant="white"
   />
 
-  {/* 3. FORMACIÓN (Features 1) - Fondo GRIS */}
-  {/* variant="dark" ahora se renderiza como Gris Claro */}
+  {/* SECCIÓN 6: ESTRATEGIA 2 - ACCESO (Fondo GRIS) */}
   <ProgramFeatures 
     client:visible
-    title="Formación Personalizada"
-    subtitle="Un programa vivo que se adapta a ti, no al revés."
-    features={trainingFeatures}
-    variant="dark" 
-    layout="zigzag" 
-  />
-
-  {/* 4. BENEFICIOS (Features 2) - Fondo BLANCO */}
-  <ProgramFeatures 
-    client:visible
-    title="¿Por qué elegirnos?"
-    subtitle="Diseñado específicamente para impulsar tu éxito profesional y bienestar."
-    features={benefitsFeatures}
-    variant="light"
+    title="Estrategia 2: Facilitar Acceso"
+    subtitle="Mecanismos de apoyo para conectar talento y empresa."
+    features={strategyFeatures}
+    variant="dark"  
     layout="grid4" 
   />
 
-  {/* 5. PLAN DE ESTUDIOS - Fondo GRIS */}
-  {/* variant="blue" ahora se renderiza como Gris Claro */}
+  {/* SECCIÓN 7: ITINERARIOS (Fondo BLANCO) */}
   <ProgramCurriculum 
     client:visible
-    title="Plan de Estudios"
-    subtitle="Una ruta de aprendizaje estructurada para potenciar tus habilidades técnicas y blandas."
-    steps={studyPlan}
-    variant="blue"
+    title="Itinerarios Personalizados: Clave del Éxito"
+    subtitle="Un proceso estructurado para garantizar resultados."
+    steps={itinerarySteps}
+    variant="white" 
   />
 
-  {/* 6. CTA - Fondo BLANCO */}
-  <ProgramCTA 
-    client:visible 
-    variant="white"
-  />
+  {/* SECCIÓN 8: INCLUSIÓN REAL + CITA (Fondo GRIS) */}
+  <SocialImpactQuote client:load />
+
+  {/* SECCIÓN 9: CTA (Fondo BLANCO) */}
+  <div id="program-cta">
+    <ProgramCTA 
+      client:visible 
+      variant="white"
+    />
+  </div>
 
 </Layout>
