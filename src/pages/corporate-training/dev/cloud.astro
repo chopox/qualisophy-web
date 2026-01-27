@@ -1,0 +1,127 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos de Arquitectura Cloud",
+    description:
+      "Comprende los pilares de una arquitectura robusta en la nube: escalabilidad, elasticidad y alta disponibilidad.",
+    topics: [
+      "Modelos de servicio: IaaS, PaaS, SaaS y FaaS",
+      "Responsabilidad compartida y modelos de despliegue",
+      "Diseño para fallos (Design for Failure)",
+      "Comparativa: AWS vs Azure vs Google Cloud",
+      "Estrategias de migración a la nube (Las 6 R)",
+    ],
+    icon: "Cloud",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Contenedores y Orquestación (Docker & K8s)",
+    description:
+      "Estandariza tus entornos de desarrollo y producción utilizando contenedores y orquestación avanzada.",
+    topics: [
+      "Docker: Creación de imágenes y Dockerfiles optimizados",
+      "Gestión de volúmenes y redes en Docker",
+      "Introducción a Kubernetes: Nodos, Pods y Servicios",
+      "Despliegues en K8s: Deployments y StatefulSets",
+      "Helm Charts y gestión de configuración",
+    ],
+    icon: "Box",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Infraestructura como Código (IaC)",
+    description:
+      "Deja de configurar servidores manualmente. Aprende a provisionar y gestionar infraestructura mediante código.",
+    topics: [
+      "Principios de IaC: Idempotencia y versionado",
+      "Terraform: Providers, Resources y State",
+      "Módulos reutilizables en Terraform",
+      "Gestión de secretos y variables de entorno",
+      "Automatización del aprovisionamiento en CI/CD",
+    ],
+    icon: "Code",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Arquitecturas Serverless y Microservicios",
+    description:
+      "Desacopla tu aplicación y reduce costes operativos utilizando servicios gestionados y funciones como servicio.",
+    topics: [
+      "Patrones de diseño de Microservicios",
+      "AWS Lambda / Azure Functions",
+      "Gestión de eventos y colas (SQS, Kafka, EventGrid)",
+      "API Gateways y gestión de tráfico",
+      "Bases de datos gestionadas (SQL vs NoSQL en Cloud)",
+    ],
+    icon: "Server",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Observabilidad, Seguridad y FinOps",
+    description:
+      "Mantén el control de tu infraestructura. Monitorización, seguridad perimetral y optimización de costes.",
+    topics: [
+      "Logging y Tracing distribuido (OpenTelemetry)",
+      "Seguridad: IAM, VPCs y Security Groups",
+      "DevSecOps: Escaneo de vulnerabilidades en contenedores",
+      "Estrategias de Backup y Disaster Recovery (DR)",
+      "FinOps: Monitorización y reducción de costes cloud",
+    ],
+    icon: "Shield",
+  },
+];
+
+const instructor = {
+  name: "Senior Cloud Architect",
+  title: "DevOps & Cloud Consultant",
+  description:
+    "Arquitecto de soluciones con más de 12 años de experiencia diseñando infraestructuras críticas para banca y retail. Especialista en modernización de aplicaciones (App Modernization) y adopción de cultura DevOps en grandes organizaciones.",
+  certifications: [
+    "AWS Certified Solutions Architect Professional",
+    "Certified Kubernetes Administrator (CKA)",
+    "HashiCorp Certified: Terraform Associate",
+  ],
+  experience: "12+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "A demanda (In-Company)",
+  duration: "30 horas (Workshop)",
+  schedule: "Formato Bootcamp o Extensivo",
+  regularPrice: "Consultar",
+  earlyBirdPrice: "Consultar",
+};
+
+const courseId = "cloud-architecture-corporate";
+const courseName = "Arquitectura Cloud & DevOps";
+---
+
+<Layout title="Curso Arquitectura Cloud para Empresas - Qualisophy">
+  <div class="mb-6">
+      <Breadcrumbs />
+    </div>
+  <h1
+    class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16"
+  >
+    Arquitectura Cloud & DevOps
+  </h1>
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+</Layout>

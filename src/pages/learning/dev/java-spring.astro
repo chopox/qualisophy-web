@@ -1,0 +1,91 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Java Moderno y POO",
+    description: "Repaso avanzado de Java y las novedades de las últimas versiones.",
+    topics: [
+      "Principios SOLID y Patrones de Diseño",
+      "Java 17/21: Records, Pattern Matching, Var",
+      "Programación Funcional: Streams y Lambdas",
+      "Gestión de dependencias con Maven/Gradle",
+    ],
+    icon: "Coffee",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Spring Boot Core",
+    description: "Fundamentos del framework empresarial por excelencia.",
+    topics: [
+      "Inversión de Control e Inyección de Dependencias",
+      "Configuración y Beans",
+      "Spring Data JPA y Hibernate",
+      "Spring Web MVC: Creación de APIs",
+    ],
+    icon: "Layers",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Seguridad y Microservicios",
+    description: "Construyendo sistemas seguros y distribuidos.",
+    topics: [
+      "Spring Security: Autenticación y Autorización (OAuth2/JWT)",
+      "Introducción a Microservicios con Spring Cloud",
+      "Comunicación entre servicios (Feign, RestTemplate)",
+      "Service Discovery y Config Server",
+    ],
+    icon: "Shield",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Testing y Observabilidad",
+    description: "Calidad de software en el ecosistema Spring.",
+    topics: [
+      "Testing con JUnit 5 y Mockito",
+      "Testcontainers para pruebas de integración",
+      "Actuator y monitorización",
+      "Dockerización de aplicaciones Spring Boot",
+    ],
+    icon: "Activity",
+  },
+];
+
+const instructor = {
+  name: "Java Architect",
+  title: "Spring Certified Professional",
+  description: "Arquitecto de Software con experiencia en banca y seguros. Experto en migración de monolitos a microservicios.",
+  certifications: ["Oracle Certified Professional: Java SE", "Spring Certified Professional"],
+  experience: "12+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "7 de Abril de 2025",
+  duration: "60 horas (8 semanas)",
+  schedule: "Martes y Jueves / 18:30 - 21:30",
+  regularPrice: "695 €",
+  earlyBirdPrice: "625 €",
+};
+
+const courseId = "individual-java";
+const courseName = "Java & Spring Boot";
+---
+
+<Layout title="Curso Java & Spring Boot - Qualisophy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      Curso Java & Spring Boot
+    </h1>
+    <Course client:load modules={modules} instructor={instructor} courseDetails={courseDetails} courseId={courseId} />
+    <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  </div>
+</Layout>

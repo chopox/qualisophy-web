@@ -1,0 +1,91 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Gestión de Producto Ágil",
+    description: "Cambio de mentalidad: De Proyecto a Producto.",
+    topics: [
+      "El rol del Product Owner vs Product Manager",
+      "Visión y Estrategia de Producto",
+      "Gestión de Stakeholders",
+      "Value Driven Development",
+    ],
+    icon: "Target",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Gestión del Backlog",
+    description: "Arte y ciencia de mantener un backlog saludable.",
+    topics: [
+      "Técnicas de Priorización (MoSCoW, Kano, WSJF)",
+      "Refinamiento y desglose de items",
+      "User Stories: Formato y Criterios de Aceptación",
+      "Definition of Ready (DoR)",
+    ],
+    icon: "List",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Planificación y Release",
+    description: "Entregando valor de forma continua.",
+    topics: [
+      "Release Planning y Roadmaps Ágiles",
+      "Gestión de expectativas",
+      "MVP (Producto Mínimo Viable)",
+      "Slicing de historias (INVEST)",
+    ],
+    icon: "Map",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Métricas de Valor",
+    description: "Midiendo el éxito del producto (Outcomes vs Outputs).",
+    topics: [
+      "Evidence-Based Management (EBM)",
+      "Validación de hipótesis",
+      "Preparación certificación PSPO I",
+      "Simulacro de examen",
+    ],
+    icon: "BarChart",
+  },
+];
+
+const instructor = {
+  name: "Head of Product",
+  title: "Senior Product Owner",
+  description: "Líder de producto con experiencia en lanzamiento de productos digitales B2B y B2C.",
+  certifications: ["Professional Scrum Product Owner II (PSPO II)", "Certified Product Manager"],
+  experience: "8+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "5 de Abril de 2025",
+  duration: "20 horas (4 semanas)",
+  schedule: "Lunes y Miércoles / 18:30 - 21:00",
+  regularPrice: "395 €",
+  earlyBirdPrice: "350 €",
+};
+
+const courseId = "individual-po";
+const courseName = "Product Owner";
+---
+
+<Layout title="Curso Product Owner - Qualisophy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      Curso Product Owner
+    </h1>
+    <Course client:load modules={modules} instructor={instructor} courseDetails={courseDetails} courseId={courseId} />
+    <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  </div>
+</Layout>

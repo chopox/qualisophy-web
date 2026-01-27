@@ -1,0 +1,91 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "El Marco Scrum",
+    description: "Fundamentos teóricos y prácticos del framework más usado.",
+    topics: [
+      "Empirismo: Transparencia, Inspección, Adaptación",
+      "Valores de Scrum",
+      "Roles: SM, PO y Developers",
+      "Diferencias con gestión tradicional (Waterfall)",
+    ],
+    icon: "RefreshCw",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Eventos y Artefactos",
+    description: "Facilitación efectiva de las ceremonias y gestión del trabajo.",
+    topics: [
+      "Facilitación de Daily, Planning, Review y Retro",
+      "Product Backlog vs Sprint Backlog",
+      "Incremento y Definición de Hecho (DoD)",
+      "Refinamiento del Backlog",
+    ],
+    icon: "Calendar",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "El Scrum Master como Líder Servicial",
+    description: "Habilidades blandas y coaching para el equipo.",
+    topics: [
+      "Servicio al Dueño de Producto, Equipo y Organización",
+      "Eliminación de impedimentos",
+      "Coaching vs Mentoring vs Teaching",
+      "Gestión de conflictos en el equipo",
+    ],
+    icon: "Users",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Métricas y Certificación",
+    description: "Medición de valor y preparación para el examen.",
+    topics: [
+      "Métricas Ágiles: Velocidad, Burn-down, Lead Time",
+      "Estimación Ágil (Story Points, Planning Poker)",
+      "Simulación de examen PSM I",
+      "Consejos para la certificación",
+    ],
+    icon: "TrendingUp",
+  },
+];
+
+const instructor = {
+  name: "Agile Coach",
+  title: "Professional Scrum Trainer",
+  description: "Facilitador de agilidad con experiencia transformando equipos en startups y corporaciones. Apasionado por las personas y la cultura.",
+  certifications: ["Professional Scrum Master III (PSM III)", "ICAgile Certified Professional"],
+  experience: "10+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "22 de Marzo de 2025",
+  duration: "16 horas (Fin de semana intensivo)",
+  schedule: "Sábado y Domingo / 09:00 - 18:00",
+  regularPrice: "350 €",
+  earlyBirdPrice: "299 €",
+};
+
+const courseId = "individual-scrum";
+const courseName = "Certificación Scrum Master";
+---
+
+<Layout title="Curso Scrum Master - Qualisophy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      Certificación Scrum Master
+    </h1>
+    <Course client:load modules={modules} instructor={instructor} courseDetails={courseDetails} courseId={courseId} />
+    <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  </div>
+</Layout>

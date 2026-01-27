@@ -1,0 +1,91 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos del Análisis de Datos",
+    description: "Comprende el ciclo de vida del dato: desde la recolección hasta la toma de decisiones.",
+    topics: [
+      "Tipos de Analítica: Descriptiva, Diagnóstica, Predictiva",
+      "Gobierno del Dato y Calidad",
+      "Ética y Privacidad (GDPR)",
+      "Herramientas del analista moderno",
+    ],
+    icon: "Search",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "SQL para Analistas",
+    description: "Aprende a consultar bases de datos relacionales para extraer la información que necesitas.",
+    topics: [
+      "Sintaxis SQL: SELECT, FROM, WHERE",
+      "Filtrado y Ordenación de resultados",
+      "Joins: Uniendo múltiples tablas",
+      "Agregaciones (GROUP BY) y Funciones de Ventana",
+    ],
+    icon: "Database",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Análisis Exploratorio (EDA)",
+    description: "Técnicas estadísticas para entender la distribución y correlación de tus datos.",
+    topics: [
+      "Estadística descriptiva básica",
+      "Detección de Outliers y valores nulos",
+      "Correlación y Causalidad",
+      "Patrones y tendencias estacionales",
+    ],
+    icon: "Activity",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Comunicación de Resultados",
+    description: "Convierte tus hallazgos en historias que impulsen la acción en el negocio.",
+    topics: [
+      "Principios de Storytelling con datos",
+      "Diseño de presentaciones efectivas",
+      "Adaptación del mensaje a la audiencia",
+      "Caso práctico final de análisis",
+    ],
+    icon: "MessageCircle",
+  },
+];
+
+const instructor = {
+  name: "Data Scientist Lead",
+  title: "Experta en Big Data & Analytics",
+  description: "Científica de datos con experiencia liderando equipos de analítica en el sector retail y banca. Apasionada por la democratización del dato.",
+  certifications: ["Google Data Analytics Professional", "Certified Analytics Professional (CAP)"],
+  experience: "10+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "17 de Marzo de 2025",
+  duration: "40 horas (8 semanas)",
+  schedule: "Lunes y Miércoles / 19:00 - 21:30",
+  regularPrice: "495 €",
+  earlyBirdPrice: "450 €",
+};
+
+const courseId = "individual-data-analytics";
+const courseName = "Data Analytics & SQL";
+---
+
+<Layout title="Curso Data Analytics & SQL - Qualisophy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      Curso Data Analytics & SQL
+    </h1>
+    <Course client:load modules={modules} instructor={instructor} courseDetails={courseDetails} courseId={courseId} />
+    <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  </div>
+</Layout>

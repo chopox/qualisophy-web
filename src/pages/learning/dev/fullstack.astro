@@ -1,0 +1,91 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos Web Modernos",
+    description: "Bases sólidas de HTML5, CSS3 avanzado y JavaScript ES6+.",
+    topics: [
+      "Semántica HTML y Accesibilidad (a11y)",
+      "CSS Grid, Flexbox y TailwindCSS",
+      "DOM Manipulation y Event Loop",
+      "Asincronía: Promises y Async/Await",
+    ],
+    icon: "Layout",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Frontend con React",
+    description: "Construcción de interfaces interactivas y gestión de estado.",
+    topics: [
+      "Componentes, Props y JSX",
+      "Hooks: useState, useEffect, useContext",
+      "Gestión de estado global (Zustand/Redux)",
+      "Consumo de APIs y React Query",
+    ],
+    icon: "Code",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Backend con Node.js & Express",
+    description: "Creación de servidores, APIs REST y seguridad.",
+    topics: [
+      "Arquitectura REST y Express.js",
+      "Middlewares y Manejo de Errores",
+      "Autenticación JWT y Seguridad",
+      "Bases de Datos: MongoDB (NoSQL) y PostgreSQL (SQL)",
+    ],
+    icon: "Server",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Despliegue y DevOps",
+    description: "Llevando tu aplicación a producción.",
+    topics: [
+      "Control de versiones con Git y GitHub Flow",
+      "Dockerización de aplicaciones",
+      "Despliegue en la nube (Vercel/Render)",
+      "Introducción a CI/CD",
+    ],
+    icon: "Cloud",
+  },
+];
+
+const instructor = {
+  name: "Tech Lead Fullstack",
+  title: "Senior Software Engineer",
+  description: "Ingeniero Fullstack con experiencia en startups de alto crecimiento. Especialista en stack MERN y arquitecturas escalables.",
+  certifications: ["AWS Certified Developer", "MongoDB Certified Developer"],
+  experience: "10+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "3 de Marzo de 2025",
+  duration: "120 horas (Bootcamp)",
+  schedule: "Lunes a Jueves / 18:00 - 21:00",
+  regularPrice: "1.200 €",
+  earlyBirdPrice: "995 €",
+};
+
+const courseId = "individual-fullstack";
+const courseName = "Fullstack Developer";
+---
+
+<Layout title="Curso Fullstack Developer - Qualisophy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      Curso Fullstack Developer
+    </h1>
+    <Course client:load modules={modules} instructor={instructor} courseDetails={courseDetails} courseId={courseId} />
+    <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  </div>
+</Layout>

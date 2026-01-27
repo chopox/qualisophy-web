@@ -1,0 +1,91 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Node.js a Fondo",
+    description: "Entendiendo el runtime, el event loop y la asincronía.",
+    topics: [
+      "Arquitectura de Node.js: V8 y Libuv",
+      "Event Loop y Non-blocking I/O",
+      "Módulos (CommonJS vs ESM)",
+      "Streams y Buffers",
+    ],
+    icon: "Server",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "API REST con Express",
+    description: "Desarrollo de servicios web robustos y escalables.",
+    topics: [
+      "Routing avanzado y Controladores",
+      "Middlewares personalizados",
+      "Validación de datos (Joi/Zod)",
+      "Manejo centralizado de errores",
+    ],
+    icon: "Globe",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Persistencia y Seguridad",
+    description: "Bases de datos y protección de la API.",
+    topics: [
+      "SQL con PostgreSQL y ORM (Prisma)",
+      "NoSQL con MongoDB y Mongoose",
+      "Autenticación (JWT, Cookies)",
+      "Seguridad: Helmet, Rate Limiting, CORS",
+    ],
+    icon: "Database",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Calidad y Despliegue",
+    description: "Testing y puesta en producción.",
+    topics: [
+      "Unit & Integration Testing con Jest",
+      "Documentación con Swagger/OpenAPI",
+      "Docker para desarrollo",
+      "CI/CD con GitHub Actions",
+    ],
+    icon: "Shield",
+  },
+];
+
+const instructor = {
+  name: "Backend Lead",
+  title: "Node.js Expert",
+  description: "Ingeniero de Software especializado en sistemas distribuidos y APIs de alto rendimiento.",
+  certifications: ["OpenJS Node.js Services Developer"],
+  experience: "9+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "24 de Marzo de 2025",
+  duration: "50 horas (6 semanas)",
+  schedule: "Lunes y Miércoles / 18:30 - 21:30",
+  regularPrice: "550 €",
+  earlyBirdPrice: "495 €",
+};
+
+const courseId = "individual-node";
+const courseName = "Backend con Node.js";
+---
+
+<Layout title="Curso Backend con Node.js - Qualisophy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      Curso Backend con Node.js
+    </h1>
+    <Course client:load modules={modules} instructor={instructor} courseDetails={courseDetails} courseId={courseId} />
+    <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  </div>
+</Layout>

@@ -1,0 +1,91 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fórmulas Avanzadas y Lógica",
+    description: "Domina las funciones más potentes para automatizar cálculos complejos.",
+    topics: [
+      "BUSCARX, INDICE y COINCIDIR (Index-Match)",
+      "Funciones lógicas anidadas (SI, Y, O, SI.CONJUNTO)",
+      "Funciones de Texto y Fecha para limpieza",
+      "Gestión de errores y validación de datos",
+    ],
+    icon: "Code",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Tablas Dinámicas Profesionales",
+    description: "Analiza grandes volúmenes de datos en segundos.",
+    topics: [
+      "Diseño y formato de Tablas Dinámicas",
+      "Campos calculados y Elementos calculados",
+      "Segmentación de datos y Escalas de tiempo",
+      "Gráficos dinámicos vinculados",
+    ],
+    icon: "Grid",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Power Query y Power Pivot",
+    description: "La revolución de Excel: ETL y Modelado de datos sin salir de la hoja.",
+    topics: [
+      "Introducción a Power Query: Importar y Transformar",
+      "Combinar y Anexar consultas",
+      "Introducción al Modelo de Datos (Power Pivot)",
+      "Medidas DAX básicas en Excel",
+    ],
+    icon: "Zap",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Introducción a Macros (VBA)",
+    description: "Automatiza tareas repetitivas con la grabadora y código simple.",
+    topics: [
+      "Uso eficaz de la Grabadora de Macros",
+      "Entorno VBE y edición básica de código",
+      "Asignar macros a botones y eventos",
+      "Automatización de informes mensuales",
+    ],
+    icon: "Settings",
+  },
+];
+
+const instructor = {
+  name: "Microsoft MVP",
+  title: "Experto en Excel Financiero",
+  description: "Consultor financiero y MVP de Microsoft con 15 años optimizando departamentos financieros mediante Excel avanzado y VBA.",
+  certifications: ["Microsoft Office Specialist: Excel Expert", "Financial Modeling Analyst"],
+  experience: "15+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "A demanda (Online)",
+  duration: "25 horas",
+  schedule: "Flexible",
+  regularPrice: "350 €",
+  earlyBirdPrice: "299 €",
+};
+
+const courseId = "individual-excel";
+const courseName = "Excel Avanzado";
+---
+
+<Layout title="Curso Excel Avanzado - Qualisophy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      Curso Excel Avanzado
+    </h1>
+    <Course client:load modules={modules} instructor={instructor} courseDetails={courseDetails} courseId={courseId} />
+    <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  </div>
+</Layout>

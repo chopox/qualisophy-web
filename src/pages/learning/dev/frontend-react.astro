@@ -1,0 +1,91 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "React Core Concepts",
+    description: "Entendiendo la librería y su filosofía declarativa.",
+    topics: [
+      "JSX, Virtual DOM y Reconciliación",
+      "Componentes Funcionales vs Clases",
+      "Ciclo de vida y Efectos",
+      "Reglas de los Hooks",
+    ],
+    icon: "Code",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Hooks Avanzados y Patrones",
+    description: "Escribe código React limpio, reutilizable y performante.",
+    topics: [
+      "useMemo, useCallback y optimización",
+      "useReducer para lógica compleja",
+      "Custom Hooks: Abstraer lógica",
+      "Patrones de diseño: Compound Components",
+    ],
+    icon: "Zap",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Ecosistema Profesional",
+    description: "Herramientas que usan los equipos top.",
+    topics: [
+      "Enrutamiento con React Router v6",
+      "Formularios con React Hook Form",
+      "Validación con Zod",
+      "Estilado: TailwindCSS vs Styled Components",
+    ],
+    icon: "Globe",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Next.js y Testing",
+    description: "Introducción al framework de producción y calidad de código.",
+    topics: [
+      "Introducción a Next.js (SSR/SSG)",
+      "Unit Testing con Vitest y React Testing Library",
+      "E2E Testing básico",
+      "Buenas prácticas de arquitectura",
+    ],
+    icon: "Layers",
+  },
+];
+
+const instructor = {
+  name: "Frontend Architect",
+  title: "React Specialist",
+  description: "Arquitecto Frontend obsesionado con el rendimiento web y la experiencia de usuario. Contribuidor Open Source.",
+  certifications: ["Meta Frontend Developer Professional"],
+  experience: "8+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "10 de Marzo de 2025",
+  duration: "60 horas (8 semanas)",
+  schedule: "Martes y Jueves / 18:30 - 21:30",
+  regularPrice: "650 €",
+  earlyBirdPrice: "595 €",
+};
+
+const courseId = "individual-react";
+const courseName = "Frontend con React";
+---
+
+<Layout title="Curso Frontend con React - Qualisophy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      Curso Frontend con React
+    </h1>
+    <Course client:load modules={modules} instructor={instructor} courseDetails={courseDetails} courseId={courseId} />
+    <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  </div>
+</Layout>

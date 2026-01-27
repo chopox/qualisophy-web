@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // --- DATOS DEL ÁRBOL DE CURSOS ---
 const courseTreeData = [
@@ -15,22 +15,22 @@ const courseTreeData = [
     subBranches: [
       {
         title: "Testing Manual & QA",
-        href: "/learning/qa/software-quality-testing",
+        href: "/learning/qa/software-quality-testing-course",
         icon: "rule",
       },
       {
         title: "Automatización con Cypress",
-        href: "/learning/qa/bdd-automation",
+        href: "/learning/qa/bdd-automation-e2e-course",
         icon: "auto_mode",
       },
       {
         title: "DevOps for Testers",
-        href: "/learning/qa/devops-for-testers",
+        href: "/learning/qa/devops-for-testers-course",
         icon: "terminal",
       },
       {
         title: "Gestión de Calidad (TQM)",
-        href: "/learning/qa/quality-management",
+        href: "/learning/qa/quality-management-course",
         icon: "verified",
       },
     ],
@@ -146,6 +146,7 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
   onClose,
 }) => {
   const [selectedBranchId, setSelectedBranchId] = useState<string | null>("qa");
+  const coursesContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -157,6 +158,12 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
       document.body.style.overflow = "auto";
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    if (coursesContainerRef.current) {
+      coursesContainerRef.current.scrollTop = 0;
+    }
+  }, [selectedBranchId]);
 
   if (!isOpen) return null;
 
@@ -176,30 +183,35 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
       className="fixed inset-0 z-[9999] flex items-center justify-center bg-secondary/90 backdrop-blur-sm animate-in fade-in duration-200 p-4"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      {/* CONTENEDOR PRINCIPAL: Altura fija en desktop (600px), flexible en móvil */}
-      <div className="bg-white rounded-3xl w-full max-w-5xl shadow-2xl relative flex flex-col max-h-[90vh] md:h-[600px]">
-        {/* CABECERA (Fija arriba) */}
+      {/* CAMBIOS REALIZADOS AQUÍ:
+          1. max-w-7xl (Antes 5xl) -> Más ancho
+          2. md:h-[85vh] (Antes 600px) -> Más alto y adaptable a la pantalla
+      */}
+      <div className="bg-white rounded-3xl w-full max-w-7xl shadow-2xl relative flex flex-col max-h-[95vh] md:h-[85vh]">
+        {/* CABECERA */}
         <div className="p-6 md:p-8 border-b border-gray-100 flex justify-between items-start shrink-0 bg-white z-10 relative rounded-t-3xl">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold font-heading text-secondary">
               Áreas de Formación
             </h2>
             <p className="text-gray-500 font-primary text-sm mt-1">
-              Selecciona una rama para ver detalles
+              Selecciona una rama para ver todos los itinerarios disponibles
             </p>
           </div>
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 p-2 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors z-50 cursor-pointer"
+            className="absolute top-6 right-6 p-2 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors z-50 cursor-pointer"
           >
-            <span className="material-symbols-outlined text-xl">close</span>
+            <span className="material-symbols-outlined text-2xl">close</span>
           </button>
         </div>
 
         {/* CUERPO CENTRAL */}
         <div className="flex flex-col md:flex-row flex-1 overflow-y-auto md:overflow-hidden">
-          {/* IZQUIERDA: LISTA DE RAMAS */}
-          <div className="w-full md:w-5/12 bg-gray-50/50 md:bg-white p-4 md:p-6 md:border-r border-gray-100 md:overflow-hidden">
+          {/* IZQUIERDA: LISTA DE RAMAS 
+             Cambio: md:w-4/12 (33%) en lugar de 5/12. El menú necesita menos espacio.
+          */}
+          <div className="w-full md:w-4/12 bg-gray-50/50 md:bg-white p-4 md:p-6 md:border-r border-gray-100 md:overflow-y-auto custom-scrollbar">
             <div className="flex flex-col gap-3">
               {courseTreeData.map((branch) => {
                 const isActive = selectedBranchId === branch.id;
@@ -208,10 +220,10 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                   <div key={branch.id} className="flex flex-col">
                     <button
                       onClick={() => handleBranchClick(branch.id)}
-                      className={`w-full flex items-center gap-4 p-4 rounded-xl text-left transition-all duration-300 border-2 cursor-pointer
+                      className={`w-full flex items-center gap-4 p-5 rounded-xl text-left transition-all duration-300 border-2 cursor-pointer
                         ${
                           isActive
-                            ? "bg-white border-primary shadow-md ring-1 ring-primary/10"
+                            ? "bg-white border-primary shadow-md ring-1 ring-primary/10 scale-[1.02]"
                             : "bg-white border-transparent hover:border-gray-200 hover:shadow-sm"
                         }
                       `}
@@ -226,7 +238,7 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
 
                       <div className="flex-1">
                         <span
-                          className={`block font-bold text-base ${isActive ? "text-secondary" : "text-gray-600"}`}
+                          className={`block font-bold text-lg ${isActive ? "text-secondary" : "text-gray-600"}`}
                         >
                           {branch.title}
                         </span>
@@ -239,7 +251,7 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                       </span>
                     </button>
 
-                    {/* ACORDEÓN MÓVIL */}
+                    {/* ACORDEÓN MÓVIL (Sin cambios, solo visible en < md) */}
                     <div
                       className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isActive ? "max-h-[500px] opacity-100 mt-2" : "max-h-0 opacity-0"}`}
                     >
@@ -261,7 +273,7 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                             <a
                               key={idx}
                               href={course.href}
-                              className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 text-gray-600 hover:text-primary transition-colors"
+                              className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-gray-600 hover:text-primary transition-colors"
                             >
                               <span className="material-symbols-outlined text-lg text-gray-400">
                                 {course.icon}
@@ -280,78 +292,82 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
             </div>
           </div>
 
-          {/* DERECHA: DETALLES DE LA RAMA (Solo Desktop) */}
-          <div className="hidden md:flex md:w-7/12 flex-col bg-white h-full">
-            {/* Header de Detalle - Compactado para dar espacio a los cursos */}
-            <div className="p-6 shrink-0 border-b border-gray-50">
-              <div className="flex items-center justify-between mb-3">
+          {/* DERECHA: DETALLES DE LA RAMA (Solo Desktop)
+             Cambio: md:w-8/12 (66%) para dar más espacio a los cursos.
+          */}
+          <div className="hidden md:flex md:w-8/12 flex-col bg-white h-full relative">
+            {/* Header de Detalle */}
+            <div className="p-8 shrink-0 border-b border-gray-50 bg-white/50 backdrop-blur-sm z-10">
+              <div className="flex items-center justify-between mb-4">
                 <div
-                  className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${activeBranch.colorBg} ${activeBranch.colorText}`}
+                  className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider ${activeBranch.colorBg} ${activeBranch.colorText}`}
                 >
                   {activeBranch.title}
                 </div>
                 <a
                   href={activeBranch.mainLink}
-                  className="flex items-center gap-1 text-xs font-bold text-gray-400 hover:text-primary transition-colors"
+                  className="flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-primary transition-colors group"
                 >
-                  Ir a la sección
-                  <span className="material-symbols-outlined text-base">
+                  Ir a la sección completa
+                  <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">
                     arrow_forward
                   </span>
                 </a>
               </div>
 
-              <div className="flex flex-col gap-1">
-                <h3 className="text-xl font-bold font-heading text-secondary">
+              <div className="flex flex-col gap-2">
+                <h3 className="text-2xl font-bold font-heading text-secondary">
                   Cursos Disponibles
                 </h3>
-                {/* min-h reducido a 2.5rem para texto más pequeño */}
-                <p className="text-gray-500 font-primary text-sm min-h-[2.5rem] flex items-center leading-snug">
+                <p className="text-gray-500 font-primary text-base leading-relaxed max-w-2xl">
                   {activeBranch.description}
                 </p>
               </div>
             </div>
 
-            {/* Grid de Cursos Desktop (Con scroll interno) */}
-            <div className="flex-1 overflow-y-auto p-6 pt-4 custom-scrollbar">
-              <div className="grid grid-cols-1 gap-3">
+            {/* Grid de Cursos Desktop */}
+            <div
+              ref={coursesContainerRef}
+              className="flex-1 overflow-y-auto p-8 pt-6 custom-scrollbar"
+            >
+              <div className="grid grid-cols-2 gap-4">
                 {activeBranch.subBranches.map((course, idx) => (
                   <a
                     key={idx}
                     href={course.href}
-                    className="group flex items-center gap-4 p-4 rounded-xl border border-gray-100 hover:border-primary/30 hover:shadow-md hover:bg-gray-50/50 transition-all duration-200"
+                    className="group flex items-start gap-4 p-5 rounded-2xl border border-gray-100 hover:border-primary/40 hover:shadow-lg  hover:bg-white transition-all duration-300 bg-gray-50/30 h-full"
                   >
-                    <div className="size-10 rounded-full bg-white border border-gray-100 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform shrink-0">
-                      <span className="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors text-lg">
+                    <div className="size-12 rounded-full bg-white border border-gray-100 flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-primary/5 transition-all shrink-0">
+                      <span className="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors text-2xl">
                         {course.icon}
                       </span>
                     </div>
-                    <div className="flex-1">
-                      <span className="block font-bold text-secondary text-sm group-hover:text-primary transition-colors">
+                    <div className="flex-1 min-w-0">
+                      <span className="block font-bold text-secondary text-base mb-1 group-hover:text-primary transition-colors truncate">
                         {course.title}
                       </span>
+                      <span className="text-xs text-gray-400 group-hover:text-gray-500 transition-colors">
+                        Ver temario y detalles →
+                      </span>
                     </div>
-                    <span className="material-symbols-outlined text-gray-300 group-hover:text-primary opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0">
-                      arrow_forward
-                    </span>
                   </a>
                 ))}
-
-                {/* Espaciador final */}
-                <div className="h-4"></div>
               </div>
+
+              {/* Espaciador final */}
+              <div className="h-8"></div>
             </div>
           </div>
         </div>
 
-        {/* FOOTER (Fijo abajo) */}
-        <div className="p-4 bg-gray-50 border-t border-gray-100 text-center shrink-0 rounded-b-3xl">
+        {/* FOOTER */}
+        <div className="p-5 bg-gray-50 border-t border-gray-100 text-center shrink-0 rounded-b-3xl">
           <a
             href="/learning"
-            className="inline-flex items-center gap-2 text-primary font-bold text-sm hover:underline"
+            className="inline-flex items-center gap-2 text-primary font-bold text-base hover:underline"
           >
             <span>Ver Catálogo Completo</span>
-            <span className="material-symbols-outlined text-base">
+            <span className="material-symbols-outlined text-lg">
               arrow_forward
             </span>
           </a>
