@@ -142,12 +142,11 @@ const itinerarySteps = [
   }
 ];
 
-// CTA Personalizado (Opcional, si no se pasa usa el default)
+// CTA Personalizado (Empresa vs Candidato)
 const ctaButtons = [
-  { label: "Agendar Consulta", href: "/contact", variant: "solid" as const },
-  { label: "Ver Programas Arriba", href: "#", variant: "outline" as const }
+  { label: "Contrata Talento Neurodivergente", href: "/contact?type=company", variant: "solid" as const },
+  { label: "Descubre tu Potencial", href: "/contact?type=candidate", variant: "outline" as const }
 ];
-
 ---
 
 <Layout 
@@ -223,11 +222,13 @@ const ctaButtons = [
   {/* SECCIÓN 8: INCLUSIÓN REAL + CITA */}
   <SocialImpactQuote client:load />
 
-  {/* SECCIÓN 9: CTA */}
+{/* SECCIÓN 9: CTA */}
   <div id="program-cta">
     <ProgramCTA 
       client:visible 
       variant="white"
+      title="Da el paso hacia la Inclusión Real"
+      description="Conectamos el talento neurodivergente con empresas innovadoras. Encuentra tu lugar o impulsa tu equipo hoy mismo."
       buttons={ctaButtons}
     />
   </div>
