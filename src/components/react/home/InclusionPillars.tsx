@@ -82,19 +82,14 @@ export const InclusionPillars: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. BUCLE DE PILARES (Secciones alternas de ancho completo) */}
+      {/* 2. BUCLE DE PILARES (Todas las secciones con fondo blanco) */}
       <div className="flex flex-col w-full">
-        {pillarsData.map((pillar, index) => {
-          // Lógica de alternancia: Si el índice es impar (1, 3...), el fondo es GRIS.
-          const isGrayBackground = index % 2 !== 0;
-
+        {pillarsData.map((pillar) => {
           return (
             // CONTENEDOR DE FONDO DE ANCHO COMPLETO
             <section
               key={pillar.id}
-              className={`w-full py-8 md:py-12 flex justify-center ${
-                isGrayBackground ? "bg-gray-50" : "bg-white"
-              }`}
+              className="w-full py-8 md:py-12 flex justify-center bg-white" // Fondo siempre blanco
             >
               {/* Contenedor restringido para la tarjeta */}
               <div className="w-full md:max-w-[96%] px-0 md:px-8 lg:px-12">
@@ -103,7 +98,7 @@ export const InclusionPillars: React.FC = () => {
                   className={`group flex flex-col ${
                     pillar.reverse ? "md:flex-row-reverse" : "md:flex-row"
                   } 
-                  bg-white {/* <-- LA TARJETA SIEMPRE ES BLANCA */}
+                  bg-white
                   rounded-none md:rounded-3xl 
                   shadow-none md:shadow-lg 
                   border-b border-gray-200 md:border md:border-gray-100 
