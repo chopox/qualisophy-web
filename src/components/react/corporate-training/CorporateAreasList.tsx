@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { AnimatedSection } from "@/components/react/shared/AnimatedSection";
 import { useTranslations } from "@/hooks/useTranslations";
-import { motion, AnimatePresence } from "framer-motion"; // Usamos framer-motion para suavidad en el acordeón
+import { motion, AnimatePresence } from "framer-motion";
 
-// --- DATOS DE LOS ITINERARIOS ---
+// --- DATOS DE LOS ITINERARIOS (GRADIENTE CORPORATIVO) ---
 const trainingPaths = [
   {
     id: "qa",
     title: "QA & Testing",
     subtitle: "Aseguramiento de Calidad",
     icon: "bug_report",
-    colorTheme: "emerald",
-    headerBg: "bg-emerald-600",
-    lightBg: "bg-emerald-50",
-    borderColor: "border-emerald-200",
-    textColor: "text-emerald-700",
+    // 1. SECUNDARIO (El más oscuro)
+    headerBg: "bg-[#1B2341]",
+    lightBg: "bg-[#F2F4F8]",
+    hoverBorder: "hover:border-[#1B2341]",
+    textColor: "text-[#1B2341]",
     mainLink: "/corporate-training/qa",
     courses: [
       {
@@ -37,11 +37,11 @@ const trainingPaths = [
     title: "Microsoft & Data",
     subtitle: "Business Intelligence",
     icon: "bar_chart",
-    colorTheme: "amber",
-    headerBg: "bg-amber-500",
-    lightBg: "bg-amber-50",
-    borderColor: "border-amber-200",
-    textColor: "text-amber-700",
+    // 2. AZUL PROFUNDO (Puente oscuro)
+    headerBg: "bg-[#325886]",
+    lightBg: "bg-[#F4F8FB]",
+    hoverBorder: "hover:border-[#325886]",
+    textColor: "text-[#325886]",
     mainLink: "/corporate-training/powerbi",
     courses: [
       {
@@ -67,11 +67,11 @@ const trainingPaths = [
     title: "Desarrollo",
     subtitle: "Ingeniería de Software",
     icon: "code",
-    colorTheme: "blue",
-    headerBg: "bg-blue-600",
-    lightBg: "bg-blue-50",
-    borderColor: "border-blue-200",
-    textColor: "text-blue-700",
+    // 3. AZUL MEDIO (Puente claro)
+    headerBg: "bg-[#4B7BB5]",
+    lightBg: "bg-[#F0F7FD]",
+    hoverBorder: "hover:border-[#4B7BB5]",
+    textColor: "text-[#4B7BB5]",
     mainLink: "/corporate-training/dev",
     courses: [
       {
@@ -94,11 +94,11 @@ const trainingPaths = [
     title: "Project Management",
     subtitle: "Liderazgo y Agilidad",
     icon: "manage_accounts",
-    colorTheme: "purple",
-    headerBg: "bg-purple-600",
-    lightBg: "bg-purple-50",
-    borderColor: "border-purple-200",
-    textColor: "text-purple-700",
+    // 4. PRIMARIO (El más claro de la serie, pero accesible)
+    headerBg: "bg-[#6296CE]",
+    lightBg: "bg-[#F0F9FF]",
+    hoverBorder: "hover:border-[#6296CE]",
+    textColor: "text-[#6296CE]",
     mainLink: "/corporate-training/pm",
     courses: [
       { title: "Scrum Master", href: "/corporate-training/pm/scrum" },
@@ -139,8 +139,7 @@ export const CorporateAreasList: React.FC = () => {
         </div>
 
         {/* ==============================================
-            VISTA DE ESCRITORIO (Diagrama Original)
-            Visible solo en lg (1024px) en adelante
+            VISTA DE ESCRITORIO
            ============================================== */}
         <div className="hidden lg:grid grid-cols-4 gap-8">
           {trainingPaths.map((path) => (
@@ -153,7 +152,7 @@ export const CorporateAreasList: React.FC = () => {
               `}
               >
                 <div className="relative z-10 flex flex-col items-center gap-2">
-                  <div className="p-2 bg-white/20 rounded-full backdrop-blur-sm">
+                  <div className="p-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/20">
                     <span className="material-symbols-outlined text-2xl">
                       {path.icon}
                     </span>
@@ -165,6 +164,7 @@ export const CorporateAreasList: React.FC = () => {
                     {path.subtitle}
                   </p>
                 </div>
+                {/* Decoración de fondo */}
                 <div className="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
               </div>
 
@@ -178,9 +178,9 @@ export const CorporateAreasList: React.FC = () => {
                     key={idx}
                     href={course.href}
                     className={`
-                        block p-4 rounded-xl border-2 text-center transition-all duration-200 relative
-                        bg-white border-gray-100 hover:shadow-md
-                        hover:border-${path.colorTheme}-200 
+                        block p-4 rounded-xl border-2 border-transparent border-gray-100 text-center transition-all duration-200 relative
+                        bg-white hover:shadow-md
+                        ${path.hoverBorder}
                         group-hover/card:scale-105
                     `}
                   >
@@ -212,7 +212,6 @@ export const CorporateAreasList: React.FC = () => {
 
         {/* ==============================================
             VISTA MÓVIL (Acordeón)
-            Visible solo hasta lg
            ============================================== */}
         <div className="lg:hidden flex flex-col gap-4">
           {trainingPaths.map((path) => {
