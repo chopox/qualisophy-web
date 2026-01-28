@@ -8,12 +8,76 @@ import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
 import { ProgramCurriculum } from "@/components/react/programs/ProgramCurriculum";
 import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
 
-// Componentes Nuevos Específicos
+// Componentes de Talento (Ahora dinámicos)
 import { TalentReality } from "@/components/react/talent/TalentReality";
 import { TalentBarriers } from "@/components/react/talent/TalentBarriers";
 import { TalentImpact } from "@/components/react/talent/TalentImpact";
 import { LegalCompliance } from "@/components/react/talent/LegalCompliance";
 import { SocialImpactQuote } from "@/components/react/talent/SocialImpactQuote";
+
+// --- DATOS: REALIDAD NEURODIVERGENTE (Extraídos de tu versión anterior) ---
+
+const realityStats = [
+  { 
+    value: "85%", 
+    label: "Tasa de Desempleo", 
+    description: "Personas adultas con autismo sin actividad laboral productiva.", 
+    icon: "trending_down", 
+    colorClass: "text-primary" 
+  },
+  { 
+    value: "34%", 
+    label: "Tasa de Actividad", 
+    description: "Frente al 77,7% de personas sin discapacidad.", 
+    icon: "person_off", 
+    colorClass: "text-primary" 
+  },
+  { 
+    value: "50%", 
+    label: "Incumplimiento LGD", 
+    description: "De las empresas obligadas aún no cumplen la cuota de reserva del 2%.", 
+    icon: "gavel", 
+    colorClass: "text-primary" 
+  }
+];
+
+const barrierList = [
+  { 
+    icon: "block", 
+    title: "Acceso Limitado", 
+    description: "Dificultades para conseguir el primer empleo debido a prejuicios y desconocimiento empresarial sobre las capacidades del colectivo." 
+  },
+  { 
+    icon: "engineering", 
+    title: "Mantenimiento", 
+    description: "Problemas para conservar el trabajo por falta de adaptaciones y apoyos específicos (sensoriales y organizativos)." 
+  },
+  { 
+    icon: "trending_flat", 
+    title: "Promoción", 
+    description: "Escasas oportunidades de crecimiento y desarrollo de carrera, limitando su potencial de contribución a largo plazo." 
+  }
+];
+
+const impactList = [
+  "Aumento significativo de la autoestima y satisfacción personal.",
+  "Mayor participación social e integración comunitaria.",
+  "Desarrollo de autonomía y autodeterminación.",
+  "Acceso a vida independiente y autosuficiencia económica."
+];
+
+const legalItems = [
+  { 
+    percentage: 2, 
+    label: "Cuota Legal", 
+    description: "Porcentaje mínimo de plantilla con discapacidad exigido por ley a empresas de +50 empleados." 
+  },
+  { 
+    percentage: 50, 
+    label: "Incumplimiento", 
+    description: "Estimación de empresas obligadas que actualmente no alcanzan el porcentaje o medidas alternativas." 
+  }
+];
 
 // --- DATOS SECCIÓN 5: ESTRATEGIA 1 (Formación Dual) ---
 const dualTrainingData = {
@@ -48,7 +112,7 @@ const strategyFeatures = [
     description: "Equipos expertos en discapacidad que faciliten la conexión entre talento y oportunidades."
   },
   {
-    icon: "psychology", // Añadido para completar el grid de 4 si usas layout grid4, o dejar 3 si usas otro
+    icon: "psychology",
     title: "Adaptación Técnica",
     description: "Ajuste de puestos y herramientas para maximizar el rendimiento del talento neurodivergente."
   }
@@ -78,6 +142,12 @@ const itinerarySteps = [
   }
 ];
 
+// CTA Personalizado (Opcional, si no se pasa usa el default)
+const ctaButtons = [
+  { label: "Agendar Consulta", href: "/contact", variant: "solid" as const },
+  { label: "Ver Programas Arriba", href: "#", variant: "outline" as const }
+];
+
 ---
 
 <Layout 
@@ -86,7 +156,7 @@ const itinerarySteps = [
   fullWidth={true}
 >
   
-  {/* SECCIÓN 0: HERO (Fondo Imagen/Azul) */}
+  {/* SECCIÓN 0: HERO */}
   <ProgramHero 
     client:load
     title={"Potenciando Habilidades Únicas:"} 
@@ -96,26 +166,42 @@ const itinerarySteps = [
     onCtaClick={() => document.getElementById('program-cta')?.scrollIntoView({ behavior: 'smooth' })}
   />
 
-  {/* SECCIÓN 1: REALIDAD (Fondo BLANCO) */}
-  <TalentReality client:load />
+  {/* SECCIÓN 1: REALIDAD (Datos corregidos) */}
+  <TalentReality 
+    client:load 
+    title="El Talento Oculto"
+    subtitle="Una Realidad Preocupante"
+    description="El autismo presenta la tasa más alta de desempleo entre todos los colectivos de discapacidad, a pesar de contar con las cualificaciones técnicas necesarias."
+    stats={realityStats} 
+  />
 
-  {/* SECCIÓN 2: BARRERAS (Fondo GRIS) */}
-  <TalentBarriers client:load />
+  {/* SECCIÓN 2: BARRERAS (Datos corregidos) */}
+  <TalentBarriers 
+    client:load 
+    barriers={barrierList} 
+  />
 
-  {/* SECCIÓN 3: IMPACTO (Fondo BLANCO) */}
-  <TalentImpact client:load />
+  {/* SECCIÓN 3: IMPACTO (Datos corregidos) */}
+  <TalentImpact 
+    client:load 
+    items={impactList} 
+  />
 
-  {/* SECCIÓN 4: MARCO LEGAL (Fondo GRIS - Gráficos Circulares) */}
-  <LegalCompliance client:load />
+  {/* SECCIÓN 4: MARCO LEGAL (Datos corregidos) */}
+  <LegalCompliance 
+    client:load 
+    items={legalItems} 
+    footerText="La Ley General de Discapacidad (LGD) establece obligaciones claras, pero su cumplimiento sigue siendo un reto. En Qualisophy te ayudamos a convertir este requisito en una ventaja estratégica."
+  />
 
-  {/* SECCIÓN 5: ESTRATEGIA 1 - FORMACIÓN DUAL (Fondo BLANCO) */}
+  {/* SECCIÓN 5: ESTRATEGIA 1 - FORMACIÓN DUAL */}
   <ProgramMethodology 
     client:visible
     {...dualTrainingData}
     variant="white"
   />
 
-  {/* SECCIÓN 6: ESTRATEGIA 2 - ACCESO (Fondo GRIS) */}
+  {/* SECCIÓN 6: ESTRATEGIA 2 - ACCESO */}
   <ProgramFeatures 
     client:visible
     title="Estrategia 2: Facilitar Acceso"
@@ -125,7 +211,7 @@ const itinerarySteps = [
     layout="grid4" 
   />
 
-  {/* SECCIÓN 7: ITINERARIOS (Fondo BLANCO) */}
+  {/* SECCIÓN 7: ITINERARIOS */}
   <ProgramCurriculum 
     client:visible
     title="Itinerarios Personalizados: Clave del Éxito"
@@ -134,14 +220,15 @@ const itinerarySteps = [
     variant="white" 
   />
 
-  {/* SECCIÓN 8: INCLUSIÓN REAL + CITA (Fondo GRIS) */}
+  {/* SECCIÓN 8: INCLUSIÓN REAL + CITA */}
   <SocialImpactQuote client:load />
 
-  {/* SECCIÓN 9: CTA (Fondo BLANCO) */}
+  {/* SECCIÓN 9: CTA */}
   <div id="program-cta">
     <ProgramCTA 
       client:visible 
       variant="white"
+      buttons={ctaButtons}
     />
   </div>
 

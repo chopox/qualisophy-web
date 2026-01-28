@@ -1,124 +1,238 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-// Importación de componentes reactivos
+// Importación de Componentes (Estructura idéntica a Neurodivergence)
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
 import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
-import { ProgramTestimonials } from "@/components/react/programs/ProgramTestimonials"; 
+import { ProgramCurriculum } from "@/components/react/programs/ProgramCurriculum";
 import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
+import { TalentReality } from "@/components/react/talent/TalentReality";
+import { TalentBarriers } from "@/components/react/talent/TalentBarriers";
+import { TalentImpact } from "@/components/react/talent/TalentImpact";
+import { LegalCompliance } from "@/components/react/talent/LegalCompliance";
+import { SocialImpactQuote } from "@/components/react/talent/SocialImpactQuote";
 
-// --- DATOS DEL PROGRAMA ---
+// --- DATOS: TALENTO MIGRANTE ---
 
-// FASE 1: Identificación
-const mappingData = {
-  title: "Identificación y Traducción de Talento",
-  description: [
-    "No hacemos simples evaluaciones. Ayudamos a las organizaciones a 'traducir' la experiencia internacional de sus beneficiarios al lenguaje del mercado local.",
-    "Convertimos trayectorias no tradicionales en perfiles atractivos para empresas tecnológicas, identificando competencias transferibles que el CV estándar ignora."
-  ],
-  checks: [
-    "Mapeo de Skills Técnicas y Transversales",
-    "Traducción de Experiencia al Contexto Local",
-    "Detección de Potencial de Liderazgo"
-  ],
-  imageSrc: "https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80"
-};
-
-// FASE 2: Adaptación
-const bridgeData = {
-  title: "Adaptación Técnica y Cultural",
-  description: [
-    "El talento ya existe; solo necesita contexto. Creamos puentes formativos ágiles para cubrir las brechas específicas del mercado local.",
-    "Preparamos a los candidatos no solo en tecnología, sino en la cultura corporativa y metodologías de trabajo de las empresas destino."
-  ],
-  checks: [
-    "Upskilling en Herramientas Locales Demandadas",
-    "Inmersión en Cultura Corporativa Ágil",
-    "Mentoring para la Entrevista Técnica"
-  ],
-  imageSrc: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80"
-};
-
-// PILARES DEL PROGRAMA
-const pillarsFeatures = [
-  {
-    icon: "manage_search", 
-    title: "Diagnóstico Integral",
-    description: "Analizamos el perfil completo del candidato, más allá de los títulos, para entender su verdadero potencial de empleabilidad."
+// 1. REALIDAD (El Talento Oculto)
+const realityStats = [
+  { 
+    value: "54%", 
+    label: "Sobrecualificación", 
+    description: "Uno de cada dos migrantes universitarios trabaja en puestos inferiores a su titulación (vs 1 de cada 3 nacionales).", 
+    icon: "school", 
+    colorClass: "text-primary" 
   },
-  {
-    icon: "school",
-    title: "Nivelación Estratégica",
-    description: "Formación quirúrgica para cerrar brechas técnicas específicas y aumentar la empleabilidad en tiempo récord."
+  { 
+    value: "12,7%", 
+    label: "Desempleo", 
+    description: "Tasa de paro en universitarios extranjeros. Se eleva al 15% en quienes llevan menos de 10 años en España.", 
+    icon: "work_off", 
+    colorClass: "text-primary" 
   },
-  {
-    icon: "diversity_3",
-    title: "Red de Mentores",
-    description: "Acompañamiento psicosocial y profesional por parte de expertos del sector que guían la transición cultural."
-  },
-  {
-    icon: "handshake",
-    title: "Conexión Corporativa",
-    description: "Intermediación directa con empresas partners comprometidas con la diversidad, facilitando la contratación final."
+  { 
+    value: "1%", 
+    label: "del PIB", 
+    description: "Es el coste anual para España del 'Brain Waste' o desperdicio de talento por falta de inclusión efectiva.", 
+    icon: "savings", 
+    colorClass: "text-primary" 
   }
+];
+
+// 2. BARRERAS
+const barrierList = [
+  { 
+    icon: "gavel", 
+    title: "Acceso Limitado", 
+    description: "Burocracia de homologación que 'congela' carreras profesionales durante una media de 3 años y sesgos en la selección." 
+  },
+  { 
+    icon: "description", 
+    title: "Mantenimiento", 
+    description: "El 'Círculo del Permiso': la dificultad administrativa de necesitar un contrato para el permiso y un permiso para el contrato." 
+  },
+  { 
+    icon: "trending_down", 
+    title: "Promoción", 
+    description: "Brecha salarial estructural; un extranjero universitario se sitúa, de media, 1,5 escalones por debajo en ingresos." 
+  }
+];
+
+// 3. IMPACTO
+const impactList = [
+  "Aprovechamiento de redes internacionales y nuevos mercados.",
+  "Enriquecimiento de la cultura corporativa y resolución creativa.",
+  "Reducción de la brecha de talento en sectores técnicos.",
+  "Validación de experiencia global en el mercado local."
+];
+
+// 4. MARCO LEGAL (0% Cuota, pero incentivos)
+const legalItems = [
+  { 
+    percentage: 0, 
+    label: "Cuota Legal", 
+    description: "A diferencia de la discapacidad, no existe cuota obligatoria, lo que invisibiliza la necesidad de inclusión." 
+  },
+  { 
+    percentage: 100, 
+    label: "Incentivos", 
+    description: "Bonificaciones de hasta 128 €/mes por contratación y mejoras en la puntuación para licitaciones públicas (ESG)." 
+  }
+];
+
+// 5. ESTRATEGIA 1: Formación Puente y Dual (Fondo Blanco)
+const strategyTraining = {
+  title: "Estrategia 1: Formación Puente y Dual",
+  description: [
+    "Diseñamos 'puentes formativos' que adaptan el conocimiento internacional a la normativa y herramientas locales.",
+    "El objetivo es validar técnicamente lo que el profesional ya sabe, eliminando la barrera de la 'primera experiencia local'."
+  ],
+  checks: [
+    "Cualificación Técnica: Adaptación al mercado.",
+    "Competencias Transversales: Idioma y códigos.",
+    "Prácticas Reales: Validación en entorno local."
+  ],
+  imageSrc: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80"
+};
+
+// 6. ESTRATEGIA 2: Facilitar Acceso (Fondo Gris)
+const strategyAccess = [
+  { 
+    icon: "verified", 
+    title: "Agilización Homologaciones", 
+    description: "Unidades de asesoría técnica para reducir los tiempos de espera administrativa y legal." 
+  },
+  { 
+    icon: "psychology", 
+    title: "Sensibilización", 
+    description: "Programas para empresas destinados a eliminar prejuicios racistas y sesgos de origen." 
+  },
+  { 
+    icon: "hub", 
+    title: "Networking y Redes", 
+    description: "Construcción de redes de contacto profesionales que faciliten el acceso al mercado laboral oculto." 
+  },
+  { 
+    icon: "translate", 
+    title: "Mediación Cultural", 
+    description: "Facilitadores que traducen códigos culturales y expectativas laborales para ambas partes." 
+  }
+];
+
+// 7. ITINERARIOS (4 Pasos)
+const itinerarySteps = [
+  { 
+    stepNumber: 1, 
+    title: "Evaluación Individual", 
+    description: "Auditoría de títulos, experiencia previa y diagnóstico de necesidades lingüísticas." 
+  },
+  { 
+    stepNumber: 2, 
+    title: "Planificación Adaptada", 
+    description: "Diseño de la ruta crítica para homologación o reciclaje profesional acelerado." 
+  },
+  { 
+    stepNumber: 3, 
+    title: "Acompañamiento Continuo", 
+    description: "Tutorización y seguimiento durante los primeros 6 meses para asegurar la adaptación cultural." 
+  },
+  { 
+    stepNumber: 4, 
+    title: "Inserción Sostenible", 
+    description: "Cierre de la brecha de sobrecualificación con un puesto acorde al talento real del profesional." 
+  }
+];
+
+// CTA Buttons
+const ctaButtons = [
+  { label: "Impulsa tu Diversidad Global", href: "/contact?type=company", variant: "solid" as const },
+  { label: "Homologa tu Futuro", href: "/contact?type=candidate", variant: "outline" as const }
 ];
 ---
 
 <Layout 
-  title="Talento Migrante - Qualisophy"
-  description="Creamos alianzas estratégicas para la integración laboral de talento migrante y refugiado en el sector tecnológico."
+  title="Talento Migrante - Qualisophy" 
+  description="Integración de talento internacional. Convertimos la diversidad cultural en ventaja competitiva." 
   fullWidth={true}
 >
   
-  {/* 1. HERO - Fondo Azul */}
+  {/* SECCIÓN 0: HERO */}
   <ProgramHero 
     client:load
-    title="Alianzas que Transforman Vidas:" 
-    highlight="Inclusión Tecnológica"
-    subtitle="Colaboramos con ONGs e instituciones para conectar el talento global con oportunidades locales, creando un ecosistema de impacto real."
-    backgroundImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-    ctaText="Colaborar con Nosotros" 
+    title="Potenciando Habilidades Globales:" 
+    highlight="Talento Migrante"
+    subtitle="Una alianza estratégica para integrar perfiles internacionales y convertir la diversidad cultural en una ventaja competitiva para tu empresa."
+    backgroundImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80"
+    ctaText="Ver Estrategias"
+    onCtaClick={() => document.getElementById('program-cta')?.scrollIntoView({ behavior: 'smooth' })}
   />
 
-  {/* 2. METODOLOGÍA FASE 1 - Fondo BLANCO */}
+  {/* SECCIÓN 1: REALIDAD (El Talento Oculto) */}
+  <TalentReality 
+    client:load 
+    title="El Talento Oculto" 
+    subtitle="Métricas de Impacto"
+    description="Miles de profesionales altamente cualificados no pueden aportar su valor debido a barreras administrativas y culturales."
+    stats={realityStats}
+  />
+
+  {/* SECCIÓN 2: BARRERAS */}
+  <TalentBarriers client:load barriers={barrierList} />
+
+  {/* SECCIÓN 3: IMPACTO */}
+  <TalentImpact 
+    client:load 
+    items={impactList} 
+    imageSrc="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80"
+  />
+
+  {/* SECCIÓN 4: MARCO LEGAL */}
+  <LegalCompliance 
+    client:load 
+    title="Marco Legal: Cumplimiento Pendiente"
+    items={legalItems}
+    footerText="Aunque no existe cuota obligatoria, la diversidad cultural es un pilar clave en las estrategias ESG y puntúa en licitaciones públicas."
+  />
+
+  {/* SECCIÓN 5: ESTRATEGIA 1 (Fondo BLANCO) */}
   <ProgramMethodology 
     client:visible
-    {...mappingData}
-    reverse={false}
+    {...strategyTraining}
     variant="white"
   />
 
-  {/* 3. METODOLOGÍA FASE 2 - Fondo GRIS */}
-  {/* variant="blue" ahora renderiza fondo GRIS CLARO */}
-  <ProgramMethodology 
-    client:visible
-    {...bridgeData}
-    reverse={true}
-    variant="blue"
-  />
-
-  {/* 4. PILARES - Fondo BLANCO */}
+  {/* SECCIÓN 6: ESTRATEGIA 2 (Fondo GRIS - variant='dark') */}
   <ProgramFeatures 
     client:visible
-    title="Pilares de Intervención"
-    subtitle="Un modelo integral diseñado para maximizar la tasa de éxito en la inserción laboral."
-    features={pillarsFeatures}
-    variant="light"
-    layout="grid4" 
+    title="Estrategia 2: Facilitar Acceso"
+    subtitle="Rompiendo el techo de cristal administrativo y cultural."
+    features={strategyAccess}
+    variant="dark"
+    layout="grid4"
   />
 
-  {/* 5. TESTIMONIOS - Fondo GRIS */}
-  {/* variant="blue" -> GRIS CLARO */}
-  <ProgramTestimonials 
-    client:visible 
-    variant="blue"
-  />
-
-  {/* 6. CTA FINAL - Fondo BLANCO */}
-  <ProgramCTA 
-    client:visible 
+  {/* SECCIÓN 7: ITINERARIOS */}
+  <ProgramCurriculum 
+    client:visible
+    title="Itinerarios Personalizados: Clave del Éxito"
+    subtitle="Del 'Brain Waste' al 'Brain Gain': un proceso estructurado de valorización."
+    steps={itinerarySteps}
     variant="white"
   />
+
+  {/* SECCIÓN 8: CITA FINAL */}
+  <SocialImpactQuote client:load />
+
+  {/* SECCIÓN 9: CTA (Botones) */}
+  <div id="program-cta">
+    <ProgramCTA 
+      client:visible 
+      title="Desbloquea el Potencial Global"
+      description="Convierte la diversidad en el motor de innovación de tu empresa."
+      buttons={ctaButtons}
+      variant="white"
+    />
+  </div>
 
 </Layout>

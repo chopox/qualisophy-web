@@ -1,145 +1,238 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-// Componentes Reutilizables
+// Importación de Componentes (Idénticos a Neurodivergence)
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
 import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
+import { ProgramCurriculum } from "@/components/react/programs/ProgramCurriculum";
 import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
+import { TalentReality } from "@/components/react/talent/TalentReality";
+import { TalentBarriers } from "@/components/react/talent/TalentBarriers";
+import { TalentImpact } from "@/components/react/talent/TalentImpact";
+import { LegalCompliance } from "@/components/react/talent/LegalCompliance";
+import { SocialImpactQuote } from "@/components/react/talent/SocialImpactQuote";
 
-// --- DATOS: RIESGO DE EXCLUSIÓN (Enfoque B2B Social) ---
+// --- DATOS: RIESGO DE EXCLUSIÓN ---
 
-const techTrainingData = {
-  title: "Formación Técnica Adaptada a la Realidad del Mercado",
-  description: [
-    "Convertimos la brecha digital en un puente hacia el empleo digno. No enseñamos tecnología por enseñar; capacitamos para la empleabilidad real.",
-    "Utilizamos metodologías ágiles diseñadas específicamente para perfiles diversos, asegurando que personas fuera del sistema educativo tradicional puedan adquirir competencias IT demandadas."
-  ],
-  checks: [
-    "Metodología Práctica (Learning by Doing)",
-    "Adaptabilidad Curricular por Perfil",
-    "Foco en Competencias de Alta Demanda"
-  ],
-  imageSrc: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80" 
-};
-
-const psychoSupportData = {
-  title: "Más que código: Reconstrucción de la Identidad Profesional",
-  description: [
-    "Sabemos que la técnica no basta. Nuestro equipo de psicólogos acompaña al usuario para fortalecer su autoestima, resiliencia y autoeficacia.",
-    "Trabajamos la estabilidad emocional y las habilidades socioemocionales necesarias no solo para conseguir el empleo, sino para mantenerlo a largo plazo."
-  ],
-  checks: [
-    "Fortalecimiento de Autoestima y Confianza",
-    "Desarrollo de Resiliencia Laboral",
-    "Acompañamiento Integral Personalizado"
-  ],
-  imageSrc: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80"
-};
-
-const communitiesFeatures = [
-  {
-    icon: "groups", // Icono claro de grupo/comunidad
-    title: "Entorno Seguro e Inclusivo",
-    description: "Creamos espacios donde la herencia cultural y la identidad se valoran como activos, fomentando la pertenencia y la seguridad psicológica."
+// 1. REALIDAD
+const realityStats = [
+  { 
+    value: "26,5%", 
+    label: "Tasa AROPE", 
+    description: "Uno de cada cuatro residentes en España se encuentra en riesgo de pobreza o exclusión social.", 
+    icon: "home_work", 
+    colorClass: "text-primary" 
   },
-  {
-    icon: "handshake", // Icono de apoyo/mentoria
-    title: "Mentoría y Red de Apoyo",
-    description: "Conectamos a los usuarios con mentores que guían su camino, ofreciendo referentes positivos y una red de contactos profesional."
+  { 
+    value: "13,7%", 
+    label: "Trabajadores Pobres", 
+    description: "El empleo precario no es suficiente; el objetivo es la inserción en puestos estables y autosuficientes.", 
+    icon: "payments", 
+    colorClass: "text-primary" 
   },
-  {
-    icon: "public",
-    title: "Diversidad como Valor",
-    description: "Transformamos la experiencia multicultural en una ventaja competitiva para las empresas, promoviendo la innovación desde la diversidad."
-  },
-  {
-    icon: "rocket_launch",
-    title: "Segunda Oportunidad Real",
-    description: "Facilitamos la reinvención profesional efectiva, abriendo puertas en un sector con futuro para quienes buscan un nuevo comienzo."
+  { 
+    value: "+ Alta", 
+    label: "Interseccionalidad", 
+    description: "Las mujeres extranjeras sufren una sobrecualificación aún mayor, sumando barreras de género y origen.", 
+    icon: "groups", 
+    colorClass: "text-primary" 
   }
 ];
 
-const resourcesFeatures = [
-  {
-    icon: "groups", // CAMBIO: Networking en lugar de dinero
-    title: "Networking Estratégico",
-    description: "Rompemos el aislamiento profesional conectando al alumno con una red exclusiva de mentores y expertos en activo dentro del ecosistema tecnológico."
+// 2. BARRERAS
+const barrierList = [
+  { 
+    icon: "lock_clock", 
+    title: "Acceso Limitado", 
+    description: "Estigmas sociales hacia mayores de 45 años y parados de larga duración que bloquean el acceso a entrevistas." 
   },
-  {
-    icon: "devices", 
-    title: "Dotación Tecnológica",
-    description: "Facilitamos el acceso a equipos informáticos y conectividad para asegurar que todos los alumnos dispongan de las herramientas profesionales necesarias."
+  { 
+    icon: "family_restroom", 
+    title: "Mantenimiento", 
+    description: "Inestabilidad personal por falta de vivienda o precariedad estructural en sectores de bajo valor (hostelería, limpieza)." 
   },
-  {
+  { 
     icon: "school", 
-    title: "Tutorización Experta",
-    description: "Seguimiento académico cercano con profesionales del sector que resuelven dudas y adaptan el ritmo de aprendizaje."
-  },
-  {
-    icon: "work", 
-    title: "Inserción Laboral Asistida",
-    description: "Nuestro objetivo es el empleo. Conectamos directamente con empresas partners y acompañamos en todo el proceso de selección."
+    title: "Promoción", 
+    description: "Falta de formación continua y digitalización que cronifica la permanencia en puestos de baja cualificación." 
   }
+];
+
+// 3. IMPACTO
+const impactList = [
+  "Aumento significativo de la autonomía y reducción de la dependencia de ayudas.",
+  "Mayor cohesión social e integración en la comunidad local.",
+  "Acceso a una vida independiente y estabilidad familiar.",
+  "Recuperación de la identidad y dignidad profesional."
+];
+
+// 4. MARCO LEGAL (100% Beneficios)
+const legalItems = [
+  { 
+    percentage: 100, 
+    label: "Bonificaciones", 
+    description: "Ahorros de hasta 1.300 €/año en cuotas de Seguridad Social por contratar colectivos vulnerables." 
+  },
+  { 
+    percentage: 100, 
+    label: "Cumplimiento", 
+    description: "Mejora del cumplimiento de los criterios ESG y responsabilidad social corporativa (RSC)." 
+  }
+];
+
+// 5. ESTRATEGIA 1: Reciclaje y Habilidades (Fondo BLANCO)
+const strategySkills = {
+  title: "Estrategia 1: Reciclaje y Habilidades",
+  description: [
+    "La tecnología es el gran igualador. Ofrecemos capacitación intensiva en herramientas digitales básicas y competencias blandas.",
+    "Combinamos esto con Formación Dual para que el aprendizaje genere ingresos desde el primer momento."
+  ],
+  checks: [
+    "Alfabetización Digital Acelerada",
+    "Soft Skills e Inteligencia Emocional",
+    "Formación Dual Remunerada"
+  ],
+  imageSrc: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80"
+};
+
+// 6. ESTRATEGIA 2: Facilitar Acceso (Fondo GRIS)
+const strategyAccess = [
+  { 
+    icon: "support", 
+    title: "Acompañamiento Social", 
+    description: "Apoyo psicológico y mediación para estabilizar el entorno personal (vivienda, conciliación)." 
+  },
+  { 
+    icon: "handshake", 
+    title: "Intermediación Proactiva", 
+    description: "Alianzas estratégicas con ONGs para asegurar el encaje perfecto entre perfil y vacante." 
+  },
+  { 
+    icon: "security", 
+    title: "Seguimiento Post-Inserción", 
+    description: "Prevención de bajas tempranas mediante apoyo constante tanto al trabajador como a la empresa." 
+  },
+  { 
+    icon: "computer", 
+    title: "Dotación Tecnológica", 
+    description: "Facilitamos el acceso a equipos informáticos y conectividad para eliminar la brecha digital." 
+  }
+];
+
+// 7. ITINERARIOS (4 Pasos)
+const itinerarySteps = [
+  { 
+    stepNumber: 1, 
+    title: "Evaluación Integral", 
+    description: "Diagnóstico profundo de la situación social, económica y competencias formativas." 
+  },
+  { 
+    stepNumber: 2, 
+    title: "Planificación de Metas", 
+    description: "Hoja de ruta para eliminar barreras externas (brecha digital, situación legal, logística)." 
+  },
+  { 
+    stepNumber: 3, 
+    title: "Entrenamiento en Puesto", 
+    description: "Prácticas tutorizadas para recuperar la confianza y la identidad profesional." 
+  },
+  { 
+    stepNumber: 4, 
+    title: "Autonomía Laboral", 
+    description: "Consolidación en un puesto estable con proyección de carrera a largo plazo." 
+  }
+];
+
+// CTA Buttons
+const ctaButtons = [
+  { label: "Contrata con Impacto Social", href: "/contact?type=company", variant: "solid" as const },
+  { label: "Solicita Acompañamiento", href: "/contact?type=candidate", variant: "outline" as const }
 ];
 ---
 
 <Layout 
-  title="Riesgo de Exclusión - Qualisophy"
-  description="Alianzas estratégicas para la inserción laboral de colectivos vulnerables a través de la tecnología."
+  title="Riesgo de Exclusión - Qualisophy" 
+  description="Inclusión laboral para colectivos vulnerables. Rompemos el ciclo de exclusión mediante el empleo digno." 
   fullWidth={true}
 >
   
-  {/* 1. HERO - Fondo Azul (Imagen + Overlay fuerte) */}
+  {/* SECCIÓN 0: HERO */}
   <ProgramHero 
     client:load
-    title={"Transformamos vidas a través de la tecnología:"}
-    highlight={"Alianza estratégica para la inclusión"}
-    subtitle="Somos el puente entre el talento de vuestros usuarios y el mercado laboral tecnológico. Creamos oportunidades reales de empleo digno."
-    backgroundImage="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80"
-    ctaText="Colabora con nosotros" 
+    title="Transformando la Vulnerabilidad en Autonomía:" 
+    highlight="Inclusión Laboral"
+    subtitle="Facilitamos la reincorporación al mercado de colectivos desfavorecidos para romper el ciclo de la exclusión mediante el empleo digno."
+    backgroundImage="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&q=80"
+    ctaText="Ver Modelo de Impacto"
+    onCtaClick={() => document.getElementById('program-cta')?.scrollIntoView({ behavior: 'smooth' })}
   />
 
-  {/* 2. FASE 1: Capacitación Digital - Fondo BLANCO */}
+  {/* SECCIÓN 1: REALIDAD (Una Realidad Preocupante) */}
+  <TalentReality 
+    client:load 
+    title="Una Realidad Preocupante" 
+    subtitle="Contexto Social"
+    description="La exclusión social no es solo un problema económico, es una pérdida de capital humano para toda la sociedad."
+    stats={realityStats}
+  />
+
+  {/* SECCIÓN 2: BARRERAS */}
+  <TalentBarriers client:load barriers={barrierList} />
+
+  {/* SECCIÓN 3: IMPACTO */}
+  <TalentImpact 
+    client:load 
+    items={impactList} 
+    imageSrc="https://images.unsplash.com/photo-1455849318743-b2233052fcff?auto=format&fit=crop&q=80"
+  />
+
+  {/* SECCIÓN 4: MARCO LEGAL */}
+  <LegalCompliance 
+    client:load 
+    title="Marco Legal: El Valor de la Inclusión"
+    items={legalItems}
+    footerText="Las empresas socialmente responsables no solo mejoran su imagen, sino que se benefician de importantes incentivos fiscales."
+  />
+
+  {/* SECCIÓN 5: ESTRATEGIA 1 (Fondo BLANCO) */}
   <ProgramMethodology 
     client:visible
-    {...techTrainingData}
-    reverse={false}
+    {...strategySkills}
     variant="white"
   />
 
-  {/* 3. FASE 2: Acompañamiento Psicosocial - Fondo AZUL (Alternancia) */}
-  <ProgramMethodology 
-    client:visible
-    {...psychoSupportData}
-    reverse={true}
-    variant="blue"
-  />
-
-  {/* 4. COMUNIDADES (Entorno Seguro) - Fondo BLANCO */}
+  {/* SECCIÓN 6: ESTRATEGIA 2 (Fondo GRIS - variant='dark') */}
   <ProgramFeatures 
     client:visible
-    title="Comunidad y Pertenencia"
-    subtitle="Construimos redes de seguridad que combaten el aislamiento y fomentan el crecimiento."
-    features={communitiesFeatures}
-    variant="light" 
-    layout="grid4" 
+    title="Estrategia 2: Facilitar Acceso"
+    subtitle="Soporte integral para garantizar la estabilidad laboral."
+    features={strategyAccess}
+    variant="dark"
+    layout="grid4"
   />
 
-  {/* 5. RECURSOS (Éxito Compartido) - Fondo AZUL */}
-  <ProgramFeatures 
+  {/* SECCIÓN 7: ITINERARIOS */}
+  <ProgramCurriculum 
     client:visible
-    title="Recursos para el Éxito Compartido"
-    subtitle="Nos encargamos de las barreras operativas y financieras para garantizar resultados."
-    features={resourcesFeatures}
-    variant="dark" 
-    layout="cards" 
-  />
-
-  {/* 6. CTA FINAL - Fondo BLANCO (Cierre B2B) */}
-  <ProgramCTA 
-    client:visible 
+    title="Itinerarios Personalizados: Clave del Éxito"
+    subtitle="Un camino estructurado para recuperar la autonomía y dignidad profesional."
+    steps={itinerarySteps}
     variant="white"
   />
+
+  {/* SECCIÓN 8: CITA FINAL */}
+  <SocialImpactQuote client:load />
+
+  {/* SECCIÓN 9: CTA */}
+  <div id="program-cta">
+    <ProgramCTA 
+      client:visible 
+      title="Construye un Futuro Inclusivo"
+      description="Tu empresa puede ser el motor de cambio que alguien necesita. Únete a la red inclusiva."
+      buttons={ctaButtons}
+      variant="white"
+    />
+  </div>
 
 </Layout>
