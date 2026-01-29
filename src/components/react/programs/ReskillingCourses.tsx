@@ -85,22 +85,18 @@ export const ReskillingCourses: React.FC = () => {
             {/* BOTONES DE CTA */}
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2">
               {/* Botón 1: Abrir Modal de Cursos */}
-              <button
-                onClick={() => setIsModalOpen(true)}
+              <a
+                href="/contact"
                 className="flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all transform text-lg min-w-[240px] cursor-pointer"
               >
-                <span className="material-symbols-outlined">auto_stories</span>
-                Ver programas formativos
-              </button>
+                Empieza tu Transformación
+              </a>
 
               {/* Botón 2: Contacto / Asesoría */}
               <a
                 href="/contact"
                 className="flex items-center justify-center gap-3 bg-white border-2 border-gray-200 hover:border-primary text-secondary hover:text-primary font-bold py-4 px-8 rounded-xl transition-all text-lg min-w-[240px]"
               >
-                <span className="material-symbols-outlined">
-                  calendar_month
-                </span>
                 Agendar Asesoría
               </a>
             </div>
