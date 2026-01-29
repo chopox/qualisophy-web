@@ -51,7 +51,7 @@ export const CorporateTrainingHero = () => {
           <div className="flex justify-center mt-8">
             <button
               onClick={handleScrollToContact}
-              className="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-lg shadow-xl transition-all transform hover:-translate-y-1 text-lg border border-transparent font-primary cursor-pointer"
+              className="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-lg shadow-xl transition-all transform text-lg border border-transparent font-primary cursor-pointer"
             >
               {t("button.requestInfo")}
             </button>
