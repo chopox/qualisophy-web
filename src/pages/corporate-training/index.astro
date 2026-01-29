@@ -4,8 +4,16 @@ import { CorporateAreasList } from "@/components/react/corporate-training/Corpor
 import { CorporateTrainingHero } from "@/components/react/corporate-training/CorporateTrainingHero";
 import { CustomTrainingProgram } from "@/components/react/corporate-training/CustomTrainingProgram";
 import { CompanyCarousel } from "@/components/react/corporate-training/CompanyCarousel";
-import { ContactForm } from "@/components/react/contact/ContactForm";
+// Eliminamos ContactForm
+// Importamos el CTA estandarizado
+import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+// --- DATOS DEL CTA (Enfoque Empresas) ---
+const ctaButtons = [
+  { label: "Solicitar Propuesta", href: "/contact?type=company", variant: "solid" as const },
+  { label: "Ver Áreas Formativas", href: "#", variant: "outline" as const }
+];
 ---
 
 <Layout title="Formación para Empresas - Qualisophy" fullWidth={true}>
@@ -18,8 +26,10 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
     <Breadcrumbs />
   </div>
 
-  {/* 3. CATÁLOGO DE ÁREAS (Usando las nuevas tarjetas) */}
-  <CorporateAreasList client:load />
+  {/* 3. CATÁLOGO DE ÁREAS (Identificador para el scroll) */}
+  <div id="corporate-areas">
+    <CorporateAreasList client:load />
+  </div>
 
   {/* 4. METODOLOGÍA Y BENEFICIOS */}
   <CustomTrainingProgram client:load />
@@ -29,47 +39,16 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
       <CompanyCarousel client:load />
   </div>
 
-  {/* 6. CONTACTO (Fondo diferenciado) */}
-  <section id="contact-form" class="py-24 bg-gray-50 relative">
-    {/* Decoración de fondo */}
-    <div class="absolute inset-0 bg-[url('/assets/pattern.svg')] opacity-[0.03]"></div>
+  {/* 6. CTA FINAL (Sustituye al Formulario) */}
+  {/* Usamos variant="blue" para que tenga fondo GRIS CLARO y contraste con el carrusel blanco */}
+  <div id="program-cta">
+    <ProgramCTA 
+      client:visible 
+      title="Diseñamos el plan perfecto para tu equipo"
+      description="Cuéntanos tus objetivos. Creamos planes a medida, bonificables por FUNDAE y con instructores senior en activo."
+      buttons={ctaButtons}
+      variant="blue" 
+    />
+  </div>
 
-    <div class="container mx-auto px-6 relative z-10">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-        
-        {/* Texto persuasivo a la izquierda */}
-        <div>
-            <h2 class="text-3xl font-heading sm:text-4xl font-bold text-slate-800 mb-6">
-                Diseñamos el plan perfecto para tu equipo
-            </h2>
-            <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-                Cuéntanos tus objetivos y diseñaremos un plan de formación adaptado a
-                las necesidades de tu empresa. Ya sea un bootcamp intensivo o formación continua, 
-                tenemos la solución.
-            </p>
-            
-            <ul class="space-y-4 mb-8">
-                <li class="flex items-center gap-3 text-slate-700">
-                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600 text-xs font-bold">✓</span>
-                    Bonificable por FUNDAE
-                </li>
-                <li class="flex items-center gap-3 text-slate-700">
-                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600 text-xs font-bold">✓</span>
-                    Instructores Senior en activo
-                </li>
-                <li class="flex items-center gap-3 text-slate-700">
-                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600 text-xs font-bold">✓</span>
-                    Adaptación de horarios y temario
-                </li>
-            </ul>
-        </div>
-
-        {/* Formulario a la derecha */}
-        <div>
-            <ContactForm client:load source="Solicitud Formación Empresas" />
-        </div>
-
-      </div>
-    </div>
-  </section>
 </Layout>
