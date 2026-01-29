@@ -3,15 +3,17 @@ import Layout from "@/layouts/Layout.astro";
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
-// --- DATOS DE CATEGORÍAS Y CURSOS (ESTILO MODAL) ---
+// --- DATOS DE CATEGORÍAS Y CURSOS (GAMA DE AZULES CORPORATIVA) ---
 const categories = [
   {
     id: "qa",
     title: "QA & Testing",
     subtitle: "ASEGURAMIENTO DE CALIDAD",
     icon: "bug_report",
-    headerColor: "bg-[#00a65a]", // Verde corporativo QA
-    textColor: "text-[#00a65a]",
+    // 1. SECUNDARIO (El más oscuro)
+    headerColor: "bg-[#1B2341]",
+    textColor: "text-[#1B2341]",
+    hoverBorder: "hover:border-[#1B2341]",
     courses: [
       { title: "Testing Manual & QA", href: "/learning/qa/software-quality-testing-course" },
       { title: "Automatización con Cypress", href: "/learning/qa/bdd-automation" },
@@ -25,8 +27,10 @@ const categories = [
     title: "Microsoft & Data",
     subtitle: "BUSINESS INTELLIGENCE",
     icon: "bar_chart",
-    headerColor: "bg-[#f39c12]", // Naranja/Ambar corporativo Data
-    textColor: "text-[#f39c12]",
+    // 2. AZUL PROFUNDO
+    headerColor: "bg-[#325886]",
+    textColor: "text-[#325886]",
+    hoverBorder: "hover:border-[#325886]",
     courses: [
       { title: "Power BI Dashboards", href: "/learning/microsoft/powerbi" },
       { title: "Data Analytics & SQL", href: "/learning/microsoft/data-analytics" },
@@ -40,8 +44,10 @@ const categories = [
     title: "Desarrollo",
     subtitle: "INGENIERÍA DE SOFTWARE",
     icon: "code",
-    headerColor: "bg-[#3c8dbc]", // Azul corporativo Dev
-    textColor: "text-[#3c8dbc]",
+    // 3. AZUL MEDIO
+    headerColor: "bg-[#4B7BB5]",
+    textColor: "text-[#4B7BB5]",
+    hoverBorder: "hover:border-[#4B7BB5]",
     courses: [
       { title: "Fullstack Development", href: "/learning/dev/fullstack" },
       { title: "Frontend (React/Vue)", href: "/learning/dev/frontend-react" },
@@ -55,8 +61,10 @@ const categories = [
     title: "Project Management",
     subtitle: "LIDERAZGO Y AGILIDAD",
     icon: "manage_accounts",
-    headerColor: "bg-[#8e44ad]", // Morado corporativo PM
-    textColor: "text-[#8e44ad]",
+    // 4. PRIMARIO (El más claro)
+    headerColor: "bg-[#6296CE]",
+    textColor: "text-[#6296CE]",
+    hoverBorder: "hover:border-[#6296CE]",
     courses: [
       { title: "Scrum Master", href: "/learning/pm/scrum-master" },
       { title: "Product Owner", href: "/learning/pm/product-owner" },
@@ -103,52 +111,63 @@ const categories = [
         </div>
     </section>
 
-    {/* GRID DE ITINERARIOS (DISEÑO TIPO MODAL) */}
+    {/* GRID DE ITINERARIOS */}
     <section id="catalog-grid" class="py-16">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {categories.map((cat) => (
-                    <div class="flex flex-col h-full">
+                    <div class="flex flex-col h-full group">
                         
-                        {/* 1. CABECERA DE CATEGORÍA (Card de color) */}
+                        {/* 1. CABECERA DE CATEGORÍA */}
                         <div class={`
-                            rounded-xl p-6 text-center shadow-lg mb-6 relative overflow-hidden transition-transform duration-300 hover:-translate-y-1 group
+                            rounded-2xl p-6 text-center shadow-lg mb-6 relative overflow-hidden transition-transform duration-300 
                             ${cat.headerColor} text-white
                         `}>
-                            <div class="relative z-10 flex flex-col items-center gap-3">
-                                <div class="p-3 bg-white/20 rounded-full backdrop-blur-md shadow-inner">
-                                    <span class="material-symbols-outlined text-3xl">
+                            <div class="relative z-10 flex flex-col items-center gap-2">
+                                {/* Círculo del icono igual que React: bg-white/10 y borde */}
+                                <div class="p-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/20">
+                                    <span class="material-symbols-outlined text-2xl">
                                         {cat.icon}
                                     </span>
                                 </div>
                                 <div>
-                                    <h3 class="font-bold text-xl font-heading leading-tight mb-1">
+                                    <h3 class="font-bold text-xl font-heading leading-tight">
                                         {cat.title}
                                     </h3>
-                                    <p class="text-[10px] text-white/90 font-bold uppercase tracking-widest opacity-80">
+                                    <p class="text-xs text-white/90 font-medium uppercase tracking-wide opacity-90 mt-1">
                                         {cat.subtitle}
                                     </p>
                                 </div>
                             </div>
-                            {/* Decoración Background */}
-                            <div class="absolute top-0 right-0 -mr-6 -mt-6 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-colors"></div>
+                            {/* Decoración Background (Círculo borroso esquina) */}
+                            <div class="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
                         </div>
 
-                        {/* CONECTOR VISUAL (Línea punteada) */}
-                        <div class="hidden lg:block w-px h-6 border-l-2 border-dashed border-gray-300 mx-auto -mt-6 mb-2 relative z-0 opacity-50"></div>
+                        {/* CONECTOR VISUAL */}
+                        <div class="block w-px h-8 border-l-2 border-dashed border-gray-300 mx-auto -mt-6 mb-2 relative z-0"></div>
 
-                        {/* 2. LISTA DE CURSOS (Botones blancos) */}
+                        {/* 2. LISTA DE CURSOS */}
                         <div class="flex flex-col gap-3 flex-1">
                             {cat.courses.map((course) => (
                                 <a
                                     href={course.href}
-                                    class="
-                                        block p-4 rounded-xl border border-gray-100 bg-white text-center shadow-sm 
-                                        hover:shadow-md hover:border-gray-200 hover:-translate-y-0.5 transition-all duration-200
-                                        font-bold text-sm text-slate-700 hover:text-primary
-                                    "
+                                    class={`
+                                        block p-4 rounded-xl border-2 border-transparent border-gray-100 
+                                        text-center transition-all duration-200 relative
+                                        bg-white hover:shadow-md
+                                        ${cat.hoverBorder}
+                                        group-hover/card:scale-105
+                                    `}
                                 >
-                                    {course.title}
+                                    {/* Barra lateral animada en hover */}
+                                    <div class={`
+                                        absolute left-0 top-0 bottom-0 w-1.5 rounded-l-xl 
+                                        ${cat.headerColor} opacity-0 hover:opacity-100 transition-opacity
+                                    `}></div>
+                                    
+                                    <span class="text-sm font-bold text-slate-700 hover:text-primary transition-colors">
+                                        {course.title}
+                                    </span>
                                 </a>
                             ))}
 
@@ -156,10 +175,10 @@ const categories = [
                             <div class="mt-auto pt-4 text-center">
                                 <a 
                                     href={cat.link} 
-                                    class={`inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider ${cat.textColor} hover:underline transition-all`}
+                                    class={`inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider ${cat.textColor} hover:underline`}
                                 >
                                     VER SECCIÓN COMPLETA
-                                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+                                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
                                 </a>
                             </div>
                         </div>
