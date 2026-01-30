@@ -3,17 +3,17 @@ import Layout from "@/layouts/Layout.astro";
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
-// --- DATOS DE CATEGORÍAS Y CURSOS (GAMA DE AZULES CORPORATIVA) ---
+// --- DATOS DE CATEGORÍAS Y CURSOS ---
 const categories = [
   {
     id: "qa",
     title: "QA & Testing",
     subtitle: "ASEGURAMIENTO DE CALIDAD",
     icon: "bug_report",
-    // 1. SECUNDARIO (El más oscuro)
-    headerColor: "bg-[#1B2341]",
-    textColor: "text-[#1B2341]",
-    hoverBorder: "hover:border-[#1B2341]",
+    headerColor: "bg-[#325886]",
+    textColor: "text-[#1B2341]", 
+    hoverBorder: "hover:border-[#325886]", 
+    hoverText: "group-hover:text-[#325886]", 
     courses: [
       { title: "Testing Manual & QA", href: "/learning/qa/software-quality-testing-course" },
       { title: "Automatización con Cypress", href: "/learning/qa/bdd-automation" },
@@ -27,10 +27,10 @@ const categories = [
     title: "Microsoft & Data",
     subtitle: "BUSINESS INTELLIGENCE",
     icon: "bar_chart",
-    // 2. AZUL PROFUNDO
-    headerColor: "bg-[#325886]",
-    textColor: "text-[#325886]",
-    hoverBorder: "hover:border-[#325886]",
+    headerColor: "bg-[#4B7BB5]",
+    textColor: "text-[#4B7BB5]",
+    hoverBorder: "hover:border-[#4B7BB5]",
+    hoverText: "group-hover:text-[#4B7BB5]",
     courses: [
       { title: "Power BI Dashboards", href: "/learning/microsoft/powerbi" },
       { title: "Data Analytics & SQL", href: "/learning/microsoft/data-analytics" },
@@ -44,10 +44,10 @@ const categories = [
     title: "Desarrollo",
     subtitle: "INGENIERÍA DE SOFTWARE",
     icon: "code",
-    // 3. AZUL MEDIO
-    headerColor: "bg-[#4B7BB5]",
-    textColor: "text-[#4B7BB5]",
-    hoverBorder: "hover:border-[#4B7BB5]",
+    headerColor: "bg-[#6296CE]",
+    textColor: "text-[#6296CE]",
+    hoverBorder: "hover:border-[#6296CE]",
+    hoverText: "group-hover:text-[#6296CE]",
     courses: [
       { title: "Fullstack Development", href: "/learning/dev/fullstack" },
       { title: "Frontend (React/Vue)", href: "/learning/dev/frontend-react" },
@@ -61,10 +61,10 @@ const categories = [
     title: "Project Management",
     subtitle: "LIDERAZGO Y AGILIDAD",
     icon: "manage_accounts",
-    // 4. PRIMARIO (El más claro)
-    headerColor: "bg-[#6296CE]",
-    textColor: "text-[#6296CE]",
-    hoverBorder: "hover:border-[#6296CE]",
+    headerColor: "bg-[#70A0D2]",
+    textColor: "text-[#70A0D2]",
+    hoverBorder: "hover:border-[#70A0D2]",
+    hoverText: "group-hover:text-[#70A0D2]",
     courses: [
       { title: "Scrum Master", href: "/learning/pm/scrum-master" },
       { title: "Product Owner", href: "/learning/pm/product-owner" },
@@ -116,7 +116,8 @@ const categories = [
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {categories.map((cat) => (
-                    <div class="flex flex-col h-full group">
+                    // IMPORTANTE: Eliminada la clase 'group' de aquí para evitar que el hover de la cabecera afecte a los botones
+                    <div class="flex flex-col h-full">
                         
                         {/* 1. CABECERA DE CATEGORÍA */}
                         <div class={`
@@ -124,7 +125,6 @@ const categories = [
                             ${cat.headerColor} text-white
                         `}>
                             <div class="relative z-10 flex flex-col items-center gap-2">
-                                {/* Círculo del icono igual que React: bg-white/10 y borde */}
                                 <div class="p-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/20">
                                     <span class="material-symbols-outlined text-2xl">
                                         {cat.icon}
@@ -139,7 +139,6 @@ const categories = [
                                     </p>
                                 </div>
                             </div>
-                            {/* Decoración Background (Círculo borroso esquina) */}
                             <div class="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
                         </div>
 
@@ -152,20 +151,14 @@ const categories = [
                                 <a
                                     href={course.href}
                                     class={`
-                                        block p-4 rounded-xl border-2 border-transparent border-gray-100 
+                                        group block p-4 rounded-xl border-2  border-gray-100 
                                         text-center transition-all duration-200 relative
                                         bg-white hover:shadow-md
                                         ${cat.hoverBorder}
-                                        group-hover/card:scale-105
                                     `}
                                 >
-                                    {/* Barra lateral animada en hover */}
-                                    <div class={`
-                                        absolute left-0 top-0 bottom-0 w-1.5 rounded-l-xl 
-                                        ${cat.headerColor} opacity-0 hover:opacity-100 transition-opacity
-                                    `}></div>
-                                    
-                                    <span class="text-sm font-bold text-slate-700 hover:text-primary transition-colors">
+                                    {/* Texto cambia de color al hacer hover sobre SU PROPIO padre (el enlace) */}
+                                    <span class={`text-sm font-bold text-slate-700 transition-colors ${cat.hoverText}`}>
                                         {course.title}
                                     </span>
                                 </a>

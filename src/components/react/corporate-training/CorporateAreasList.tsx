@@ -10,11 +10,12 @@ const trainingPaths = [
     title: "QA & Testing",
     subtitle: "Aseguramiento de Calidad",
     icon: "bug_report",
-    // 1. SECUNDARIO (El más oscuro)
-    headerBg: "bg-[#1B2341]",
-    lightBg: "bg-[#F2F4F8]",
-    hoverBorder: "hover:border-[#1B2341]",
+    // 1. Azul profundo
+    headerBg: "bg-[#325886]",
+    lightBg: "bg-[#F4F8FB]",
+    hoverBorder: "hover:border-[#325886]",
     textColor: "text-[#1B2341]",
+    hoverText: "group-hover:text-[#325886]",
     mainLink: "/corporate-training/qa",
     courses: [
       {
@@ -37,11 +38,12 @@ const trainingPaths = [
     title: "Microsoft & Data",
     subtitle: "Business Intelligence",
     icon: "bar_chart",
-    // 2. AZUL PROFUNDO (Puente oscuro)
-    headerBg: "bg-[#325886]",
-    lightBg: "bg-[#F4F8FB]",
-    hoverBorder: "hover:border-[#325886]",
-    textColor: "text-[#325886]",
+    // 2. Azul medio
+    headerBg: "bg-[#4B7BB5]",
+    lightBg: "bg-[#F0F7FD]",
+    hoverBorder: "hover:border-[#4B7BB5]",
+    textColor: "text-[#4B7BB5]",
+    hoverText: "group-hover:text-[#4B7BB5]",
     mainLink: "/corporate-training/powerbi",
     courses: [
       {
@@ -67,11 +69,12 @@ const trainingPaths = [
     title: "Desarrollo",
     subtitle: "Ingeniería de Software",
     icon: "code",
-    // 3. AZUL MEDIO (Puente claro)
-    headerBg: "bg-[#4B7BB5]",
-    lightBg: "bg-[#F0F7FD]",
-    hoverBorder: "hover:border-[#4B7BB5]",
-    textColor: "text-[#4B7BB5]",
+    // 3. Primario
+    headerBg: "bg-[#6296CE]",
+    lightBg: "bg-[#F0F9FF]",
+    hoverBorder: "hover:border-[#6296CE]",
+    textColor: "text-[#6296CE]",
+    hoverText: "group-hover:text-[#6296CE]",
     mainLink: "/corporate-training/dev",
     courses: [
       {
@@ -94,11 +97,12 @@ const trainingPaths = [
     title: "Project Management",
     subtitle: "Liderazgo y Agilidad",
     icon: "manage_accounts",
-    // 4. PRIMARIO (El más claro de la serie, pero accesible)
-    headerBg: "bg-[#6296CE]",
-    lightBg: "bg-[#F0F9FF]",
-    hoverBorder: "hover:border-[#6296CE]",
-    textColor: "text-[#6296CE]",
+    // 4. Azul claro
+    headerBg: "bg-[#70A0D2]",
+    lightBg: "bg-[#70A0D2]",
+    hoverBorder: "hover:border-[#70A0D2]",
+    textColor: "text-[#70A0D2]",
+    hoverText: "group-hover:text-[#70A0D2]",
     mainLink: "/corporate-training/pm",
     courses: [
       { title: "Scrum Master", href: "/corporate-training/pm/scrum" },
@@ -143,7 +147,7 @@ export const CorporateAreasList: React.FC = () => {
            ============================================== */}
         <div className="hidden lg:grid grid-cols-4 gap-8">
           {trainingPaths.map((path) => (
-            <div key={path.id} className="flex flex-col h-full group">
+            <div key={path.id} className="flex flex-col h-full">
               {/* 1. CABECERA DE COLUMNA */}
               <div
                 className={`
@@ -177,17 +181,18 @@ export const CorporateAreasList: React.FC = () => {
                   <a
                     key={idx}
                     href={course.href}
+                    // Agregamos 'group' para controlar el hover de los hijos (texto) desde el padre (botón)
                     className={`
-                        block p-4 rounded-xl border-2 border-transparent border-gray-100 text-center transition-all duration-200 relative
+                        group block p-4 rounded-xl border-2 border-gray-100 text-center transition-all duration-200
                         bg-white hover:shadow-md
-                        ${path.hoverBorder}
-                        group-hover/card:scale-105
+                        ${path.hoverBorder} 
                     `}
                   >
-                    <div
-                      className={`absolute left-0 top-0 bottom-0 w-1.5 rounded-l-xl ${path.headerBg} opacity-0 hover:opacity-100 transition-opacity`}
-                    ></div>
-                    <span className="text-sm font-bold text-slate-700 hover:text-primary transition-colors">
+                    {/* Hemos eliminado el div de la barra lateral izquierda */}
+
+                    <span
+                      className={`text-sm font-bold text-slate-700 transition-colors ${path.hoverText}`}
+                    >
                       {course.title}
                     </span>
                   </a>
