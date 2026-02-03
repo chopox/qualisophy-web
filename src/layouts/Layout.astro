@@ -72,9 +72,12 @@ const {
     <Analytics framework="astro" client:only="react" />
     <SpeedInsights framework="astro" client:only="react" />
 
-    {showHeader && <Header />}
+    {/* HEADER: Con ID 'site-header' y sticky para que el script del chat lo detecte */}
+    <div id="site-header" class="sticky top-0 z-40 w-full bg-white shadow-sm">
+        {showHeader && <Header />}
+    </div>
 
-    <main class="flex-1 w-full">
+    <main class="flex-1 w-full relative z-10">
       {
         fullWidth ? (
           <slot />
@@ -86,11 +89,14 @@ const {
       }
     </main>
 
-    {showFooter && <Footer />}
+    {/* FOOTER: Con ID 'site-footer' para que el chat 'rebote' sobre él */}
+    <div id="site-footer" class="relative z-30 bg-white">
+        {showFooter && <Footer />}
+    </div>
 
     <Sidebar client:visible />
 
-    <div id="chatbox-container">
+    <div id="chatbox-container" class="relative z-50">
       {!hideChatBox && <ChatBox client:load />}
     </div>
   </body>
