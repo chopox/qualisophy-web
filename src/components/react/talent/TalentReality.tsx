@@ -51,11 +51,15 @@ export const TalentReality: React.FC<TalentRealityProps> = ({
           {stats.map((stat, index) => (
             <div
               key={index}
-              // Estilo: Fondo semitransparente con blur, sin translate
-              className="p-8 rounded-3xl bg-white/40 backdrop-blur-md border border-white/60 text-center transition-all duration-300 group shadow-sm"
+              // CAMBIOS APLICADOS:
+              // 1. bg-white/90: Más opacidad para tapar el mesh detrás del texto.
+              // 2. border-slate-200: Un borde gris suave pero visible para delimitar la tarjeta.
+              // 3. shadow-lg: Sombra más fuerte para elevar la tarjeta del fondo.
+              // 4. hover:border-primary/30: Un toque de color en el borde al pasar el mouse.
+              className="p-8 rounded-3xl bg-white/90 backdrop-blur-md border border-slate-200 text-center transition-all duration-300 group shadow-lg hover:shadow-xl hover:border-primary/30"
             >
               <div
-                className={`w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform ${stat.colorClass}`}
+                className={`w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform border border-slate-100 ${stat.colorClass}`}
               >
                 <span className="material-symbols-outlined text-4xl">
                   {stat.icon}
