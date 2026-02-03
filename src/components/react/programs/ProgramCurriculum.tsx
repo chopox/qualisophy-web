@@ -1,4 +1,6 @@
 import React, { useState, useRef } from "react";
+// Importamos el fondo Mesh reutilizable
+import { ParticleMeshBackground } from "@/components/react/shared/ParticleMeshBackground";
 
 interface StudyStep {
   stepNumber: number;
@@ -54,11 +56,18 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
   return (
     <section
       className={`
-        px-6 py-16 lg:px-12 lg:py-24 flex justify-center w-full transition-colors
+        px-6 py-16 lg:px-12 lg:py-24 flex justify-center w-full transition-colors relative overflow-hidden
         ${isGrayVariant ? "bg-gray-50" : "bg-white"}
       `}
     >
-      <div className="max-w-7xl w-full flex flex-col gap-16">
+      {/* FONDO MESH: Solo si el fondo es blanco */}
+      {!isGrayVariant && (
+        <div className="absolute inset-0 z-0 opacity-60 pointer-events-none">
+          <ParticleMeshBackground />
+        </div>
+      )}
+
+      <div className="max-w-7xl w-full flex flex-col gap-16 relative z-10">
         {/* CABECERA (Siempre texto oscuro) */}
         <div className="flex flex-col gap-6 text-center md:text-left">
           <h2 className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl font-heading text-secondary">
@@ -93,7 +102,7 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                           ? "bg-primary border-primary text-white scale-110 shadow-xl"
                           : isGrayVariant
                             ? "bg-white border-gray-200 text-gray-500 hover:border-primary hover:text-primary" // Nodo blanco sobre fondo gris
-                            : "bg-gray-50 border-gray-200 text-gray-500 hover:border-primary hover:text-primary" // Nodo gris sobre fondo blanco
+                            : "bg-white/80 backdrop-blur-sm border-gray-200 text-gray-500 hover:border-primary hover:text-primary" // Nodo semi-transparente sobre fondo blanco (Mesh)
                       }
                     `}
                   >
@@ -136,7 +145,7 @@ export const ProgramCurriculum: React.FC<ProgramCurriculumProps> = ({
                       ? "border-primary shadow-md ring-1 ring-primary/20 bg-white" // Abierto siempre blanco
                       : isGrayVariant
                         ? "bg-white border-gray-200 hover:border-gray-300" // Cerrado sobre fondo gris: Blanco
-                        : "bg-gray-50 border-gray-200 hover:border-gray-300" // Cerrado sobre fondo blanco: Gris
+                        : "bg-white/60 backdrop-blur-sm border-gray-200 hover:border-gray-300" // Cerrado sobre fondo blanco (Mesh): Semi-transparente
                   }
                 `}
               >

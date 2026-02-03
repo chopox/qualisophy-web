@@ -1,4 +1,6 @@
 import React from "react";
+// Importamos el fondo Mesh
+import { ParticleMeshBackground } from "@/components/react/shared/ParticleMeshBackground";
 
 interface TalentImpactProps {
   items: string[];
@@ -10,8 +12,13 @@ export const TalentImpact: React.FC<TalentImpactProps> = ({
   imageSrc = "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&q=80",
 }) => {
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-6">
+    <section className="py-20 bg-white relative overflow-hidden">
+      {/* FONDO MESH */}
+      <div className="absolute inset-0 z-0 opacity-60 pointer-events-none">
+        <ParticleMeshBackground />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <h2 className="text-3xl font-heading sm:text-4xl font-bold text-secondary mb-6">

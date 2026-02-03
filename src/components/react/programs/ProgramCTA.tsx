@@ -1,4 +1,6 @@
 import React from "react";
+// Importamos el fondo Mesh reutilizable
+import { ParticleMeshBackground } from "@/components/react/shared/ParticleMeshBackground";
 
 export interface CTAButton {
   label: string;
@@ -32,11 +34,18 @@ export const ProgramCTA: React.FC<ProgramCTAProps> = ({
   return (
     <section
       className={`
-        px-6 py-24 lg:px-12 flex justify-center text-center w-full transition-colors duration-300
+        px-6 py-24 lg:px-12 flex justify-center text-center w-full transition-colors duration-300 relative overflow-hidden
         ${isGrayVariant ? "bg-gray-50 border-t border-gray-100" : "bg-white"}
       `}
     >
-      <div className="max-w-4xl w-full flex flex-col items-center gap-8">
+      {/* FONDO MESH: Solo si el fondo es blanco */}
+      {!isGrayVariant && (
+        <div className="absolute inset-0 z-0 opacity-60 pointer-events-none">
+          <ParticleMeshBackground />
+        </div>
+      )}
+
+      <div className="max-w-4xl w-full flex flex-col items-center gap-8 relative z-10">
         <h2 className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl font-heading text-secondary">
           {title}
         </h2>
@@ -55,7 +64,7 @@ export const ProgramCTA: React.FC<ProgramCTAProps> = ({
                   ${
                     btn.variant === "solid"
                       ? "bg-primary text-white shadow-lg hover:bg-primary/90"
-                      : "border-2 border-gray-300 text-secondary hover:border-primary hover:text-primary bg-transparent"
+                      : "border-2 border-gray-300 text-secondary hover:border-primary hover:text-primary bg-white/50 backdrop-blur-sm" // Fondo sutil para el botón outline
                   }
                 `}
               >
@@ -69,7 +78,7 @@ export const ProgramCTA: React.FC<ProgramCTAProps> = ({
                   ${
                     btn.variant === "solid"
                       ? "bg-primary text-white shadow-lg hover:bg-primary/90"
-                      : "border-2 border-gray-300 text-secondary hover:border-primary hover:text-primary bg-transparent"
+                      : "border-2 border-gray-300 text-secondary hover:border-primary hover:text-primary bg-white/50 backdrop-blur-sm"
                   }
                 `}
               >

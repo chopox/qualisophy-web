@@ -1,4 +1,6 @@
 import React from "react";
+// Importamos el fondo Mesh reutilizable
+import { ParticleMeshBackground } from "@/components/react/shared/ParticleMeshBackground";
 
 interface MethodologyProps {
   title: string;
@@ -17,7 +19,7 @@ export const ProgramMethodology: React.FC<MethodologyProps> = ({
   reverse = false,
   variant = "white",
 }) => {
-  // "isBlue" ahora significa "es la variante alternativa (gris claro)"
+  // "isGrayVariant" true si es la variante gris (blue). False si es blanco.
   const isGrayVariant = variant === "blue";
 
   return (
@@ -26,11 +28,18 @@ export const ProgramMethodology: React.FC<MethodologyProps> = ({
         px-6 py-20 lg:px-12 lg:py-32 flex justify-center w-full transition-colors duration-300 relative overflow-hidden
         ${
           isGrayVariant
-            ? "bg-gray-50" // CAMBIO: Fondo gris claro en lugar de azul oscuro
-            : "bg-white" // Fondo blanco estándar
+            ? "bg-gray-50" // Fondo gris (Sin Mesh)
+            : "bg-white" // Fondo blanco (Con Mesh)
         }
       `}
     >
+      {/* FONDO MESH: Solo si el fondo es blanco */}
+      {!isGrayVariant && (
+        <div className="absolute inset-0 z-0 opacity-60 pointer-events-none">
+          <ParticleMeshBackground />
+        </div>
+      )}
+
       <div
         className={`
           max-w-7xl w-full flex flex-col lg:flex-row gap-12 lg:gap-20 items-center relative z-10
@@ -92,12 +101,14 @@ export const ProgramMethodology: React.FC<MethodologyProps> = ({
             {checks.map((check, index) => (
               <div
                 key={index}
+                // Si el fondo es blanco (con mesh), las tarjetas deben ser semitransparentes para integrarse.
+                // Si el fondo es gris, las tarjetas son blancas sólidas.
                 className={`
-                  flex items-start gap-4 p-4 rounded-xl border transition-all duration-300  hover:shadow-md
+                  flex items-start gap-4 p-4 rounded-xl border transition-all duration-300 hover:shadow-md
                   ${
                     isGrayVariant
-                      ? "bg-white border-gray-200" // Sobre fondo gris: tarjeta blanca
-                      : "bg-gray-50 border-gray-100" // Sobre fondo blanco: tarjeta gris muy clara
+                      ? "bg-white border-gray-200" // Fondo Gris -> Tarjeta Blanca sólida
+                      : "bg-white/60 backdrop-blur-sm border-gray-100" // Fondo Blanco (Mesh) -> Tarjeta Semitransparente
                   }
                 `}
               >

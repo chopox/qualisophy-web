@@ -1,4 +1,6 @@
 import React from "react";
+// Importamos el componente compartido
+import { ParticleMeshBackground } from "../shared/ParticleMeshBackground";
 
 export interface StatItem {
   value: string;
@@ -22,10 +24,15 @@ export const TalentReality: React.FC<TalentRealityProps> = ({
   stats = [],
 }) => {
   return (
-    <section className="py-20 bg-white border-b border-gray-100">
-      <div className="container mx-auto px-6">
-        {/* Cabecera Dinámica */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+    <section className="py-20 relative border-b border-gray-100 overflow-hidden bg-white">
+      {/* FONDO MESH ANIMADO */}
+      <div className="absolute inset-0 z-0 opacity-60">
+        <ParticleMeshBackground />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10 pointer-events-none">
+        {/* Cabecera */}
+        <div className="text-center max-w-3xl mx-auto mb-16 pointer-events-auto">
           <span className="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">
             {subtitle}
           </span>
@@ -39,12 +46,13 @@ export const TalentReality: React.FC<TalentRealityProps> = ({
           )}
         </div>
 
-        {/* Grid de Datos Dinámicos */}
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        {/* Grid de Datos */}
+        <div className="grid md:grid-cols-3 gap-8 mb-12 pointer-events-auto">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="p-8 rounded-3xl bg-gray-50 border border-gray-100 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group"
+              // Estilo: Fondo semitransparente con blur, sin translate
+              className="p-8 rounded-3xl bg-white/40 backdrop-blur-md border border-white/60 text-center transition-all duration-300 group shadow-sm"
             >
               <div
                 className={`w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform ${stat.colorClass}`}
