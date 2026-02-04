@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// Importamos el nuevo modal
 import { CourseTreeModal } from "./CourseTreeModal";
 
 interface ProgramHeroProps {
@@ -7,10 +6,10 @@ interface ProgramHeroProps {
   highlight?: string;
   subtitle: string;
   ctaText?: string;
-  onCtaClick?: () => void;
   backgroundImage?: string;
-  // Nueva propiedad opcional para activar el modal
   hasCourseTree?: boolean;
+  // NUEVO: Recibimos el ID como texto, no como función
+  scrollToId?: string;
 }
 
 export const ProgramHero: React.FC<ProgramHeroProps> = ({
@@ -18,18 +17,21 @@ export const ProgramHero: React.FC<ProgramHeroProps> = ({
   highlight,
   subtitle,
   ctaText = "Ver detalles del programa",
-  onCtaClick,
   backgroundImage = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2069&auto=format&fit=crop",
   hasCourseTree = false,
+  scrollToId,
 }) => {
   const [isTreeModalOpen, setIsTreeModalOpen] = useState(false);
 
-  // Manejador del clic
   const handleButtonClick = () => {
     if (hasCourseTree) {
       setIsTreeModalOpen(true);
-    } else if (onCtaClick) {
-      onCtaClick();
+    } else if (scrollToId) {
+      // LÓGICA DE SCROLL INTERNA
+      const element = document.getElementById(scrollToId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 

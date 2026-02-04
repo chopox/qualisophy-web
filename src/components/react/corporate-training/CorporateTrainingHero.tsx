@@ -5,10 +5,11 @@ import { motion } from "framer-motion";
 export const CorporateTrainingHero = () => {
   const t = useTranslations();
 
-  const handleScrollToContact = () => {
-    const contactSection = document.getElementById("contact-form");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
+  // CAMBIO REALIZADO: Apuntamos al ID 'corporate-areas' que SÍ existe en el .astro
+  const handleScrollToContent = () => {
+    const section = document.getElementById("corporate-areas");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -17,14 +18,14 @@ export const CorporateTrainingHero = () => {
       {/* 1. IMAGEN DE FONDO */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80" // Imagen de ambiente corporativo profesional
+          src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80"
           alt="Corporate Training Team"
           className="w-full h-full object-cover"
           loading="eager"
         />
       </div>
 
-      {/* 2. OVERLAY AZUL (Estilo Qualisophy) */}
+      {/* 2. OVERLAY AZUL */}
       <div className="absolute inset-0 z-0 bg-secondary/90 mix-blend-multiply opacity-95" />
 
       {/* 3. CONTENIDO CENTRADO */}
@@ -50,10 +51,10 @@ export const CorporateTrainingHero = () => {
           {/* Botón CTA */}
           <div className="flex justify-center mt-8">
             <button
-              onClick={handleScrollToContact}
+              onClick={handleScrollToContent}
               className="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-lg shadow-xl transition-all transform text-lg border border-transparent font-primary cursor-pointer"
             >
-              {t("button.requestInfo")}
+              Ver Catálogo Formativo
             </button>
           </div>
         </motion.div>

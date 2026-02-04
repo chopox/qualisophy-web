@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-// Importación de Componentes (Idénticos a Neurodivergence)
+// Importación de Componentes
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
 import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
@@ -15,7 +15,6 @@ import { SocialImpactQuote } from "@/components/react/talent/SocialImpactQuote";
 
 // --- DATOS: RIESGO DE EXCLUSIÓN ---
 
-// 1. REALIDAD
 const realityStats = [
   { 
     value: "26,5%", 
@@ -40,7 +39,6 @@ const realityStats = [
   }
 ];
 
-// 2. BARRERAS
 const barrierList = [
   { 
     icon: "lock_clock", 
@@ -59,7 +57,6 @@ const barrierList = [
   }
 ];
 
-// 3. IMPACTO
 const impactList = [
   "Aumento significativo de la autonomía y reducción de la dependencia de ayudas.",
   "Mayor cohesión social e integración en la comunidad local.",
@@ -67,7 +64,6 @@ const impactList = [
   "Recuperación de la identidad y dignidad profesional."
 ];
 
-// 4. MARCO LEGAL (100% Beneficios)
 const legalItems = [
   { 
     percentage: 100, 
@@ -81,7 +77,6 @@ const legalItems = [
   }
 ];
 
-// 5. ESTRATEGIA 1: Reciclaje y Habilidades (Fondo BLANCO)
 const strategySkills = {
   title: "Estrategia 1: Reciclaje y Habilidades",
   description: [
@@ -96,7 +91,6 @@ const strategySkills = {
   imageSrc: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80"
 };
 
-// 6. ESTRATEGIA 2: Facilitar Acceso (Fondo GRIS)
 const strategyAccess = [
   { 
     icon: "support", 
@@ -120,7 +114,6 @@ const strategyAccess = [
   }
 ];
 
-// 7. ITINERARIOS (4 Pasos)
 const itinerarySteps = [
   { 
     stepNumber: 1, 
@@ -144,7 +137,6 @@ const itinerarySteps = [
   }
 ];
 
-// CTA Buttons
 const ctaButtons = [
   { label: "Contrata con Impacto Social", href: "/contact?type=company", variant: "solid" as const },
   { label: "Solicita Acompañamiento", href: "/contact?type=candidate", variant: "outline" as const }
@@ -157,18 +149,18 @@ const ctaButtons = [
   fullWidth={true}
 >
   
-  {/* SECCIÓN 0: HERO */}
+  {/* SECCIÓN 0: HERO (Con ID de scroll) */}
   <ProgramHero 
     client:load
     title="Transformando la Vulnerabilidad en Autonomía:" 
     highlight="Inclusión Laboral"
     subtitle="Facilitamos la reincorporación al mercado de colectivos desfavorecidos para romper el ciclo de la exclusión mediante el empleo digno."
     backgroundImage="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&q=80"
-    ctaText="Ver Modelo de Impacto"
-    onCtaClick={() => document.getElementById('program-cta')?.scrollIntoView({ behavior: 'smooth' })}
+    ctaText="Ver Itinerario"
+    scrollToId="itinerario"
   />
 
-  {/* SECCIÓN 1: REALIDAD (Una Realidad Preocupante) */}
+  {/* SECCIÓN 1: REALIDAD */}
   <TalentReality 
     client:load 
     title="Una Realidad Preocupante" 
@@ -195,14 +187,14 @@ const ctaButtons = [
     footerText="Las empresas socialmente responsables no solo mejoran su imagen, sino que se benefician de importantes incentivos fiscales."
   />
 
-  {/* SECCIÓN 5: ESTRATEGIA 1 (Fondo BLANCO) */}
+  {/* SECCIÓN 5: ESTRATEGIA 1 */}
   <ProgramMethodology 
     client:visible
     {...strategySkills}
     variant="white"
   />
 
-  {/* SECCIÓN 6: ESTRATEGIA 2 (Fondo GRIS - variant='dark') */}
+  {/* SECCIÓN 6: ESTRATEGIA 2 */}
   <ProgramFeatures 
     client:visible
     title="Estrategia 2: Facilitar Acceso"
@@ -212,14 +204,16 @@ const ctaButtons = [
     layout="grid4"
   />
 
-  {/* SECCIÓN 7: ITINERARIOS */}
-  <ProgramCurriculum 
-    client:visible
-    title="Itinerarios Personalizados: Clave del Éxito"
-    subtitle="Un camino estructurado para recuperar la autonomía y dignidad profesional."
-    steps={itinerarySteps}
-    variant="white"
-  />
+  {/* SECCIÓN 7: ITINERARIOS (Destino del scroll) */}
+  <div id="itinerario" class="scroll-mt-32">
+    <ProgramCurriculum 
+      client:visible
+      title="Itinerarios Personalizados: Clave del Éxito"
+      subtitle="Un camino estructurado para recuperar la autonomía y dignidad profesional."
+      steps={itinerarySteps}
+      variant="white"
+    />
+  </div>
 
   {/* SECCIÓN 8: CITA FINAL */}
   <SocialImpactQuote client:load />

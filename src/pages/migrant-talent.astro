@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-// Importación de Componentes (Estructura idéntica a Neurodivergence)
+// Importación de Componentes
 import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
 import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
@@ -15,7 +15,6 @@ import { SocialImpactQuote } from "@/components/react/talent/SocialImpactQuote";
 
 // --- DATOS: TALENTO MIGRANTE ---
 
-// 1. REALIDAD (El Talento Oculto)
 const realityStats = [
   { 
     value: "54%", 
@@ -40,7 +39,6 @@ const realityStats = [
   }
 ];
 
-// 2. BARRERAS
 const barrierList = [
   { 
     icon: "gavel", 
@@ -59,7 +57,6 @@ const barrierList = [
   }
 ];
 
-// 3. IMPACTO
 const impactList = [
   "Aprovechamiento de redes internacionales y nuevos mercados.",
   "Enriquecimiento de la cultura corporativa y resolución creativa.",
@@ -67,7 +64,6 @@ const impactList = [
   "Validación de experiencia global en el mercado local."
 ];
 
-// 4. MARCO LEGAL (0% Cuota, pero incentivos)
 const legalItems = [
   { 
     percentage: 0, 
@@ -81,7 +77,6 @@ const legalItems = [
   }
 ];
 
-// 5. ESTRATEGIA 1: Formación Puente y Dual (Fondo Blanco)
 const strategyTraining = {
   title: "Estrategia 1: Formación Puente y Dual",
   description: [
@@ -96,7 +91,6 @@ const strategyTraining = {
   imageSrc: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80"
 };
 
-// 6. ESTRATEGIA 2: Facilitar Acceso (Fondo Gris)
 const strategyAccess = [
   { 
     icon: "verified", 
@@ -120,7 +114,6 @@ const strategyAccess = [
   }
 ];
 
-// 7. ITINERARIOS (4 Pasos)
 const itinerarySteps = [
   { 
     stepNumber: 1, 
@@ -144,7 +137,6 @@ const itinerarySteps = [
   }
 ];
 
-// CTA Buttons
 const ctaButtons = [
   { label: "Impulsa tu Diversidad Global", href: "/contact?type=company", variant: "solid" as const },
   { label: "Homologa tu Futuro", href: "/contact?type=candidate", variant: "outline" as const }
@@ -157,18 +149,18 @@ const ctaButtons = [
   fullWidth={true}
 >
   
-  {/* SECCIÓN 0: HERO */}
+  {/* SECCIÓN 0: HERO (Con ID de scroll) */}
   <ProgramHero 
     client:load
     title="Potenciando Habilidades Globales:" 
     highlight="Talento Migrante"
     subtitle="Una alianza estratégica para integrar perfiles internacionales y convertir la diversidad cultural en una ventaja competitiva para tu empresa."
     backgroundImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80"
-    ctaText="Ver Estrategias"
-    onCtaClick={() => document.getElementById('program-cta')?.scrollIntoView({ behavior: 'smooth' })}
+    ctaText="Ver Itinerario"
+    scrollToId="itinerario"
   />
 
-  {/* SECCIÓN 1: REALIDAD (El Talento Oculto) */}
+  {/* SECCIÓN 1: REALIDAD */}
   <TalentReality 
     client:load 
     title="El Talento Oculto" 
@@ -195,14 +187,14 @@ const ctaButtons = [
     footerText="Aunque no existe cuota obligatoria, la diversidad cultural es un pilar clave en las estrategias ESG y puntúa en licitaciones públicas."
   />
 
-  {/* SECCIÓN 5: ESTRATEGIA 1 (Fondo BLANCO) */}
+  {/* SECCIÓN 5: ESTRATEGIA 1 */}
   <ProgramMethodology 
     client:visible
     {...strategyTraining}
     variant="white"
   />
 
-  {/* SECCIÓN 6: ESTRATEGIA 2 (Fondo GRIS - variant='dark') */}
+  {/* SECCIÓN 6: ESTRATEGIA 2 */}
   <ProgramFeatures 
     client:visible
     title="Estrategia 2: Facilitar Acceso"
@@ -212,19 +204,21 @@ const ctaButtons = [
     layout="grid4"
   />
 
-  {/* SECCIÓN 7: ITINERARIOS */}
-  <ProgramCurriculum 
-    client:visible
-    title="Itinerarios Personalizados: Clave del Éxito"
-    subtitle="Del 'Brain Waste' al 'Brain Gain': un proceso estructurado de valorización."
-    steps={itinerarySteps}
-    variant="white"
-  />
+  {/* SECCIÓN 7: ITINERARIOS (Destino del scroll) */}
+  <div id="itinerario" class="scroll-mt-32">
+    <ProgramCurriculum 
+      client:visible
+      title="Itinerarios Personalizados: Clave del Éxito"
+      subtitle="Del 'Brain Waste' al 'Brain Gain': un proceso estructurado de valorización."
+      steps={itinerarySteps}
+      variant="white"
+    />
+  </div>
 
   {/* SECCIÓN 8: CITA FINAL */}
   <SocialImpactQuote client:load />
 
-  {/* SECCIÓN 9: CTA (Botones) */}
+  {/* SECCIÓN 9: CTA */}
   <div id="program-cta">
     <ProgramCTA 
       client:visible 

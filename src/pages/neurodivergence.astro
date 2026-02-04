@@ -8,14 +8,14 @@ import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
 import { ProgramCurriculum } from "@/components/react/programs/ProgramCurriculum";
 import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
 
-// Componentes de Talento (Ahora dinámicos)
+// Componentes de Talento
 import { TalentReality } from "@/components/react/talent/TalentReality";
 import { TalentBarriers } from "@/components/react/talent/TalentBarriers";
 import { TalentImpact } from "@/components/react/talent/TalentImpact";
 import { LegalCompliance } from "@/components/react/talent/LegalCompliance";
 import { SocialImpactQuote } from "@/components/react/talent/SocialImpactQuote";
 
-// --- DATOS: REALIDAD NEURODIVERGENTE (Extraídos de tu versión anterior) ---
+// --- DATOS: REALIDAD NEURODIVERGENTE ---
 
 const realityStats = [
   { 
@@ -79,7 +79,6 @@ const legalItems = [
   }
 ];
 
-// --- DATOS SECCIÓN 5: ESTRATEGIA 1 (Formación Dual) ---
 const dualTrainingData = {
   title: "Estrategia 1: Formación Dual",
   description: [
@@ -94,7 +93,6 @@ const dualTrainingData = {
   imageSrc: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
 };
 
-// --- DATOS SECCIÓN 6: ESTRATEGIA 2 (Facilitar Acceso) ---
 const strategyFeatures = [
   {
     icon: "handshake",
@@ -118,7 +116,6 @@ const strategyFeatures = [
   }
 ];
 
-// --- DATOS SECCIÓN 7: ITINERARIOS (4 Pasos) ---
 const itinerarySteps = [
   {
     stepNumber: 1,
@@ -142,7 +139,6 @@ const itinerarySteps = [
   }
 ];
 
-// CTA Personalizado (Empresa vs Candidato)
 const ctaButtons = [
   { label: "Solicita tu programa para talento neurodivergente", href: "/contact?type=company", variant: "solid" as const },
   { label: "Descubre tu Potencial", href: "/contact?type=candidate", variant: "outline" as const }
@@ -155,17 +151,18 @@ const ctaButtons = [
   fullWidth={true}
 >
   
-  {/* SECCIÓN 0: HERO */}
+  {/* SECCIÓN 0: HERO (Pasamos el ID como string) */}
   <ProgramHero 
     client:load
     title={"Potenciando Habilidades Únicas:"} 
     highlight={"Talento Neurodivergente"}
     subtitle="Programas diseñados para la inclusión de personas con TDAH y Autismo en el sector tecnológico."
     backgroundImage="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2069&auto=format&fit=crop"
-    onCtaClick={() => document.getElementById('program-cta')?.scrollIntoView({ behavior: 'smooth' })}
+    ctaText="Ver Itinerario"
+    scrollToId="itinerario"
   />
 
-  {/* SECCIÓN 1: REALIDAD (Datos corregidos) */}
+  {/* SECCIÓN 1: REALIDAD */}
   <TalentReality 
     client:load 
     title="El Talento Oculto"
@@ -174,33 +171,33 @@ const ctaButtons = [
     stats={realityStats} 
   />
 
-  {/* SECCIÓN 2: BARRERAS (Datos corregidos) */}
+  {/* SECCIÓN 2: BARRERAS */}
   <TalentBarriers 
     client:load 
     barriers={barrierList} 
   />
 
-  {/* SECCIÓN 3: IMPACTO (Datos corregidos) */}
+  {/* SECCIÓN 3: IMPACTO */}
   <TalentImpact 
     client:load 
     items={impactList} 
   />
 
-  {/* SECCIÓN 4: MARCO LEGAL (Datos corregidos) */}
+  {/* SECCIÓN 4: MARCO LEGAL */}
   <LegalCompliance 
     client:load 
     items={legalItems} 
     footerText="La Ley General de Discapacidad (LGD) establece obligaciones claras, pero su cumplimiento sigue siendo un reto. En Qualisophy te ayudamos a convertir este requisito en una ventaja estratégica."
   />
 
-  {/* SECCIÓN 5: ESTRATEGIA 1 - FORMACIÓN DUAL */}
+  {/* SECCIÓN 5: ESTRATEGIA 1 */}
   <ProgramMethodology 
     client:visible
     {...dualTrainingData}
     variant="white"
   />
 
-  {/* SECCIÓN 6: ESTRATEGIA 2 - ACCESO */}
+  {/* SECCIÓN 6: ESTRATEGIA 2 */}
   <ProgramFeatures 
     client:visible
     title="Estrategia 2: Facilitar Acceso"
@@ -210,19 +207,21 @@ const ctaButtons = [
     layout="grid4" 
   />
 
-  {/* SECCIÓN 7: ITINERARIOS */}
-  <ProgramCurriculum 
-    client:visible
-    title="Itinerarios Personalizados: Clave del Éxito"
-    subtitle="Un proceso estructurado para garantizar resultados."
-    steps={itinerarySteps}
-    variant="white" 
-  />
+  {/* SECCIÓN 7: ITINERARIOS (Destino del scroll con margen superior) */}
+  <div id="itinerario" class="scroll-mt-32">
+    <ProgramCurriculum 
+      client:visible
+      title="Itinerarios Personalizados: Clave del Éxito"
+      subtitle="Un proceso estructurado para garantizar resultados."
+      steps={itinerarySteps}
+      variant="white" 
+    />
+  </div>
 
   {/* SECCIÓN 8: INCLUSIÓN REAL + CITA */}
   <SocialImpactQuote client:load />
 
-{/* SECCIÓN 9: CTA */}
+  {/* SECCIÓN 9: CTA */}
   <div id="program-cta">
     <ProgramCTA 
       client:visible 

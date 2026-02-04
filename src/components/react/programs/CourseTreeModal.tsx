@@ -180,14 +180,15 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-secondary/90 backdrop-blur-sm animate-in fade-in duration-200 p-4"
+      className="fixed inset-0 z-[9999] flex items-end md:items-center justify-center bg-secondary/90 backdrop-blur-sm animate-in fade-in duration-200 p-4 md:pt-28 md:pb-6"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      {/* CAMBIOS REALIZADOS AQUÍ:
-          1. max-w-7xl (Antes 5xl) -> Más ancho
-          2. md:h-[85vh] (Antes 600px) -> Más alto y adaptable a la pantalla
+      {/* CAMBIOS REALIZADOS:
+         1. En el div padre (arriba): añadí 'md:pt-28 md:pb-6'. Esto empuja el modal hacia abajo respetando el header.
+         2. En este div (abajo): cambié 'md:h-[85vh]' por 'md:h-full'. 
+            Al tener padding el padre, 'h-full' ocupará todo el espacio restante (que es enorme) sin chocar arriba.
       */}
-      <div className="bg-white rounded-3xl w-full max-w-7xl shadow-2xl relative flex flex-col max-h-[95vh] md:h-[85vh]">
+      <div className="bg-white rounded-t-3xl md:rounded-3xl w-full max-w-7xl shadow-2xl relative flex flex-col max-h-[90vh] h-[85vh] md:h-full">
         {/* CABECERA */}
         <div className="p-6 md:p-8 border-b border-gray-100 flex justify-between items-start shrink-0 bg-white z-10 relative rounded-t-3xl">
           <div>
@@ -208,9 +209,7 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
 
         {/* CUERPO CENTRAL */}
         <div className="flex flex-col md:flex-row flex-1 overflow-y-auto md:overflow-hidden">
-          {/* IZQUIERDA: LISTA DE RAMAS 
-             Cambio: md:w-4/12 (33%) en lugar de 5/12. El menú necesita menos espacio.
-          */}
+          {/* IZQUIERDA: LISTA DE RAMAS */}
           <div className="w-full md:w-4/12 bg-gray-50/50 md:bg-white p-4 md:p-6 md:border-r border-gray-100 md:overflow-y-auto custom-scrollbar">
             <div className="flex flex-col gap-3">
               {courseTreeData.map((branch) => {
@@ -251,7 +250,7 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                       </span>
                     </button>
 
-                    {/* ACORDEÓN MÓVIL (Sin cambios, solo visible en < md) */}
+                    {/* ACORDEÓN MÓVIL */}
                     <div
                       className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isActive ? "max-h-[500px] opacity-100 mt-2" : "max-h-0 opacity-0"}`}
                     >
@@ -292,9 +291,7 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
             </div>
           </div>
 
-          {/* DERECHA: DETALLES DE LA RAMA (Solo Desktop)
-             Cambio: md:w-8/12 (66%) para dar más espacio a los cursos.
-          */}
+          {/* DERECHA: DETALLES DE LA RAMA (Solo Desktop) */}
           <div className="hidden md:flex md:w-8/12 flex-col bg-white h-full relative">
             {/* Header de Detalle */}
             <div className="p-8 shrink-0 border-b border-gray-50 bg-white/50 backdrop-blur-sm z-10">
