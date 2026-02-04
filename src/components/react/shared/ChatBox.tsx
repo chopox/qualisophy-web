@@ -44,14 +44,16 @@ export const ChatBox = () => {
       const windowHeight = window.innerHeight;
 
       // --- A. Lógica de Footer (Rebote) ---
-      let newBottom = isMobile ? 128 : 32;
+      // MODIFICACIÓN: Igualamos la altura base para móvil y escritorio a 32px
+      let newBottom = 32;
 
       if (footer) {
         const footerRect = footer.getBoundingClientRect();
         const overlap = windowHeight - footerRect.top;
         if (overlap > 0) {
           // Empujamos el botón hacia arriba
-          newBottom = overlap + (isMobile ? 40 : 32);
+          // MODIFICACIÓN: Usamos el mismo margen de seguridad (32px) para ambos
+          newBottom = overlap + 32;
         }
       }
       setBottomOffset(newBottom);
@@ -198,7 +200,6 @@ export const ChatBox = () => {
           pointerEvents: isHidden ? "none" : "auto",
         }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        // CAMBIO AQUÍ: 'right-0' para móvil (pegado), 'lg:right-4' para desktop (separado)
         className="fixed z-50 right-0 lg:right-4 flex items-center justify-end"
       >
         {/* MÓVIL: Pestaña Lateral Derecha */}
@@ -336,7 +337,6 @@ export const ChatBox = () => {
               }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              // CAMBIO AQUÍ TAMBIÉN: Ajustamos la posición para que esté alineado con el botón en desktop
               className="fixed right-4 w-[380px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden z-[90]"
             >
               <div className="bg-[#1B2341] text-white px-4 py-3 flex justify-between items-center shrink-0">
