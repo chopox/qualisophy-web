@@ -64,7 +64,7 @@ if (!post) {
   fullWidth={true}
 >
   
-  {/* HERO ARTÍCULO (Igualado a estándar: 600px y centrado) */}
+  {/* HERO ARTÍCULO */}
   <section class="relative w-full overflow-hidden min-h-[600px] flex items-center justify-center">
     <div class="absolute inset-0 z-0">
       <img src={post.image} alt={post.title} class="w-full h-full object-cover" />
@@ -144,16 +144,34 @@ if (!post) {
         </p>
       </div>
 
-      {/* Compartir */}
+      {/* --- SECCIÓN DE COMPARTIR FUNCIONAL --- */}
       <div class="mt-16 pt-10 border-t border-slate-100">
         <p class="font-bold text-secondary mb-4 text-center">¿Te ha gustado? Compártelo:</p>
         <div class="flex gap-4 justify-center">
-          <button class="w-12 h-12 rounded-full bg-slate-50 text-slate-600 border border-slate-200 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 shadow-sm">
-            <span class="material-symbols-outlined text-xl">share</span>
+          
+          {/* Botón Native Share */}
+          <button 
+            id="share-btn"
+            class="group w-12 h-12 rounded-full bg-slate-50 text-slate-600 border border-slate-200 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 shadow-sm"
+            aria-label="Compartir en redes"
+          >
+            <span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">share</span>
           </button>
-          <button class="w-12 h-12 rounded-full bg-slate-50 text-slate-600 border border-slate-200 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 shadow-sm">
-            <span class="material-symbols-outlined text-xl">link</span>
+          
+          {/* Botón Copiar Link */}
+          <button 
+            id="copy-link-btn"
+            class="group w-12 h-12 rounded-full bg-slate-50 text-slate-600 border border-slate-200 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 shadow-sm relative"
+            aria-label="Copiar enlace"
+          >
+            <span id="copy-icon" class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">link</span>
+            
+            {/* Tooltip "Copiado" */}
+            <span id="copy-tooltip" class="absolute -top-10 left-1/2 -translate-x-1/2 bg-secondary text-white text-xs font-bold py-1 px-3 rounded shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+              ¡Copiado!
+            </span>
           </button>
+
         </div>
       </div>
 
@@ -163,3 +181,72 @@ if (!post) {
   <Newsletter />
 
 </Layout>
+
+{/* SCRIPT PARA MANEJAR LA FUNCIONALIDAD */}
+<script>
+  // Ejecutamos cuando el DOM esté listo
+  document.addEventListener('DOMContentLoaded', () => {
+    const shareBtn = document.getElementById('share-btn');
+    const copyLinkBtn = document.getElementById('copy-link-btn');
+    const copyIcon = document.getElementById('copy-icon');
+    const copyTooltip = document.getElementById('copy-tooltip');
+
+    // 1. Lógica Botón Share (Nativo)
+    if (shareBtn) {
+      shareBtn.addEventListener('click', async () => {
+        const shareData = {
+          title: document.title,
+          text: '¡Echa un vistazo a este artículo de Qualisophy!',
+          url: window.location.href,
+        };
+
+        // Si el navegador soporta compartir nativo (móviles, Mac, etc.)
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            console.log('Error al compartir:', err);
+          }
+        } else {
+          // Si no soporta share nativo, hacemos fallback a copiar enlace
+          copyToClipboard();
+        }
+      });
+    }
+
+    // 2. Lógica Botón Copiar Link
+    if (copyLinkBtn) {
+      copyLinkBtn.addEventListener('click', () => {
+        copyToClipboard();
+      });
+    }
+
+    // Función auxiliar para copiar y mostrar feedback
+    async function copyToClipboard() {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        
+        // Feedback Visual
+        if (copyIcon && copyTooltip) {
+          const originalIcon = copyIcon.textContent;
+          
+          // Cambiamos icono a check
+          copyIcon.textContent = 'check';
+          
+          // Mostramos tooltip
+          copyTooltip.classList.remove('opacity-0');
+          copyTooltip.classList.add('opacity-100', '-translate-y-1');
+
+          // Restauramos después de 2 segundos
+          setTimeout(() => {
+            copyIcon.textContent = originalIcon;
+            copyTooltip.classList.remove('opacity-100', '-translate-y-1');
+            copyTooltip.classList.add('opacity-0');
+          }, 2000);
+        }
+      } catch (err) {
+        console.error('Error al copiar al portapapeles:', err);
+      }
+    }
+  });
+</script>
