@@ -3,8 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { Newsletter } from "@/components/react/shared/Newsletter";
 
-// ⚠️ IMPORTANTE: Esta línea fuerza a Astro a construir estas páginas como HTML estático.
-// Esto soluciona el problema de que 'post' llegue indefinido en proyectos con SSR/Vercel.
+// ⚠️ IMPORTANTE: Renderizado estático
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -54,7 +53,6 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-// Doble seguridad: si por alguna razón post no llega, redirigimos en lugar de crashear
 if (!post) {
   return Astro.redirect("/404");
 }
@@ -66,31 +64,39 @@ if (!post) {
   fullWidth={true}
 >
   
-  {/* HERO ARTÍCULO */}
-  <section class="relative w-full h-[50vh] min-h-[400px] flex items-end pb-12">
+  {/* HERO ARTÍCULO (Igualado a estándar: 600px y centrado) */}
+  <section class="relative w-full overflow-hidden min-h-[600px] flex items-center justify-center">
     <div class="absolute inset-0 z-0">
       <img src={post.image} alt={post.title} class="w-full h-full object-cover" />
     </div>
-    <div class="absolute inset-0 z-0 bg-gradient-to-t from-secondary/90 via-secondary/50 to-transparent"></div>
+    <div class="absolute inset-0 z-0 bg-secondary/90 mix-blend-multiply"></div>
 
-    <div class="relative z-10 container mx-auto px-6">
-      <div class="max-w-4xl">
-        <span class="bg-primary text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 inline-block">
+    <div class="relative z-10 container mx-auto px-6 text-center">
+      <div class="max-w-5xl mx-auto flex flex-col items-center gap-6">
+        
+        {/* Etiqueta Categoría */}
+        <span class="bg-primary text-white px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider shadow-sm">
           {post.category}
         </span>
-        <h1 class="text-white text-3xl md:text-5xl font-bold font-heading leading-tight mb-4 drop-shadow-lg">
+        
+        {/* Título Grande */}
+        <h1 class="text-white text-3xl md:text-5xl lg:text-6xl font-bold font-heading leading-tight drop-shadow-md">
           {post.title}
         </h1>
-        <div class="flex items-center gap-4 text-blue-100 text-sm">
+
+        {/* Metadatos (Fecha y Lectura) */}
+        <div class="flex flex-wrap items-center justify-center gap-6 text-blue-100 text-base md:text-lg font-primary mt-2">
           <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-lg">calendar_today</span>
+            <span class="material-symbols-outlined">calendar_today</span>
             <span>{post.date}</span>
           </div>
+          <div class="w-1.5 h-1.5 bg-primary rounded-full hidden md:block"></div>
           <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-lg">schedule</span>
+            <span class="material-symbols-outlined">schedule</span>
             <span>5 min de lectura</span>
           </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -101,12 +107,12 @@ if (!post) {
       
       <Breadcrumbs />
       
-      <div class="prose prose-lg prose-slate mt-8 max-w-none">
-        <p class="lead text-xl text-gray-600 font-light italic mb-8">
+      <div class="prose prose-lg prose-slate mt-10 max-w-none">
+        <p class="lead text-xl md:text-2xl text-slate-600 font-light italic mb-10 leading-relaxed border-l-4 border-primary pl-6">
           Este es un extracto introductorio del artículo sobre <strong>{post.title}</strong>. Aquí se resume la idea principal para enganchar al lector desde el primer párrafo.
         </p>
 
-        <h2 class="text-secondary font-heading">La revolución tecnológica</h2>
+        <h2 class="text-secondary font-heading text-2xl md:text-3xl font-bold mt-12 mb-6">La revolución tecnológica</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
@@ -114,20 +120,23 @@ if (!post) {
           Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
 
-        <div class="my-8 p-6 bg-blue-50 border-l-4 border-primary rounded-r-lg">
-          <p class="font-bold text-secondary mb-2">💡 Dato Clave</p>
-          <p class="text-gray-700 m-0">El 85% de los trabajos que existirán en 2030 aún no se han inventado, según un informe de Dell Technologies.</p>
+        <div class="my-10 p-8 bg-blue-50/50 border border-blue-100 rounded-2xl shadow-sm">
+          <p class="font-bold text-secondary mb-2 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">lightbulb</span> 
+            Dato Clave
+          </p>
+          <p class="text-slate-700 m-0 text-lg">El 85% de los trabajos que existirán en 2030 aún no se han inventado, según un informe de Dell Technologies.</p>
         </div>
 
-        <h2 class="text-secondary font-heading">El factor humano</h2>
+        <h2 class="text-secondary font-heading text-2xl md:text-3xl font-bold mt-12 mb-6">El factor humano</h2>
         <p>
           Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
         </p>
         
-        <ul class="list-disc pl-5 space-y-2 text-gray-700">
-          <li>Adaptabilidad cognitiva.</li>
-          <li>Resiliencia emocional.</li>
-          <li>Aprendizaje continuo (Life-long learning).</li>
+        <ul class="list-disc pl-6 space-y-3 text-slate-700 my-6">
+          <li><strong>Adaptabilidad cognitiva:</strong> La capacidad de aprender a aprender.</li>
+          <li><strong>Resiliencia emocional:</strong> Gestión del cambio constante.</li>
+          <li><strong>Aprendizaje continuo:</strong> La filosofía del Life-long learning.</li>
         </ul>
 
         <p>
@@ -136,14 +145,14 @@ if (!post) {
       </div>
 
       {/* Compartir */}
-      <div class="mt-12 pt-8 border-t border-gray-100">
-        <p class="font-bold text-secondary mb-4">Compartir este artículo:</p>
-        <div class="flex gap-4">
-          <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors">
-            <span class="material-symbols-outlined text-lg">share</span>
+      <div class="mt-16 pt-10 border-t border-slate-100">
+        <p class="font-bold text-secondary mb-4 text-center">¿Te ha gustado? Compártelo:</p>
+        <div class="flex gap-4 justify-center">
+          <button class="w-12 h-12 rounded-full bg-slate-50 text-slate-600 border border-slate-200 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 shadow-sm">
+            <span class="material-symbols-outlined text-xl">share</span>
           </button>
-          <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors">
-            <span class="material-symbols-outlined text-lg">link</span>
+          <button class="w-12 h-12 rounded-full bg-slate-50 text-slate-600 border border-slate-200 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 shadow-sm">
+            <span class="material-symbols-outlined text-xl">link</span>
           </button>
         </div>
       </div>

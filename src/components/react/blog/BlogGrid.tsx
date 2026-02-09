@@ -79,7 +79,7 @@ export const BlogGrid = () => {
   }, [selectedCategory, searchQuery]);
 
   return (
-    <section className="py-12 bg-gray-50 min-h-screen">
+    <section className="py-12 min-h-screen">
       <div className="container mx-auto px-6 max-w-7xl">
         {/* --- BARRA DE CONTROL (Búsqueda y Filtros) --- */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
