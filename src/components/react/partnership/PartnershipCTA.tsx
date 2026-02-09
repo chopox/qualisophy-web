@@ -37,15 +37,15 @@ export const PartnershipCTA: React.FC<PartnershipCTAProps> = ({
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full sm:w-auto">
-          {/* Botón Principal (Mailto) */}
+          {/* Botón Principal (Redirige a Contacto con contexto) */}
           <a
-            href="mailto:colaboraciones@qualisophy.com"
+            href="/contact?type=partnership" // <--- CAMBIO AQUÍ
             className="flex items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-lg hover:bg-primary/90 transition-all min-w-[240px]"
           >
             Hablemos de una Alianza
           </a>
 
-          {/* Botón Secundario (Casos de Éxito / Reunión) */}
+          {/* Botón Secundario (Agenda) */}
           <a
             href="https://calendar.app.google/6TZSzsQn4q9kATzMA"
             target="_blank"

@@ -4,10 +4,11 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
 
-    // 1. Get the data (including 'source' and dynamic params)
-    const { name, email, message, source } = data;
+    // 1. Obtenemos los datos (incluyendo 'type' y 'source')
+    // Añadimos 'type' a la desestructuración para poder usarlo abajo
+    const { name, email, message, source, type } = data;
 
-    // 2. Simple Validation
+    // 2. Validación Simple
     if (!name || !email || !message) {
       return new Response(
         JSON.stringify({ message: "Faltan campos requeridos." }),
@@ -15,7 +16,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // 3. Get environment url
+    // 3. Obtener URL del entorno
     const makeWebhookUrl = import.meta.env.MAKE_WEBHOOK_URL;
 
     if (!makeWebhookUrl) {
@@ -26,12 +27,15 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // 4. Send to Make (Including the specific type for routing)
+    // 4. Enviar a Make (Incluyendo el tipo específico para el enrutamiento)
     const response = await fetch(makeWebhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        type: "contact", // CLAVE: Esto permite al Router de Make filtrar
+        // CORRECCIÓN IMPORTANTE:
+        // Usamos el 'type' que viene del formulario (ej: 'partnership').
+        // Si no viene nada, usamos 'contact' por defecto.
+        type: type || "contact",
         name,
         email,
         message,

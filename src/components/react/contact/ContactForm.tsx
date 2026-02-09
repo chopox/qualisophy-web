@@ -20,32 +20,47 @@ export const ContactForm = ({
     message: "",
   });
 
-  // Estado para controlar el origen dinámico
   const [currentSource, setCurrentSource] = useState(source);
-
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [formSuccess, setFormSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const t = useTranslations();
 
-  // EFECTO: Detectar parámetros en la URL (?subject=... o ?type=...)
+  // EFECTO: Detectar parámetros en la URL
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
-      // Leemos 'subject' O 'type'
       const paramValue = params.get("subject") || params.get("type");
 
       if (paramValue) {
-        // 1. Actualizamos el origen
-        setCurrentSource(`Landing: ${paramValue}`);
-
-        // 2. Pre-rellenamos el mensaje si es necesario
-        if (!formData.message) {
+        // Lógica específica para Partnership
+        if (paramValue === "partnership") {
+          setCurrentSource("Solicitud de Alianza Corporativa");
           setFormData((prev) => ({
             ...prev,
-            message: `Hola, me interesa saber más sobre: ${paramValue}.`,
+            message:
+              "Hola, represento a [Nombre de tu Empresa] y estamos interesados en explorar una alianza con Qualisophy para...",
           }));
+        }
+        // Lógica para 'company' (pilares)
+        else if (paramValue === "company") {
+          setCurrentSource("Interés Corporativo (Desde Pilares)");
+          setFormData((prev) => ({
+            ...prev,
+            message:
+              "Hola, nos gustaría recibir más información sobre vuestros programas de inclusión para empresas.",
+          }));
+        }
+        // Lógica genérica
+        else {
+          setCurrentSource(`Landing: ${paramValue}`);
+          if (!formData.message) {
+            setFormData((prev) => ({
+              ...prev,
+              message: `Hola, me interesa saber más sobre: ${paramValue}.`,
+            }));
+          }
         }
       }
     }
@@ -68,7 +83,6 @@ export const ContactForm = ({
     setFormErrors({});
     setFormSuccess(false);
 
-    // 1. Validation
     const validation = validateContactForm(formData);
     if (!validation.success) {
       setFormErrors(validation.errors);
@@ -76,14 +90,16 @@ export const ContactForm = ({
       return;
     }
 
-    // 2. Submit Form
     try {
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          source: currentSource, // Enviamos el origen dinámico
+          // Aquí enviamos el origen dinámico para que Make sepa de dónde viene
+          source: currentSource,
+          // Enviamos un tipo explícito para ayudar al Router de Make
+          type: currentSource.includes("Alianza") ? "partnership" : "contact",
         }),
       });
 
@@ -129,6 +145,13 @@ export const ContactForm = ({
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4 bg-white">
+          {/* Mostramos el contexto si existe */}
+          {currentSource !== "Contacto General" && (
+            <div className="bg-blue-50 text-blue-800 text-xs px-3 py-2 rounded border border-blue-100 mb-4 font-medium">
+              📋 Asunto: {currentSource}
+            </div>
+          )}
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label
