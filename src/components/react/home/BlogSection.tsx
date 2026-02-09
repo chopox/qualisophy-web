@@ -1,7 +1,9 @@
 import React from "react";
 
+// Datos unificados con slugs correctos
 const posts = [
   {
+    slug: "impacto-ia-testing",
     category: "Tendencias",
     title: "El impacto de la IA en el testing de software moderno",
     excerpt:
@@ -11,6 +13,7 @@ const posts = [
     date: "12 Oct, 2024",
   },
   {
+    slug: "neurodivergencia-ventaja",
     category: "Inclusión",
     title: "Neurodivergencia: La ventaja competitiva oculta",
     excerpt:
@@ -20,6 +23,7 @@ const posts = [
     date: "28 Sep, 2024",
   },
   {
+    slug: "caso-exito-maria",
     category: "Casos de Éxito",
     title: "De la hostelería a Desarrollador Full Stack en 6 meses",
     excerpt:
@@ -44,13 +48,18 @@ export const BlogSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Grid de 3 Post Destacados */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {posts.map((post, idx) => (
             <article
               key={idx}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col h-full"
+              className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col h-full border border-gray-100"
             >
-              <div className="h-48 overflow-hidden relative">
+              {/* Enlace en la imagen */}
+              <a
+                href={`/blog/${post.slug}`}
+                className="h-48 overflow-hidden relative block"
+              >
                 <img
                   src={post.image}
                   alt={post.title}
@@ -59,21 +68,30 @@ export const BlogSection = () => {
                 <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-secondary text-xs font-bold px-3 py-1 rounded-full shadow-sm">
                   {post.category}
                 </div>
-              </div>
+              </a>
 
               <div className="p-6 flex flex-col flex-1">
                 <span className="text-gray-400 text-xs mb-3 block">
                   {post.date}
                 </span>
-                <h3 className="text-xl font-bold text-secondary mb-3 leading-tight group-hover:text-primary transition-colors">
-                  {post.title}
-                </h3>
+
+                {/* Enlace en el título */}
+                <a
+                  href={`/blog/${post.slug}`}
+                  className="block group-hover:text-primary transition-colors"
+                >
+                  <h3 className="text-xl font-bold text-secondary mb-3 leading-tight">
+                    {post.title}
+                  </h3>
+                </a>
+
                 <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
                   {post.excerpt}
                 </p>
 
+                {/* Enlace en el botón */}
                 <a
-                  href="#"
+                  href={`/blog/${post.slug}`}
                   className="inline-flex items-center text-primary font-bold text-sm hover:underline mt-auto"
                 >
                   Leer artículo
@@ -84,6 +102,17 @@ export const BlogSection = () => {
               </div>
             </article>
           ))}
+        </div>
+
+        {/* Botón Ver Todos */}
+        <div className="text-center">
+          <a
+            href="/blog"
+            className="inline-flex items-center gap-2 bg-white border border-gray-300 text-secondary hover:text-primary hover:border-primary font-bold py-3 px-8 rounded-lg transition-all shadow-sm hover:shadow-md"
+          >
+            Ver todos los artículos
+            <span className="material-symbols-outlined text-sm">grid_view</span>
+          </a>
         </div>
       </div>
     </section>

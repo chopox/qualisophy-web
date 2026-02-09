@@ -1,0 +1,156 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { Newsletter } from "@/components/react/shared/Newsletter";
+
+// ⚠️ IMPORTANTE: Esta línea fuerza a Astro a construir estas páginas como HTML estático.
+// Esto soluciona el problema de que 'post' llegue indefinido en proyectos con SSR/Vercel.
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = [
+    { 
+      slug: "impacto-ia-testing", 
+      title: "El impacto de la IA en el testing de software moderno",
+      category: "Tendencias",
+      date: "12 Oct, 2024",
+      image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=2070"
+    },
+    { 
+      slug: "neurodivergencia-ventaja", 
+      title: "Neurodivergencia: La ventaja competitiva oculta",
+      category: "Inclusión",
+      date: "28 Sep, 2024",
+      image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=2070"
+    },
+    { 
+      slug: "caso-exito-maria", 
+      title: "De la hostelería a Desarrollador Full Stack en 6 meses",
+      category: "Casos de Éxito",
+      date: "15 Sep, 2024",
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=2070"
+    },
+    { 
+      slug: "powerbi-negocios", 
+      title: "Power BI: Transformando datos en decisiones estratégicas",
+      category: "Tecnología",
+      date: "10 Sep, 2024",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2070"
+    },
+    { 
+      slug: "diversidad-equipos-agiles", 
+      title: "Cómo gestionar la diversidad en equipos ágiles",
+      category: "Inclusión",
+      date: "05 Sep, 2024",
+      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=2070"
+    },
+  ];
+  
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+// Doble seguridad: si por alguna razón post no llega, redirigimos en lugar de crashear
+if (!post) {
+  return Astro.redirect("/404");
+}
+---
+
+<Layout 
+  title={`${post.title} - Blog Qualisophy`}
+  description={`Artículo sobre ${post.category} en Qualisophy`}
+  fullWidth={true}
+>
+  
+  {/* HERO ARTÍCULO */}
+  <section class="relative w-full h-[50vh] min-h-[400px] flex items-end pb-12">
+    <div class="absolute inset-0 z-0">
+      <img src={post.image} alt={post.title} class="w-full h-full object-cover" />
+    </div>
+    <div class="absolute inset-0 z-0 bg-gradient-to-t from-secondary/90 via-secondary/50 to-transparent"></div>
+
+    <div class="relative z-10 container mx-auto px-6">
+      <div class="max-w-4xl">
+        <span class="bg-primary text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 inline-block">
+          {post.category}
+        </span>
+        <h1 class="text-white text-3xl md:text-5xl font-bold font-heading leading-tight mb-4 drop-shadow-lg">
+          {post.title}
+        </h1>
+        <div class="flex items-center gap-4 text-blue-100 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-lg">calendar_today</span>
+            <span>{post.date}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-lg">schedule</span>
+            <span>5 min de lectura</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* CONTENIDO DEL ARTÍCULO */}
+  <article class="bg-white py-16">
+    <div class="container mx-auto px-6 max-w-3xl">
+      
+      <Breadcrumbs />
+      
+      <div class="prose prose-lg prose-slate mt-8 max-w-none">
+        <p class="lead text-xl text-gray-600 font-light italic mb-8">
+          Este es un extracto introductorio del artículo sobre <strong>{post.title}</strong>. Aquí se resume la idea principal para enganchar al lector desde el primer párrafo.
+        </p>
+
+        <h2 class="text-secondary font-heading">La revolución tecnológica</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+        <p>
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+
+        <div class="my-8 p-6 bg-blue-50 border-l-4 border-primary rounded-r-lg">
+          <p class="font-bold text-secondary mb-2">💡 Dato Clave</p>
+          <p class="text-gray-700 m-0">El 85% de los trabajos que existirán en 2030 aún no se han inventado, según un informe de Dell Technologies.</p>
+        </div>
+
+        <h2 class="text-secondary font-heading">El factor humano</h2>
+        <p>
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+        </p>
+        
+        <ul class="list-disc pl-5 space-y-2 text-gray-700">
+          <li>Adaptabilidad cognitiva.</li>
+          <li>Resiliencia emocional.</li>
+          <li>Aprendizaje continuo (Life-long learning).</li>
+        </ul>
+
+        <p>
+          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+        </p>
+      </div>
+
+      {/* Compartir */}
+      <div class="mt-12 pt-8 border-t border-gray-100">
+        <p class="font-bold text-secondary mb-4">Compartir este artículo:</p>
+        <div class="flex gap-4">
+          <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-lg">share</span>
+          </button>
+          <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-lg">link</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <Newsletter />
+
+</Layout>
