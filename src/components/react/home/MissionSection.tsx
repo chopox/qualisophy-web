@@ -31,6 +31,7 @@ export const MissionSection: React.FC<MissionSectionProps> = ({
                 que permite superar barreras y potenciar el talento oculto.
               </p>
 
+              {/* Checks */}
               <div className="flex flex-wrap gap-4 mt-2 font-primary">
                 <div className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-primary">
@@ -48,6 +49,19 @@ export const MissionSection: React.FC<MissionSectionProps> = ({
                     Mentoría Experta
                   </span>
                 </div>
+              </div>
+
+              {/* NUEVO: Botón hacia la página de equipo */}
+              <div className="pt-4">
+                <a
+                  href="/team"
+                  className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all transform "
+                >
+                  Conoce a nuestro equipo
+                  <span className="material-symbols-outlined text-sm">
+                    arrow_forward
+                  </span>
+                </a>
               </div>
             </div>
 

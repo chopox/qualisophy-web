@@ -1,4 +1,3 @@
-// src/components/react/course/CourseEnrollmentForm.tsx
 import { useState, useEffect } from "react";
 import { useTranslations } from "@/hooks/useTranslations";
 
@@ -17,49 +16,63 @@ interface Course {
 
 interface CourseEnrollmentFormProps {
   courses: Course[];
+  initialCourseId?: string; // NUEVA PROP: Recibe el ID del curso desde Astro
 }
 
-// Define the initial state for the form, matching the validation schema
-const initialFormData: Omit<EnrollmentFormData, "course"> & { course: string } =
-  {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    dni: "",
-    address: "",
-    zipCode: "",
-    city: "",
-    province: "",
-    course: "",
-  };
+const initialFormDataBase = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  dni: "",
+  address: "",
+  zipCode: "",
+  city: "",
+  province: "",
+  course: "",
+};
 
 export const CourseEnrollmentForm = ({
   courses,
+  initialCourseId = "",
 }: CourseEnrollmentFormProps) => {
-  const [formData, setFormData] = useState(initialFormData);
+  // Inicializamos el estado usando la prop 'initialCourseId' si existe
+  const [formData, setFormData] = useState<EnrollmentFormData>({
+    ...initialFormDataBase,
+    course: initialCourseId || "",
+  });
+
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [formSuccess, setFormSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isPreSelected, setIsPreselected] = useState(false);
+
+  // Establecemos 'isPreSelected' a true si viene un ID válido
+  const [isPreSelected, setIsPreselected] = useState(
+    !!initialCourseId && courses.some((c) => c.id === initialCourseId),
+  );
+
   const t = useTranslations();
 
+  // useEffect se mantiene como respaldo para navegación en el cliente puro
   useEffect(() => {
-    // Check if window is defined (client-side)
     if (typeof window === "undefined") return;
 
-    // Pre-fill course from URL parameter
     const urlParams = new URLSearchParams(window.location.search);
     const courseFromUrl = urlParams.get("course");
 
-    if (courseFromUrl && courses.some((c) => c.id === courseFromUrl)) {
+    // Solo actualizamos si es diferente al inicial y es válido
+    if (
+      courseFromUrl &&
+      courseFromUrl !== initialCourseId &&
+      courses.some((c) => c.id === courseFromUrl)
+    ) {
       setFormData((prev) => ({ ...prev, course: courseFromUrl }));
       setIsPreselected(true);
     }
-  }, [courses]);
+  }, [courses, initialCourseId]);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -74,48 +87,38 @@ export const CourseEnrollmentForm = ({
     e.preventDefault();
     setIsSubmitting(true);
     setFormErrors({});
-    setFormSuccess(false); // Reset success on new submission
+    setFormSuccess(false);
 
     try {
-      // 1. Validate form data using the external validation function
+      // 1. Validate form data
       const validation = validateEnrollmentForm(formData);
 
       if (validation.success) {
-        // On successful validation
-
-        // 2. Send data to your NEW API endpoint
+        // 2. Send data to API
         const response = await fetch("/api/enroll-course", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          // Send the clean, validated data
           body: JSON.stringify(validation.data),
         });
 
         if (!response.ok) {
-          // If our API endpoint returns an error
           const errorData = await response.json();
           throw new Error(errorData.message || "Server error");
         }
 
-        // 3. Handle total success
+        // 3. Handle success
         setFormSuccess(true);
-        setFormData(initialFormData); // Reset form
+        // Reset form but keep the course if preselected
+        setFormData({
+          ...initialFormDataBase,
+          course: isPreSelected ? formData.course : "",
+        });
 
-        // Re-apply pre-selected course if it exists
-        if (isPreSelected) {
-          const urlParams = new URLSearchParams(window.location.search);
-          const courseFromUrl = urlParams.get("course");
-          setFormData((prev) => ({ ...prev, course: courseFromUrl || "" }));
-        }
-
-        // Reset success message after 5 seconds
         setTimeout(() => setFormSuccess(false), 5000);
       } else {
-        // On validation failure, set errors
         setFormErrors(validation.errors || { general: "Validation error" });
       }
     } catch (error: any) {
-      // Catch network errors or errors from the API response
       console.error("Submission error:", error);
       setFormErrors({ general: error.message || "Error processing the form" });
     } finally {
@@ -123,17 +126,15 @@ export const CourseEnrollmentForm = ({
     }
   };
 
-  
   const getInputClasses = (fieldName: keyof EnrollmentFormData | string) => {
     const baseClasses =
       "w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 text-sm bg-white";
     const errorClasses = "border-red-300 focus:ring-red-500";
     const normalClasses = "border-slate-300";
 
-    // Check if the fieldName exists as a key in formErrors
     const hasError = Object.prototype.hasOwnProperty.call(
       formErrors,
-      fieldName
+      fieldName,
     );
 
     return `${baseClasses} ${hasError ? errorClasses : normalClasses}`;
@@ -141,20 +142,18 @@ export const CourseEnrollmentForm = ({
 
   return (
     <Card>
-      {/* Success Message (Translated) */}
+      {/* Success Message */}
       {formSuccess && (
         <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
           <div className="flex items-center">
             <span className="text-green-800 text-sm font-medium">
-              <span className="text-green-800 text-sm font-medium">
-                {t("enrollment.successMessage")}
-              </span>
+              {t("enrollment.successMessage")}
             </span>
           </div>
         </div>
       )}
 
-      {/* General Error Message (Translated) */}
+      {/* General Error Message */}
       {formErrors.general && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
           <div className="flex items-center">
@@ -165,7 +164,7 @@ export const CourseEnrollmentForm = ({
         </div>
       )}
 
-      {/* ✉️ Enrollment Form (Translated) */}
+      {/* Enrollment Form */}
       <form onSubmit={handleSubmit} className="space-y-4 bg-white">
         {/* Row 1: First Name & Last Name */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

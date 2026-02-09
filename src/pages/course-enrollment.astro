@@ -192,7 +192,6 @@ const courseCardData = selectedCourse
 <Layout title="Inscripción a Cursos - Qualisophy">
   <div class="min-h-screen bg-gradient-to-b to-white py-12 px-4">
     <div class="max-w-7xl mx-auto">
-      <!-- Breadcrumb -->
       <nav class="text-sm text-slate-500 mb-8">
         <a href="/" class="hover:text-primary">Inicio</a>
         <span class="mx-2">/</span>
@@ -201,9 +200,7 @@ const courseCardData = selectedCourse
         <span class="text-slate-800 font-medium">Inscripción</span>
       </nav>
 
-      <!-- Two Column Layout -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Left Column - Form -->
         <div class:list={[courseCardData ? "lg:col-span-2" : "lg:col-span-3"]}>
           <h1
             class="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-slate-800"
@@ -214,10 +211,14 @@ const courseCardData = selectedCourse
             Estás a un paso de comenzar tu aprendizaje. Completa tus datos para
             reservar tu plaza.
           </p>
-          <CourseEnrollmentForm client:load courses={courses} />
+          {/* PASAMOS 'initialCourseId' PARA PRE-SELECCIONAR EL CURSO */}
+          <CourseEnrollmentForm 
+            client:load 
+            courses={courses} 
+            initialCourseId={courseId} 
+          />
         </div>
 
-        <!-- Right Column - Course Info Card (only if course is selected) -->
         {
           courseCardData && (
             <div class="lg:col-span-1">

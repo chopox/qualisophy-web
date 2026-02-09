@@ -1,0 +1,59 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { TeamGrid } from "@/components/react/team/TeamGrid";
+import { Newsletter } from "@/components/react/shared/Newsletter";
+import { TestimonialsSection } from "@/components/react/shared/TestimonialSection";
+import { BlogSection } from "@/components/react/home/BlogSection";
+
+const heroBg = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80";
+---
+
+<Layout 
+  title="Nuestro Equipo - Qualisophy"
+  description="Conoce a los profesionales que hacen posible la inclusión tecnológica."
+  fullWidth={true}
+>
+  
+  {/* 1. HERO (Fondo Oscuro/Imagen) */}
+  <section class="relative w-full overflow-hidden min-h-[600px] flex items-center justify-center">
+    <div class="absolute inset-0 z-0">
+      <img
+        src={heroBg}
+        alt="Equipo Qualisophy trabajando"
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+    </div>
+    <div class="absolute inset-0 z-0 bg-secondary/90 mix-blend-multiply"></div>
+
+    <div class="relative z-10 container mx-auto px-6 text-center">
+      <div class="max-w-4xl mx-auto flex flex-col gap-6">
+        <h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight font-heading drop-shadow-md">
+          Nuestro <span class="text-primary">Equipo</span>
+        </h1>
+        <p class="text-gray-100 text-lg md:text-xl font-light leading-relaxed font-primary drop-shadow-sm max-w-2xl mx-auto">
+          Expertos en tecnología, psicología y educación trabajando juntos para construir puentes de oportunidades.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* 2. BREADCRUMBS (Fondo Blanco, antes del grid) */}
+  <div class="container mx-auto px-6 pt-10">
+    <Breadcrumbs />
+  </div>
+
+  {/* 3. GRID EQUIPO (Fondo Blanco + Mesh) */}
+  <TeamGrid client:load />
+  
+  {/* 4. BLOG (Fondo Gris) */}
+  <BlogSection client:visible />
+  
+  {/* 5. TESTIMONIOS (Fondo Oscuro) */}
+  <TestimonialsSection client:visible />
+  
+  {/* 6. NEWSLETTER (Fondo Primario/Azul) */}
+  <Newsletter />
+
+</Layout>

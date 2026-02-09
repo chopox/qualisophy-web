@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { validateContactForm } from "@/lib/validation";
 import { Button } from "@/components/react/shared/Button";
 import { Card } from "@/components/react/shared/Card";
 import { AnimatedSection } from "@/components/react/shared/AnimatedSection";
-import { useTranslations } from '@/hooks/useTranslations';
+import { useTranslations } from "@/hooks/useTranslations";
 
-// Define Props to make the component reusable
 interface ContactFormProps {
-  source?: string; 
-  endpoint?: string; 
+  source?: string;
+  endpoint?: string;
 }
 
 export const ContactForm = ({
@@ -20,14 +19,40 @@ export const ContactForm = ({
     email: "",
     message: "",
   });
+
+  // Estado para controlar el origen dinámico
+  const [currentSource, setCurrentSource] = useState(source);
+
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [formSuccess, setFormSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const t = useTranslations();
 
+  // EFECTO: Detectar parámetros en la URL (?subject=... o ?type=...)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      // Leemos 'subject' O 'type'
+      const paramValue = params.get("subject") || params.get("type");
+
+      if (paramValue) {
+        // 1. Actualizamos el origen
+        setCurrentSource(`Landing: ${paramValue}`);
+
+        // 2. Pre-rellenamos el mensaje si es necesario
+        if (!formData.message) {
+          setFormData((prev) => ({
+            ...prev,
+            message: `Hola, me interesa saber más sobre: ${paramValue}.`,
+          }));
+        }
+      }
+    }
+  }, []);
+
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -58,7 +83,7 @@ export const ContactForm = ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          source: source, // This is key for Make!
+          source: currentSource, // Enviamos el origen dinámico
         }),
       });
 
@@ -68,14 +93,14 @@ export const ContactForm = ({
         setFormErrors({});
         setTimeout(() => setFormSuccess(false), 5000);
       } else {
-  const errorData = await response.json();
-  setFormErrors({
-    general: errorData.message || t('contact.serverError'),
-  });
-}
+        const errorData = await response.json();
+        setFormErrors({
+          general: errorData.message || t("contact.serverError"),
+        });
+      }
     } catch (error) {
-  setFormErrors({ general: t('contact.networkError') });
-} finally {
+      setFormErrors({ general: t("contact.networkError") });
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -83,18 +108,16 @@ export const ContactForm = ({
   return (
     <AnimatedSection>
       <Card>
-        {/* Success Message */}
         {formSuccess && (
           <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
             <div className="flex items-center">
               <span className="text-green-800 text-sm font-medium">
-  {t('contact.successMessage')}
-</span>
+                {t("contact.successMessage")}
+              </span>
             </div>
           </div>
         )}
 
-        {/* General Error Message */}
         {formErrors.general && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
             <div className="flex items-center">
@@ -105,17 +128,15 @@ export const ContactForm = ({
           </div>
         )}
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4 bg-white">
-          {/* Name and Email Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label
-  htmlFor="name"
-  className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
->
-  {t('contact.nameLabel')} <span className="text-red-600">*</span>
-</label>
+                htmlFor="name"
+                className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
+              >
+                {t("contact.nameLabel")} <span className="text-red-600">*</span>
+              </label>
               <input
                 type="text"
                 id="name"
@@ -127,7 +148,7 @@ export const ContactForm = ({
                     ? "border-red-300 focus:ring-red-500"
                     : "border-slate-300"
                 }`}
-                placeholder={t('contact.namePlaceholder')}
+                placeholder={t("contact.namePlaceholder")}
               />
               {formErrors.name && (
                 <p className="text-red-600 text-xs mt-2">{formErrors.name}</p>
@@ -135,11 +156,12 @@ export const ContactForm = ({
             </div>
             <div>
               <label
-  htmlFor="email"
-  className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
->
-  {t('contact.emailLabel')} <span className="text-red-600">*</span>
-</label>
+                htmlFor="email"
+                className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
+              >
+                {t("contact.emailLabel")}{" "}
+                <span className="text-red-600">*</span>
+              </label>
               <input
                 id="email"
                 name="email"
@@ -151,7 +173,7 @@ export const ContactForm = ({
                     ? "border-red-300 focus:ring-red-500"
                     : "border-slate-300"
                 }`}
-placeholder={t('contact.emailPlaceholder')}
+                placeholder={t("contact.emailPlaceholder")}
               />
               {formErrors.email && (
                 <p className="text-red-600 text-xs mt-2">{formErrors.email}</p>
@@ -159,14 +181,14 @@ placeholder={t('contact.emailPlaceholder')}
             </div>
           </div>
 
-          {/* Message */}
           <div>
             <label
-  htmlFor="message"
-  className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
->
-  {t('contact.messageLabel')} <span className="text-red-600">*</span>
-</label>
+              htmlFor="message"
+              className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
+            >
+              {t("contact.messageLabel")}{" "}
+              <span className="text-red-600">*</span>
+            </label>
             <textarea
               id="message"
               name="message"
@@ -178,24 +200,23 @@ placeholder={t('contact.emailPlaceholder')}
                   ? "border-red-300 focus:ring-red-500"
                   : "border-slate-300"
               }`}
-placeholder={t('contact.messagePlaceholder')}
+              placeholder={t("contact.messagePlaceholder")}
             />
             {formErrors.message && (
               <p className="text-red-600 text-xs">{formErrors.message}</p>
             )}
           </div>
 
-          {/* Submit Button */}
           <Button
-  type="submit"
-  variant="secondary"
-  size="md"
-  fullWidth
-  loading={isSubmitting}
-  disabled={isSubmitting}
->
-  {t('contact.submitButton')}
-</Button>
+            type="submit"
+            variant="secondary"
+            size="md"
+            fullWidth
+            loading={isSubmitting}
+            disabled={isSubmitting}
+          >
+            {t("contact.submitButton")}
+          </Button>
         </form>
       </Card>
     </AnimatedSection>
