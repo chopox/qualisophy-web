@@ -47,12 +47,11 @@ const teamMembers = [
     ],
   },
   {
-    name: "Patricia",
+    name: "Patricia Beyet",
     role: "Project Manager & Agile Coach",
     image: imgPatricia.src,
     position: "object-top",
-    scale: "scale-125", // Empieza al 125%
-    // SOLUCIÓN: Forzamos que al hacer hover suba al 135% (más grande que 125)
+    scale: "scale-125",
     hoverScale: "group-hover:scale-[1.35]",
     highlights: [
       "Gestión de proyectos y Scrum",
