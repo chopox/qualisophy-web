@@ -2,39 +2,52 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ParticleMeshBackground } from "../shared/ParticleMeshBackground";
 
+// Importación de imágenes
+import imgFran from "../../../assets/team-fran.png";
+import imgSergio from "../../../assets/team-sergio.jpeg";
+import imgElena from "../../../assets/team-elena.png";
+// Corregida la extensión a .jpeg
+import imgJuanpe from "../../../assets/team-juanpe.jpeg";
+
 const teamMembers = [
   {
     name: "Francisco Guerrero",
     role: "CEO",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800",
+    image: imgFran.src,
     highlights: [
-      "Liderazgo estratégico + Desarrollo tech",
-      "Docencia especializada sector tech",
-      'Visión y supervisión plataforma "Re-Tech"',
+      "Estrategia y Liderazgo Tech",
+      "Docencia especializada sector TI",
+      "Visión global de la plataforma",
     ],
   },
   {
     name: "Sergio Jara",
     role: "Marketing",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=800",
+    image: imgSergio.src,
     highlights: [
-      "Marketing y comercialización tech",
-      "Docencia y formación como profesor",
-      "Estrategias comerciales EdTech",
+      "Estrategia Comercial EdTech",
+      "Marketing y Comunicación",
+      "Formación y docencia",
     ],
   },
   {
     name: "Elena Martín",
     role: "COO",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
+    image: imgElena.src,
     highlights: [
-      "Operaciones y administración",
-      "Gestión de personas y cultura",
-      "Proyectos de impacto social",
-      "Relaciones corporativas",
+      "Operaciones y Cultura",
+      "Gestión de talento y personas",
+      "Alianzas de impacto social",
+    ],
+  },
+  {
+    name: "Juan Pedro Gómez",
+    role: "Desarrollo Web Fullstack",
+    image: imgJuanpe.src,
+    highlights: [
+      "Arquitectura de la plataforma",
+      "Desarrollo Fullstack (Web)",
+      "Experiencia de Usuario (UX/UI)",
     ],
   },
 ];
@@ -56,8 +69,8 @@ export const TeamGrid = () => {
           <div className="w-20 h-1 bg-primary"></div>
         </div>
 
-        {/* Grid: 3 columnas con espacio amplio (gap-10) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {/* Grid: 4 columnas para que todos tengan el mismo protagonismo */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {teamMembers.map((member, index) => (
             <motion.div
               key={index}
@@ -65,19 +78,18 @@ export const TeamGrid = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              // Añadimos backdrop-blur y un fondo blanco semitransparente para que el texto se lea bien sobre las partículas
-              className="group flex flex-col h-full bg-white/80 backdrop-blur-sm border border-white/50 rounded-b-2xl"
+              // ESTILO ORIGINAL RECUPERADO: Fondo semitransparente, borde sutil, redondeado abajo
+              className="group flex flex-col h-full bg-white/80 backdrop-blur-sm border border-gray/50 rounded-b-2xl hover:shadow-xl transition-all duration-300"
             >
-              {/* IMAGEN: Aspecto Cuadrado (1:1) + Efecto Marco */}
+              {/* IMAGEN: Aspecto Cuadrado (1:1) */}
               <div className="relative aspect-square overflow-hidden mb-6 bg-gray-100">
-                {/* Imagen */}
+                {/* Imagen con object-top para anclar la cara arriba y recortar de abajo */}
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
                 />
-
-                {/* MARCO INTERIOR (Estilo Atria) */}
 
                 {/* Overlay sutil al hover */}
                 <div className="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/10 transition-colors duration-300" />
@@ -85,11 +97,11 @@ export const TeamGrid = () => {
 
               {/* TEXTO */}
               <div className="flex flex-col flex-grow px-4 pb-6">
-                <h3 className="text-2xl font-bold text-secondary mb-1 font-heading group-hover:text-primary transition-colors">
+                <h3 className="text-xl font-bold text-secondary mb-1 font-heading group-hover:text-primary transition-colors">
                   {member.name}
                 </h3>
 
-                <span className="text-secondary font-bold text-sm uppercase tracking-wider mb-4 block">
+                <span className="text-secondary font-bold text-xs uppercase tracking-wider mb-4 block">
                   {member.role}
                 </span>
 
@@ -97,7 +109,7 @@ export const TeamGrid = () => {
                   {member.highlights.map((item, i) => (
                     <li
                       key={i}
-                      className="text-sm text-gray-600 leading-relaxed font-primary"
+                      className="text-xs text-gray-600 leading-relaxed font-primary"
                     >
                       • {item}
                     </li>
