@@ -1,20 +1,14 @@
 import type { APIRoute } from "astro";
 
 /**
- * API: Qualisophy Virtual Assistant
- * Stable version - October 2025
- *
- * Features:
- *  - Connects to the OpenRouter API using the Mistral 7B Instruct model.
- *  - Uses a contextual prompt with real Qualisophy information.
- *  - Cleans up defective responses (<s>, [OST], Markdown, etc.).
- *  - Provides an alternative answer when the AI does not understand.
- *  - Avoids text truncation and maintains a natural, professional tone.
+ * API: Qualisophy Smart Assistant
+ * Model: Google Gemini 2.0 Flash (via OpenRouter)
+ * Estado: GRATUITO / Low Cost
+ * Capacidad: Contexto masivo (no olvida datos).
  */
 
 export const POST: APIRoute = async ({ request }) => {
   let body: any;
-  // --- Safe capture of the request body ---
   try {
     body = await request.json();
   } catch {
@@ -24,275 +18,158 @@ export const POST: APIRoute = async ({ request }) => {
   const message = typeof body.message === "string" ? body.message.trim() : "";
   const API_KEY = import.meta.env.OPENROUTER_API_KEY;
 
-  // --- Development mode (no key configured) ---
   if (!API_KEY) {
+    console.error("❌ ERROR: Falta OPENROUTER_API_KEY en .env");
     return new Response(
-      JSON.stringify({
-        reply: `Modo desarrollo activo. Recibí el mensaje: "${message}".`,
-      }),
-      { headers: { "Content-Type": "application/json" } }
+      JSON.stringify({ reply: "Error de configuración del servidor." }),
+      { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
 
-  // --- Static website context ---
+  if (!message) {
+    return new Response(
+      JSON.stringify({
+        reply: "Hola, soy el asistente de Qualisophy. ¿En qué puedo ayudarte?",
+      }),
+      { status: 200, headers: { "Content-Type": "application/json" } },
+    );
+  }
 
+  // --- 🧠 CONTEXTO CEREBRAL (Extraído de tus archivos) ---
   const websiteContent = `
-QUALISOPHY
-Formación práctica, consultoría personalizada y oportunidades reales de crecimiento.
+INFORMACIÓN CORPORATIVA:
+- Empresa: Qualisophy.
+- Misión: Formación tecnológica práctica e inclusión laboral.
+- Ubicación: Calle Marqués de Larios 23, Málaga.
+- Contacto: info@qualisophy.com | (+34) 912 345 678.
 
-📘 CURSO: Testing y Calidad del Software
-- Inicio: 17 de Febrero de 2025
-- Duración: 40 horas (7 semanas)
-- Horario: Lunes y Miércoles / 18:00 - 21:00
-- Precio: 497 € (447 € con inscripción anticipada)
-- Instructor: Fran Guerrero
-- Modalidad: Online en directo
-- Dirigido a: Profesionales o estudiantes interesados en garantizar la calidad del software y aplicar metodologías de testing modernas.
+--- 1. LOS 4 PILARES DE INCLUSIÓN DE QUALISOPHY ---
+(Si preguntan por inclusión, explica estos 4 puntos):
+1. TALENTO NEURODIVERGENTE:
+   - Foco: Personas con Autismo (TEA) y TDAH.
+   - Dato: 85% de desempleo en este colectivo.
+   - Estrategia: Formación Dual (Teoría + Práctica) y adaptación de puestos para potenciar su foco y lógica.
+   
+2. TALENTO MIGRANTE:
+   - Foco: Profesionales extranjeros cualificados.
+   - Problema: "Brain Waste" (54% sobrecualificación).
+   - Estrategia: Formación Puente para homologar competencias y validar experiencia previa en el mercado local.
 
-📚 Estructura del curso (4 módulos)
-1. MÓDULO 1 - Introducción a la Calidad del Software
-  Conoce los conceptos básicos del testing, roles y tipos de pruebas existentes.
-  Fundamentos de Testing y Calidad del Software.
-  Roles y responsabilidades en Testing.
-  Tipos de pruebas: funcionales, no funcionales, de regresión.
-  Metodologías de Testing: Waterfall, Agile, DevOps.
-  Herramientas básicas de Testing.
+3. RIESGO DE EXCLUSIÓN (IMPACTO SOCIAL):
+   - Foco: Colectivos vulnerables y parados de larga duración.
+   - Estrategia: Capacitación digital intensiva y alfabetización tecnológica para recuperar la autonomía económica.
 
-2. MÓDULO 2 - Testing dentro del Ciclo de Vida de un Desarrollo
-  Aprende a planificar, diseñar, ejecutar pruebas y reportar errores.
-  Planificación de pruebas y estrategias de Testing.
-  Diseño de casos de prueba y escenarios.
-  Ejecución de pruebas y seguimiento de resultados.
-  Reporte de errores y gestión de defectos.
-  Integración de Testing en metodologías ágiles.
+4. RECICLAJE LABORAL (RESKILLING / SENIOR +45):
+   - Foco: Profesionales de otros sectores (Finanzas, Marketing, Hostelería) que quieren pasar a Tech.
+   - Valor: Aprovechamos sus "Soft Skills" previas (gestión, liderazgo) y les enseñamos la tecnología.
 
-3. MÓDULO 3 - Automatización de Pruebas
-  Profundiza en frameworks de automatización como Jest, Cypress y Postman.
-  Fundamentos de Testing automatizado.
-  Jest para Testing unitario en JavaScript.
-  Cypress para Testing E2E.
-  Postman para Testing de APIs.
-  Estrategias de automatización y ROI.
+--- 2. CATÁLOGO DE CURSOS 2025 (Datos Reales) ---
 
-4. MÓDULO 4 - DevOps y Testing Continuo
-  Integra pruebas automáticas en sistemas de CI/CD y aprende sobre métricas y reportes. 
-  Integración continua y Testing automatizado.
-  CI/CD pipelines y Testing.
-  Métricas de Testing y KPIs.
-  Reportes y dashboards de calidad.
-  Testing en entornos de producción.
+[ÁREA QA & TESTING]
+- "Testing y Calidad del Software" (Principiante): 17 Feb | 40h | 497€ (Oferta 447€). Instructor: Fran Guerrero.
+- "BDD y Automatización E2E" (Intermedio): 10 Mar | 30h | 420€ (Oferta 380€). Stack: Cucumber, Cypress.
+- "Coding and DevOps for Testers" (Avanzado): 3 Mar | 48h | 540€ (Oferta 490€). Stack: JS, Git, Jenkins/GitLab.
+- "Automatización QA" (Enterprise): 17 Feb | 45h | 547€ (Oferta 497€). Stack: Selenium, Playwright.
+- "Gestión de Calidad (TQM)" (Management): 24 Mar | 25h | 450€ (Oferta 395€).
 
+[ÁREA DESARROLLO]
+- "Fullstack Developer (MERN)" (Bootcamp): 3 Mar | 120h | 1.200€ (Oferta 995€).
+- "Frontend con React" (Intermedio): 10 Mar | 60h | 650€ (Oferta 595€).
+- "Backend con Node.js" (Intermedio): 24 Mar | 50h | 550€ (Oferta 495€).
+- "Java & Spring Boot" (Avanzado): 7 Abr | 60h | 695€ (Oferta 625€).
 
-📘 CURSO: BDD y Automatización E2E
-- Inicio: 10 de Marzo de 2025
-- Duración: 30 horas (6 semanas)
-- Horario: Martes y Jueves / 18:00 - 20:30
-- Precio: 420 € (380 € con inscripción anticipada)
-- Instructor: Equipo QA
-- Modalidad: Online en directo
-- Dirigido a: Profesionales que buscan dominar BDD, Cucumber, Gherkin y Cypress.
+[ÁREA MICROSOFT & DATA]
+- "Power BI Dashboards": 10 Mar | 30h | 450€ (Oferta 395€).
+- "Data Analytics & SQL": 17 Mar | 40h | 495€ (Oferta 450€).
+- "Excel Avanzado": A demanda | 25h | 350€ (Oferta 299€).
+- "Power Automate": A demanda | 15h | 295€ (Oferta 250€).
 
-📚 Estructura del curso (4 módulos)
-1. MÓDULO 1 - Fundamentos de BDD
-  Comprende los principios del Desarrollo Guiado por Comportamiento (BDD).
-  Qué es BDD y sus beneficios.
-  Ciclo de vida del BDD.
-  Comunicación entre negocio y desarrollo.
-  Buenas prácticas de colaboración.
+[ÁREA PROJECT MANAGEMENT]
+- "Certificación Scrum Master": 22 Mar | 16h (Fin de semana) | 350€ (Oferta 299€).
+- "Product Owner": 5 Abr | 20h | 395€ (Oferta 350€).
+- "Gestión Ágil (Kanban)": A demanda | 12h | 295€ (Oferta 250€).
+- "Liderazgo de Equipos": A demanda | 20h | 450€ (Oferta 395€).
 
-2. MÓDULO 2 - Sintaxis Gherkin y Cucumber
-  Aprende a escribir escenarios de prueba con Cucumber y Gherkin.
-  Estructura Given/When/Then.
-  Creación de Features y Steps.
-  Buenas prácticas en la redacción de escenarios.
-  Integración con repositorios de código.
-
-3. MÓDULO 3 - Automatización E2E con Cypress
-  Implementa pruebas de extremo a extremo con Cypress.
-  Introducción a Cypress.
-  Configuración del entorno de pruebas.
-  Integración de Cucumber con Cypress.
-  Ejecución de escenarios automatizados.
-
-4. MÓDULO 4 - Integración Continua y Pruebas Automatizadas
-  Integra tus pruebas automatizadas en flujos CI/CD.
-  Integración en pipelines de CI.
-  Gestión de reportes y métricas.
-  Buenas prácticas de automatización continua.
-  Monitoreo de pruebas automatizadas.
-
-👩‍🏫 Instructor: Equipo QA
-Curso impartido por especialistas en BDD y automatización con experiencia en entornos Agile y CI/CD.
-Certificaciones: ISTQB Foundation Level, Cypress Automation, Continuous Integration (CI/CD).
-
-
-📘 CURSO: Coding and DevOps for Testers
-- Inicio: 3 de Marzo de 2025
-- Duración: 48 horas (8 semanas)
-- Horario: Martes y Jueves / 18:00 - 21:00
-- Precio: 540 € (490 € con inscripción anticipada)
-- Instructor: Laura Sánchez
-- Modalidad: Online en directo
-- Dirigido a: Testers que desean mejorar sus habilidades de programación y CI/CD.
-
-📚 Estructura del curso (4 módulos)
-1. MÓDULO 1 - Fundamentos de Programación para Testers
-  Aprende los fundamentos de JavaScript y desarrollo para automatizar de forma eficaz.
-  Conceptos básicos de programación.
-  Estructuras de control y funciones.
-  Manipulación del DOM con JavaScript.
-  Buenas prácticas de codificación para testers.
-
-2. MÓDULO 2 - Automatización con Herramientas Modernas
-  Aprende a utilizar herramientas de automatización ampliamente usadas.
-  Introducción a Cypress y Playwright.
-  Testing de APIs con Postman.
-  Creación de suites de pruebas automatizadas.
-  Gestión de dependencias y entorno de pruebas.
-
-3. MÓDULO 3 - Introducción a Git y Control de Versiones
-  Gestiona y colabora en proyectos con Git y GitHub.
-  Fundamentos de Git y ramas.
-  Comandos esenciales.
-  Pull Requests y revisiones de código.
-  Buenas prácticas en control de versiones.
-
-4. MÓDULO 4 - Integración Continua con GitLab CI/CD
-  Configura pipelines automáticos de testing y despliegue.
-  Conceptos de CI/CD.
-  Configuración básica en GitLab.
-  Ejecución automática de pruebas.
-  Optimización y reportes de pipelines.
-
-👩‍🏫 Instructor: Laura Sánchez
-Ingeniera de Software y DevOps con más de 10 años de experiencia en desarrollo y entornos CI/CD.
-Certificaciones: AWS Certified, GitLab CI/CD Professional.
-
-
-💼 Consultoría y Formación para Empresas
-Capacitación adaptada a las necesidades de tu equipo, asesoría técnica y programas personalizados para empresas que buscan mejorar sus procesos de calidad y productividad.
-
-🤝 Programa de Colaboración
-Oportunidad para empresas y organizaciones que deseen acceder a talento certificado, crear alianzas estratégicas y obtener visibilidad en la red de Qualisophy.
-
-📩 Contacto
-- Email: contact@qualisophy.com
-- Teléfono: +1 234 567 890
-- Web: https://qualisophy.com
+--- 3. SERVICIOS PARA EMPRESAS (PARTNERSHIP) ---
+- Hiring Partner: Acceso prioritario a bolsa de talento validado (Junior/Mid) con "fit cultural" asegurado.
+- Upskilling Ad-hoc: Formación a medida (In-Company) para actualizar equipos.
+- Voluntariado Corporativo: Empleados senior de la empresa mentorizan a alumnos (RSC).
+- Sponsoring: Becas para colectivos vulnerables.
 `;
 
-  const cleanReply = (text: string | undefined): string => {
-    if (!text || typeof text !== "string") {
-      return "No tengo esa información exacta. Puedes escribirnos a contact@qualisophy.com.";
-    }
+  // --- PERSONALIDAD DEL BOT ---
+  const systemPrompt = `
+Eres el Asistente Virtual Experto de Qualisophy.
+Tu objetivo es informar con precisión y profesionalidad.
 
-    let cleaned = text
-      // Remove HTML tags or strange markers
+INSTRUCCIONES DE COMPORTAMIENTO:
+1. PRECISIÓN EN DATOS: Si preguntan por un curso, da SIEMPRE: Fecha de inicio, Precio y Duración. (Usa los datos de arriba).
+2. PILARES DE INCLUSIÓN: Si preguntan "qué hacéis en inclusión" o "pilares", menciona los 4 (Neurodivergencia, Migrante, Exclusión Social y Reskilling) con una breve frase de cada uno.
+3. ESTILO: Usa listas con viñetas (•) para enumerar cursos o servicios. Es más fácil de leer.
+4. LÍMITES: Si te preguntan algo que NO está en el texto (ej: "¿Tenéis cursos de cocina?"), di amablemente que no dispones de esa formación.
+5. CIERRE: Invita siempre a "Agendar una reunión" o "Escribir a contacto" si el usuario parece interesado.
 
-      .replace(/<\/?[^>]+(>|$)/g, "")
-      .replace(/\[.*?\]/g, "")
-      .replace(/\*\*/g, "")
-      .replace(/#{1,6}\s?/g, "")
-      .replace(/<s>|<\/s>/gi, "")
-      .replace(/\n{2,}/g, "\n")
-      .replace(/\s{2,}/g, " ")
-      .trim();
-
-    // If the response is too short or empty
-
-    if (!cleaned || cleaned.length < 5) {
-      return "No tengo esa información exacta. Puedes escribirnos a contact@qualisophy.com.";
-    }
-
-    // If it ends with ellipsis, add a natural ending
-
-    if (cleaned.endsWith("...")) {
-      cleaned = cleaned.replace(
-        /\.\.\.$/,
-        ". Puedes escribirnos a contact@qualisophy.com para más información."
-      );
-    }
-
-    // Limit length without cutting off sentences
-
-    if (cleaned.length > 800) {
-      const truncated = cleaned.slice(0, 780);
-      const lastSentence = truncated.lastIndexOf(".");
-      cleaned =
-        (lastSentence > 200
-          ? truncated.slice(0, lastSentence + 1)
-          : truncated) +
-        " Puedes escribirnos a contact@qualisophy.com para más información.";
-    }
-
-    return cleaned;
-  };
+CONTEXTO:
+${websiteContent}
+`;
 
   try {
-    // --- Call to the OpenRouter model ---
-
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
       {
         method: "POST",
         headers: {
           Authorization: `Bearer ${API_KEY}`,
+          "HTTP-Referer": "https://qualisophy.com",
+          "X-Title": "Qualisophy Chatbot",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "mistralai/mistral-7b-instruct",
-          temperature: 0.6,
+          // MODELO: Gemini 2.0 Flash (Gratuito en OpenRouter actualmente, muy inteligente y rápido)
+          // Si este dejara de ser gratis, cambia a "mistralai/mistral-7b-instruct"
+          model: "google/gemini-2.0-flash-001",
+          temperature: 0.1, // Baja temperatura = Máxima fidelidad a los datos
           max_tokens: 800,
           messages: [
-            {
-              role: "system",
-              content: `
-Eres el asistente virtual oficial de Qualisophy.
-
-Tu propósito es ayudar a los usuarios con información real y verificada sobre:
-- Cursos disponibles.
-- Consultoría y formación para empresas.
-- Programa de colaboración.
-- Información de contacto.
-
-Reglas estrictas:
-1. Usa únicamente la información contenida en el texto que se te proporciona.
-2. No inventes datos, nombres ni detalles que no estén explícitos.
-3. Si no dispones de la información, responde: "No tengo esa información exacta. Puedes escribirnos a contact@qualisophy.com."
-4. Explica las cosas con naturalidad, claridad y tono profesional.
-5. Usa entre 3 y 6 líneas, sin formato Markdown ni etiquetas.
-6. Si el usuario pregunta por algo fuera del ámbito de Qualisophy, invítalo a visitar la web o escribirnos al correo.
-
-Información disponible:
-${websiteContent}
-              `,
-            },
+            { role: "system", content: systemPrompt },
             { role: "user", content: message },
           ],
         }),
-      }
+      },
     );
 
-    // --- Interpretation of the result ---
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error(`❌ Error OpenRouter (${response.status}):`, errorData);
+      return new Response(
+        JSON.stringify({
+          reply:
+            "Lo siento, mi servicio de IA está temporalmente no disponible. Por favor, contáctanos por email.",
+        }),
+        { status: 500, headers: { "Content-Type": "application/json" } },
+      );
+    }
 
-    const data = await response.json().catch(() => null);
-    const rawReply = data?.choices?.[0]?.message?.content ?? "";
-    const reply = cleanReply(rawReply);
+    const data = await response.json();
+    let reply =
+      data.choices?.[0]?.message?.content ||
+      "No he podido generar una respuesta.";
+
+    // Limpieza de formato
+    reply = reply
+      .replace(/\*\*/g, "")
+      .replace(/#{1,6} /g, "")
+      .trim();
 
     return new Response(JSON.stringify({ reply }), {
+      status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error("Error en /api/chat:", error);
+    console.error("❌ Error CRÍTICO:", error);
     return new Response(
-      JSON.stringify({
-        reply:
-          "Ha ocurrido un error interno al procesar tu mensaje. Por favor, intenta nuevamente más tarde.",
-      }),
-      {
-        headers: { "Content-Type": "application/json" },
-        status: 500,
-      }
+      JSON.stringify({ reply: "Error interno del sistema." }),
+      { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
 };
