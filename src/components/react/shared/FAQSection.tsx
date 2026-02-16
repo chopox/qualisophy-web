@@ -28,7 +28,7 @@ interface FAQSectionProps {
 
 export const FAQSection = ({ alwaysExpanded = false }: FAQSectionProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(
-    alwaysExpanded ? 0 : null
+    alwaysExpanded ? 0 : null,
   );
 
   const faqs: FAQ[] = [
@@ -73,7 +73,7 @@ export const FAQSection = ({ alwaysExpanded = false }: FAQSectionProps) => {
   ];
 
   const toggleFAQ = (index: number) => {
-    if (! alwaysExpanded) {
+    if (!alwaysExpanded) {
       setOpenIndex(openIndex === index ? null : index);
     }
   };
@@ -100,7 +100,7 @@ export const FAQSection = ({ alwaysExpanded = false }: FAQSectionProps) => {
             Preguntas Frecuentes
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-            Resolvemos tus dudas antes de que nos contactes.  Si no encuentras lo
+            Resolvemos tus dudas antes de que nos contactes. Si no encuentras lo
             que buscas, estamos a un clic de distancia.
           </p>
 
@@ -180,12 +180,12 @@ export const FAQSection = ({ alwaysExpanded = false }: FAQSectionProps) => {
                   <div
                     className={`overflow-hidden transition-all duration-300 ease-in-out ${
                       openIndex === index
-                        ?  "max-h-96 opacity-100"
+                        ? "max-h-96 opacity-100"
                         : "max-h-0 opacity-0"
                     }`}
                   >
                     <div className="px-6 pb-6 text-gray-700 leading-relaxed border-t border-gray-100 pt-4 ml-16">
-                      {faq. answer}
+                      {faq.answer}
                     </div>
                   </div>
                 </div>
@@ -198,7 +198,7 @@ export const FAQSection = ({ alwaysExpanded = false }: FAQSectionProps) => {
         <div className="relative">
           {/* Gradient border effect */}
           <div className="absolute -inset-1 bg-gradient-to-r from-primary via-blue-400 to-primary rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
-          
+
           {/* Main CTA card */}
           <div className="relative bg-white rounded-2xl border-2 border-primary/20 shadow-2xl p-8 md:p-10 hover:shadow-primary/20 hover:border-primary/40 transition-all duration-300">
             {/* Icon badge */}
@@ -218,8 +218,12 @@ export const FAQSection = ({ alwaysExpanded = false }: FAQSectionProps) => {
 
             {/* Subtitle */}
             <p className="text-gray-600 mb-8 text-lg max-w-xl mx-auto text-center">
-              Nuestro equipo está listo para ayudarte. Contacta con nosotros y te
-              responderemos en <span className="font-semibold text-primary">menos de 24 horas</span>.
+              Nuestro equipo está listo para ayudarte. Contacta con nosotros y
+              te responderemos en{" "}
+              <span className="font-semibold text-primary">
+                menos de 24 horas
+              </span>
+              .
             </p>
 
             {/* CTA Buttons */}
@@ -232,11 +236,11 @@ export const FAQSection = ({ alwaysExpanded = false }: FAQSectionProps) => {
                 Contacta con Nosotros
               </a>
               <a
-                href="mailto:info@qualisophy.com"
+                href="mailto:hello@qualisophy.com"
                 className="inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-secondary border-2 border-gray-200 hover:border-primary/30 font-semibold py-3 px-8 rounded-xl transition-all shadow-md hover:shadow-lg hover:scale-105 transform"
               >
                 <Mail className="w-5 h-5" />
-                info@qualisophy.com
+                hello@qualisophy.com
               </a>
             </div>
 
@@ -246,7 +250,9 @@ export const FAQSection = ({ alwaysExpanded = false }: FAQSectionProps) => {
                 <div className="w-full border-t border-gray-200"></div>
               </div>
               <div className="relative flex justify-center">
-                <span className="px-4 text-sm text-gray-500 bg-white">o llámanos directamente</span>
+                <span className="px-4 text-sm text-gray-500 bg-white">
+                  o llámanos directamente
+                </span>
               </div>
             </div>
 

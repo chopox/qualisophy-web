@@ -40,8 +40,8 @@ export const POST: APIRoute = async ({ request }) => {
 INFORMACIÓN CORPORATIVA:
 - Empresa: Qualisophy.
 - Misión: Formación tecnológica práctica e inclusión laboral.
-- Ubicación: Calle Marqués de Larios 23, Málaga.
-- Contacto: info@qualisophy.com | (+34) 912 345 678.
+- Ubicación: Calle Esteban Salazar Chapela 11, Málaga.
+- Contacto: hello@qualisophy.com | (+34) 912 345 678.
 
 --- 1. LOS 4 PILARES DE INCLUSIÓN DE QUALISOPHY ---
 (Si preguntan por inclusión, explica estos 4 puntos):
