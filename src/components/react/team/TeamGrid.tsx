@@ -2,12 +2,12 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ParticleMeshBackground } from "../shared/ParticleMeshBackground";
 
-// Importación de imágenes
+// Importación de imágenes (Extensiones revisadas según tu último código)
 import imgFran from "../../../assets/team-fran.png";
 import imgSergio from "../../../assets/team-sergio.jpeg";
 import imgElena from "../../../assets/team-elena.png";
-// Corregida la extensión a .jpeg
-import imgJuanpe from "../../../assets/team-juanpe.jpeg";
+import imgJuanpe from "../../../assets/team-juanpe.png";
+import imgPatricia from "../../../assets/team-patricia.jpeg";
 
 const teamMembers = [
   {
@@ -41,6 +41,16 @@ const teamMembers = [
     ],
   },
   {
+    name: "Patricia Beyet",
+    role: "Project Manager & Agile Coach",
+    image: imgPatricia.src,
+    highlights: [
+      "Gestión de proyectos y Scrum",
+      "Formación especializada en TI",
+      "Metodologías ágiles",
+    ],
+  },
+  {
     name: "Juan Pedro Gómez",
     role: "Desarrollo Web Fullstack",
     image: imgJuanpe.src,
@@ -69,8 +79,12 @@ export const TeamGrid = () => {
           <div className="w-20 h-1 bg-primary"></div>
         </div>
 
-        {/* Grid: 4 columnas para que todos tengan el mismo protagonismo */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        {/* CAMBIO CLAVE: Usamos Flexbox en lugar de Grid.
+           'flex-wrap': permite que bajen de línea si no caben.
+           'justify-center': centra los elementos (perfecto para números impares).
+           'gap-8': espacio entre tarjetas.
+        */}
+        <div className="flex flex-wrap justify-center gap-8">
           {teamMembers.map((member, index) => (
             <motion.div
               key={index}
@@ -78,12 +92,14 @@ export const TeamGrid = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              // ESTILO ORIGINAL RECUPERADO: Fondo semitransparente, borde sutil, redondeado abajo
-              className="group flex flex-col h-full bg-white/80 backdrop-blur-sm border border-gray/50 rounded-b-2xl hover:shadow-xl transition-all duration-300"
+              // Fijamos un ancho base (w-72 aprox 288px) para mantener uniformidad, pero flexible en móvil
+              className="group flex flex-col w-full sm:w-72 bg-white/80 backdrop-blur-sm border border-gray-200/50 rounded-b-2xl hover:shadow-xl transition-all duration-300"
             >
               {/* IMAGEN: Aspecto Cuadrado (1:1) */}
               <div className="relative aspect-square overflow-hidden mb-6 bg-gray-100">
-                {/* Imagen con object-top para anclar la cara arriba y recortar de abajo */}
+                {/* object-top: Alinea la imagen arriba (cabeza) y recorta el cuerpo si sobra.
+                   Esto iguala visualmente todas las fotos.
+                */}
                 <img
                   src={member.image}
                   alt={member.name}
@@ -96,7 +112,7 @@ export const TeamGrid = () => {
               </div>
 
               {/* TEXTO */}
-              <div className="flex flex-col flex-grow px-4 pb-6">
+              <div className="flex flex-col flex-grow px-5 pb-6">
                 <h3 className="text-xl font-bold text-secondary mb-1 font-heading group-hover:text-primary transition-colors">
                   {member.name}
                 </h3>
