@@ -6,6 +6,7 @@ import { HeroSection } from "@/components/react/home/HeroSection";
 import { MissionSection } from "@/components/react/home/MissionSection";
 import { InclusionPillars } from "@/components/react/home/InclusionPillars";
 import { ValuesSection } from "@/components/react/home/ValuesSection";
+import { Newsletter } from "@/components/react/shared/Newsletter";
 ---
 
 <Layout 
@@ -24,5 +25,8 @@ import { ValuesSection } from "@/components/react/home/ValuesSection";
 
   {/* 4. PILARES (Fondo Blanco) */}
   <InclusionPillars client:visible />
+
+  {/* 4. NEWSLETTER (Fondo Gris claro) */}
+  <Newsletter client:visible />
 
 </Layout>
