@@ -10,8 +10,6 @@ import Footer from "@/components/Footer.astro";
 import { Sidebar } from "@/components/react/layout/Sidebar";
 import { ChatBox } from "@/components/react/shared/ChatBox";
 
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/react";
 
 export interface Props {
   title: string;
@@ -69,8 +67,6 @@ const {
   <body
     class={`font-primary antialiased min-h-screen flex flex-col ${bodyClass || "bg-white"}`}
   >
-    <Analytics framework="astro" client:only="react" />
-    <SpeedInsights framework="astro" client:only="react" />
 
     {/* HEADER: Con ID 'site-header' y sticky para que el script del chat lo detecte */}
     <div id="site-header" class="sticky top-0 z-40 w-full bg-white shadow-sm">
