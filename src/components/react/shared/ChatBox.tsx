@@ -1,3 +1,5 @@
+// src/components/react/shared/ChatBox.tsx
+
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -21,7 +23,7 @@ export const ChatBox = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   // --- ESTADOS DE POSICIÓN Y TAMAÑO ---
-  const [bottomOffset, setBottomOffset] = useState(32); // Distancia desde abajo
+  const [bottomOffset, setBottomOffset] = useState(32); // Distancia desde abajo alineada con EnrollButton
   const [chatMaxHeight, setChatMaxHeight] = useState(600); // Altura máxima dinámica
   const [isHidden, setIsHidden] = useState(false);
 
@@ -39,20 +41,20 @@ export const ChatBox = () => {
     if (typeof window === "undefined") return;
 
     const handleLayoutCalculations = () => {
-      const footer = document.getElementById("site-footer");
+      // Usamos querySelector para mayor fiabilidad, igual que en EnrollButton
+      const footer =
+        document.querySelector("footer") || document.querySelector(".footer");
       const header = document.getElementById("site-header");
       const windowHeight = window.innerHeight;
 
       // --- A. Lógica de Footer (Rebote) ---
-      // MODIFICACIÓN: Igualamos la altura base para móvil y escritorio a 32px
       let newBottom = 32;
 
       if (footer) {
         const footerRect = footer.getBoundingClientRect();
         const overlap = windowHeight - footerRect.top;
         if (overlap > 0) {
-          // Empujamos el botón hacia arriba
-          // MODIFICACIÓN: Usamos el mismo margen de seguridad (32px) para ambos
+          // Empujamos el botón hacia arriba con el mismo margen
           newBottom = overlap + 32;
         }
       }
@@ -164,12 +166,12 @@ export const ChatBox = () => {
     setInput("");
     setLoading(true);
     try {
-      const res = await fetch("/api/chat", {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMsg.text }),
       });
-      const data = await res.json();
+      const data = await response.json();
       const cleanReply = (text: string) =>
         !text || text.trim().length < 5
           ? "Lo siento, no tengo información precisa sobre eso."
@@ -289,7 +291,7 @@ export const ChatBox = () => {
                 animate={{ y: 0 }}
                 exit={{ y: "100%" }}
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                onClick={(e) => e.stopPropagation()}
+                onClick={(event) => event.stopPropagation()}
                 className="w-full h-full bg-white shadow-2xl flex flex-col overflow-hidden"
               >
                 <div className="bg-[#1B2341] text-white px-5 py-4 flex justify-between items-center shrink-0 safe-area-top">
@@ -374,15 +376,15 @@ export const ChatBox = () => {
 // Sub-componentes
 const ChatBody = ({ messages, loading, messagesEndRef }: any) => (
   <div className="flex-1 p-4 bg-gray-50 overflow-y-auto space-y-4">
-    {messages.map((msg: Message, i: number) => (
+    {messages.map((message: Message, index: number) => (
       <div
-        key={i}
-        className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+        key={index}
+        className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
       >
         <div
-          className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${msg.sender === "user" ? "bg-[#2575fc] text-white rounded-tr-none" : "bg-white text-gray-700 border border-gray-100 rounded-tl-none"}`}
+          className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${message.sender === "user" ? "bg-[#2575fc] text-white rounded-tr-none" : "bg-white text-gray-700 border border-gray-100 rounded-tl-none"}`}
         >
-          {msg.text}
+          {message.text}
         </div>
       </div>
     ))}
@@ -398,8 +400,8 @@ const ChatInput = ({ input, setInput, sendMessage, loading }: any) => (
     <div className="flex gap-2">
       <input
         value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+        onChange={(event) => setInput(event.target.value)}
+        onKeyDown={(event) => event.key === "Enter" && sendMessage()}
         placeholder="Escribe..."
         className="flex-1 bg-gray-50 border-0 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-primary/50 outline-none"
         disabled={loading}
