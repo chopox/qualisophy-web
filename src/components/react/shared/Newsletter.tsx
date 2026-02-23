@@ -7,13 +7,13 @@ export const Newsletter = () => {
   >("idle");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     setStatus("loading");
     setMessage("");
 
     try {
-      const res = await fetch("/api/subscribe", {
+      const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,9 +21,9 @@ export const Newsletter = () => {
         body: JSON.stringify({ email }),
       });
 
-      const data = await res.json();
+      const data = await response.json();
 
-      if (res.ok) {
+      if (response.ok) {
         setStatus("success");
         setMessage(data.message);
         setEmail(""); // Limpiar el input
@@ -58,20 +58,28 @@ export const Newsletter = () => {
                 <span className="block sm:inline"> {message}</span>
               </div>
             ) : (
-              <form className="flex gap-2 shadow-sm" onSubmit={handleSubmit}>
+              <form
+                className="flex flex-col sm:flex-row gap-3 sm:gap-0 shadow-none sm:shadow-sm"
+                onSubmit={handleSubmit}
+              >
                 <input
                   type="email"
                   placeholder="Tu correo electrónico"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(event) => setEmail(event.target.value)}
                   required
                   disabled={status === "loading"}
-                  className="flex-1 px-4 py-3 rounded-l-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary text-gray-800 outline-none transition-all disabled:bg-gray-100 disabled:text-gray-400"
+                  // CORRECCIÓN INPUT:
+                  // 1. Eliminado 'focus:ring-2 focus:ring-primary' para evitar el aumento de altura exterior.
+                  // 2. Se mantiene 'focus:border-primary focus:outline-none' para el estilo de foco interno y limpio.
+                  className="flex-1 w-full px-4 py-3 rounded-lg sm:rounded-r-none sm:rounded-l-lg border border-gray-300 focus:border-primary focus:outline-none text-gray-800 transition-all disabled:bg-gray-100 disabled:text-gray-400 shadow-sm sm:shadow-none"
                 />
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="bg-secondary hover:bg-primary text-white font-bold px-6 py-3 rounded-r-lg transition-colors shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center min-w-[140px]"
+                  // CORRECCIÓN BOTÓN:
+                  // 1. Añadido 'border border-transparent'. Esto asegura que el botón tenga exactamente la misma altura física que el input (que tiene borde).
+                  className="bg-secondary hover:bg-primary text-white font-bold px-6 py-3 rounded-lg sm:rounded-l-none sm:rounded-r-lg border border-transparent transition-colors shadow-md sm:shadow-none disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center w-full sm:w-auto sm:min-w-[140px]"
                 >
                   {status === "loading" ? (
                     <span className="flex items-center gap-2">
