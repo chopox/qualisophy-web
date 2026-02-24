@@ -23,8 +23,8 @@ export const ChatBox = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   // --- ESTADOS DE POSICIÓN Y TAMAÑO ---
-  const [bottomOffset, setBottomOffset] = useState(32); // Distancia desde abajo alineada con EnrollButton
-  const [chatMaxHeight, setChatMaxHeight] = useState(600); // Altura máxima dinámica
+  const [bottomOffset, setBottomOffset] = useState(32);
+  const [chatMaxHeight, setChatMaxHeight] = useState(600);
   const [isHidden, setIsHidden] = useState(false);
 
   // 1. Detección de Cliente y Móvil
@@ -41,31 +41,26 @@ export const ChatBox = () => {
     if (typeof window === "undefined") return;
 
     const handleLayoutCalculations = () => {
-      // Usamos querySelector para mayor fiabilidad, igual que en EnrollButton
       const footer =
         document.querySelector("footer") || document.querySelector(".footer");
       const header = document.getElementById("site-header");
       const windowHeight = window.innerHeight;
 
-      // --- A. Lógica de Footer (Rebote) ---
       let newBottom = 32;
 
       if (footer) {
         const footerRect = footer.getBoundingClientRect();
         const overlap = windowHeight - footerRect.top;
         if (overlap > 0) {
-          // Empujamos el botón hacia arriba con el mismo margen
           newBottom = overlap + 32;
         }
       }
       setBottomOffset(newBottom);
 
-      // --- B. Lógica de Header (Redimensionado y Ocultación) ---
       if (header) {
         const headerRect = header.getBoundingClientRect();
         const headerBottom = headerRect.bottom;
 
-        // 1. Ocultar botón si choca
         const buttonTopPosition = windowHeight - newBottom - 60;
         if (buttonTopPosition < headerBottom) {
           setIsHidden(true);
@@ -73,7 +68,6 @@ export const ChatBox = () => {
           setIsHidden(false);
         }
 
-        // 2. REDIMENSIONAR CHATBOX (Escritorio)
         const spaceFromBottom = newBottom + 80;
         const availableHeight = windowHeight - headerBottom - spaceFromBottom;
         const finalHeight = Math.min(Math.max(availableHeight, 200), 600);
@@ -111,14 +105,21 @@ export const ChatBox = () => {
       sessionStorage.setItem("qualisophy_chat_open", isOpen.toString());
   }, [isOpen, isMobile, isMounted]);
 
+  // Scroll automático hacia abajo
   useEffect(() => {
     if (!isMounted) return;
     sessionStorage.setItem(
       "qualisophy_chat_messages",
       JSON.stringify(messages),
     );
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isMounted]);
+
+    if (isOpen) {
+      const timer = setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [messages, isMounted, isOpen]);
 
   // 4. Robot Animado
   useEffect(() => {
@@ -144,7 +145,7 @@ export const ChatBox = () => {
       setMessages([
         {
           sender: "bot",
-          text: "¡Hola! Soy el asistente virtual de Qualisophy. ¿Sobre qué te gustaría saber más?",
+          text: "¡Hola! Soy el asistente virtual de Qualisophy. ¿Sobre qué curso o programa te gustaría saber más?",
         },
       ]);
     }
@@ -158,6 +159,21 @@ export const ChatBox = () => {
       document.body.classList.remove("chat-open");
     }
   }, [isOpen, isMobile]);
+
+  // Limpiar Chat
+  const clearChat = () => {
+    const initialMsg: Message[] = [
+      {
+        sender: "bot",
+        text: "¡Hola! Soy el asistente virtual de Qualisophy. ¿Sobre qué curso o programa te gustaría saber más?",
+      },
+    ];
+    setMessages(initialMsg);
+    sessionStorage.setItem(
+      "qualisophy_chat_messages",
+      JSON.stringify(initialMsg),
+    );
+  };
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -194,7 +210,6 @@ export const ChatBox = () => {
 
   return (
     <>
-      {/* --- CONTENEDOR DISPARADOR (Trigger) --- */}
       <motion.div
         animate={{
           bottom: bottomOffset,
@@ -204,7 +219,6 @@ export const ChatBox = () => {
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className="fixed z-50 right-0 lg:right-4 flex items-center justify-end"
       >
-        {/* MÓVIL: Pestaña Lateral Derecha */}
         {isMobile && !isOpen && (
           <div className="flex items-center">
             <AnimatePresence>
@@ -235,7 +249,6 @@ export const ChatBox = () => {
           </div>
         )}
 
-        {/* DESKTOP: Botón Flotante Redondo */}
         {!isMobile && (
           <div className="relative">
             <AnimatePresence>
@@ -274,11 +287,9 @@ export const ChatBox = () => {
         )}
       </motion.div>
 
-      {/* --- VENTANA DEL CHAT --- */}
       <AnimatePresence>
         {isOpen &&
           (isMobile ? (
-            // --- MÓVIL: MODAL FULL SCREEN ---
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -307,11 +318,25 @@ export const ChatBox = () => {
                       </span>
                     </div>
                   </div>
-                  <button onClick={() => setIsOpen(false)} className="p-2">
-                    <span className="material-symbols-outlined text-2xl">
-                      expand_more
-                    </span>
-                  </button>
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={clearChat}
+                      title="Limpiar conversación"
+                      className="hover:text-red-400 transition-colors flex items-center"
+                    >
+                      <span className="material-symbols-outlined text-xl">
+                        delete
+                      </span>
+                    </button>
+                    <button
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center"
+                    >
+                      <span className="material-symbols-outlined text-3xl">
+                        expand_more
+                      </span>
+                    </button>
+                  </div>
                 </div>
                 <ChatBody
                   messages={messages}
@@ -327,15 +352,14 @@ export const ChatBox = () => {
               </motion.div>
             </motion.div>
           ) : (
-            // --- DESKTOP: POPUP FLOTANTE ---
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{
                 opacity: 1,
                 y: 0,
                 scale: 1,
-                bottom: bottomOffset + 70, // Sigue al botón
-                height: chatMaxHeight, // ALTURA DINÁMICA
+                bottom: bottomOffset + 70,
+                height: chatMaxHeight,
               }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -346,14 +370,25 @@ export const ChatBox = () => {
                   <span className="text-xl">🤖</span>
                   <span className="font-bold">Asistente Qualisophy</span>
                 </div>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="hover:text-gray-300"
-                >
-                  <span className="material-symbols-outlined text-sm">
-                    close
-                  </span>
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={clearChat}
+                    title="Limpiar conversación"
+                    className="hover:text-red-400 transition-colors flex items-center"
+                  >
+                    <span className="material-symbols-outlined text-sm">
+                      delete
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="hover:text-gray-300 flex items-center"
+                  >
+                    <span className="material-symbols-outlined text-sm">
+                      close
+                    </span>
+                  </button>
+                </div>
               </div>
               <ChatBody
                 messages={messages}
@@ -373,46 +408,149 @@ export const ChatBox = () => {
   );
 };
 
-// Sub-componentes
-const ChatBody = ({ messages, loading, messagesEndRef }: any) => (
-  <div className="flex-1 p-4 bg-gray-50 overflow-y-auto space-y-4">
-    {messages.map((message: Message, index: number) => (
-      <div
-        key={index}
-        className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
-      >
-        <div
-          className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${message.sender === "user" ? "bg-[#2575fc] text-white rounded-tr-none" : "bg-white text-gray-700 border border-gray-100 rounded-tl-none"}`}
-        >
-          {message.text}
-        </div>
-      </div>
-    ))}
-    {loading && (
-      <div className="text-xs text-gray-400 pl-2">Escribiendo...</div>
-    )}
-    <div ref={messagesEndRef} />
-  </div>
-);
+// --- PARSEA MARKDOWN Y CREA ENLACES ---
+const formatMessageWithLinks = (text: string, sender: "user" | "bot") => {
+  return text.split("\n").map((line, index) => {
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
 
-const ChatInput = ({ input, setInput, sendMessage, loading }: any) => (
-  <div className="p-3 bg-white border-t border-gray-100 shrink-0 safe-area-bottom">
-    <div className="flex gap-2">
-      <input
-        value={input}
-        onChange={(event) => setInput(event.target.value)}
-        onKeyDown={(event) => event.key === "Enter" && sendMessage()}
-        placeholder="Escribe..."
-        className="flex-1 bg-gray-50 border-0 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-primary/50 outline-none"
-        disabled={loading}
-      />
-      <button
-        onClick={sendMessage}
-        disabled={!input.trim() || loading}
-        className="bg-primary text-white p-2 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
+    while ((match = linkRegex.exec(line)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(line.substring(lastIndex, match.index));
+      }
+
+      const linkText = match[1];
+      const linkUrl = match[2];
+
+      parts.push(
+        <a
+          key={`link-${index}-${match.index}`}
+          href={linkUrl}
+          className={`font-bold underline decoration-2 underline-offset-4 transition-colors ${
+            sender === "bot"
+              ? "text-[#2575fc] hover:text-[#1B2341]"
+              : "text-white hover:text-gray-200"
+          }`}
+        >
+          {linkText}
+        </a>,
+      );
+      lastIndex = linkRegex.lastIndex;
+    }
+
+    if (lastIndex < line.length) {
+      parts.push(line.substring(lastIndex));
+    }
+
+    return (
+      <React.Fragment key={index}>
+        {parts.length > 0 ? parts : line}
+        {index < text.split("\n").length - 1 && <br />}
+      </React.Fragment>
+    );
+  });
+};
+
+const ChatBody = ({ messages, loading, messagesEndRef }: any) => {
+  const [showScrollBtn, setShowScrollBtn] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } =
+        scrollContainerRef.current;
+      setShowScrollBtn(scrollHeight - scrollTop - clientHeight > 150);
+    }
+  };
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <div className="flex-1 relative bg-gray-50 flex flex-col overflow-hidden">
+      <div
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        className="flex-1 p-4 overflow-y-auto space-y-4"
       >
-        <span className="material-symbols-outlined text-lg">send</span>
-      </button>
+        {messages.map((message: Message, index: number) => (
+          <div
+            key={index}
+            className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
+          >
+            <div
+              className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${message.sender === "user" ? "bg-[#2575fc] text-white rounded-tr-none" : "bg-white text-gray-700 border border-gray-100 rounded-tl-none"}`}
+            >
+              {formatMessageWithLinks(message.text, message.sender)}
+            </div>
+          </div>
+        ))}
+        {loading && (
+          <div className="text-xs text-gray-400 pl-2">Escribiendo...</div>
+        )}
+        <div ref={messagesEndRef} className="h-1" />
+      </div>
+
+      <AnimatePresence>
+        {showScrollBtn && (
+          <motion.button
+            initial={{ opacity: 0, y: 10, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.8 }}
+            onClick={scrollToBottom}
+            className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white text-primary border border-gray-200 shadow-md rounded-full w-9 h-9 flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
+            aria-label="Ir abajo"
+          >
+            <span className="material-symbols-outlined text-lg">
+              arrow_downward
+            </span>
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
-  </div>
-);
+  );
+};
+
+// --- CHAT INPUT CON AUTO-FOCUS ---
+const ChatInput = ({ input, setInput, sendMessage, loading }: any) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Devolver el foco al input cuando el bot termina de escribir (solo en PC)
+  useEffect(() => {
+    if (!loading && inputRef.current) {
+      if (window.innerWidth >= 1024) {
+        inputRef.current.focus();
+      }
+    }
+  }, [loading]);
+
+  return (
+    <div className="p-3 bg-white border-t border-gray-100 shrink-0 safe-area-bottom">
+      <div className="flex gap-2">
+        <input
+          ref={inputRef}
+          value={input}
+          onChange={(event) => setInput(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" && !loading) {
+              sendMessage();
+            }
+          }}
+          placeholder="Escribe..."
+          className="flex-1 bg-gray-50 border-0 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-primary/50 outline-none disabled:bg-gray-100 disabled:text-gray-400"
+          disabled={loading}
+        />
+        <button
+          onClick={sendMessage}
+          disabled={!input.trim() || loading}
+          className="bg-primary text-white p-2 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 flex items-center justify-center"
+        >
+          <span className="material-symbols-outlined text-lg">send</span>
+        </button>
+      </div>
+    </div>
+  );
+};
