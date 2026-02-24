@@ -1,12 +1,12 @@
 import type { APIRoute } from "astro";
 
+// LA MAGIA: Importamos el markdown del conocimiento como texto plano
+import knowledgeBase from "@/data/qualisophy-knowledge.md?raw";
+
 /**
  * API: Qualisophy Smart Assistant
  * Model: Google Gemini 2.0 Flash (via OpenRouter)
- * Estado: GRATUITO / Low Cost
- * Capacidad: Contexto masivo (no olvida datos).
  */
-
 export const POST: APIRoute = async ({ request }) => {
   let body: any;
   try {
@@ -19,9 +19,11 @@ export const POST: APIRoute = async ({ request }) => {
   const API_KEY = import.meta.env.OPENROUTER_API_KEY;
 
   if (!API_KEY) {
-    console.error("❌ ERROR: Falta OPENROUTER_API_KEY en .env");
+    console.error("❌ ERROR: Falta OPENROUTER_API_KEY en el .env");
     return new Response(
-      JSON.stringify({ reply: "Error de configuración del servidor." }),
+      JSON.stringify({
+        reply: "Error de configuración del servidor. Faltan credenciales.",
+      }),
       { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
@@ -35,82 +37,22 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  // --- 🧠 CONTEXTO CEREBRAL (Extraído de tus archivos) ---
-  const websiteContent = `
-INFORMACIÓN CORPORATIVA:
-- Empresa: Qualisophy.
-- Misión: Formación tecnológica práctica e inclusión laboral.
-- Ubicación: Calle Esteban Salazar Chapela 11, Málaga.
-- Contacto: hello@qualisophy.com | (+34) 912 345 678.
-
---- 1. LOS 4 PILARES DE INCLUSIÓN DE QUALISOPHY ---
-(Si preguntan por inclusión, explica estos 4 puntos):
-1. TALENTO NEURODIVERGENTE:
-   - Foco: Personas con Autismo (TEA) y TDAH.
-   - Dato: 85% de desempleo en este colectivo.
-   - Estrategia: Formación Dual (Teoría + Práctica) y adaptación de puestos para potenciar su foco y lógica.
-   
-2. TALENTO MIGRANTE:
-   - Foco: Profesionales extranjeros cualificados.
-   - Problema: "Brain Waste" (54% sobrecualificación).
-   - Estrategia: Formación Puente para homologar competencias y validar experiencia previa en el mercado local.
-
-3. RIESGO DE EXCLUSIÓN (IMPACTO SOCIAL):
-   - Foco: Colectivos vulnerables y parados de larga duración.
-   - Estrategia: Capacitación digital intensiva y alfabetización tecnológica para recuperar la autonomía económica.
-
-4. RECICLAJE LABORAL (RESKILLING / SENIOR +45):
-   - Foco: Profesionales de otros sectores (Finanzas, Marketing, Hostelería) que quieren pasar a Tech.
-   - Valor: Aprovechamos sus "Soft Skills" previas (gestión, liderazgo) y les enseñamos la tecnología.
-
---- 2. CATÁLOGO DE CURSOS 2025 (Datos Reales) ---
-
-[ÁREA QA & TESTING]
-- "Testing y Calidad del Software" (Principiante): 17 Feb | 40h | 497€ (Oferta 447€). Instructor: Fran Guerrero.
-- "BDD y Automatización E2E" (Intermedio): 10 Mar | 30h | 420€ (Oferta 380€). Stack: Cucumber, Cypress.
-- "Coding and DevOps for Testers" (Avanzado): 3 Mar | 48h | 540€ (Oferta 490€). Stack: JS, Git, Jenkins/GitLab.
-- "Automatización QA" (Enterprise): 17 Feb | 45h | 547€ (Oferta 497€). Stack: Selenium, Playwright.
-- "Gestión de Calidad (TQM)" (Management): 24 Mar | 25h | 450€ (Oferta 395€).
-
-[ÁREA DESARROLLO]
-- "Fullstack Developer (MERN)" (Bootcamp): 3 Mar | 120h | 1.200€ (Oferta 995€).
-- "Frontend con React" (Intermedio): 10 Mar | 60h | 650€ (Oferta 595€).
-- "Backend con Node.js" (Intermedio): 24 Mar | 50h | 550€ (Oferta 495€).
-- "Java & Spring Boot" (Avanzado): 7 Abr | 60h | 695€ (Oferta 625€).
-
-[ÁREA MICROSOFT & DATA]
-- "Power BI Dashboards": 10 Mar | 30h | 450€ (Oferta 395€).
-- "Data Analytics & SQL": 17 Mar | 40h | 495€ (Oferta 450€).
-- "Excel Avanzado": A demanda | 25h | 350€ (Oferta 299€).
-- "Power Automate": A demanda | 15h | 295€ (Oferta 250€).
-
-[ÁREA PROJECT MANAGEMENT]
-- "Certificación Scrum Master": 22 Mar | 16h (Fin de semana) | 350€ (Oferta 299€).
-- "Product Owner": 5 Abr | 20h | 395€ (Oferta 350€).
-- "Gestión Ágil (Kanban)": A demanda | 12h | 295€ (Oferta 250€).
-- "Liderazgo de Equipos": A demanda | 20h | 450€ (Oferta 395€).
-
---- 3. SERVICIOS PARA EMPRESAS (PARTNERSHIP) ---
-- Hiring Partner: Acceso prioritario a bolsa de talento validado (Junior/Mid) con "fit cultural" asegurado.
-- Upskilling Ad-hoc: Formación a medida (In-Company) para actualizar equipos.
-- Voluntariado Corporativo: Empleados senior de la empresa mentorizan a alumnos (RSC).
-- Sponsoring: Becas para colectivos vulnerables.
-`;
-
-  // --- PERSONALIDAD DEL BOT ---
+  // --- PERSONALIDAD Y REGLAS DEL BOT ---
   const systemPrompt = `
-Eres el Asistente Virtual Experto de Qualisophy.
-Tu objetivo es informar con precisión y profesionalidad.
+Eres el Asistente Virtual Oficial y Experto de Qualisophy.
+Tu objetivo es informar, orientar a los alumnos y transmitir nuestra filosofía de inclusión y excelencia tecnológica.
 
 INSTRUCCIONES DE COMPORTAMIENTO:
-1. PRECISIÓN EN DATOS: Si preguntan por un curso, da SIEMPRE: Fecha de inicio, Precio y Duración. (Usa los datos de arriba).
-2. PILARES DE INCLUSIÓN: Si preguntan "qué hacéis en inclusión" o "pilares", menciona los 4 (Neurodivergencia, Migrante, Exclusión Social y Reskilling) con una breve frase de cada uno.
-3. ESTILO: Usa listas con viñetas (•) para enumerar cursos o servicios. Es más fácil de leer.
-4. LÍMITES: Si te preguntan algo que NO está en el texto (ej: "¿Tenéis cursos de cocina?"), di amablemente que no dispones de esa formación.
-5. CIERRE: Invita siempre a "Agendar una reunión" o "Escribir a contacto" si el usuario parece interesado.
+1. BASA TODAS TUS RESPUESTAS EXCLUSIVAMENTE en el "CONTEXTO DE CONOCIMIENTO" de abajo.
+2. PRECISIÓN EN CURSOS: Si preguntan por un curso, da SIEMPRE: Fecha de inicio, Duración y Precio (destacando el descuento por pronto pago).
+3. ESTILO: Usa listas con viñetas (-) para enumerar. Sé directo, amable y profesional. NO escribas bloques gigantes de texto.
+4. PILARES: Si te preguntan "qué hacéis en inclusión", menciona los 4 pilares brevemente.
+5. LÍMITES: Si te preguntan por cursos que NO están en el texto (ej: "¿Tenéis cursos de cocina?"), di amablemente que no dispones de esa formación e invita a contactar a hello@qualisophy.com.
+6. CIERRE: Invita siempre a escribir al contacto, revisar la web o agendar si el usuario muestra interés real.
 
-CONTEXTO:
-${websiteContent}
+================ CONTEXTO DE CONOCIMIENTO ================
+${knowledgeBase}
+==========================================================
 `;
 
   try {
@@ -120,15 +62,14 @@ ${websiteContent}
         method: "POST",
         headers: {
           Authorization: `Bearer ${API_KEY}`,
-          "HTTP-Referer": "https://qualisophy.com",
-          "X-Title": "Qualisophy Chatbot",
+          "HTTP-Referer": "https://qualisophy.com", // Opcional, pero recomendado por OpenRouter
+          "X-Title": "Qualisophy Chatbot", // Opcional, nombre de tu app en OpenRouter
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          // MODELO: Gemini 2.0 Flash (Gratuito en OpenRouter actualmente, muy inteligente y rápido)
-          // Si este dejara de ser gratis, cambia a "mistralai/mistral-7b-instruct"
+          // MODELO: Gemini 2.0 Flash (Súper rápido y con contexto gigante)
           model: "google/gemini-2.0-flash-001",
-          temperature: 0.1, // Baja temperatura = Máxima fidelidad a los datos
+          temperature: 0.1, // Temperatura súper baja para que NO INVENTE NADA y sea fiel al Markdown
           max_tokens: 800,
           messages: [
             { role: "system", content: systemPrompt },
@@ -144,7 +85,7 @@ ${websiteContent}
       return new Response(
         JSON.stringify({
           reply:
-            "Lo siento, mi servicio de IA está temporalmente no disponible. Por favor, contáctanos por email.",
+            "Lo siento, mis sistemas de IA están actualizándose. Por favor, contáctanos en hello@qualisophy.com.",
         }),
         { status: 500, headers: { "Content-Type": "application/json" } },
       );
@@ -153,12 +94,12 @@ ${websiteContent}
     const data = await response.json();
     let reply =
       data.choices?.[0]?.message?.content ||
-      "No he podido generar una respuesta.";
+      "No he podido procesar tu solicitud correctamente.";
 
-    // Limpieza de formato
+    // Limpieza de formato (por si Gemini se vuelve loco con los hashtags de markdown)
     reply = reply
-      .replace(/\*\*/g, "")
-      .replace(/#{1,6} /g, "")
+      .replace(/\*\*/g, "") // Quita negritas si no se renderizan bien en tu chat frontend
+      .replace(/#{1,6} /g, "") // Quita los # de los encabezados markdown en el output
       .trim();
 
     return new Response(JSON.stringify({ reply }), {
@@ -166,9 +107,9 @@ ${websiteContent}
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error("❌ Error CRÍTICO:", error);
+    console.error("❌ Error CRÍTICO de conexión:", error);
     return new Response(
-      JSON.stringify({ reply: "Error interno del sistema." }),
+      JSON.stringify({ reply: "Error interno del sistema de chat." }),
       { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
