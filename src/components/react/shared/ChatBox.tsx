@@ -11,23 +11,18 @@ type Message = {
 export const ChatBox = () => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  // Estados
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [showRobot, setShowRobot] = useState(false);
-
-  // Estado para controlar montaje y evitar Hydration Mismatch
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // --- ESTADOS DE POSICIÓN Y TAMAÑO ---
   const [bottomOffset, setBottomOffset] = useState(32);
   const [chatMaxHeight, setChatMaxHeight] = useState(600);
   const [isHidden, setIsHidden] = useState(false);
 
-  // 1. Detección de Cliente y Móvil
   useEffect(() => {
     setIsMounted(true);
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -36,7 +31,6 @@ export const ChatBox = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // 2. CÁLCULO DE FÍSICA (Colisión Footer + Redimensionado Header)
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -90,7 +84,6 @@ export const ChatBox = () => {
     };
   }, [isMobile]);
 
-  // 3. Persistencia
   useEffect(() => {
     if (!isMounted) return;
     const storedOpen = sessionStorage.getItem("qualisophy_chat_open");
@@ -105,7 +98,6 @@ export const ChatBox = () => {
       sessionStorage.setItem("qualisophy_chat_open", isOpen.toString());
   }, [isOpen, isMobile, isMounted]);
 
-  // Scroll automático hacia abajo
   useEffect(() => {
     if (!isMounted) return;
     sessionStorage.setItem(
@@ -121,7 +113,6 @@ export const ChatBox = () => {
     }
   }, [messages, isMounted, isOpen]);
 
-  // 4. Robot Animado
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isOpen) {
@@ -139,7 +130,6 @@ export const ChatBox = () => {
     };
   }, [isOpen]);
 
-  // 5. Mensaje Inicial
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setMessages([
@@ -151,7 +141,6 @@ export const ChatBox = () => {
     }
   }, [isOpen, messages.length]);
 
-  // 6. Bloqueo Scroll (Móvil)
   useEffect(() => {
     if (isMobile && isOpen) {
       document.body.classList.add("chat-open");
@@ -160,7 +149,6 @@ export const ChatBox = () => {
     }
   }, [isOpen, isMobile]);
 
-  // Limpiar Chat
   const clearChat = () => {
     const initialMsg: Message[] = [
       {
@@ -177,21 +165,36 @@ export const ChatBox = () => {
 
   const sendMessage = async () => {
     if (!input.trim()) return;
+
+    // 1. Guardamos el mensaje del usuario en el estado
     const userMsg: Message = { sender: "user", text: input };
-    setMessages((prev) => [...prev, userMsg]);
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
     setInput("");
     setLoading(true);
+
+    // 2. Preparamos el HISTORIAL de la conversación para la IA
+    // Convertimos nuestro estado local al formato esperado por la API (role/content)
+    // Ignoramos el mensaje inicial por defecto si queremos, pero lo mandamos para dar contexto.
+    const apiHistory = newMessages.map((msg) => ({
+      role: msg.sender === "user" ? "user" : "assistant",
+      content: msg.text,
+    }));
+
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMsg.text }),
+        // IMPORTANTE: Enviamos el historial completo en vez de un solo mensaje
+        body: JSON.stringify({ history: apiHistory }),
       });
+
       const data = await response.json();
       const cleanReply = (text: string) =>
         !text || text.trim().length < 5
           ? "Lo siento, no tengo información precisa sobre eso."
           : text.trim();
+
       setMessages((prev) => [
         ...prev,
         { sender: "bot", text: cleanReply(data.reply) },
@@ -408,7 +411,6 @@ export const ChatBox = () => {
   );
 };
 
-// --- PARSEA MARKDOWN Y CREA ENLACES ---
 const formatMessageWithLinks = (text: string, sender: "user" | "bot") => {
   return text.split("\n").map((line, index) => {
     const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
@@ -514,11 +516,9 @@ const ChatBody = ({ messages, loading, messagesEndRef }: any) => {
   );
 };
 
-// --- CHAT INPUT CON AUTO-FOCUS ---
 const ChatInput = ({ input, setInput, sendMessage, loading }: any) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Devolver el foco al input cuando el bot termina de escribir (solo en PC)
   useEffect(() => {
     if (!loading && inputRef.current) {
       if (window.innerWidth >= 1024) {
