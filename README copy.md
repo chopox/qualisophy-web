@@ -1,6 +1,6 @@
 # Qualisophy Web
 
-A modern website for Qualisophy - Formación y Consultoría, built with Astro and Tailwind CSS.
+A modern website for Qualisophy - Formación, built with Astro and Tailwind CSS.
 
 ## Quick Start
 

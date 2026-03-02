@@ -12,12 +12,13 @@ Pilares de inclusión:
 
 # CATÁLOGO DE CURSOS (FORMACIÓN INDIVIDUAL - B2C)
 
-Dirigido a particulares. Todos los cursos son online en vivo. Ofrecemos pago a plazos y descuentos por pronto pago (hasta 20%).
+Dirigido a particulares. Todos los cursos son online en vivo. Ofrecemos pago a plazos y descuentos por pronto pago.
+NUEVO: ¡Todos los antiguos alumnos de Qualisophy cuentan con un 25% de descuento EXTRA en cualquier curso!
 
 ## 1. ÁREA DE QA & TESTING (PARTICULARES)
 
-- Testing y Calidad del Software (QA Manual): 40h. 497€ (447€ pronto pago). Inicia: 17 Feb 2025. URL: /learning/qa/software-quality-testing-course
-- BDD y Automatización E2E (Cypress): 32h. 447€ (380€ pronto pago). Inicia: 10 Mar 2025. URL: /learning/qa/bdd-automation-e2e-course
+- Testing y Calidad del Software (QA Manual): 40h. 497€ (447€ pronto pago). Inicia: 17 Feb 2025. Instructor: Fran Guerrero. URL: /learning/qa/software-quality-testing-course
+- Automation Bootcamp: Cypress 4.0: 6 semanas. 547€ (497€ pronto pago antes del 20 de marzo). Inicia: 14 Abr 2026. Instructor: Javi Flores. URL: /learning/qa/cypress-bootcamp
 - Coding and DevOps for Testers: 48h. 540€ (490€ pronto pago). Inicia: 3 Mar 2025. URL: /learning/qa/devops-for-testers-course
 - Gestión de Calidad (TQM): 25h. 450€ (395€ pronto pago). Inicia: 24 Mar 2025. URL: /learning/qa/quality-management-course
 
@@ -45,6 +46,7 @@ Dirigido a particulares. Todos los cursos son online en vivo. Ofrecemos pago a p
 # FORMACIÓN PARA EMPRESAS Y PARTNERSHIPS (B2B)
 
 Ofrecemos formación técnica a medida (Upskilling), programas de Hiring (contratación) y alianzas de impacto. URL General Empresas: /corporate-training | URL Partnership: /partnership
+NUEVO: Las empresas interesadas que cuenten con antiguos alumnos en su plantilla también pueden beneficiarse del 25% de descuento.
 
 ## CURSOS ESPECÍFICOS PARA EMPRESAS (IN-COMPANY)
 
@@ -74,11 +76,21 @@ Ofrecemos las siguientes formaciones corporativas adaptadas a las necesidades de
   - Excel Avanzado para Negocios: 20h. A demanda. Precio: Consultar. URL: /corporate-training/powerbi/excel
   - Automatización con Power Automate: 15h. A demanda. Precio: Consultar. URL: /corporate-training/powerbi/automate
 
+# INSTRUCTORES DESTACADOS
+
+- Javi Flores: Instructor del Automation Bootcamp: Cypress 4.0. Especialista en Automatización con Cypress y QA Lead. Tiene amplia experiencia en entornos Agile y CI/CD, comprometido con la implementación de la calidad mediante estrategias de automatización y diseño de frameworks mantenibles. Certificaciones: Cypress ambassador 2026 e ISTQB Foundation level.
+- Fran Guerrero: Instructor del curso de Testing y Calidad del Software. Especialista certificado en Agile ISTQB con más de 14 años de experiencia en el campo de la calidad del software. Implementa procesos de prueba, estrategias de control de calidad y herramientas innovadoras. Certificaciones: ISTQB Agile Tester, ISTQB Foundation Level, Certified Scrum Master.
+
+# BLOG Y NEWSLETTER
+
+- Blog de Qualisophy: Publicamos artículos sobre tendencias tecnológicas, Inteligencia Artificial, QA, impacto social, neurodivergencia y casos de éxito de nuestros alumnos. URL: /blog
+- Newsletter: Los usuarios pueden suscribirse en cualquier momento desde el pie de página de la web. Al suscribirse, reciben noticias sobre tecnología, inclusión y nuevas convocatorias de cursos directamente en su correo.
+
 # EQUIPO DIRECTIVO (URL: /team)
 
-- Francisco Guerrero: CEO & Estrategia Tech.
-- Elena Martín: COO & Operaciones.
+- Elena Martín: CEO & Founder.
 - Sergio Jara: Marketing.
+- Francisco Guerrero: Instructor Tech.
 - Patricia Beyet: Project Manager & Agile Coach.
 - Juan Pedro Gómez: Desarrollo Web Fullstack.
 

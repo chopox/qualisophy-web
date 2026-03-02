@@ -11,15 +11,15 @@ import imgPatricia from "../../../assets/team-patricia.jpeg";
 
 const teamMembers = [
   {
-    name: "Francisco Guerrero",
-    role: "CEO",
-    image: imgFran.src,
+    name: "Elena Martín",
+    role: "CEO and Founder",
+    image: imgElena.src,
     position: "object-top",
     scale: "scale-100",
     highlights: [
-      "Estrategia y Liderazgo Tech",
-      "Docencia especializada sector TI",
-      "Visión global de la plataforma",
+      "Operaciones y Cultura",
+      "Gestión de talento y personas",
+      "Alianzas de impacto social",
     ],
   },
   {
@@ -35,15 +35,15 @@ const teamMembers = [
     ],
   },
   {
-    name: "Elena Martín",
-    role: "COO",
-    image: imgElena.src,
+    name: "Francisco Guerrero",
+    role: "Instructor Tech",
+    image: imgFran.src,
     position: "object-top",
     scale: "scale-100",
     highlights: [
-      "Operaciones y Cultura",
-      "Gestión de talento y personas",
-      "Alianzas de impacto social",
+      "Estrategia y Liderazgo Tech",
+      "Docencia especializada sector TI",
+      "Visión global de la plataforma",
     ],
   },
   {

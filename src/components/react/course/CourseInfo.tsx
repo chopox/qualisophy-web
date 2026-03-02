@@ -8,6 +8,7 @@ export interface CourseDetails {
   schedule: string;
   regularPrice: string;
   earlyBirdPrice: string;
+  oldStudentsDiscount?: string;
 }
 
 interface CourseInfoProps {
@@ -40,9 +41,15 @@ export const CourseInfo = ({
   courseId,
   className = "",
 }: CourseInfoProps) => {
-  const t = useTranslations()
+  const t = useTranslations();
+
+  // TRUCO NINJA: Si un curso específico no tiene el texto en su .astro, se pone este por defecto en TODOS.
+  const discountMessage =
+    courseDetails.oldStudentsDiscount ||
+    "25% de descuento extra para antiguos alumnos";
+
   return (
-    <div className="bg-white">
+    <div className={`bg-white ${className}`}>
       {/* Course Info Bars */}
       <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-8 md:mb-12">
         <CourseInfoBar
@@ -97,6 +104,13 @@ export const CourseInfo = ({
               {courseDetails.earlyBirdPrice}
             </span>
           </div>
+
+          {/* NUEVO: DESCUENTO ANTIGUOS ALUMNOS CENTRADO EN TODOS LOS CURSOS */}
+          <div className="flex justify-center w-full pt-5 mt-3 border-t border-gray-100">
+            <span className="font-bold text-green-700 text-sm text-center">
+              {discountMessage}
+            </span>
+          </div>
         </div>
       </div>
 
@@ -105,7 +119,7 @@ export const CourseInfo = ({
         <div className="flex justify-center mt-6">
           <a href={`/course-enrollment?course=${courseId}`}>
             <Button variant="primary" size="md">
-              {t('button.enroll')}
+              {t("button.enroll")}
             </Button>
           </a>
         </div>

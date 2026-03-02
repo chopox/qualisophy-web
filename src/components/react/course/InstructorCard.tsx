@@ -6,10 +6,11 @@ export interface Instructor {
   description: string;
   certifications: string[];
   experience: string;
+  image?: string; // NUEVO: Añadimos soporte opcional para la foto del instructor
 }
 
 export interface GenericItem {
-  icon: string; // Changed from LucideIcon to string
+  icon: string;
   label: string;
   value: string;
 }
@@ -59,9 +60,19 @@ export const InstructorCard = ({
           {instructor.name}
         </h3>
         <div className="bg-white text-center mb-4">
-          <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-3 flex-shrink-0">
-            <User className="w-10 h-10 text-white flex-shrink-0" />
-          </div>
+          {/* NUEVA LÓGICA CONDICIONAL: Si hay imagen, la pinta. Si no, pone el icono. */}
+          {instructor.image ? (
+            <img
+              src={instructor.image}
+              alt={instructor.name}
+              className="w-20 h-20 rounded-full object-cover mx-auto mb-3 flex-shrink-0 border border-gray-100 shadow-sm"
+            />
+          ) : (
+            <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-3 flex-shrink-0">
+              <User className="w-10 h-10 text-white flex-shrink-0" />
+            </div>
+          )}
+
           <h4 className="font-semibold text-slate-800">{instructor.title}</h4>
           <p className="text-sm text-slate-600">{instructor.experience}</p>
         </div>

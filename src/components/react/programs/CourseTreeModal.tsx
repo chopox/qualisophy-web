@@ -20,7 +20,7 @@ const courseTreeData = [
       },
       {
         title: "Automatización con Cypress",
-        href: "/learning/qa/bdd-automation-e2e-course",
+        href: "/learning/qa/cypress-bootcamp",
         icon: "auto_mode",
       },
       {

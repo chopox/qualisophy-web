@@ -10,7 +10,7 @@ const posts = [
       "Descubre cómo la inteligencia artificial está redefiniendo los roles de QA y qué habilidades son necesarias hoy.",
     image:
       "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=600",
-    date: "12 Oct, 2024",
+    date: "12 Feb, 2026",
   },
   {
     slug: "neurodivergencia-ventaja",
@@ -20,7 +20,7 @@ const posts = [
       "Las empresas que apuestan por la neurodiversidad reportan un aumento del 30% en productividad e innovación.",
     image:
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=600",
-    date: "28 Sep, 2024",
+    date: "2 Ene, 2026",
   },
   {
     slug: "caso-exito-maria",
@@ -30,7 +30,7 @@ const posts = [
       "La historia de María y cómo el reskilling transformó su vida profesional gracias a la metodología Qualisophy.",
     image:
       "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=600",
-    date: "15 Sep, 2024",
+    date: "23 Dic, 2025",
   },
 ];
 

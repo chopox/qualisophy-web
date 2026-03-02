@@ -4,6 +4,9 @@ import { Course } from "@/components/react/course/Course";
 import { EnrollButton } from "@/components/react/shared/EnrollButton";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
+import instructorImg from "@/assets/instructor/instructor-fran.png";
+
+
 const modules = [
   {
     id: "1",
@@ -72,6 +75,8 @@ const instructor = {
   title: "Especialista en Calidad del Software",
   description:
     "Francisco Guerrero es un especialista certificado en Agile ISTQB, con más de 14 años de experiencia en el campo de la Calidad del Software. Implementa procesos de prueba, estrategias de control de calidad y herramientas innovadoras.",
+  image: instructorImg.src, 
+
   certifications: [
     "ISTQB Agile Tester",
     "ISTQB Foundation Level",

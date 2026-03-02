@@ -88,7 +88,7 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
         <div class="absolute top-full left-0 min-w-full w-max bg-white rounded-b-xl rounded-t-none shadow-xl border border-gray-100 border-t-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-0 p-0 z-50 -mt-[1px] overflow-hidden">
           <div class="flex flex-col">
             <a href="/reskilling" class={`${dropdownItemClass} ${isReskilling ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>Reconversión Laboral</a>
-            <a href="/corporate-training" class={`${dropdownItemClass} ${isCorporate ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>Formación Empresas</a>
+            <a class="hidden" href="/corporate-training" class={`${dropdownItemClass} ${isCorporate ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>Formación Empresas</a>
           </div>
         </div>
       </li>
@@ -145,7 +145,7 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
 
         <div class="pt-6 pb-2 px-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Nuestras Formaciones</div>
         <a href="/reskilling" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isReskilling ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Reconversión Laboral</a>
-        <a href="/corporate-training" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isCorporate ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Formación Empresas</a>
+        <a href="/corporate-training" class={`block py-3 px-4 rounded-xl hidden pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isCorporate ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Formación Empresas</a>
 
         <div class="my-4 border-t border-gray-100"></div>
 

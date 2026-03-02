@@ -2,15 +2,30 @@
 import Layout from "@/layouts/Layout.astro";
 import { FAQSection } from "@/components/react/shared/FAQSection";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
+// Importamos el fondo de partículas
+import { ParticleMeshBackground } from "@/components/react/shared/ParticleMeshBackground";
 ---
 
 <Layout
   title="Preguntas Frecuentes - Qualisophy"
   description="Resuelve todas tus dudas sobre nuestros cursos de formación en desarrollo, QA y DevOps."
 >
-  <div class="max-w-7xl mx-auto px-6 pt-8">
-    <Breadcrumbs />
-  </div>
+  {/* Contenedor principal que envuelve todo con fondo blanco y partículas */}
+  <div class="relative w-full bg-white overflow-hidden min-h-screen pb-12">
+    
+    {/* FONDO GLOBAL DE PARTÍCULAS */}
+    <div class="absolute inset-0 z-0 opacity-60 pointer-events-none">
+      <ParticleMeshBackground client:load />
+    </div>
 
-  <FAQSection client:load />
+    {/* Contenido (Breadcrumbs + FAQ) por encima de las partículas */}
+    <div class="relative z-10 max-w-7xl mx-auto px-6 pt-8">
+      <Breadcrumbs />
+    </div>
+
+    <div class="relative z-10">
+      <FAQSection client:load />
+    </div>
+    
+  </div>
 </Layout>

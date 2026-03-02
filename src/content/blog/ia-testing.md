@@ -1,7 +1,7 @@
 ---
 title: "El impacto de la IA en el testing de software moderno"
 excerpt: "Descubre cómo la inteligencia artificial está redefiniendo los roles de QA y qué habilidades son necesarias hoy."
-date: 2024-10-12
+date: 2026-02-12
 image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=2070"
 category: "Tendencias"
 readTime: "8 min de lectura"

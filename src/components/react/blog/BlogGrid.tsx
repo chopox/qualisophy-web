@@ -10,7 +10,7 @@ const allPosts = [
       "Descubre cómo la inteligencia artificial está redefiniendo los roles de QA y qué habilidades son necesarias hoy.",
     image:
       "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=600",
-    date: "12 Oct, 2024",
+    date: "12 Feb, 2026",
   },
   {
     slug: "neurodivergencia-ventaja",
@@ -20,7 +20,7 @@ const allPosts = [
       "Las empresas que apuestan por la neurodiversidad reportan un aumento del 30% en productividad e innovación.",
     image:
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=600",
-    date: "28 Sep, 2024",
+    date: "2 Ene, 2026",
   },
   {
     slug: "caso-exito-maria",
@@ -30,17 +30,17 @@ const allPosts = [
       "La historia de María y cómo el reskilling transformó su vida profesional gracias a la metodología Qualisophy.",
     image:
       "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=600",
-    date: "15 Sep, 2024",
+    date: "23 Dic, 2025",
   },
   {
     slug: "powerbi-negocios",
     category: "Tecnología",
     title: "Power BI: Transformando datos en decisiones estratégicas",
     excerpt:
-      "Aprende por qué el análisis de datos es la habilidad más demandada por las empresas en 2024.",
+      "Aprende por qué el análisis de datos es la habilidad más demandada por las empresas en 2025.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600",
-    date: "10 Sep, 2024",
+    date: "10 Nov, 2025",
   },
   {
     slug: "diversidad-equipos-agiles",
@@ -50,7 +50,7 @@ const allPosts = [
       "Guía para Scrum Masters: integrando diferentes perfiles cognitivos en ceremonias ágiles.",
     image:
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=600",
-    date: "05 Sep, 2024",
+    date: "21 Oct, 2025",
   },
 ];
 

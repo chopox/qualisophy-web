@@ -1,0 +1,126 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+// IMPORTANTE: Asegúrate de que la imagen existe exactamente en esta ruta. 
+// Si le cambiaste el nombre al archivo de la foto a "javi-flores.png", cámbialo aquí también.
+import instructorImg from "@/assets/instructor/instructor-javi.png";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos de Cypress",
+    description: "Domina la arquitectura y los comandos básicos de Cypress para automatizar pruebas eficaces.",
+    topics: [
+      "Cypress y su arquitectura.",
+      "Configuración del entorno de desarrollo.",
+      "Uso de comandos, aserciones y selectores.",
+      "Comandos personalizados y alias.",
+      "Escritura, ejecución y análisis de resultados.",
+      "Implementación de buenas prácticas.",
+    ],
+    icon: "Terminal",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Integración avanzada con Cypress (Cucumber, POM)",
+    description: "Aprende a estructurar proyectos escalables usando patrones de diseño y Desarrollo Guiado por Comportamiento (BDD).",
+    topics: [
+      "Introducción a Cucumber y su integración con Cypress.",
+      "Implementación del Page Object Model (POM).",
+      "Organización y estructura de los proyectos de prueba.",
+      "Integración de Git para el control de versiones.",
+      "Mejores prácticas para pruebas escalables y mantenibles.",
+    ],
+    icon: "Layers",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Pruebas de API",
+    description: "Valida el comportamiento del backend integrando pruebas de API en tus flujos automatizados.",
+    topics: [
+      "Introducción a las pruebas de API y su importancia.",
+      "Configuración del entorno en Cypress.",
+      "Escritura, ejecución y validación de datos.",
+      "Integración de pruebas de API en flujos End-to-End.",
+    ],
+    icon: "Server",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Introducción al uso de agentes IA",
+    description: "Descubre cómo la Inteligencia Artificial está revolucionando el testing automatizado.",
+    topics: [
+      "Formas de aplicación de agentes IA para automatización.",
+      "Aplicación de agentes IA para automatización con Cypress.",
+    ],
+    icon: "Bot",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Integración y Despliegue Continuo (CI/CD)",
+    description: "Automatiza la ejecución de tus pruebas en pipelines de despliegue continuo.",
+    topics: [
+      "Introducción a CI/CD en el desarrollo de software.",
+      "Configuración de pipelines con GitLab CI.",
+      "Ejecución automatizada de Cypress en entornos CI/CD.",
+      "Mejores prácticas de integración.",
+    ],
+    icon: "RefreshCw",
+  },
+];
+
+const instructor = {
+  name: "Javi Flores",
+  title: "Especialista en Automatización con Cypress",
+  experience: "Experiencia en entornos Agile y CI/CD",
+  description: "Javier Flores es un QA Lead, certificado en ISTQB y Embajador de Cypress , comprometido con la implementación de la calidad mediante estrategias de automatización y diseño de frameworks mantenibles",
+  image: instructorImg.src, 
+  certifications: [
+    "Cypress ambassador 2026",
+    "ISTQB Foundation level",
+  ],
+};
+
+const courseDetails = {
+  startDate: "14 de Abril de 2026",
+  duration: "6 semanas",
+  schedule: "Martes y Jueves / 18:00 - 21:00",
+  regularPrice: "547 €",
+  earlyBirdPrice: "497 € (antes del 20 de Marzo)", 
+  oldStudentsDiscount: "25% de descuento extra para antiguos alumnos",
+};
+
+const courseId = "individual-cypress";
+const courseName = "Automation Bootcamp: Cypress 4.0";
+---
+
+<Layout title="Automation Bootcamp: Cypress 4.0 - Qualisophy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6">
+      <Breadcrumbs />
+    </div>
+
+    <h1
+      class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16"
+    >
+      Automation Bootcamp: Cypress 4.0
+    </h1>
+
+    <Course
+      client:load
+      modules={modules}
+      instructor={instructor}
+      courseDetails={courseDetails}
+      courseId={courseId}
+    />
+    <EnrollButton client:load courseId={courseId} courseName={courseName} />
+  </div>
+</Layout>
