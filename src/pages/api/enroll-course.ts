@@ -1,13 +1,39 @@
 import type { APIRoute } from "astro";
 
+// FUNCIÓN DE SEGURIDAD: Transforma caracteres peligrosos en texto inofensivo (Previene XSS)
+const escapeHTML = (str: string) => {
+  if (typeof str !== "string") return str;
+  return str.replace(/[&<>"'/]/g, (match) => {
+    const escapeMap: Record<string, string> = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#x27;",
+      "/": "&#x2F;",
+    };
+    return escapeMap[match];
+  });
+};
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
 
-    // 1. Get the key data from the form
-    const { firstName, email, course } = data;
+    // 1. SANITIZACIÓN AUTOMÁTICA DE TODOS LOS CAMPOS
+    // Recorremos todo el objeto y limpiamos cualquier texto malicioso
+    const sanitizedData: Record<string, any> = {};
+    for (const key in data) {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        sanitizedData[key] =
+          typeof data[key] === "string" ? escapeHTML(data[key]) : data[key];
+      }
+    }
 
-    // 2. Server-side validation
+    // 2. Get the key data from the form (ahora sacados de los datos limpios)
+    const { firstName, email, course } = sanitizedData;
+
+    // 3. Server-side validation
     if (!firstName || !email || !course) {
       return new Response(
         JSON.stringify({
@@ -17,7 +43,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // 3. Get the MASTER webhook URL (Same as contact form for Routing)
+    // 4. Get the MASTER webhook URL (Same as contact form for Routing)
     const makeWebhookUrl = import.meta.env.MAKE_WEBHOOK_URL;
 
     if (!makeWebhookUrl) {
@@ -30,13 +56,13 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // 4. Send ALL form data to Make.com with the 'enrollment' type
+    // 5. Send ALL form data to Make.com with the 'enrollment' type
     const response = await fetch(makeWebhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         type: "enrollment", // CLAVE: Esto enviará los datos por la rama de Inscripciones
-        ...data, // Spread all form fields (firstName, lastName, dni, address, etc.)
+        ...sanitizedData, // Spread all sanitized form fields
         submittedAt: new Date().toISOString(),
       }),
     });
@@ -45,7 +71,7 @@ export const POST: APIRoute = async ({ request }) => {
       throw new Error(`Make.com Error: ${response.statusText}`);
     }
 
-    // 5. Return success to the frontend
+    // 6. Return success to the frontend
     return new Response(
       JSON.stringify({ message: "Enrollment sent successfully!" }),
       { status: 200 },
