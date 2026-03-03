@@ -1,5 +1,21 @@
 import type { APIRoute } from "astro";
 
+// FUNCIÓN DE SEGURIDAD: Transforma caracteres peligrosos en texto inofensivo (Previene XSS)
+const escapeHTML = (str: string) => {
+  if (typeof str !== "string") return str;
+  return str.replace(/[&<>"'/]/g, (match) => {
+    const escapeMap: Record<string, string> = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#x27;",
+      "/": "&#x2F;",
+    };
+    return escapeMap[match];
+  });
+};
+
 export const POST: APIRoute = async ({ request }) => {
   const API_KEY = import.meta.env.BREVO_API_KEY;
   const LIST_ID = Number(import.meta.env.BREVO_LIST_ID);
@@ -15,13 +31,42 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     const body = await request.json();
-    const { email } = body;
+
+    // Sanitizamos el email contra inyecciones de código
+    const email = escapeHTML(body.email || "");
 
     if (!email || !email.includes("@")) {
       return new Response(
         JSON.stringify({ message: "Por favor, introduce un email válido." }),
         { status: 400 },
       );
+    }
+
+    // Validación de Email con Abstract API (REPUTATION API)
+    const abstractApiKey = import.meta.env.ABSTRACT_API_KEY;
+    if (abstractApiKey) {
+      try {
+        const validationResponse = await fetch(
+          `https://emailreputation.abstractapi.com/v1/?api_key=${abstractApiKey}&email=${encodeURIComponent(email)}`,
+        );
+        const validationData = await validationResponse.json();
+
+        if (
+          validationData.email_deliverability?.status === "undeliverable" ||
+          validationData.email_quality?.is_disposable === true ||
+          validationData.email_deliverability?.is_format_valid === false
+        ) {
+          return new Response(
+            JSON.stringify({
+              message:
+                "Por favor, introduce un correo electrónico válido y real.",
+            }),
+            { status: 400 },
+          );
+        }
+      } catch (validationError) {
+        console.error("Fallo silencioso en Abstract API:", validationError);
+      }
     }
 
     // Llamada a la API de Brevo

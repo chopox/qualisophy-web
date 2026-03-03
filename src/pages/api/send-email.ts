@@ -21,7 +21,6 @@ export const POST: APIRoute = async ({ request }) => {
     const data = await request.json();
 
     // 1. Obtenemos los datos y los SANITIZAMOS inmediatamente
-    // Esto asegura que ningún código malicioso pase a nuestro sistema o correos
     const name = escapeHTML(data.name || "");
     const email = escapeHTML(data.email || "");
     const message = escapeHTML(data.message || "");
@@ -36,7 +35,53 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // 3. Obtener URL del entorno
+    // 3. Validación de Email con Abstract API (REPUTATION API)
+    const abstractApiKey = import.meta.env.ABSTRACT_API_KEY;
+
+    if (abstractApiKey) {
+      try {
+        const validationResponse = await fetch(
+          `https://emailreputation.abstractapi.com/v1/?api_key=${abstractApiKey}&email=${encodeURIComponent(email)}`,
+        );
+        const validationData = await validationResponse.json();
+
+        // === CHIVATO PARA LA TERMINAL ===
+        console.log(
+          "🔍 Respuesta de Abstract REPUTATION API para el email:",
+          email,
+        );
+        console.log(validationData);
+        // ================================
+
+        if (validationData.error) {
+          console.error(
+            "❌ Error interno de Abstract API:",
+            validationData.error.message,
+          );
+        }
+        // NUEVO ESCUDO ADAPTADO AL JSON DE REPUTATION API
+        else if (
+          validationData.email_deliverability?.status === "undeliverable" ||
+          validationData.email_quality?.is_disposable === true ||
+          validationData.email_deliverability?.is_format_valid === false
+        ) {
+          return new Response(
+            JSON.stringify({
+              message:
+                "Por favor, introduce un correo electrónico válido y real.",
+            }),
+            { status: 400 },
+          );
+        }
+      } catch (validationError) {
+        console.error(
+          "❌ Fallo de conexión con Abstract API:",
+          validationError,
+        );
+      }
+    }
+
+    // 4. Obtener URL del entorno
     const makeWebhookUrl = import.meta.env.MAKE_WEBHOOK_URL;
 
     if (!makeWebhookUrl) {
@@ -47,13 +92,11 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // 4. Enviar a Make (Incluyendo el tipo específico para el enrutamiento)
+    // 5. Enviar a Make
     const response = await fetch(makeWebhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        // Usamos el 'type' que viene del formulario (ej: 'partnership').
-        // Si no viene nada, usamos 'contact' por defecto.
         type: type || "contact",
         name,
         email,

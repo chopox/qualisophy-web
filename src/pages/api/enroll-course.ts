@@ -21,7 +21,6 @@ export const POST: APIRoute = async ({ request }) => {
     const data = await request.json();
 
     // 1. SANITIZACIÓN AUTOMÁTICA DE TODOS LOS CAMPOS
-    // Recorremos todo el objeto y limpiamos cualquier texto malicioso
     const sanitizedData: Record<string, any> = {};
     for (const key in data) {
       if (Object.prototype.hasOwnProperty.call(data, key)) {
@@ -30,10 +29,10 @@ export const POST: APIRoute = async ({ request }) => {
       }
     }
 
-    // 2. Get the key data from the form (ahora sacados de los datos limpios)
+    // 2. Extraemos los campos requeridos
     const { firstName, email, course } = sanitizedData;
 
-    // 3. Server-side validation
+    // 3. Validación inicial
     if (!firstName || !email || !course) {
       return new Response(
         JSON.stringify({
@@ -43,7 +42,34 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // 4. Get the MASTER webhook URL (Same as contact form for Routing)
+    // 4. Validación de Email con Abstract API (REPUTATION API)
+    const abstractApiKey = import.meta.env.ABSTRACT_API_KEY;
+    if (abstractApiKey) {
+      try {
+        const validationResponse = await fetch(
+          `https://emailreputation.abstractapi.com/v1/?api_key=${abstractApiKey}&email=${encodeURIComponent(email)}`,
+        );
+        const validationData = await validationResponse.json();
+
+        if (
+          validationData.email_deliverability?.status === "undeliverable" ||
+          validationData.email_quality?.is_disposable === true ||
+          validationData.email_deliverability?.is_format_valid === false
+        ) {
+          return new Response(
+            JSON.stringify({
+              message:
+                "Por favor, introduce un correo electrónico válido y real.",
+            }),
+            { status: 400 },
+          );
+        }
+      } catch (validationError) {
+        console.error("Fallo silencioso en Abstract API:", validationError);
+      }
+    }
+
+    // 5. Obtener el Webhook
     const makeWebhookUrl = import.meta.env.MAKE_WEBHOOK_URL;
 
     if (!makeWebhookUrl) {
@@ -56,13 +82,13 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // 5. Send ALL form data to Make.com with the 'enrollment' type
+    // 6. Enviar a Make
     const response = await fetch(makeWebhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        type: "enrollment", // CLAVE: Esto enviará los datos por la rama de Inscripciones
-        ...sanitizedData, // Spread all sanitized form fields
+        type: "enrollment",
+        ...sanitizedData,
         submittedAt: new Date().toISOString(),
       }),
     });
@@ -71,7 +97,6 @@ export const POST: APIRoute = async ({ request }) => {
       throw new Error(`Make.com Error: ${response.statusText}`);
     }
 
-    // 6. Return success to the frontend
     return new Response(
       JSON.stringify({ message: "Enrollment sent successfully!" }),
       { status: 200 },

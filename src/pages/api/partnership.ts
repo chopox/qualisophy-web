@@ -20,7 +20,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
 
-    // 1. URL de tu Webhook de Make (Usamos la variable de entorno por seguridad)
+    // 1. URL de tu Webhook de Make
     const MAKE_WEBHOOK_URL = import.meta.env.MAKE_WEBHOOK_URL;
 
     if (!MAKE_WEBHOOK_URL) {
@@ -31,8 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // 2. Preparamos los datos para Make y SANITIZAMOS para evitar ataques XSS
-    // Añadimos type: 'partnership' para que el Router sepa qué hacer
+    // 2. Sanitizamos y preparamos
     const payload = {
       type: "partnership",
       name: escapeHTML(body.name || ""),
@@ -44,7 +43,6 @@ export const POST: APIRoute = async ({ request }) => {
       date: new Date().toISOString(),
     };
 
-    // Validación básica para evitar envíos vacíos
     if (!payload.name || !payload.email) {
       return new Response(
         JSON.stringify({ message: "Faltan campos requeridos." }),
@@ -52,7 +50,34 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // 3. Enviamos a Make
+    // 3. Validación de Email con Abstract API (REPUTATION API)
+    const abstractApiKey = import.meta.env.ABSTRACT_API_KEY;
+    if (abstractApiKey) {
+      try {
+        const validationResponse = await fetch(
+          `https://emailreputation.abstractapi.com/v1/?api_key=${abstractApiKey}&email=${encodeURIComponent(payload.email)}`,
+        );
+        const validationData = await validationResponse.json();
+
+        if (
+          validationData.email_deliverability?.status === "undeliverable" ||
+          validationData.email_quality?.is_disposable === true ||
+          validationData.email_deliverability?.is_format_valid === false
+        ) {
+          return new Response(
+            JSON.stringify({
+              message:
+                "Por favor, introduce un correo electrónico corporativo o válido.",
+            }),
+            { status: 400 },
+          );
+        }
+      } catch (validationError) {
+        console.error("Fallo silencioso en Abstract API:", validationError);
+      }
+    }
+
+    // 4. Enviamos a Make
     const response = await fetch(MAKE_WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -69,6 +94,7 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
   } catch (error) {
+    console.error(error);
     return new Response(JSON.stringify({ message: "Error del servidor" }), {
       status: 500,
     });
