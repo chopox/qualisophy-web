@@ -10,9 +10,6 @@ import Footer from "@/components/Footer.astro";
 import { Sidebar } from "@/components/react/layout/Sidebar";
 import { ChatBox } from "@/components/react/shared/ChatBox";
 
-// CORRECCIÓN: Ajustado el nombre del componente para que coincida exactamente con CookieConsent.tsx
-import { CookieConsent } from "@/components/react/shared/CookieConsent";
-
 export interface Props {
   title: string;
   description?: string;
@@ -43,6 +40,7 @@ const {
     <meta name="description" content={description} />
     <title>{title}</title>
 
+    <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/50976a705c95b786f0c0e37b8938643c/script.js"></script> 
     {/* Preload Fonts */}
     <link
       rel="preload"
@@ -65,23 +63,6 @@ const {
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Nunito:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-    {/* LÓGICA DE CONSENTIMIENTO DE COOKIES */}
-    <script>
-      function loadAnalytics() {
-        if (localStorage.getItem("qualisophy_cookie_consent") === "accepted") {
-          // Aquí es donde en el futuro pegarás tu código real de Google Analytics o Meta Pixel
-          console.log("✅ Cookies aceptadas: Cargando scripts de seguimiento...");
-        } else {
-          console.log("❌ Cookies no aceptadas: Scripts de seguimiento bloqueados por normativa.");
-        }
-      }
-
-      // Comprobamos al cargar la página
-      loadAnalytics();
-
-      // Escuchamos el evento por si el usuario acaba de pulsar "Aceptar" en este momento
-      window.addEventListener("cookiesAccepted", loadAnalytics);
-    </script>
   </head>
 
   <body
@@ -115,9 +96,6 @@ const {
     <div id="chatbox-container" class="relative z-50">
       {!hideChatBox && <ChatBox client:load />}
     </div>
-
-    {/* AVISO DE COOKIES */}
-    <CookieConsent client:only="react" />
 
   </body>
 </html>
