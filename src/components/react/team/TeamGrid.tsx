@@ -4,7 +4,6 @@ import { ParticleMeshBackground } from "../shared/ParticleMeshBackground";
 
 // Importación de imágenes
 import imgFran from "../../../assets/team-fran.png";
-import imgSergio from "../../../assets/team-sergio.jpeg";
 import imgElena from "../../../assets/team-elena.png";
 import imgJuanpe from "../../../assets/team-juanpe.jpeg";
 import imgPatricia from "../../../assets/team-patricia.jpeg";
@@ -22,18 +21,7 @@ const teamMembers = [
       "Alianzas de impacto social",
     ],
   },
-  {
-    name: "Sergio Jara",
-    role: "Marketing",
-    image: imgSergio.src,
-    position: "object-top",
-    scale: "scale-100",
-    highlights: [
-      "Estrategia Comercial EdTech",
-      "Marketing y Comunicación",
-      "Formación y docencia",
-    ],
-  },
+
   {
     name: "Francisco Guerrero",
     role: "Instructor Tech",

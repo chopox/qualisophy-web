@@ -89,7 +89,6 @@ Ofrecemos las siguientes formaciones corporativas adaptadas a las necesidades de
 # EQUIPO DIRECTIVO (URL: /team)
 
 - Elena Martín: CEO & Founder.
-- Sergio Jara: Marketing.
 - Francisco Guerrero: Instructor Tech.
 - Patricia Beyet: Project Manager & Agile Coach.
 - Juan Pedro Gómez: Desarrollo Web Fullstack.
