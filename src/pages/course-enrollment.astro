@@ -19,6 +19,7 @@ const courseCatalog: Record<
     duration: string;
     modality: string;
     price: string;
+    priceSubtext?: string; // NUEVO: Para detalles de ofertas
   }
 > = {
   // Individual Courses
@@ -62,10 +63,11 @@ const courseCatalog: Record<
     description: "Aprende automatización de pruebas web modernas con Cypress desde cero.",
     image:
       "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1488&q=80",
-    startDate: "Próximamente",
-    duration: "32 horas (6 semanas)",
+    startDate: "14 de Abril de 2026",
+    duration: "36 horas (6 semanas)",
     modality: "Online en vivo",
-    price: "447 €",
+    price: "497 €",
+    priceSubtext: "reservando antes del 20 de Marzo (después 547 €)",
   },
 
   // Enterprise Training Courses
@@ -195,6 +197,7 @@ const courseCardData = selectedCourse
       footer: {
         label: "Precio",
         value: selectedCourse.price,
+        subValue: selectedCourse.priceSubtext, // Pasamos el nuevo valor a la tarjeta
       },
     }
   : null;
@@ -222,7 +225,6 @@ const courseCardData = selectedCourse
             Estás a un paso de comenzar tu aprendizaje. Completa tus datos para
             reservar tu plaza.
           </p>
-          {/* PASAMOS 'initialCourseId' PARA PRE-SELECCIONAR EL CURSO */}
           <CourseEnrollmentForm 
             client:load 
             courses={courses} 
