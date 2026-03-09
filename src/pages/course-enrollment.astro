@@ -3,6 +3,10 @@ import Layout from "@/layouts/Layout.astro";
 import { CourseEnrollmentForm } from "@/components/react/course/CourseEnrollmentForm";
 import { InstructorCard } from "@/components/react/course/InstructorCard";
 
+// Importación de imágenes locales
+import imgQa from "@/assets/imagenes-cursos/qa/qa-curso.png";
+import imgCypress from "@/assets/imagenes-cursos/qa/cypress-bootcamp.png";
+
 // Get course ID from URL params
 const url = new URL(Astro.request.url);
 const courseId = url.searchParams.get("course") || "";
@@ -19,7 +23,10 @@ const courseCatalog: Record<
     duration: string;
     modality: string;
     price: string;
-    priceSubtext?: string; // NUEVO: Para detalles de ofertas
+    priceSubtext?: string; 
+    formerStudentDiscount?: string;
+    categorySlug?: string; 
+    courseSlug?: string;   
   }
 > = {
   // Individual Courses
@@ -28,12 +35,13 @@ const courseCatalog: Record<
     name: "Testing y Calidad del Software",
     description:
       "Aprende testing desde cero hasta avanzado con herramientas modernas.",
-    image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1471&q=80",
+    image: imgQa.src, // Imagen local
     startDate: "17 de Febrero, 2025",
     duration: "40 horas (7 semanas)",
     modality: "Online en vivo",
     price: "497 €",
+    categorySlug: "qa",
+    courseSlug: "software-quality-testing-course",
   },
   "individual-bdd": {
     id: "individual-bdd",
@@ -45,6 +53,8 @@ const courseCatalog: Record<
     duration: "32 horas (6 semanas)",
     modality: "Online en vivo",
     price: "447 €",
+    categorySlug: "learning",
+    courseSlug: "bdd-automation-e2e-course",
   },
   "individual-devops": {
     id: "individual-devops",
@@ -56,18 +66,22 @@ const courseCatalog: Record<
     duration: "40 horas (7 semanas)",
     modality: "Online en vivo",
     price: "497 €",
+    categorySlug: "qa",
+    courseSlug: "devops-for-testers-course",
   },
   "individual-cypress": {
     id: "individual-cypress",
     name: "Cypress Bootcamp",
     description: "Aprende automatización de pruebas web modernas con Cypress desde cero.",
-    image:
-      "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1488&q=80",
+    image: imgCypress.src, // Imagen local
     startDate: "14 de Abril de 2026",
     duration: "36 horas (6 semanas)",
     modality: "Online en vivo",
     price: "497 €",
-    priceSubtext: "reservando antes del 20 de Marzo (después 547 €)",
+    priceSubtext: "reservando antes del 20 de Marzo de 2026 (después 547 €)",
+    formerStudentDiscount: "25% de descuento extra para antiguos alumnos",
+    categorySlug: "qa",
+    courseSlug: "cypress-bootcamp",
   },
 
   // Enterprise Training Courses
@@ -171,6 +185,14 @@ const courses = Object.values(courseCatalog).map((course) => ({
   name: course.name,
 }));
 
+// Formateamos la categoría para los breadcrumbs ("qa" -> "QA & Testing")
+const formatCategoryName = (slug: string) => {
+  if (slug === 'qa') return 'QA & Testing';
+  if (slug === 'dev') return 'Desarrollo';
+  if (slug === 'pm') return 'Management';
+  return 'Formación';
+};
+
 // Course card data (only if course is selected)
 const courseCardData = selectedCourse
   ? {
@@ -197,7 +219,8 @@ const courseCardData = selectedCourse
       footer: {
         label: "Precio",
         value: selectedCourse.price,
-        subValue: selectedCourse.priceSubtext, // Pasamos el nuevo valor a la tarjeta
+        subValue: selectedCourse.priceSubtext, 
+        discountText: selectedCourse.formerStudentDiscount, 
       },
     }
   : null;
@@ -206,11 +229,32 @@ const courseCardData = selectedCourse
 <Layout title="Inscripción a Cursos - Qualisophy">
   <div class="min-h-screen bg-gradient-to-b to-white py-12 px-4">
     <div class="max-w-7xl mx-auto">
-      <nav class="text-sm text-slate-500 mb-8">
-        <a href="/" class="hover:text-primary">Inicio</a>
-        <span class="mx-2">/</span>
-        <a href="/learning" class="hover:text-primary">Cursos</a>
-        <span class="mx-2">/</span>
+      
+      {/* BREADCRUMBS DINÁMICOS */}
+      <nav class="text-sm text-slate-500 mb-8 flex flex-wrap items-center">
+        <a href="/" class="hover:text-primary transition-colors">Inicio</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <a href="/learning" class="hover:text-primary transition-colors">Cursos</a>
+        
+        {selectedCourse?.categorySlug && (
+          <>
+            <span class="mx-2 text-slate-400">/</span>
+            <a href={`/learning/${selectedCourse.categorySlug}`} class="hover:text-primary transition-colors">
+              {formatCategoryName(selectedCourse.categorySlug)}
+            </a>
+          </>
+        )}
+        
+        {selectedCourse?.courseSlug && (
+          <>
+            <span class="mx-2 text-slate-400">/</span>
+            <a href={`/learning/${selectedCourse.categorySlug}/${selectedCourse.courseSlug}`} class="hover:text-primary transition-colors truncate max-w-[200px] sm:max-w-xs">
+              {selectedCourse.name}
+            </a>
+          </>
+        )}
+
+        <span class="mx-2 text-slate-400">/</span>
         <span class="text-slate-800 font-medium">Inscripción</span>
       </nav>
 

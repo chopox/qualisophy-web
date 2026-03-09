@@ -17,22 +17,21 @@ interface CourseInfoProps {
   className?: string;
 }
 
+// Modificamos CourseInfoBar para que acepte ReactNode en vez de solo string
 export const CourseInfoBar = ({
   icon,
-  text,
+  content,
   className = "",
 }: {
   icon: React.ReactNode;
-  text: string;
+  content: React.ReactNode;
   className?: string;
 }) => (
   <div
     className={`rounded-lg py-3 px-3 md:px-5 flex items-center space-x-3 text-white ${className}`}
   >
     {icon}
-    <span className="font-semibold text-xs xl:text-sm 2xl:text-base">
-      {text}
-    </span>
+    {content}
   </div>
 );
 
@@ -48,6 +47,25 @@ export const CourseInfo = ({
     courseDetails.oldStudentsDiscount ||
     "25% de descuento extra para antiguos alumnos";
 
+  // Función para formatear el horario en dos líneas: Días y Horario
+  const formatSchedule = (scheduleStr: string) => {
+    if (scheduleStr.includes("/")) {
+      const parts = scheduleStr.split("/");
+      return (
+        <div className="flex flex-col text-xs xl:text-sm 2xl:text-base font-semibold space-y-0.5">
+          <span>Días: {parts[0].trim()}</span>
+          <span>Horario: {parts[1].trim()} horas</span>
+        </div>
+      );
+    }
+    // Si por algún casual no tuviera la barra "/", lo pinta normal
+    return (
+      <span className="font-semibold text-xs xl:text-sm 2xl:text-base">
+        Horario: {scheduleStr}
+      </span>
+    );
+  };
+
   return (
     <div className={`bg-white ${className}`}>
       {/* Course Info Bars */}
@@ -55,12 +73,16 @@ export const CourseInfo = ({
         <CourseInfoBar
           className="bg-primary"
           icon={<Calendar className="w-6 h-6 md:w-7 md:h-7 flex-shrink-0" />}
-          text={`Inicio: ${courseDetails.startDate}`}
+          content={
+            <span className="font-semibold text-xs xl:text-sm 2xl:text-base">
+              Inicio: {courseDetails.startDate}
+            </span>
+          }
         />
         <CourseInfoBar
           className="bg-secondary"
           icon={<Clock className="w-6 h-6 md:w-7 md:h-7 flex-shrink-0" />}
-          text={`Horario: ${courseDetails.schedule}`}
+          content={formatSchedule(courseDetails.schedule)}
         />
       </div>
 
@@ -105,7 +127,7 @@ export const CourseInfo = ({
             </span>
           </div>
 
-          {/* NUEVO: DESCUENTO ANTIGUOS ALUMNOS CENTRADO EN TODOS LOS CURSOS */}
+          {/* DESCUENTO ANTIGUOS ALUMNOS CENTRADO EN TODOS LOS CURSOS */}
           <div className="flex justify-center w-full pt-5 mt-3 border-t border-gray-100">
             <span className="font-bold text-green-700 text-sm text-center">
               {discountMessage}

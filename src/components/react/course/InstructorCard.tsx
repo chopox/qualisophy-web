@@ -27,7 +27,8 @@ interface InstructorCardProps {
   footer?: {
     label: string;
     value: string;
-    subValue?: string; // NUEVO: Subtítulo para el footer (ej. aclaraciones de precio)
+    subValue?: string; // Subtítulo para el footer (ej. aclaraciones de precio)
+    discountText?: string; // NUEVO: Descuento para antiguos alumnos
   };
   className?: string;
 }
@@ -141,10 +142,16 @@ export const InstructorCard = ({
             <p className="text-3xl font-bold text-slate-800 text-center">
               {footer.value}
             </p>
-            {/* Pintamos el texto secundario si se ha enviado */}
+            {/* Pintamos el texto secundario de precio anticipado */}
             {footer.subValue && (
               <p className="text-xs text-slate-500 font-medium text-center mt-1">
                 {footer.subValue}
+              </p>
+            )}
+            {/* Pintamos el descuento de antiguo alumno */}
+            {footer.discountText && (
+              <p className="text-xs font-bold text-green-600 text-center mt-4">
+                {footer.discountText}
               </p>
             )}
           </div>

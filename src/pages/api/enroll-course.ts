@@ -21,22 +21,33 @@ export const POST: APIRoute = async ({ request }) => {
     const data = await request.json();
 
     // 1. SANITIZACIÓN AUTOMÁTICA DE TODOS LOS CAMPOS
+    // Recorremos todo el objeto y limpiamos cualquier texto malicioso
     const sanitizedData: Record<string, any> = {};
     for (const key in data) {
       if (Object.prototype.hasOwnProperty.call(data, key)) {
+        // No sanitizamos booleanos como privacyAccepted
         sanitizedData[key] =
           typeof data[key] === "string" ? escapeHTML(data[key]) : data[key];
       }
     }
 
-    // 2. Extraemos los campos requeridos
-    const { firstName, email, course } = sanitizedData;
+    // 2. Extraemos los campos requeridos para validación del servidor
+    const { firstName, email, course, privacyAccepted } = sanitizedData;
 
-    // 3. Validación inicial
+    // 3. Validación del lado del servidor
     if (!firstName || !email || !course) {
       return new Response(
         JSON.stringify({
-          message: "First name, email, and course are required.",
+          message: "Nombre, Email y Curso son campos obligatorios.",
+        }),
+        { status: 400 },
+      );
+    }
+
+    if (!privacyAccepted) {
+      return new Response(
+        JSON.stringify({
+          message: "Debes aceptar la política de privacidad.",
         }),
         { status: 400 },
       );
@@ -66,29 +77,30 @@ export const POST: APIRoute = async ({ request }) => {
         }
       } catch (validationError) {
         console.error("Fallo silencioso en Abstract API:", validationError);
+        // Si la API falla, dejamos continuar el proceso para no bloquear al usuario
       }
     }
 
-    // 5. Obtener el Webhook
+    // 5. Obtener la URL MASTER del Webhook de Make
     const makeWebhookUrl = import.meta.env.MAKE_WEBHOOK_URL;
 
     if (!makeWebhookUrl) {
       console.error("Error: MAKE_WEBHOOK_URL is not set.");
       return new Response(
-        JSON.stringify({ message: "Internal server error." }),
+        JSON.stringify({ message: "Error interno del servidor." }),
         {
           status: 500,
         },
       );
     }
 
-    // 6. Enviar a Make
+    // 6. Enviar TODOS los datos sanitizados a Make.com con el tipo 'enrollment'
     const response = await fetch(makeWebhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        type: "enrollment",
-        ...sanitizedData,
+        type: "enrollment", // CLAVE: Esto enviará los datos por la rama de Inscripciones en Make
+        ...sanitizedData, // Extendemos city, province, zipCode, address, dni, phone, etc.
         submittedAt: new Date().toISOString(),
       }),
     });
@@ -97,14 +109,15 @@ export const POST: APIRoute = async ({ request }) => {
       throw new Error(`Make.com Error: ${response.statusText}`);
     }
 
+    // 7. Retornar éxito al frontend
     return new Response(
-      JSON.stringify({ message: "Enrollment sent successfully!" }),
+      JSON.stringify({ message: "Inscripción enviada correctamente." }),
       { status: 200 },
     );
   } catch (error) {
     console.error("Error sending to Make.com:", error);
     return new Response(
-      JSON.stringify({ message: "Error processing enrollment." }),
+      JSON.stringify({ message: "Error al procesar la inscripción." }),
       { status: 500 },
     );
   }

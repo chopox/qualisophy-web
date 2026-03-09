@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "@/hooks/useTranslations";
-
-// Import the validation function and the new FormData type
-import {
-  validateEnrollmentForm,
-  type EnrollmentFormData,
-} from "@/lib/validation";
+import { validateEnrollmentForm } from "@/lib/validation";
 import { Button } from "@/components/react/shared/Button";
 import { Card } from "@/components/react/shared/Card";
 
@@ -16,10 +11,25 @@ interface Course {
 
 interface CourseEnrollmentFormProps {
   courses: Course[];
-  initialCourseId?: string; // NUEVA PROP: Recibe el ID del curso desde Astro
+  initialCourseId?: string;
 }
 
-const initialFormDataBase = {
+// Ampliamos la interfaz para incluir Municipio, Provincia y Privacidad
+export interface EnrollmentFormDataExtended {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  dni: string;
+  address: string;
+  zipCode: string;
+  city: string; // Municipio
+  province: string;
+  course: string;
+  privacyAccepted: boolean;
+}
+
+const initialFormDataBase: EnrollmentFormDataExtended = {
   firstName: "",
   lastName: "",
   email: "",
@@ -30,14 +40,14 @@ const initialFormDataBase = {
   city: "",
   province: "",
   course: "",
+  privacyAccepted: false,
 };
 
 export const CourseEnrollmentForm = ({
   courses,
   initialCourseId = "",
 }: CourseEnrollmentFormProps) => {
-  // Inicializamos el estado usando la prop 'initialCourseId' si existe
-  const [formData, setFormData] = useState<EnrollmentFormData>({
+  const [formData, setFormData] = useState<EnrollmentFormDataExtended>({
     ...initialFormDataBase,
     course: initialCourseId || "",
   });
@@ -46,21 +56,18 @@ export const CourseEnrollmentForm = ({
   const [formSuccess, setFormSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Establecemos 'isPreSelected' a true si viene un ID válido
   const [isPreSelected, setIsPreselected] = useState(
     !!initialCourseId && courses.some((c) => c.id === initialCourseId),
   );
 
   const t = useTranslations();
 
-  // useEffect se mantiene como respaldo para navegación en el cliente puro
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const urlParams = new URLSearchParams(window.location.search);
     const courseFromUrl = urlParams.get("course");
 
-    // Solo actualizamos si es diferente al inicial y es válido
     if (
       courseFromUrl &&
       courseFromUrl !== initialCourseId &&
@@ -74,10 +81,14 @@ export const CourseEnrollmentForm = ({
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target as HTMLInputElement;
+    const checked = (e.target as HTMLInputElement).checked;
 
-    // Clear error for the field being edited
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+
     if (formErrors[name]) {
       setFormErrors((prev) => ({ ...prev, [name]: "" }));
     }
@@ -85,30 +96,46 @@ export const CourseEnrollmentForm = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validación de Privacidad
+    if (!formData.privacyAccepted) {
+      setFormErrors({
+        general: "Debes aceptar la Política de Privacidad de Qualisophy.",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     setFormErrors({});
     setFormSuccess(false);
 
     try {
-      // 1. Validate form data
-      const validation = validateEnrollmentForm(formData);
+      const validation = validateEnrollmentForm({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        dni: formData.dni,
+        address: formData.address,
+        zipCode: formData.zipCode,
+        city: formData.city,
+        province: formData.province,
+        course: formData.course,
+      });
 
       if (validation.success) {
-        // 2. Send data to API
         const response = await fetch("/api/enroll-course", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(validation.data),
+          body: JSON.stringify(formData),
         });
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.message || "Server error");
+          throw new Error(errorData.message || "Error del servidor");
         }
 
-        // 3. Handle success
         setFormSuccess(true);
-        // Reset form but keep the course if preselected
         setFormData({
           ...initialFormDataBase,
           course: isPreSelected ? formData.course : "",
@@ -116,17 +143,25 @@ export const CourseEnrollmentForm = ({
 
         setTimeout(() => setFormSuccess(false), 5000);
       } else {
-        setFormErrors(validation.errors || { general: "Validation error" });
+        setFormErrors(
+          validation.errors || {
+            general: "Error de validación en el formulario.",
+          },
+        );
       }
     } catch (error: any) {
       console.error("Submission error:", error);
-      setFormErrors({ general: error.message || "Error processing the form" });
+      setFormErrors({
+        general: error.message || "Hubo un error procesando tu inscripción.",
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const getInputClasses = (fieldName: keyof EnrollmentFormData | string) => {
+  const getInputClasses = (
+    fieldName: keyof EnrollmentFormDataExtended | string,
+  ) => {
     const baseClasses =
       "w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 text-sm bg-white";
     const errorClasses = "border-red-300 focus:ring-red-500";
@@ -142,7 +177,6 @@ export const CourseEnrollmentForm = ({
 
   return (
     <Card>
-      {/* Success Message */}
       {formSuccess && (
         <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
           <div className="flex items-center">
@@ -153,7 +187,6 @@ export const CourseEnrollmentForm = ({
         </div>
       )}
 
-      {/* General Error Message */}
       {formErrors.general && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
           <div className="flex items-center">
@@ -164,17 +197,14 @@ export const CourseEnrollmentForm = ({
         </div>
       )}
 
-      {/* Enrollment Form */}
       <form onSubmit={handleSubmit} className="space-y-4 bg-white">
-        {/* Row 1: First Name & Last Name */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label
               htmlFor="firstName"
               className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
             >
-              {t("enrollment.firstNameLabel")}{" "}
-              <span className="text-red-600">*</span>
+              Nombre <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
@@ -183,7 +213,7 @@ export const CourseEnrollmentForm = ({
               value={formData.firstName}
               onChange={handleInputChange}
               className={getInputClasses("firstName")}
-              placeholder={t("enrollment.firstNamePlaceholder")}
+              placeholder="Introduce tu nombre"
             />
             {formErrors.firstName && (
               <p className="text-red-600 text-xs mt-2">
@@ -196,8 +226,7 @@ export const CourseEnrollmentForm = ({
               htmlFor="lastName"
               className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
             >
-              {t("enrollment.lastNameLabel")}{" "}
-              <span className="text-red-600">*</span>
+              Apellidos <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
@@ -206,7 +235,7 @@ export const CourseEnrollmentForm = ({
               value={formData.lastName}
               onChange={handleInputChange}
               className={getInputClasses("lastName")}
-              placeholder={t("enrollment.lastNamePlaceholder")}
+              placeholder="Introduce tus apellidos"
             />
             {formErrors.lastName && (
               <p className="text-red-600 text-xs mt-2">{formErrors.lastName}</p>
@@ -214,15 +243,13 @@ export const CourseEnrollmentForm = ({
           </div>
         </div>
 
-        {/* Row 2: Email & Phone */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label
               htmlFor="email"
               className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
             >
-              {t("enrollment.emailLabel")}{" "}
-              <span className="text-red-600">*</span>
+              Email <span className="text-red-600">*</span>
             </label>
             <input
               type="email"
@@ -231,7 +258,7 @@ export const CourseEnrollmentForm = ({
               value={formData.email}
               onChange={handleInputChange}
               className={getInputClasses("email")}
-              placeholder={t("enrollment.emailPlaceholder")}
+              placeholder="tu@email.com"
             />
             {formErrors.email && (
               <p className="text-red-600 text-xs mt-2">{formErrors.email}</p>
@@ -242,8 +269,7 @@ export const CourseEnrollmentForm = ({
               htmlFor="phone"
               className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
             >
-              {t("enrollment.phoneLabel")}{" "}
-              <span className="text-red-600">*</span>
+              Teléfono <span className="text-red-600">*</span>
             </label>
             <input
               type="tel"
@@ -252,7 +278,7 @@ export const CourseEnrollmentForm = ({
               value={formData.phone}
               onChange={handleInputChange}
               className={getInputClasses("phone")}
-              placeholder={t("enrollment.phonePlaceholder")}
+              placeholder="Ej: 600111222"
             />
             {formErrors.phone && (
               <p className="text-red-600 text-xs mt-2">{formErrors.phone}</p>
@@ -260,14 +286,13 @@ export const CourseEnrollmentForm = ({
           </div>
         </div>
 
-        {/* Row 3: DNI & Zip Code */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label
               htmlFor="dni"
               className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
             >
-              {t("enrollment.dniLabel")} <span className="text-red-600">*</span>
+              DNI / NIE <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
@@ -276,7 +301,7 @@ export const CourseEnrollmentForm = ({
               value={formData.dni}
               onChange={handleInputChange}
               className={getInputClasses("dni")}
-              placeholder={t("enrollment.dniPlaceholder")}
+              placeholder="Ej: 12345678X"
             />
             {formErrors.dni && (
               <p className="text-red-600 text-xs mt-2">{formErrors.dni}</p>
@@ -287,8 +312,7 @@ export const CourseEnrollmentForm = ({
               htmlFor="zipCode"
               className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
             >
-              {t("enrollment.zipCodeLabel")}{" "}
-              <span className="text-red-600">*</span>
+              Código Postal <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
@@ -297,7 +321,7 @@ export const CourseEnrollmentForm = ({
               value={formData.zipCode}
               onChange={handleInputChange}
               className={getInputClasses("zipCode")}
-              placeholder={t("enrollment.zipCodePlaceholder")}
+              placeholder="Ej: 29001"
               maxLength={5}
             />
             {formErrors.zipCode && (
@@ -306,14 +330,12 @@ export const CourseEnrollmentForm = ({
           </div>
         </div>
 
-        {/* Row 4: Address */}
         <div>
           <label
             htmlFor="address"
             className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
           >
-            {t("enrollment.addressLabel")}{" "}
-            <span className="text-red-600">*</span>
+            Dirección <span className="text-red-600">*</span>
           </label>
           <input
             type="text"
@@ -322,22 +344,20 @@ export const CourseEnrollmentForm = ({
             value={formData.address}
             onChange={handleInputChange}
             className={getInputClasses("address")}
-            placeholder={t("enrollment.addressPlaceholder")}
+            placeholder="Ej: Calle Principal, 2, 1A"
           />
           {formErrors.address && (
             <p className="text-red-600 text-xs mt-2">{formErrors.address}</p>
           )}
         </div>
 
-        {/* Row 5: City & Province */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label
               htmlFor="city"
               className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
             >
-              {t("enrollment.cityLabel")}{" "}
-              <span className="text-red-600">*</span>
+              Municipio <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
@@ -346,7 +366,7 @@ export const CourseEnrollmentForm = ({
               value={formData.city}
               onChange={handleInputChange}
               className={getInputClasses("city")}
-              placeholder={t("enrollment.cityPlaceholder")}
+              placeholder="Ej: Málaga"
             />
             {formErrors.city && (
               <p className="text-red-600 text-xs mt-2">{formErrors.city}</p>
@@ -357,8 +377,7 @@ export const CourseEnrollmentForm = ({
               htmlFor="province"
               className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
             >
-              {t("enrollment.provinceLabel")}{" "}
-              <span className="text-red-600">*</span>
+              Provincia <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
@@ -367,7 +386,7 @@ export const CourseEnrollmentForm = ({
               value={formData.province}
               onChange={handleInputChange}
               className={getInputClasses("province")}
-              placeholder={t("enrollment.provincePlaceholder")}
+              placeholder="Ej: Málaga"
             />
             {formErrors.province && (
               <p className="text-red-600 text-xs mt-2">{formErrors.province}</p>
@@ -375,27 +394,22 @@ export const CourseEnrollmentForm = ({
           </div>
         </div>
 
-        {/* Row 6: Course Selection */}
         <div>
           <label
             htmlFor="course"
             className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
           >
-            {t("enrollment.courseLabel")}{" "}
-            <span className="text-red-600">*</span>
+            Curso <span className="text-red-600">*</span>
           </label>
-
           {isPreSelected ? (
-            // Display as static text if pre-selected
             <>
               <div className="w-full px-3 py-2 border border-slate-300 rounded-md bg-gray-50 text-sm text-slate-700">
                 {courses.find((c) => c.id === formData.course)?.name ||
-                  t("enrollment.coursePreselected")}
+                  "Curso Seleccionado"}
               </div>
               <input type="hidden" name="course" value={formData.course} />
             </>
           ) : (
-            // Display as dropdown if not pre-selected
             <select
               id="course"
               name="course"
@@ -403,7 +417,9 @@ export const CourseEnrollmentForm = ({
               onChange={handleInputChange}
               className={getInputClasses("course")}
             >
-              <option value="">{t("enrollment.courseSelectDefault")}</option>
+              <option value="" disabled>
+                Selecciona un curso
+              </option>
               {courses.map((course) => (
                 <option key={course.id} value={course.id}>
                   {course.name}
@@ -411,23 +427,70 @@ export const CourseEnrollmentForm = ({
               ))}
             </select>
           )}
-
           {formErrors.course && (
             <p className="text-red-600 text-xs mt-2">{formErrors.course}</p>
           )}
         </div>
 
-        {/* Submit Button */}
+        {/* ALINEACIÓN CORREGIDA AQUÍ */}
+        <div className="flex items-start space-x-3 pt-4">
+          <div className="flex h-5 items-center">
+            <input
+              type="checkbox"
+              id="privacyAccepted"
+              name="privacyAccepted"
+              required
+              checked={formData.privacyAccepted}
+              onChange={handleInputChange}
+              className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary cursor-pointer"
+            />
+          </div>
+          <label
+            htmlFor="privacyAccepted"
+            className="text-sm leading-5 text-slate-600 cursor-pointer select-none"
+          >
+            He leído y acepto la Política de protección de datos de Qualisophy.{" "}
+            <span className="text-red-600">*</span>
+          </label>
+        </div>
+
         <Button
           type="submit"
-          variant="secondary"
+          variant="primary"
           size="md"
           fullWidth
           loading={isSubmitting}
-          disabled={isSubmitting}
+          disabled={isSubmitting || !formData.privacyAccepted}
+          className="mt-2"
         >
-          {t("enrollment.submitButton")}
+          {isSubmitting ? "Enviando..." : "Inscríbete"}
         </Button>
+
+        <p className="font-bold border-b border-slate-100 pb-1 mb-2 text-slate-800">
+          Política de Privacidad
+        </p>
+        <p className="text-justify text-[11px] leading-relaxed text-slate-500 mb-2">
+          Los datos de carácter personal facilitados serán tratados por{" "}
+          <strong>Qualisophy SL con CIF B16444960</strong> de acuerdo con lo
+          dispuesto en el Reglamento (UE) 2016/679 del Parlamento Europeo y del
+          Consejo, de 27 de abril de 2016, relativo a la protección de las
+          personas físicas en lo que respecta al tratamiento de datos personales
+          y a la libre circulación de los mismos.
+        </p>
+        <p className="text-justify text-[11px] leading-relaxed text-slate-500 mb-2">
+          Los datos facilitados serán tratados por el tiempo necesario para el
+          cumplimiento de las finalidades objeto de tratamiento, mientras no se
+          oponga al mismo y por el tiempo necesario para el cumplimiento de las
+          obligaciones legales del responsable.
+        </p>
+        <p className="text-justify text-[11px] leading-relaxed text-slate-500">
+          Le recordamos que tiene derecho a ejercer los derechos de acceso,
+          rectificación, cancelación, limitación, oposición y portabilidad de
+          manera gratuita mediante correo electrónico a:{" "}
+          <strong>hello@qualisophy.com</strong> y de solicitar la tutela de la
+          Agencia Española de Protección de Datos en{" "}
+          <strong>www.aepd.es</strong>.
+        </p>
       </form>
     </Card>
   );

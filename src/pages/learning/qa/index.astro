@@ -4,12 +4,16 @@ import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import { CourseGridCard } from "@/components/react/course/CourseGridCard";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
+// Importación de imágenes locales
+import imgQa from "@/assets/imagenes-cursos/qa/qa-curso.png";
+import imgCypress from "@/assets/imagenes-cursos/qa/cypress-bootcamp.png";
+
 // Datos enriquecidos para la UI
 const courses = [
   {
     title: "Testing y Calidad del Software",
     description: "Domina los fundamentos del testing manual, diseño de casos de prueba, reporte de bugs y metodologías ágiles como Scrum aplicadas a QA.",
-    imageUrl: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&q=80",
+    imageUrl: imgQa.src, // Imagen local
     href: "/learning/qa/software-quality-testing-course",
     level: "Principiante",
     duration: "40 Horas",
@@ -19,7 +23,7 @@ const courses = [
   {
     title: "Cypress Bootcamp: Automatización E2E con BDD",
     description: "Aprende a automatizar pruebas funcionales utilizando Cucumber, Gherkin y Cypress. Integra tus pruebas en entornos de integración continua.",
-    imageUrl: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80",
+    imageUrl: imgCypress.src, // Imagen local
     href: "/learning/qa/cypress-bootcamp",
     level: "Intermedio",
     duration: "36 Horas",
