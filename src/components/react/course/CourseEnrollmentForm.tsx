@@ -467,7 +467,7 @@ export const CourseEnrollmentForm = ({
         </Button>
 
         <p className="font-bold border-b border-slate-100 pb-1 mb-2 text-slate-800">
-          Política de Privacidad
+          Política de Protección de Datos
         </p>
         <p className="text-justify text-[11px] leading-relaxed text-slate-500 mb-2">
           Los datos de carácter personal facilitados serán tratados por{" "}
