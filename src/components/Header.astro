@@ -13,9 +13,10 @@ const isPartnership = currentPath === "/partnership";
 
 // Grupo Programas
 const isNeuro = currentPath === "/neurodivergence";
+const isRural = currentPath === "/rural-area";
 const isMigrant = currentPath === "/migrant-talent";
 const isSocial = currentPath === "/social-impact";
-const isProgramsGroup = isNeuro || isMigrant || isSocial;
+const isProgramsGroup = isNeuro || isMigrant || isSocial || isRural;
 
 // Grupo Cursos
 const isReskilling = currentPath === "/reskilling";
@@ -34,13 +35,8 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
 ---
 
 <header class="sticky top-0 z-50 bg-white text-secondary shadow-sm border-b border-gray-100 transition-all duration-300 h-20">
-  {/* Usamos relative en el nav para poder posicionar elementos absolutos en móvil */}
   <nav class="container mx-auto px-6 flex items-center h-full relative lg:justify-between">
 
-    {/* --- LOGO (Centrado en móvil, a la izquierda en desktop) --- 
-        - En móvil (por defecto): 'mx-auto' lo centra porque el contenedor es flex.
-        - En desktop (lg:): 'lg:mx-0' lo pega a la izquierda.
-    */}
     <a href="/" class="block shrink-0 flex items-center mx-auto lg:mx-0">
       <Image
         loading="eager"
@@ -53,14 +49,11 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
       />
     </a>
 
-    {/* --- DESKTOP MENU (Solo visible en LG) --- */}
     <ul class="hidden lg:flex items-center h-full gap-1">
-      {/* Inicio */}
       <li class="h-full">
         <a href="/" class={`${navItemBaseClass} ${isHome ? navItemActiveClass : navItemInactiveClass}`} data-i18n="nav.home">Inicio</a>
       </li>
 
-      {/* DROPDOWN 1: Programas Formativos */}
       <li class="relative group h-full">
         <div class="h-full">
             <button class={`focus:outline-none cursor-pointer justify-center ${navItemBaseClass} ${isProgramsGroup ? navItemActiveClass : navItemInactiveClass}`}>
@@ -71,13 +64,13 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
         <div class="absolute top-full left-0 min-w-full w-max bg-white rounded-b-xl rounded-t-none shadow-xl border border-gray-100 border-t-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-0 p-0 z-50 -mt-[1px] overflow-hidden">
           <div class="flex flex-col">
             <a href="/neurodivergence" class={`${dropdownItemClass} ${isNeuro ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>Neurodivergencia</a>
+            <a href="/rural-area" class={`${dropdownItemClass} ${isRural ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>Entorno Rural</a>
             <a href="/migrant-talent" class={`${dropdownItemClass} ${isMigrant ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>Talento Migrante</a>
             <a href="/social-impact" class={`${dropdownItemClass} ${isSocial ? dropdownActiveItemClass : dropdownInactiveItemClass}`}>Riesgo de Exclusión</a>
           </div>
         </div>
       </li>
 
-      {/* DROPDOWN 2: Nuestras Formaciones */}
       <li class="relative group h-full">
          <div class="h-full">
             <button class={`focus:outline-none cursor-pointer justify-center ${navItemBaseClass} ${isCoursesGroup ? navItemActiveClass : navItemInactiveClass}`}>
@@ -93,17 +86,14 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
         </div>
       </li>
 
-      {/* Partnership */}
       <li class="h-full">
         <a href="/partnership" class={`${navItemBaseClass} ${isPartnership ? navItemActiveClass : navItemInactiveClass}`} data-i18n="nav.partnership">Partnership</a>
       </li>
 
-      {/* Contacto */}
       <li class="h-full">
         <a href="/contact" class={`${navItemBaseClass} ${isContact ? navItemActiveClass : navItemInactiveClass}`} data-i18n="nav.contact">Contacto</a>
       </li>
 
-      {/* Selector de Idioma */}
       <li class="h-full hidden flex items-center ml-4 pl-4 border-l border-gray-200">
         <div class="text-secondary hover:text-primary font-medium h-full">
             <LanguageSelector client:load />
@@ -111,9 +101,6 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
       </li>
     </ul>
 
-    {/* Hamburger Button (Mobile) 
-        - position absolute right-6: Para que se quede pegado a la derecha sin afectar al centrado del logo.
-    */}
     <button
       data-sidebar-toggle
       class="lg:hidden text-secondary hover:text-primary transition-colors p-2 absolute right-6"
@@ -123,7 +110,6 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
     </button>
   </nav>
 
-  {/* --- SIDEBAR MÓVIL --- */}
   <aside
     id="mobile-sidebar"
     class="fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-[10000] flex flex-col overflow-y-auto"
@@ -140,6 +126,7 @@ const navItemInactiveClass = "text-secondary hover:text-primary hover:bg-gray-50
 
         <div class="pt-6 pb-2 px-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Programas Formativos</div>
         <a href="/neurodivergence" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isNeuro ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Neurodivergencia</a>
+        <a href="/entorno-rural" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isRural ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Entorno Rural</a>
         <a href="/migrant-talent" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isMigrant ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Talento Migrante</a>
         <a href="/social-impact" class={`block py-3 px-4 rounded-xl pl-6 border-l-2 border-transparent hover:border-primary/20 hover:bg-gray-50 ${isSocial ? "text-primary font-bold bg-blue-50 border-primary" : "text-gray-600 hover:text-primary"}`}>Riesgo de Exclusión</a>
 

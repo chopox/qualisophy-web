@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 
-// Sub-componente (Sin cambios internos de lógica, solo se usa aquí)
+// Sub-componente (Sin cambios internos de lógica)
 const CircularProgress = ({
   percentage,
   label,
@@ -15,7 +15,6 @@ const CircularProgress = ({
   const [isVisible, setIsVisible] = useState(false);
   const radius = 70;
   const circumference = 2 * Math.PI * radius;
-  // Sin transición CSS para sincronización perfecta
   const strokeDashoffset = circumference - (count / 100) * circumference;
 
   useEffect(() => {
@@ -97,13 +96,31 @@ interface LegalComplianceProps {
   title?: string;
   items: LegalItem[];
   footerText?: string;
+  footerSize?: "normal" | "large"; // Nueva propiedad opcional
 }
 
 export const LegalCompliance: React.FC<LegalComplianceProps> = ({
   title = "Marco Legal: Cumplimiento Pendiente",
   items,
   footerText,
+  footerSize = "normal",
 }) => {
+  // Controlamos las clases del recuadro inferior según la propiedad
+  const footerContainerClass =
+    footerSize === "large"
+      ? "mt-20 max-w-4xl mx-auto"
+      : "mt-16 max-w-3xl mx-auto";
+
+  const footerBoxClass =
+    footerSize === "large"
+      ? "p-8 md:p-10 bg-white rounded-2xl border border-gray-200 shadow-md"
+      : "p-6 bg-white rounded-xl border border-gray-200 shadow-sm";
+
+  const footerTextClass =
+    footerSize === "large"
+      ? "text-slate-700 text-base md:text-lg leading-relaxed font-medium"
+      : "text-slate-600 text-sm font-primary";
+
   return (
     <section className="py-24 bg-gray-50">
       <div className="container mx-auto px-6 text-center">
@@ -123,11 +140,9 @@ export const LegalCompliance: React.FC<LegalComplianceProps> = ({
         </div>
 
         {footerText && (
-          <div className="mt-16 max-w-3xl mx-auto">
-            <div className="p-6 bg-white rounded-xl border border-gray-200 shadow-sm">
-              <p className="text-slate-600 text-sm font-primary">
-                {footerText}
-              </p>
+          <div className={footerContainerClass}>
+            <div className={footerBoxClass}>
+              <p className={footerTextClass}>{footerText}</p>
             </div>
           </div>
         )}

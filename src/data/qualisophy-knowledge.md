@@ -9,6 +9,7 @@ Pilares de inclusión:
 2. Talento Migrante: Ayudan a profesionales internacionales a validar sus competencias, superando burocracia y sobrecualificación. URL: /migrant-talent
 3. Riesgo de Exclusión: Capacitación digital para colectivos vulnerables (mujeres extranjeras, parados larga duración). URL: /social-impact
 4. Reconversión Laboral (Reskilling): Para mayores de 45 años o personas que cambian de sector. URL: /reskilling
+5. Entorno Rural: Fomento del talento tecnológico local para frenar la despoblación. Formación online y trabajo remoto para crecer profesionalmente sin abandonar el hogar. URL: /rural-area
 
 # CATÁLOGO DE CURSOS (FORMACIÓN INDIVIDUAL - B2C)
 

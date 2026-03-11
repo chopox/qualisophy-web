@@ -13,6 +13,17 @@ const pillarsData = [
     link: "/neurodivergence",
   },
   {
+    id: "rural-environment",
+    category: "Talento Local",
+    title: "Entorno Rural",
+    description:
+      "Llevamos la formación tecnológica a tu tierra para fijar población y fomentar el trabajo remoto.",
+    icon: "nature_people",
+    image:
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000&auto=format&fit=crop",
+    link: "/rural-area",
+  },
+  {
     id: "migrant-talent",
     category: "Integración Global",
     title: "Talento Migrante",
@@ -86,15 +97,13 @@ export const InclusionPillars: React.FC = () => {
                    CONTENIDO EXPANDIDO (Visible si isActive)
                    ================================================== */}
                 <div
-                  // AQUÍ ESTÁ LA CORRECCIÓN:
-                  // Hemos separado la duración y el delay según el estado.
                   className={`
                   absolute bottom-0 left-0 right-0 p-6 md:p-10 flex flex-col justify-end
                   transition-all ease-in-out
                   ${
                     isActive
-                      ? "duration-700 delay-200 opacity-100 translate-y-0" // ENTRADA: Suave, espera un poco a que se abra.
-                      : "duration-200 delay-0 opacity-0 translate-y-4 pointer-events-none" // SALIDA: Muy rápida e inmediata, antes de que se aplaste.
+                      ? "duration-700 delay-200 opacity-100 translate-y-0"
+                      : "duration-200 delay-0 opacity-0 translate-y-4 pointer-events-none"
                   }
                 `}
                 >

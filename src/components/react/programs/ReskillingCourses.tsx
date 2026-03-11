@@ -86,7 +86,7 @@ export const ReskillingCourses: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2">
               {/* Botón 1: Abrir Modal de Cursos */}
               <a
-                href="/contact"
+                href="/learning"
                 className="flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all transform text-lg min-w-[240px] cursor-pointer"
               >
                 Empieza tu Transformación

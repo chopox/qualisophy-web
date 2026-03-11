@@ -1,0 +1,350 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+// Importación de Componentes de Programas
+import { ProgramHero } from "@/components/react/programs/ProgramHero";
+import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
+import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
+import { ProgramCurriculum } from "@/components/react/programs/ProgramCurriculum";
+import { ProgramCTA } from "@/components/react/programs/ProgramCTA";
+
+// Importación de Componentes de Talento y Mapa
+import { TalentReality } from "@/components/react/talent/TalentReality";
+import { TalentBarriers } from "@/components/react/talent/TalentBarriers";
+import { TalentImpact } from "@/components/react/talent/TalentImpact";
+import { LegalCompliance } from "@/components/react/talent/LegalCompliance";
+import { SocialImpactQuote } from "@/components/react/talent/SocialImpactQuote";
+import { SpainMap } from "@/components/react/talent/SpainMap"; 
+
+// --- 1. REALIDAD TERRITORIAL DESIGUAL ---
+const realityStats = [
+  { 
+    value: "15,5%", 
+    label: "Población", 
+    description: "Solo una pequeña parte de la población vive en zonas rurales.", 
+    icon: "trending_down", 
+    colorClass: "text-primary" 
+  },
+  { 
+    value: "83,8%", 
+    label: "Territorio", 
+    description: "La mayor parte de España es rural.", 
+    icon: "public", 
+    colorClass: "text-primary" 
+  },
+  { 
+    value: "13", 
+    label: "hab/km²", 
+    description: "Muchas regiones del interior tienen densidades extremadamente bajas.", 
+    icon: "location_off", 
+    colorClass: "text-primary" 
+  }
+];
+
+// --- 2. LA ESPAÑA VACIADA (Para el bloque izquierdo del mapa) ---
+const espanaVaciadaFeatures = [
+  {
+    icon: "push_pin",
+    title: "70% del territorio",
+    description: "Gran parte del país tiene densidades de población muy bajas, con menos de 13 hab/km²."
+  },
+  {
+    icon: "holiday_village",
+    title: "6.600 municipios",
+    description: "Miles de pequeños municipios donde viven comunidades con gran potencial humano."
+  },
+  {
+    icon: "trending_down",
+    title: "Despoblación progresiva",
+    description: "Durante décadas, la falta de oportunidades laborales ha impulsado la migración a las ciudades."
+  },
+  {
+    icon: "computer",
+    title: "Talento oculto",
+    description: "Miles de profesionales cualificados viven en zonas rurales con menos acceso a oportunidades."
+  }
+];
+
+// --- 3. BARRERAS PERSISTENTES ---
+const barrierList = [
+  { 
+    icon: "wifi_off", 
+    title: "Brecha Digital", 
+    description: "Limitaciones en conectividad e infraestructuras tecnológicas en algunos territorios." 
+  },
+  { 
+    icon: "business_center", 
+    title: "Acceso al Empleo", 
+    description: "Las oportunidades laborales cualificadas suelen concentrarse en las grandes ciudades." 
+  },
+  { 
+    icon: "school", 
+    title: "Fuga de Talento", 
+    description: "Muchos jóvenes cualificados abandonan su entorno rural para desarrollar su carrera profesional." 
+  },
+  { 
+    icon: "location_city", 
+    title: "Centralización Empresarial", 
+    description: "Las empresas tienden a buscar talento únicamente en ecosistemas urbanos." 
+  }
+];
+
+// --- 4. IMPACTO TRANSFORMADOR ---
+const impactList = [
+  "Fijación de población y lucha contra la despoblación en miles de municipios.",
+  "Dinamización de economías locales mediante oportunidades digitales.",
+  "Desarrollo de ecosistemas tecnológicos rurales.",
+  "Nuevos modelos de trabajo: el teletrabajo integra talento rural en empresas globales.",
+  "Mayor diversidad territorial en las plantillas de las empresas."
+];
+
+// --- 5. MARCO INSTITUCIONAL ---
+const legalItems = [
+  { 
+    percentage: 90, 
+    label: "Subvenciones públicas", 
+    description: "Algunos programas financian hasta el 90 % de proyectos empresariales en zonas rurales." 
+  },
+  { 
+    percentage: 30, 
+    label: "Incentivos regionales", 
+    description: "Varias comunidades autónomas ofrecen ayudas adicionales a empresas en zonas despobladas." 
+  }
+];
+
+// --- 6. ESTRATEGIA 1: FORMACIÓN RURAL TECH ---
+const strategy1Data = {
+  title: "Estrategia 1: Formación Rural Tech",
+  description: [
+    "La capacitación tecnológica es la clave para conectar el talento rural con el mercado global.",
+    "Llevamos la formación especializada directamente a tu municipio, permitiéndote adquirir competencias de alta demanda sin necesidad de abandonar tu hogar o tu estilo de vida."
+  ],
+  checks: [
+    "Formación digital especializada.",
+    "Programas de especialización tecnológica.",
+    "Prácticas en empresas innovadoras.",
+    "Inserción laboral en entornos remotos o híbridos."
+  ],
+  imageSrc: "https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?q=80&w=2000&auto=format&fit=crop"
+};
+
+// --- 7. ESTRATEGIA 2: CONECTAR TALENTO Y EMPRESA ---
+const strategy2Features = [
+  {
+    icon: "handshake",
+    title: "Intermediación Laboral",
+    description: "Conectamos empresas con talento cualificado del entorno rural."
+  },
+  {
+    icon: "groups",
+    title: "Programas de Inserción",
+    description: "Acompañamos a profesionales rurales en su acceso al mercado laboral."
+  },
+  {
+    icon: "hub",
+    title: "Ecosistemas Rurales Tech",
+    description: "Impulsamos hubs de talento y colaboración empresarial."
+  },
+  {
+    icon: "computer",
+    title: "Teletrabajo",
+    description: "Integramos talento rural en equipos distribuidos globales."
+  }
+];
+
+// --- 8. ITINERARIOS PERSONALIZADOS ---
+const itinerarySteps = [
+  {
+    stepNumber: 1,
+    title: "Evaluación Individual",
+    description: "Análisis de habilidades, experiencia y objetivos profesionales."
+  },
+  {
+    stepNumber: 2,
+    title: "Plan Formativo",
+    description: "Diseño de rutas de capacitación adaptadas al mercado laboral."
+  },
+  {
+    stepNumber: 3,
+    title: "Acompañamiento Continuo",
+    description: "Mentoría y seguimiento durante todo el proceso."
+  },
+  {
+    stepNumber: 4,
+    title: "Inserción Laboral",
+    description: "Integración en empresas comprometidas con el desarrollo territorial."
+  }
+];
+
+// --- 9. CITA Y PILARES FINALES ---
+const socialImpactPillars = [
+  {
+    icon: "business",
+    title: "Compromiso Empresarial",
+    description: "Empresas que descubren y potencian nuevas fuentes de talento descentralizado."
+  },
+  {
+    icon: "public",
+    title: "Territorios Vivos",
+    description: "Comunidades rurales con oportunidades reales de desarrollo digital y económico."
+  },
+  {
+    icon: "diversity_3",
+    title: "Equilibrio Territorial",
+    description: "Una economía nacional más sostenible, conectada y territorialmente equilibrada."
+  }
+];
+
+// --- 10. CTA BOTONES SOLICITADOS ---
+const ctaButtons = [
+  { label: "Contrata Talento Rural", href: "/contact?type=company-rural", variant: "solid" as const },
+  { label: "Únete al Programa Talento Rural Tech", href: "/contact?type=candidate-rural", variant: "outline" as const }
+];
+---
+
+<Layout 
+  title="Entorno Rural - Qualisophy"
+  description="Llevamos la formación tecnológica a tu tierra para que construyas tu futuro digital sin moverte de ella."
+  fullWidth={true}
+>
+  
+  {/* SECCIÓN 1: HERO */}
+  <ProgramHero 
+    client:load
+    title={"Tecnología que Une:"} 
+    highlight={"Talento que Transforma"}
+    subtitle="Edición Rural. Llevamos la formación tecnológica a tu tierra para que construyas tu futuro digital sin moverte de ella. El talento no tiene fronteras. Tú tampoco necesitas moverte."
+    backgroundImage="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000&auto=format&fit=crop"
+    ctaText="Descubrir Programa"
+    scrollToId="realidad-territorial"
+  />
+
+  {/* SECCIÓN 2: REALIDAD (Fondo Blanco con Mesh) */}
+  <div id="realidad-territorial" class="scroll-mt-20">
+    <TalentReality 
+      client:load 
+      title="Una Realidad Territorial Desigual"
+      subtitle="El Talento Oculto"
+      description="El talento existe en todo el país, pero las oportunidades laborales siguen concentrándose en las grandes ciudades. Este fenómeno de despoblación es lo que comúnmente conocemos como “España vaciada”."
+      stats={realityStats} 
+    />
+  </div>
+
+  {/* SECCIÓN 3: LA ESPAÑA VACIADA (Layout Dividido con Mapa) */}
+  <section class="py-24 bg-gray-50 border-t border-gray-100">
+    <div class="container mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-stretch">
+        
+        {/* Lado Izquierdo: Textos y Grid de 4 */}
+        <div class="flex flex-col gap-8 h-full justify-center">
+          <div>
+            <h2 class="text-3xl font-heading sm:text-4xl font-bold text-secondary mb-6">
+              La España Vaciada
+            </h2>
+            <p class="text-lg text-slate-600 font-primary leading-relaxed mb-4">
+              Gran parte del territorio español tiene densidades de población extremadamente bajas, lo que limita el desarrollo económico y la creación de oportunidades laborales.
+            </p>
+            <p class="text-lg text-slate-600 font-primary leading-relaxed">
+              Mientras las grandes ciudades concentran población, empresas y empleo, miles de municipios rurales afrontan despoblación, envejecimiento y pérdida de talento.
+            </p>
+          </div>
+          
+          <div class="grid sm:grid-cols-2 gap-6 mt-4">
+            {espanaVaciadaFeatures.map((item) => (
+              <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="text-3xl mb-3 text-primary">
+                  <span class="material-symbols-outlined">{item.icon}</span>
+                </div>
+                <h4 class="font-bold text-secondary text-lg mb-2">{item.title}</h4>
+                <p class="text-sm text-slate-600">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Lado Derecho: Componente del Mapa Interactivo GIGANTE */}
+        <div class="w-full h-full flex flex-col justify-center min-h-[500px]">
+           <SpainMap client:load />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* SECCIÓN 4: BARRERAS PERSISTENTES (Fondo Blanco) */}
+  <div class="bg-white">
+    <TalentBarriers 
+      client:load 
+      barriers={barrierList} 
+      layout="grid2"
+    />
+  </div>
+
+  {/* SECCIÓN 5: IMPACTO TRANSFORMADOR (Fondo Gris oscuro simulado - Variante 'gray') */}
+  <TalentImpact 
+    client:load 
+    items={impactList} 
+    imageSrc="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80"
+  />
+
+  {/* SECCIÓN 6: MARCO INSTITUCIONAL (Porcentajes circulares animados - Fondo Blanco) */}
+  <div class="bg-white border-t border-gray-50">
+    <LegalCompliance 
+      client:load 
+      title="Marco Institucional: El Reto Demográfico"
+      items={legalItems} 
+      footerText="La despoblación rural es uno de los grandes desafíos estratégicos de España. Cada vez más políticas públicas (como los fondos europeos Next Generation) buscan atraer talento, crear empresas y generar empleo en territorios rurales."
+      footerSize="large"
+    />
+  </div>
+
+  {/* SECCIÓN 7: ESTRATEGIA 1 (Fondo Gris + Imagen) */}
+  <ProgramMethodology 
+    client:visible
+    {...strategy1Data}
+    variant="blue" 
+  />
+
+  {/* SECCIÓN 8: ESTRATEGIA 2 (Fondo Blanco, Cuadrícula) */}
+  <ProgramFeatures 
+    client:visible
+    title="Estrategia 2: Conectar Talento y Empresa"
+    subtitle="Creamos puentes reales entre profesionales rurales y organizaciones innovadoras."
+    features={strategy2Features}
+    variant="light"  
+    layout="grid4" 
+  />
+
+  {/* SECCIÓN 9: ITINERARIOS (Acordeón - Fondo Gris) */}
+  <ProgramCurriculum 
+    client:visible
+    title="Itinerarios Personalizados: Clave del Éxito"
+    subtitle="Cada profesional tiene una realidad diferente. Nuestro enfoque es individualizado."
+    steps={itinerarySteps}
+    variant="blue" 
+  />
+
+  {/* SECCIÓN 10: INCLUSIÓN REAL + CITA RURAL (Fondo Blanco) */}
+  <div class="bg-white border-b border-gray-100">
+    <SocialImpactQuote 
+      client:load 
+      title="Hacia un Desarrollo Territorial Sostenible"
+      subtitle="El futuro del trabajo también se construye desde el mundo rural."
+      pillars={socialImpactPillars}
+      quoteText="“El talento no depende del código postal. "
+      quoteHighlight="El futuro del trabajo"
+      quoteEnd=" también se construye desde el mundo rural.”"
+    />
+  </div>
+
+  {/* SECCIÓN 11: CTA FINAL (Con diseño de "Captura 2") */}
+  <div id="program-cta">
+    <ProgramCTA 
+      client:visible 
+      variant="white"
+      title="Impulsa el Talento del Mundo Rural"
+      description="La innovación también nace fuera de las grandes ciudades. Conecta empresas con talento rural y crea nuevas oportunidades."
+      buttons={ctaButtons}
+    />
+  </div>
+
+</Layout>
