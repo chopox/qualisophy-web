@@ -34,7 +34,7 @@ export const ContactForm = ({
       const paramValue = params.get("subject") || params.get("type");
 
       if (paramValue) {
-        // Lógica específica para Partnership
+        // 1. Lógica específica para Partnership
         if (paramValue === "partnership") {
           setCurrentSource("Solicitud de Alianza Corporativa");
           setFormData((prev) => ({
@@ -43,7 +43,7 @@ export const ContactForm = ({
               "Hola, represento a [Nombre de tu Empresa] y estamos interesados en explorar una alianza con Qualisophy para...",
           }));
         }
-        // Lógica para 'company' (pilares)
+        // 2. Lógica para 'company' general (pilares)
         else if (paramValue === "company") {
           setCurrentSource("Interés Corporativo (Desde Pilares)");
           setFormData((prev) => ({
@@ -52,7 +52,34 @@ export const ContactForm = ({
               "Hola, nos gustaría recibir más información sobre vuestros programas de inclusión para empresas.",
           }));
         }
-        // Lógica genérica
+        // 3. Lógica para Empresa Rural ('company-rural')
+        else if (paramValue === "company-rural") {
+          setCurrentSource("Interés Corporativo (Talento Rural)");
+          setFormData((prev) => ({
+            ...prev,
+            message:
+              "Hola, nos gustaría recibir información sobre cómo podemos colaborar y contratar talento cualificado del entorno rural.",
+          }));
+        }
+        // 4. Lógica para Candidato Rural ('candidate-rural')
+        else if (paramValue === "candidate-rural") {
+          setCurrentSource("Inscripción Programa (Talento Rural)");
+          setFormData((prev) => ({
+            ...prev,
+            message:
+              "Hola, me gustaría apuntarme al programa Talento Rural Tech para construir mi futuro digital sin moverme de mi entorno. ¿Me podéis dar más información?",
+          }));
+        }
+        // 5. NUEVO: Lógica para Candidato General ('candidate') (Neurodivergencia, Migrante, Exclusión)
+        else if (paramValue === "candidate") {
+          setCurrentSource("Inscripción Programa (Candidato)");
+          setFormData((prev) => ({
+            ...prev,
+            message:
+              "Hola, me gustaría apuntarme a vuestros programas de formación inclusiva y descubrir cómo podéis ayudarme a impulsar mi carrera profesional.",
+          }));
+        }
+        // 6. Lógica genérica (fallback)
         else {
           setCurrentSource(`Landing: ${paramValue}`);
           if (!formData.message) {
