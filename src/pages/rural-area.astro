@@ -16,6 +16,10 @@ import { LegalCompliance } from "@/components/react/talent/LegalCompliance";
 import { SocialImpactQuote } from "@/components/react/talent/SocialImpactQuote";
 import { SpainMap } from "@/components/react/talent/SpainMap"; 
 
+
+// Importación de imágenes 
+import talentImactImg from "@/assets/pages/rural-area/talent-impact.jpeg";
+
 // --- 1. REALIDAD TERRITORIAL DESIGUAL ---
 const realityStats = [
   { 
@@ -283,7 +287,7 @@ const ctaButtons = [
   <TalentImpact 
     client:load 
     items={impactList} 
-    imageSrc="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80"
+    imageSrc={talentImactImg.src}
   />
 
   {/* SECCIÓN 6: MARCO INSTITUCIONAL (Porcentajes circulares animados - Fondo Blanco) */}
