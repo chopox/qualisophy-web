@@ -47,22 +47,22 @@ const courseTreeData = [
     borderColor: "border-amber-200",
     subBranches: [
       {
-        title: "Analítica de datos con Power BI",
+        title: "Introducción a la Analítica de datos con Power BI",
         href: "/learning/microsoft/powerbi",
         icon: "leaderboard",
       },
       {
-        title: "Data Analytics",
+        title: "Data Analytics & SQL",
         href: "/learning/microsoft/data-analytics",
         icon: "analytics",
       },
       {
-        title: "Excel Avanzado",
+        title: "Excel Avanzado Business",
         href: "/learning/microsoft/excel-advanced",
         icon: "table_chart",
       },
       {
-        title: "Power Automate",
+        title: "Power Automate Flows",
         href: "/learning/microsoft/power-automate",
         icon: "settings_suggest",
       },
@@ -80,23 +80,23 @@ const courseTreeData = [
     borderColor: "border-blue-200",
     subBranches: [
       {
-        title: "Fullstack Developer",
+        title: "Fullstack Development",
         href: "/learning/dev/fullstack",
         icon: "layers",
       },
       {
-        title: "Frontend (React)",
+        title: "Frontend (React/Vue)",
         href: "/learning/dev/frontend-react",
         icon: "html",
       },
       {
-        title: "Backend (Node.js)",
+        title: "Backend (Node.js/Java)",
         href: "/learning/dev/backend-node",
         icon: "storage",
       },
       {
-        title: "Java & Spring Boot",
-        href: "/learning/dev/java-spring",
+        title: "Arquitectura Cloud",
+        href: "/learning/dev/cloud",
         icon: "cloud",
       },
     ],
@@ -183,13 +183,7 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
       className="fixed inset-0 z-[9999] flex items-end md:items-center justify-center bg-secondary/90 backdrop-blur-sm animate-in fade-in duration-200 p-4 md:pt-28 md:pb-6"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      {/* CAMBIOS REALIZADOS:
-         1. En el div padre (arriba): añadí 'md:pt-28 md:pb-6'. Esto empuja el modal hacia abajo respetando el header.
-         2. En este div (abajo): cambié 'md:h-[85vh]' por 'md:h-full'. 
-            Al tener padding el padre, 'h-full' ocupará todo el espacio restante (que es enorme) sin chocar arriba.
-      */}
       <div className="bg-white rounded-t-3xl md:rounded-3xl w-full max-w-7xl shadow-2xl relative flex flex-col max-h-[90vh] h-[85vh] md:h-full">
-        {/* CABECERA */}
         <div className="p-6 md:p-8 border-b border-gray-100 flex justify-between items-start shrink-0 bg-white z-10 relative rounded-t-3xl">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold font-heading text-secondary">
@@ -207,14 +201,11 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
           </button>
         </div>
 
-        {/* CUERPO CENTRAL */}
         <div className="flex flex-col md:flex-row flex-1 overflow-y-auto md:overflow-hidden">
-          {/* IZQUIERDA: LISTA DE RAMAS */}
           <div className="w-full md:w-4/12 bg-gray-50/50 md:bg-white p-4 md:p-6 md:border-r border-gray-100 md:overflow-y-auto custom-scrollbar">
             <div className="flex flex-col gap-3">
               {courseTreeData.map((branch) => {
                 const isActive = selectedBranchId === branch.id;
-
                 return (
                   <div key={branch.id} className="flex flex-col">
                     <button
@@ -234,7 +225,6 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                           {branch.icon}
                         </span>
                       </div>
-
                       <div className="flex-1">
                         <span
                           className={`block font-bold text-lg ${isActive ? "text-secondary" : "text-gray-600"}`}
@@ -242,15 +232,12 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                           {branch.title}
                         </span>
                       </div>
-
                       <span
                         className={`material-symbols-outlined text-gray-400 transition-transform duration-300 ${isActive ? "rotate-90 md:rotate-0 text-primary" : ""}`}
                       >
                         chevron_right
                       </span>
                     </button>
-
-                    {/* ACORDEÓN MÓVIL */}
                     <div
                       className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isActive ? "max-h-[500px] opacity-100 mt-2" : "max-h-0 opacity-0"}`}
                     >
@@ -291,9 +278,7 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
             </div>
           </div>
 
-          {/* DERECHA: DETALLES DE LA RAMA (Solo Desktop) */}
           <div className="hidden md:flex md:w-8/12 flex-col bg-white h-full relative">
-            {/* Header de Detalle */}
             <div className="p-8 shrink-0 border-b border-gray-50 bg-white/50 backdrop-blur-sm z-10">
               <div className="flex items-center justify-between mb-4">
                 <div
@@ -311,7 +296,6 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                   </span>
                 </a>
               </div>
-
               <div className="flex flex-col gap-2">
                 <h3 className="text-2xl font-bold font-heading text-secondary">
                   Cursos Disponibles
@@ -322,7 +306,6 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
               </div>
             </div>
 
-            {/* Grid de Cursos Desktop */}
             <div
               ref={coursesContainerRef}
               className="flex-1 overflow-y-auto p-8 pt-6 custom-scrollbar"
@@ -332,7 +315,7 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                   <a
                     key={idx}
                     href={course.href}
-                    className="group flex items-start gap-4 p-5 rounded-2xl border border-gray-100 hover:border-primary/40 hover:shadow-lg  hover:bg-white transition-all duration-300 bg-gray-50/30 h-full"
+                    className="group flex items-start gap-4 p-5 rounded-2xl border border-gray-100 hover:border-primary/40 hover:shadow-lg hover:bg-white transition-all duration-300 bg-gray-50/30 h-full"
                   >
                     <div className="size-12 rounded-full bg-white border border-gray-100 flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-primary/5 transition-all shrink-0">
                       <span className="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors text-2xl">
@@ -340,7 +323,8 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <span className="block font-bold text-secondary text-base mb-1 group-hover:text-primary transition-colors truncate">
+                      {/* AQUÍ ESTÁ EL CAMBIO: quitado el truncate */}
+                      <span className="block font-bold text-secondary text-base mb-1 group-hover:text-primary transition-colors pr-2">
                         {course.title}
                       </span>
                       <span className="text-xs text-gray-400 group-hover:text-gray-500 transition-colors">
@@ -350,14 +334,11 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
                   </a>
                 ))}
               </div>
-
-              {/* Espaciador final */}
               <div className="h-8"></div>
             </div>
           </div>
         </div>
 
-        {/* FOOTER */}
         <div className="p-5 bg-gray-50 border-t border-gray-100 text-center shrink-0 rounded-b-3xl">
           <a
             href="/learning"

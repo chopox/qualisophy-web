@@ -18,31 +18,31 @@ NUEVO: ¡Todos los antiguos alumnos de Qualisophy cuentan con un 25% de descuent
 
 ## 1. ÁREA DE QA & TESTING (PARTICULARES)
 
-- Testing y Calidad del Software (QA Manual): 40h. 497€ (447€ pronto pago). Inicia: 17 Feb 2025. Instructor: Fran Guerrero. URL: /learning/qa/software-quality-testing-course
-- Automation Bootcamp: Cypress 4.0: 6 semanas. 547€ (497€ pronto pago antes del 3 de abril). Inicia: 28 Abr 2026. Instructor: Javi Flores. URL: /learning/qa/cypress-bootcamp
-- Coding and DevOps for Testers: 48h. 540€ (490€ pronto pago). Inicia: 3 Mar 2025. URL: /learning/qa/devops-for-testers-course
-- Gestión de Calidad (TQM): 25h. 450€ (395€ pronto pago). Inicia: 24 Mar 2025. URL: /learning/qa/quality-management-course
+- Testing y Calidad del Software (QA Manual): 40h (7 semanas). 497€. Inicia: 17 Feb 2025. Instructor: Fran Guerrero. URL: /learning/qa/software-quality-testing-course
+- Cypress Bootcamp: 36h (6 semanas). 497€ (reservando antes del 3 de abril de 2026, después 547€). Inicia: 28 Abr 2026. Instructor: Javier Flores. URL: /learning/qa/cypress-bootcamp
+- Coding and DevOps for Testers: 40h (7 semanas). 497€. Inicia: 15 Mar 2025. URL: /learning/qa/devops-for-testers-course
+- Gestión de Calidad (TQM): 40h. 497€. Inicia: Próximamente. URL: /learning/qa/quality-management-course
 
 ## 2. ÁREA DE MICROSOFT & DATA (PARTICULARES)
 
-- Analítica de datos con Power BI: 30h. 450€ (395€ pronto pago). Inicia: 10 Mar 2025. URL: /learning/microsoft/powerbi
-- Data Analytics & SQL: 40h. 495€ (450€ pronto pago). Inicia: 17 Mar 2025. URL: /learning/microsoft/data-analytics
-- Excel Avanzado Business: 25h. Flexible. 350€ (299€ pronto pago). URL: /learning/microsoft/excel-advanced
-- Power Automate Flows: 15h. Flexible. 295€ (250€ pronto pago). URL: /learning/microsoft/power-automate
+- Introducción a la Analítica de datos con Power BI: 50h. 450€. Inicia: Inicio de Octubre (Mínimo 5 alumnos). Instructor: Enrique Román Peláez. URL: /learning/microsoft/powerbi
+- Data Analytics & SQL: 45h. 450€. Inicia: Próximamente. URL: /learning/microsoft/data-analytics
+- Excel Avanzado Business: 30h. 350€. Inicia: Próximamente. URL: /learning/microsoft/excel-advanced
+- Power Automate Flows: 30h. 390€. Inicia: Próximamente. URL: /learning/microsoft/power-automate
 
 ## 3. ÁREA DE DESARROLLO (PARTICULARES)
 
-- Fullstack Development (MERN): 120h. 1.200€ (995€ pronto pago). Inicia: 3 Mar 2025. URL: /learning/dev/fullstack
-- Frontend con React: 60h. 650€ (595€ pronto pago). Inicia: 10 Mar 2025. URL: /learning/dev/frontend-react
-- Backend con Node.js: 50h. 550€ (495€ pronto pago). Inicia: 24 Mar 2025. URL: /learning/dev/backend-node
-- Java & Spring Boot: 60h. 695€ (625€ pronto pago). Inicia: 7 Abr 2025. URL: /learning/dev/java-spring
+- Fullstack Development: 120h. 1.200€. Inicia: A consultar. URL: /learning/dev/fullstack
+- Frontend (React/Vue): 60h. 650€. Inicia: A consultar. URL: /learning/dev/frontend-react
+- Backend (Node.js/Java): 60h. 650€. Inicia: A consultar. URL: /learning/dev/backend-node
+- Arquitectura Cloud: 40h. 500€. Inicia: A consultar. URL: /learning/dev/cloud
 
 ## 4. ÁREA DE PROJECT MANAGEMENT (PARTICULARES)
 
-- Certificación Scrum Master: 16h. 350€ (299€ pronto pago). Inicia: 22 Mar 2025. URL: /learning/pm/scrum-master
-- Product Owner: 20h. 395€ (350€ pronto pago). Inicia: 5 Abr 2025. URL: /learning/pm/product-owner
-- Gestión Ágil (Kanban): 12h. 295€ (250€ pronto pago). URL: /learning/pm/kanban
-- Liderazgo de Equipos Técnicos: 20h. 450€ (395€ pronto pago). URL: /learning/pm/leadership
+- Scrum Master: 25h. 350€. Inicia: Próximamente. URL: /learning/pm/scrum-master
+- Product Owner: 25h. 350€. Inicia: Próximamente. URL: /learning/pm/product-owner
+- Gestión Ágil (Kanban): 20h. 290€. Inicia: Próximamente. URL: /learning/pm/kanban
+- Liderazgo de Equipos: 30h. 390€. Inicia: Próximamente. URL: /learning/pm/leadership
 
 # FORMACIÓN PARA EMPRESAS Y PARTNERSHIPS (B2B)
 
@@ -79,7 +79,8 @@ Ofrecemos las siguientes formaciones corporativas adaptadas a las necesidades de
 
 # INSTRUCTORES DESTACADOS
 
-- Javi Flores: Instructor del Automation Bootcamp: Cypress 4.0. Especialista en Automatización con Cypress y QA Lead. Tiene amplia experiencia en entornos Agile y CI/CD, comprometido con la implementación de la calidad mediante estrategias de automatización y diseño de frameworks mantenibles. Certificaciones: Cypress ambassador 2026 e ISTQB Foundation level.
+- Javier Flores: Instructor Tech especialista en Automatización QA y Cypress. QA Lead y Cypress Ambassador. Destaca por su enfoque en la creación de frameworks mantenibles y la integración de la automatización en entornos Agile y CI/CD.
+- Enrique Román Peláez: Instructor Tech especialista en Power BI & Analítica de Datos. Cuenta con más de 8 años de experiencia en Business Intelligence. Ofrece una formación práctica orientada al negocio, especializándose en modelado de datos y ofreciendo una visión integral para la toma de decisiones. Microsoft Data Analyst Associate y MCT.
 - Fran Guerrero: Instructor del curso de Testing y Calidad del Software. Especialista certificado en Agile ISTQB con más de 14 años de experiencia en el campo de la calidad del software. Implementa procesos de prueba, estrategias de control de calidad y herramientas innovadoras. Certificaciones: ISTQB Agile Tester, ISTQB Foundation Level, Certified Scrum Master.
 
 # BLOG Y NEWSLETTER
@@ -87,12 +88,14 @@ Ofrecemos las siguientes formaciones corporativas adaptadas a las necesidades de
 - Blog de Qualisophy: Publicamos artículos sobre tendencias tecnológicas, Inteligencia Artificial, QA, impacto social, neurodivergencia y casos de éxito de nuestros alumnos. URL: /blog
 - Newsletter: Los usuarios pueden suscribirse en cualquier momento desde el pie de página de la web. Al suscribirse, reciben noticias sobre tecnología, inclusión y nuevas convocatorias de cursos directamente en su correo.
 
-# EQUIPO DIRECTIVO (URL: /team)
+# EQUIPO DIRECTIVO Y DOCENTE (URL: /team)
 
-- Elena Martín: CEO & Founder.
+- Elena Martín: CEO & Fundadora.
 - Francisco Guerrero: Instructor Tech.
 - Patricia Beyet: Project Manager & Agile Coach.
 - Juan Pedro Gómez: Desarrollo Web Fullstack.
+- Javier Flores: Instructor Tech · Automatización QA.
+- Enrique Román: Instructor Tech · Power BI & Analítica.
 
 # CONTACTO Y UBICACIÓN
 

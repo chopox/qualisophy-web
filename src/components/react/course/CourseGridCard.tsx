@@ -55,8 +55,8 @@ export const CourseGridCard: React.FC<CourseGridCardProps> = ({
 
       {/* --- CONTENIDO --- */}
       <div className="flex flex-col flex-1 p-6">
-        {/* Título */}
-        <h3 className="text-xl font-bold font-heading text-secondary mb-3 group-hover:text-primary transition-colors line-clamp-2">
+        {/* Título: Quitamos el line-clamp-2 */}
+        <h3 className="text-xl font-bold font-heading text-secondary mb-3 group-hover:text-primary transition-colors">
           {title}
         </h3>
 
