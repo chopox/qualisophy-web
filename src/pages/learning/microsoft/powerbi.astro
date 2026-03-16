@@ -4,90 +4,80 @@ import { Course } from "@/components/react/course/Course";
 import { EnrollButton } from "@/components/react/shared/EnrollButton";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
+// Imagen instructor
+import instructorImg from "@/assets/instructor/instructor-enrique.jpeg";
+
 const modules = [
   {
     id: "1",
     number: 1,
-    title: "Conexión y Transformación de Datos (ETL)",
-    description: "Aprende a conectar Power BI a múltiples orígenes y a limpiar los datos con Power Query.",
+    title: "Introducción (2h)",
+    description: "Este módulo sentará las bases para entender la relevancia del análisis de datos en el entorno empresarial. Se abordará el papel que desempeña el analista de datos en la toma de decisiones, así como los tipos de informes más utilizados en las organizaciones modernas. Además, se presentará Power BI como una herramienta clave. Estudiaremos su propósito y cómo se integra en el flujo de trabajo del análisis de datos.",
     topics: [
-      "Entorno de Power BI Desktop",
-      "Conexión a Excel, SQL, Web y CSV",
-      "Limpieza y transformación con Power Query",
-      "Normalización de tablas y tipos de datos",
-      "Carga de datos al modelo",
+      "Importancia del análisis de datos en las compañías y el Rol del analista de Datos",
+      "Tipos de informes más utilizados en la actualidad.",
+      "Introducción a la herramienta Power BI"
     ],
-    icon: "Database",
+    icon: "BookOpen",
   },
   {
     id: "2",
     number: 2,
-    title: "Modelado de Datos",
-    description: "Crea relaciones robustas entre tablas para permitir análisis complejos.",
+    title: "Toma de contacto con Power BI (40h)",
+    description: "En este módulo se recorre el proceso completo de trabajo con Power BI: desde la conexión e importación de datos, su transformación y modelado, hasta la creación de informes visuales y su publicación. También se introduce el lenguaje DAX para realizar análisis más avanzados. El objetivo es proporcionar una visión práctica y estructurada del proceso de análisis de datos con esta herramienta.",
     topics: [
-      "Esquema de Estrella vs Copo de Nieve",
-      "Relaciones (1:1, 1:N, N:N) y Cardinalidad",
-      "Dirección del filtro cruzado",
-      "Creación de Tablas Calendario",
-      "Jerarquías y Categorización de datos",
+      "Configurar Orígenes de datos",
+      "Importar datos",
+      "Transformación de datos (Básica, Intermedia y Avanzada)",
+      "Modelado de datos.",
+      "Expresiones para el análisis de datos con DAX",
+      "Visualización de datos y creación de informes",
+      "Publicación de informes",
+      "Configuraciones avanzadas y buenas prácticas"
     ],
-    icon: "Layout",
+    icon: "Database",
   },
   {
     id: "3",
     number: 3,
-    title: "Lenguaje DAX (Data Analysis Expressions)",
-    description: "Domina el lenguaje de fórmulas de Power BI para crear medidas y cálculos de negocio.",
+    title: "Caso Práctico (8h)",
+    description: "Este módulo está dedicado a aplicar todo lo aprendido mediante la creación de un informe completo en Power BI, abordando desde la conexión de datos hasta la visualización final. Los participantes trabajarán en un caso práctico guiado, resolviendo dudas en tiempo real y consolidando conocimientos. Al final, se realizará una sesión de cierre para repasar conceptos clave y resolver preguntas finales.",
     topics: [
-      "Columnas Calculadas vs Medidas",
-      "Contexto de Fila vs Contexto de Filtro",
-      "Funciones de Agregación e Iteradores (SUMX)",
-      "La función CALCULATE y Time Intelligence",
-      "Variables en DAX y optimización",
-    ],
-    icon: "Code",
-  },
-  {
-    id: "4",
-    number: 4,
-    title: "Visualización y Storytelling",
-    description: "Diseña informes interactivos que comuniquen insights de forma clara.",
-    topics: [
-      "Elección del gráfico adecuado",
-      "Formato condicional y diseño corporativo",
-      "Filtros, Segmentadores y Panel de Selección",
-      "Marcadores (Bookmarks) y navegación",
-      "Tooltips personalizados y Drill-through",
+      "Caso práctico: Creación de informe",
+      "Dudas y cierre"
     ],
     icon: "PieChart",
-  },
+  }
 ];
-
 const instructor = {
-  name: "Consultor BI Senior",
-  title: "Microsoft Data Analyst Associate",
-  description: "Consultor experto en Business Intelligence con más de 8 años implementando soluciones de Power Platform en empresas del IBEX 35.",
-  certifications: ["Microsoft Certified: Data Analyst Associate", "MCT (Microsoft Certified Trainer)"],
-  experience: "8+ años de experiencia",
+  name: "Enrique Román Peláez",
+  title: "Especialista en Power BI y Analítica de Datos",
+  experience: "Más de 8 años de experiencia en Business Intelligence",
+  description: "Enrique es un consultor experto que ofrece una formación práctica orientada al negocio. Es especialista en la transformación, modelado y visualización de datos, aportando a los alumnos una visión integral de Power BI para la correcta toma de decisiones empresariales.",
+  image: instructorImg.src, 
+  certifications: [
+    "Microsoft Data Analyst Associate",
+    "Microsoft Certified Trainer (MCT)",
+  ],
 };
 
 const courseDetails = {
-  startDate: "10 de Marzo de 2025",
-  duration: "30 horas (6 semanas)",
-  schedule: "Martes y Jueves / 18:30 - 21:00",
+  startDate: "Inicio de Octubre",
+  duration: "50 horas",
+  schedule: "Martes y Jueves / 18:00 - 21:00",
   regularPrice: "450 €",
-  earlyBirdPrice: "395 €",
+  earlyBirdPrice: "por definir", 
 };
 
-const courseId = "individual-powerbi";
-const courseName = "Power BI Dashboards";
+const courseId = "introduccion-powerbi";
+const courseName = "Introducción a la Analítica de datos con Power BI";
 ---
 
-<Layout title="Curso Power BI Dashboards - Qualisophy">
+<Layout title={`${courseName} - Qualisophy`}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="mb-6"><Breadcrumbs /></div>
     <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
-      Curso Power BI Dashboards
+      {courseName}
     </h1>
     <Course client:load modules={modules} instructor={instructor} courseDetails={courseDetails} courseId={courseId} />
     <EnrollButton client:load courseId={courseId} courseName={courseName} />
