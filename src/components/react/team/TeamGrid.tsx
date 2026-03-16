@@ -7,6 +7,8 @@ import imgFran from "../../../assets/team-fran.png";
 import imgElena from "../../../assets/team-elena.png";
 import imgJuanpe from "../../../assets/team-juanpe.jpeg";
 import imgPatricia from "../../../assets/team-patricia.jpeg";
+import imgEnrique from "../../../assets/instructor/instructor-enrique.jpeg";
+import imgJavi from "../../../assets/instructor/instructor-javi.jpeg";
 
 const teamMembers = [
   {
@@ -57,6 +59,30 @@ const teamMembers = [
       "Arquitectura de la plataforma",
       "Desarrollo Fullstack (Web)",
       "Experiencia de Usuario (UX/UI)",
+    ],
+  },
+  {
+    name: "Javier Flores",
+    role: "INSTRUCTOR TECH · AUTOMATIZACIÓN QA",
+    image: imgJavi.src,
+    position: "object-center",
+    scale: "scale-80",
+    highlights: [
+      "Cypress Ambassador (2026)",
+      "Automatización eficiente",
+      "Frameworks mantenibles",
+    ],
+  },
+  {
+    name: "Enrique Román",
+    role: "INSTRUCTOR TECH · POWER BI & ANALÍTICA",
+    image: imgEnrique.src,
+    position: "object-center",
+    scale: "scale-80",
+    highlights: [
+      "Modelado de datos",
+      "Analítica de negocio",
+      "Toma de decisiones",
     ],
   },
 ];
