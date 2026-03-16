@@ -19,7 +19,7 @@ NUEVO: ¡Todos los antiguos alumnos de Qualisophy cuentan con un 25% de descuent
 ## 1. ÁREA DE QA & TESTING (PARTICULARES)
 
 - Testing y Calidad del Software (QA Manual): 40h. 497€ (447€ pronto pago). Inicia: 17 Feb 2025. Instructor: Fran Guerrero. URL: /learning/qa/software-quality-testing-course
-- Automation Bootcamp: Cypress 4.0: 6 semanas. 547€ (497€ pronto pago antes del 20 de marzo). Inicia: 14 Abr 2026. Instructor: Javi Flores. URL: /learning/qa/cypress-bootcamp
+- Automation Bootcamp: Cypress 4.0: 6 semanas. 547€ (497€ pronto pago antes del 3 de abril). Inicia: 28 Abr 2026. Instructor: Javi Flores. URL: /learning/qa/cypress-bootcamp
 - Coding and DevOps for Testers: 48h. 540€ (490€ pronto pago). Inicia: 3 Mar 2025. URL: /learning/qa/devops-for-testers-course
 - Gestión de Calidad (TQM): 25h. 450€ (395€ pronto pago). Inicia: 24 Mar 2025. URL: /learning/qa/quality-management-course
 
