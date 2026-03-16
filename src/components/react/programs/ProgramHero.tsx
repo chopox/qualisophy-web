@@ -8,7 +8,7 @@ interface ProgramHeroProps {
   ctaText?: string;
   backgroundImage?: string;
   hasCourseTree?: boolean;
-  // NUEVO: Recibimos el ID como texto, no como función
+  onCtaClick?: () => void;
   scrollToId?: string;
 }
 

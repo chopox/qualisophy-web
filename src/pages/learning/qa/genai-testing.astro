@@ -1,0 +1,96 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courseDescription = "La Inteligencia Artificial Generativa (GenAI) está redefiniendo los límites de la ingeniería de calidad. Este curso de vanguardia capacita a los profesionales del testing en dos frentes cruciales: cómo utilizar la IA generativa para hiper-acelerar sus labores diarias de QA (creación de casos, generación de datos, automatización), y cómo abordar el desafío de testear sistemas que integran modelos de IA generativa en sus productos.";
+
+const prerequisites = "Amplia experiencia en QA y diseño de pruebas. Conocimientos básicos sobre el funcionamiento de las IAs conversacionales.";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos de IA Generativa para QA",
+    description: "Comprendiendo la base tecnológica de GenAI.",
+    topics: [
+      "Qué es la IA Generativa y cómo funcionan los Grandes Modelos de Lenguaje (LLMs).",
+      "Prompt Engineering aplicado a QA: contexto, instrucciones, formato y ejemplos.",
+      "Limitaciones intrínsecas: determinismo vs. probabilismo, alucinaciones y contexto."
+    ],
+    icon: "Cpu",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Aceleración del Testing utilizando GenAI",
+    description: "Aplica la IA a la creación de tus activos de QA.",
+    topics: [
+      "Generación automática de Casos de Prueba y Criterios de Aceptación.",
+      "Creación sintética de Datos de Prueba masivos y escenarios de frontera.",
+      "Asistencia en automatización de código: revisión de scripts y análisis de logs de errores."
+    ],
+    icon: "Zap",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Pruebas sobre Sistemas Basados en IA",
+    description: "El desafío de testear sistemas con IA integrada.",
+    topics: [
+      "Estrategias para probar aplicaciones que integran LLMs (Chatbots).",
+      "Evaluación de la precisión, coherencia y relevancia de los resultados generados.",
+      "Pruebas de seguridad específicas (e.g., Prompt Injection, manipulación de inputs)."
+    ],
+    icon: "ShieldAlert",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Ética, Sesgos y Gestión de Riesgos",
+    description: "Gobernanza y responsabilidad en sistemas inteligentes.",
+    topics: [
+      "Detección y mitigación de sesgos algorítmicos y respuestas discriminatorias.",
+      "Gobernanza de datos: privacidad, anonimización y manejo de información sensible.",
+      "Establecimiento de políticas éticas y de calidad en soluciones basadas en IA."
+    ],
+    icon: "Scale",
+  }
+];
+
+const courseDetails = {
+  startDate: "Por definir",
+  duration: "Por definir",
+  schedule: "Por definir",
+  regularPrice: "Por definir",
+  earlyBirdPrice: "Por definir",
+};
+
+const courseId = "qa-genai";
+const courseName = "Generative AI para Software Testing";
+---
+
+<Layout title={`${courseName} - Qualisophy`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      {courseName}
+    </h1>
+    <Course 
+      client:load 
+      modules={modules} 
+      instructor={null} 
+      courseDetails={courseDetails} 
+      courseId={courseId}
+      courseDescription={courseDescription}
+      prerequisites={prerequisites}
+    />
+    <EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
+  </div>
+</Layout>

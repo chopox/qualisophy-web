@@ -1,0 +1,96 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courseDescription = "Power BI es potente, pero enviar millones de filas de datos sucios o innecesarios ralentiza drásticamente los informes. Este curso enseña a los analistas a utilizar SQL para realizar el 'trabajo pesado' directamente en el servidor de bases de datos. Los alumnos aprenderán a extraer, filtrar, limpiar y agregar datos en el origen, dominando el concepto de 'Query Folding' (Plegado de Consultas) para que Power BI solo procese la información final, garantizando cuadros de mando ultrarrápidos y optimizados.";
+
+const prerequisites = "Lógica matemática básica y experiencia previa manejando datos en hojas de cálculo.";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Bases de Datos Relacionales y Fundamentos SQL",
+    description: "Conoce la arquitectura de bases de datos y el lenguaje de consultas.",
+    topics: [
+      "Entender la arquitectura de bases de datos relacionales y el lenguaje DML/DDL.",
+      "Sentencias básicas: SELECT, FROM, y filtrado potente con la cláusula WHERE.",
+      "Búsqueda de patrones (LIKE), operadores lógicos (AND, OR, NOT) y rangos (BETWEEN)."
+    ],
+    icon: "Database",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Análisis y Agregación de Datos en el Origen",
+    description: "Aprende a agrupar y resumir información eficientemente.",
+    topics: [
+      "Funciones de agregación: SUM, AVG, COUNT, MIN, MAX.",
+      "Agrupación de datos con GROUP BY y filtrado condicional de grupos con HAVING.",
+      "Ordenación de resultados (ORDER BY) y limitación de registros (TOP/LIMIT)."
+    ],
+    icon: "BarChart",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Relacionando Información Compleja (JOINs)",
+    description: "Cruza datos de múltiples tablas como un experto.",
+    topics: [
+      "Diferencias y usos estratégicos de INNER JOIN, LEFT JOIN, y RIGHT JOIN.",
+      "Subconsultas (Subqueries) para cálculos dinámicos avanzados.",
+      "Uso de DISTINCT y resolución de redundancias en grandes volúmenes."
+    ],
+    icon: "Layers",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Integración Optimizada con Power BI",
+    description: "Conecta tu base de datos optimizada a Power BI.",
+    topics: [
+      "Configuración de conexiones y uso del Método de Consulta Nativa en Power BI.",
+      "Entendiendo y forzando el Query Folding para maximizar el rendimiento.",
+      "Casos prácticos: de un esquema SQL complejo a una tabla plana perfecta para análisis."
+    ],
+    icon: "Zap",
+  }
+];
+
+const courseDetails = {
+  startDate: "Por definir",
+  duration: "Por definir",
+  schedule: "Por definir",
+  regularPrice: "Por definir",
+  earlyBirdPrice: "Por definir", 
+};
+
+const courseId = "data-sql";
+const courseName = "Introducción a SQL para Power BI";
+---
+
+<Layout title={`${courseName} - Qualisophy`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      {courseName}
+    </h1>
+    <Course 
+      client:load 
+      modules={modules} 
+      instructor={null} 
+      courseDetails={courseDetails} 
+      courseId={courseId}
+      courseDescription={courseDescription}
+      prerequisites={prerequisites}
+    />
+<EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
+  </div>
+</Layout>

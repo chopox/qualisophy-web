@@ -1,0 +1,96 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courseDescription = "En los entornos ágiles modernos, el testing ya no es una fase al final del proyecto, sino una actividad continua en la que participa todo el equipo. Este curso dota a los profesionales de QA de las técnicas y la mentalidad necesarias para integrarse en equipos Scrum/Kanban, aportando valor desde la creación de historias de usuario, automatizando estratégicamente y garantizando entregas rápidas y seguras.";
+
+const prerequisites = "Experiencia en pruebas de software tradicionales y comprensión básica de marcos de trabajo ágiles (Scrum/Kanban).";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "El Rol del Tester en el Entorno Ágil",
+    description: "Transición del modelo tradicional al ágil.",
+    topics: [
+      "Valores y principios del Manifiesto Ágil aplicados a QA.",
+      "Transición del enfoque tradicional (Cascada) al enfoque colaborativo (Whole Team).",
+      "El modelo de los Cuadrantes del Testing Ágil."
+    ],
+    icon: "Users",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Prácticas y Enfoques de Testing Ágil",
+    description: "Aplicación de técnicas colaborativas y exploratorias.",
+    topics: [
+      "Desarrollo Guiado por Comportamiento (BDD) y Criterios de Aceptación.",
+      "La Pirámide de Automatización: equilibrar pruebas unitarias, de API y UI.",
+      "Testing Exploratorio y enfoques basados en heurísticas y sesiones (Session-Based)."
+    ],
+    icon: "Target",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Planificación, Estimación y Gestión del Riesgo",
+    description: "Cómo estimar historias orientadas a la calidad.",
+    topics: [
+      "Participación del QA en Refinamientos y Sprint Plannings.",
+      "Estrategias de estimación ágil (Planning Poker, T-Shirt sizing) orientadas a calidad.",
+      "Identificación temprana de riesgos y diseño de pruebas enfocadas al valor del negocio."
+    ],
+    icon: "Calendar",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Entrega Continua y Métricas de Calidad",
+    description: "Midiendo el éxito y mejorando los procesos.",
+    topics: [
+      "Conceptos de Integración Continua (CI) y Entrega Continua (CD).",
+      "Uso de métricas ágiles útiles (Lead Time, Cycle Time, Densidad de Defectos).",
+      "Retroalimentación continua y mejora de procesos en las retrospectivas."
+    ],
+    icon: "TrendingUp",
+  }
+];
+
+const courseDetails = {
+  startDate: "Por definir",
+  duration: "Por definir",
+  schedule: "Por definir",
+  regularPrice: "Por definir",
+  earlyBirdPrice: "Por definir",
+};
+
+const courseId = "qa-agile";
+const courseName = "Agile Testing";
+---
+
+<Layout title={`${courseName} - Qualisophy`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      {courseName}
+    </h1>
+    <Course 
+      client:load 
+      modules={modules} 
+      instructor={null} 
+      courseDetails={courseDetails} 
+      courseId={courseId}
+      courseDescription={courseDescription}
+      prerequisites={prerequisites}
+    />
+    <EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
+  </div>
+</Layout>

@@ -1,5 +1,3 @@
-// src/components/react/shared/EnrollButton.tsx
-
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTranslations } from "@/hooks/useTranslations";
@@ -7,9 +5,14 @@ import { useTranslations } from "@/hooks/useTranslations";
 interface EnrollButtonProps {
   courseId: string;
   courseName: string;
+  isComingSoon?: boolean; // NUEVO: Prop para saber si está disponible
 }
 
-export const EnrollButton = ({ courseId, courseName }: EnrollButtonProps) => {
+export const EnrollButton = ({
+  courseId,
+  courseName,
+  isComingSoon = false,
+}: EnrollButtonProps) => {
   const [bottomOffset, setBottomOffset] = useState<number>(32);
 
   useEffect(() => {
@@ -39,7 +42,8 @@ export const EnrollButton = ({ courseId, courseName }: EnrollButtonProps) => {
   }, []);
 
   const handleClick = () => {
-    if (typeof window !== "undefined") {
+    // Si está "Próximamente", no hace nada. Si no, lleva al formulario.
+    if (!isComingSoon && typeof window !== "undefined") {
       window.location.href = `/course-enrollment?course=${courseId}`;
     }
   };
@@ -49,12 +53,19 @@ export const EnrollButton = ({ courseId, courseName }: EnrollButtonProps) => {
   return (
     <motion.button
       onClick={handleClick}
-      title={`Inscribirse en ${courseName}`}
+      disabled={isComingSoon}
+      title={isComingSoon ? "Próximamente" : `Inscribirse en ${courseName}`}
       animate={{ bottom: bottomOffset }}
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
-      className="fixed left-4 lg:left-auto lg:right-24 bg-[#16223f] hover:bg-primary text-white px-5 lg:px-6 h-12 lg:h-14 rounded-full shadow-lg flex items-center justify-center text-xs lg:text-sm font-semibold z-40 transition-colors duration-200"
+      className={`fixed left-4 lg:left-auto lg:right-24 px-5 lg:px-6 h-12 lg:h-14 rounded-full shadow-lg flex items-center justify-center text-xs lg:text-sm font-semibold z-40 transition-colors duration-200 
+        ${
+          isComingSoon
+            ? "bg-slate-400 text-white cursor-not-allowed opacity-80" // Estilo deshabilitado
+            : "bg-[#16223f] hover:bg-primary text-white cursor-pointer" // Estilo normal
+        }
+      `}
     >
-      {t("button.enroll")}
+      {isComingSoon ? "Próximamente" : t("button.enroll")}
     </motion.button>
   );
 };

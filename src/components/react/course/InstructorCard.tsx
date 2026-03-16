@@ -1,3 +1,4 @@
+import React from "react";
 import { User, CheckCircle, Calendar, Clock, Globe } from "lucide-react";
 
 export interface Instructor {
@@ -6,7 +7,7 @@ export interface Instructor {
   description: string;
   certifications: string[];
   experience: string;
-  image?: string; // NUEVO: Añadimos soporte opcional para la foto del instructor
+  image?: string;
 }
 
 export interface GenericItem {
@@ -16,9 +17,7 @@ export interface GenericItem {
 }
 
 interface InstructorCardProps {
-  // For instructors
-  instructor?: Instructor;
-  // For generic use (courses, etc.)
+  instructor?: Instructor | null; // Cambiado para aceptar null
   title?: string;
   subtitle?: string;
   description?: string;
@@ -27,13 +26,12 @@ interface InstructorCardProps {
   footer?: {
     label: string;
     value: string;
-    subValue?: string; // Subtítulo para el footer (ej. aclaraciones de precio)
-    discountText?: string; // NUEVO: Descuento para antiguos alumnos
+    subValue?: string;
+    discountText?: string;
   };
   className?: string;
 }
 
-// Icon mapping
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Calendar,
   Clock,
@@ -52,46 +50,65 @@ export const InstructorCard = ({
   footer,
   className = "",
 }: InstructorCardProps) => {
-  // If instructor prop is provided, use instructor mode
+  // SI NO HAY INSTRUCTOR NI TITULO (tarjeta vacía), NO PINTAMOS NADA
+  if (!instructor && !title) return null;
+
+  // MODO INSTRUCTOR (Página individual del curso)
   if (instructor) {
     return (
       <div
-        className={`bg-white rounded-lg border border-gray-200 shadow-sm p-6 ${className}`}
+        className={`bg-white rounded-lg border border-gray-200 shadow-sm p-6 md:p-8 ${className}`}
       >
-        <h3 className="text-lg text-center font-bold text-slate-800 mb-4">
+        <h3 className="text-xl text-center font-bold text-slate-800 mb-6">
           {instructor.name}
         </h3>
-        <div className="bg-white text-center mb-4">
-          {/* NUEVA LÓGICA CONDICIONAL: Si hay imagen, la pinta. Si no, pone el icono. */}
+
+        <div className="bg-white text-center mb-6">
           {instructor.image ? (
             <img
               src={instructor.image}
               alt={instructor.name}
-              className="w-20 h-20 rounded-full object-cover mx-auto mb-3 flex-shrink-0 border border-gray-100 shadow-sm"
+              className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border border-gray-100 shadow-sm"
             />
           ) : (
-            <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-3 flex-shrink-0">
-              <User className="w-10 h-10 text-white flex-shrink-0" />
+            <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+              <User className="w-12 h-12 text-white" />
             </div>
           )}
+          <h4 className="font-bold text-slate-800 text-lg mb-1">
+            {instructor.title}
+          </h4>
+          {instructor.experience && (
+            <p className="text-sm font-medium text-slate-500">
+              {instructor.experience}
+            </p>
+          )}
+        </div>
 
-          <h4 className="font-semibold text-slate-800">{instructor.title}</h4>
-          <p className="text-sm text-slate-600">{instructor.experience}</p>
-        </div>
-        <p className="text-slate-700 text-sm mb-4">{instructor.description}</p>
-        <div className="space-y-2">
-          {instructor.certifications.map((cert, index) => (
-            <div key={index} className="flex items-center space-x-2">
-              <CheckCircle className="w-4 h-4 text-primary" />
-              <span className="text-sm text-slate-600">{cert}</span>
-            </div>
-          ))}
-        </div>
+        {instructor.description && (
+          <p className="text-slate-600 text-sm leading-relaxed mb-6">
+            {instructor.description}
+          </p>
+        )}
+
+        {instructor.certifications && instructor.certifications.length > 0 && (
+          <div className="space-y-3">
+            {instructor.certifications.map((cert, index) => (
+              <div key={index} className="flex items-start gap-3">
+                {/* AQUI ESTÁ LA MAGIA: flex-shrink-0 y mt-0.5 para alinear con la primera línea */}
+                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-slate-700 leading-snug">
+                  {cert}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     );
   }
 
-  // Generic mode for courses, etc.
+  // MODO GENÉRICO (Página de Inscripción)
   return (
     <div
       className={`bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden sticky top-24 ${className}`}
@@ -142,13 +159,11 @@ export const InstructorCard = ({
             <p className="text-3xl font-bold text-slate-800 text-center">
               {footer.value}
             </p>
-            {/* Pintamos el texto secundario de precio anticipado */}
             {footer.subValue && (
               <p className="text-xs text-slate-500 font-medium text-center mt-1">
                 {footer.subValue}
               </p>
             )}
-            {/* Pintamos el descuento de antiguo alumno */}
             {footer.discountText && (
               <p className="text-xs font-bold text-green-600 text-center mt-4">
                 {footer.discountText}

@@ -3,16 +3,36 @@ import Layout from "@/layouts/Layout.astro";
 import { CourseEnrollmentForm } from "@/components/react/course/CourseEnrollmentForm";
 import { InstructorCard } from "@/components/react/course/InstructorCard";
 
-// Importación de imágenes locales
-import imgQa from "@/assets/imagenes-cursos/qa/qa-curso.png";
-import imgCypress from "@/assets/imagenes-cursos/qa/cypress-bootcamp.png";
-import imgPowerbi from "@/assets/imagenes-cursos/microsoft/powerbi.png";
+// ==========================================
+// IMPORTACIÓN DE IMÁGENES LOCALES
+// ==========================================
+// QA
+import imgQaSoftware from "@/assets/imagenes-cursos/qa/qa-curso.png";
+import imgQaApi from "@/assets/imagenes-cursos/qa/postman.png";
+import imgQaCypress from "@/assets/imagenes-cursos/qa/cypress-bootcamp.png";
+import imgQaJunit from "@/assets/imagenes-cursos/qa/junit.png";
+import imgQaAgile from "@/assets/imagenes-cursos/qa/agile-testing.png";
+import imgQaGenai from "@/assets/imagenes-cursos/qa/testing-ia.png";
+// DATA
+import imgDataSql from "@/assets/imagenes-cursos/data/sql-powerbi.png";
+import imgDataPowerbi from "@/assets/imagenes-cursos/data/powerbi.png";
+// HERRAMIENTAS
+import imgToolsExcel from "@/assets/imagenes-cursos/tools/excel.png";
+import imgToolsOffice from "@/assets/imagenes-cursos/tools/ofimatica.png";
+import imgToolsChatbots from "@/assets/imagenes-cursos/tools/chatbots.png";
+import imgToolsMake from "@/assets/imagenes-cursos/tools/make.png";
+// DEVOPS
+import imgDevopsGitlab from "@/assets/imagenes-cursos/devops/gitlab.png";
+import imgDevopsIntro from "@/assets/imagenes-cursos/devops/ci-cd.png";
+// AGILE
+import imgAgileScrum from "@/assets/imagenes-cursos/agile/agile-mastery.png";
+
 
 // Get course ID from URL params
 const url = new URL(Astro.request.url);
 const courseId = url.searchParams.get("course") || "";
 
-// DICCIONARIO COMPLETO DE CURSOS (Basado en los 4 Pilares)
+// DICCIONARIO COMPLETO DE CURSOS
 const courseCatalog: Record<
   string,
   {
@@ -31,117 +51,213 @@ const courseCatalog: Record<
   }
 > = {
   // ==========================================
-  // PILAR 1: QA & TESTING
+  // QA & TESTING
   // ==========================================
-  "individual-quality": {
-    id: "individual-quality",
-    name: "Testing Manual & QA",
-    description: "Aprende testing desde cero hasta avanzado con herramientas modernas.",
-    image: imgQa.src, 
+  "qa-software": {
+    id: "qa-software",
+    name: "Calidad de Software (QA) y Testing",
+    description: "Verifica que las aplicaciones funcionan correctamente y valida requerimientos.",
+    image: imgQaSoftware.src, 
     startDate: "17 de Febrero, 2025",
     duration: "40 horas (7 semanas)",
     modality: "Online en vivo",
     price: "497 €",
     categorySlug: "qa",
-    courseSlug: "manual-testing",
+    courseSlug: "software-quality",
   },
-  "individual-cypress": {
-    id: "individual-cypress",
-    name: "Automatización con Cypress",
+  "qa-cypress": {
+    id: "qa-cypress",
+    name: "Cypress Automation Bootcamp",
     description: "Aprende automatización de pruebas web modernas con Cypress desde cero.",
-    image: imgCypress.src, 
+    image: imgQaCypress.src, 
     startDate: "28 de Abril, 2026",
     duration: "36 horas (6 semanas)",
     modality: "Online en vivo",
-    price: "497 €",
-    priceSubtext: "reservando antes del 3 de Abril de 2026 (después 547 €)",
+    price: "547 €",
+    priceSubtext: "reservando antes del 3 de Abril de 2026 (497 €)",
     formerStudentDiscount: "25% de descuento extra para antiguos alumnos",
     categorySlug: "qa",
     courseSlug: "cypress-bootcamp",
   },
-  "individual-devops": {
-    id: "individual-devops",
-    name: "DevOps for Testers",
-    description: "Programación y DevOps esenciales para testers modernos.",
-    image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=1470&auto=format&fit=crop",
-    startDate: "15 de Marzo, 2025",
-    duration: "40 horas (7 semanas)",
+  "qa-api": {
+    id: "qa-api",
+    name: "API Testing con Postman",
+    description: "Domina la validación del backend integrándola en procesos CI/CD.",
+    image: imgQaApi.src,
+    startDate: "Por definir",
+    duration: "Por definir",
     modality: "Online en vivo",
-    price: "497 €",
+    price: "Por definir",
     categorySlug: "qa",
-    courseSlug: "devops-for-testers-course",
+    courseSlug: "api-testing",
   },
-  "individual-tqm": {
-    id: "individual-tqm",
-    name: "Gestión de Calidad (TQM)",
-    description: "Lidera la calidad y estrategia en proyectos de software.",
-    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1470&auto=format&fit=crop",
-    startDate: "Próximamente",
-    duration: "40 horas",
+  "qa-junit": {
+    id: "qa-junit",
+    name: "Test Unitarios con JUnit",
+    description: "Creación de pruebas robustas usando el estándar de la industria para Java.",
+    image: imgQaJunit.src,
+    startDate: "Por definir",
+    duration: "Por definir",
     modality: "Online en vivo",
-    price: "497 €",
+    price: "Por definir",
     categorySlug: "qa",
-    courseSlug: "quality-management",
+    courseSlug: "junit-testing",
+  },
+  "qa-agile": {
+    id: "qa-agile",
+    name: "Agile Testing",
+    description: "Técnicas y mentalidad para integrarse en equipos ágiles Scrum/Kanban.",
+    image: imgQaAgile.src,
+    startDate: "Por definir",
+    duration: "Por definir",
+    modality: "Online en vivo",
+    price: "Por definir",
+    categorySlug: "qa",
+    courseSlug: "agile-testing",
+  },
+  "qa-genai": {
+    id: "qa-genai",
+    name: "Generative AI para Software Testing",
+    description: "Acelera tus labores diarias de QA utilizando Inteligencia Artificial Generativa.",
+    image: imgQaGenai.src,
+    startDate: "Por definir",
+    duration: "Por definir",
+    modality: "Online en vivo",
+    price: "Por definir",
+    categorySlug: "qa",
+    courseSlug: "genai-testing",
   },
 
   // ==========================================
-  // PILAR 2: MICROSOFT & DATA
+  // DATA & BI
   // ==========================================
-  "introduccion-powerbi": {
-    id: "introduccion-powerbi",
-    name: "Introducción a la Analítica de datos con Power BI",
-    description: "Aprende a transformar, modelar y visualizar datos para la toma de decisiones.",
-    image: imgPowerbi.src,
+  "data-powerbi": {
+    id: "data-powerbi",
+    name: "Analítica de Datos con Power BI",
+    description: "Transforma, modela y visualiza datos para la toma de decisiones.",
+    image: imgDataPowerbi.src,
     startDate: "Inicio de Octubre",
     duration: "50 horas",
     modality: "Online en vivo",
-        formerStudentDiscount: "25% de descuento extra para antiguos alumnos",
+    formerStudentDiscount: "25% de descuento extra para antiguos alumnos",
     price: "450 €",
-    categorySlug: "microsoft",
+    categorySlug: "data",
     courseSlug: "powerbi",
   },
-  "individual-data-sql": {
-    id: "individual-data-sql",
-    name: "Data Analytics & SQL",
-    description: "Domina las bases de datos y la extracción de información valiosa.",
-    image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1476&auto=format&fit=crop",
-    startDate: "Próximamente",
-    duration: "45 horas",
+  "data-sql": {
+    id: "data-sql",
+    name: "Introducción a SQL para Power BI",
+    description: "Extrae, filtra y limpia datos en el origen optimizando el rendimiento.",
+    image: imgDataSql.src,
+    startDate: "Por definir",
+    duration: "Por definir",
     modality: "Online en vivo",
-    price: "450 €",
-    categorySlug: "microsoft",
-    courseSlug: "data-analytics",
-  },
-  "individual-excel": {
-    id: "individual-excel",
-    name: "Excel Avanzado Business",
-    description: "Lleva tus habilidades de Excel al siguiente nivel profesional.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1415&auto=format&fit=crop",
-    startDate: "Próximamente",
-    duration: "30 horas",
-    modality: "Online en vivo",
-    price: "350 €",
-    categorySlug: "microsoft",
-    courseSlug: "excel-advanced",
-  },
-  "individual-power-automate": {
-    id: "individual-power-automate",
-    name: "Power Automate Flows",
-    description: "Automatiza procesos de negocio sin necesidad de escribir código.",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1471&auto=format&fit=crop",
-    startDate: "Próximamente",
-    duration: "30 horas",
-    modality: "Online en vivo",
-    price: "390 €",
-    categorySlug: "microsoft",
-    courseSlug: "power-automate",
+    price: "Por definir",
+    categorySlug: "data",
+    courseSlug: "sql-powerbi",
   },
 
   // ==========================================
-  // PILAR 3: DESARROLLO (INGENIERÍA DE SOFTWARE)
+  // HERRAMIENTAS
   // ==========================================
-  "individual-fullstack": {
-    id: "individual-fullstack",
+  "tools-excel": {
+    id: "tools-excel",
+    name: "Microsoft Excel Expert",
+    description: "Maneja grandes volúmenes de datos, macros y Power Pivot.",
+    image: imgToolsExcel.src,
+    startDate: "Por definir",
+    duration: "Por definir",
+    modality: "Online en vivo",
+    price: "Por definir",
+    categorySlug: "tools",
+    courseSlug: "excel-expert",
+  },
+  "tools-office": {
+    id: "tools-office",
+    name: "Ofimática Integral",
+    description: "Mejora radicalmente tu velocidad y organización corporativa diaria.",
+    image: imgToolsOffice.src,
+    startDate: "Por definir",
+    duration: "Por definir",
+    modality: "Online en vivo",
+    price: "Por definir",
+    categorySlug: "tools",
+    courseSlug: "office-tools",
+  },
+  "tools-chatbots": {
+    id: "tools-chatbots",
+    name: "Chatbots para Comercios Electrónicos",
+    description: "Diseña e integra asistentes virtuales conversacionales automatizados.",
+    image: imgToolsChatbots.src,
+    startDate: "Por definir",
+    duration: "Por definir",
+    modality: "Online en vivo",
+    price: "Por definir",
+    categorySlug: "tools",
+    courseSlug: "chatbots",
+  },
+  "tools-make": {
+    id: "tools-make",
+    name: "Productividad con Make",
+    description: "Crea flujos de trabajo automatizados para gestionar correos e integrar IA.",
+    image: imgToolsMake.src,
+    startDate: "Por definir",
+    duration: "Por definir",
+    modality: "Online en vivo",
+    price: "Por definir",
+    categorySlug: "tools",
+    courseSlug: "make-productivity",
+  },
+
+  // ==========================================
+  // DEVOPS
+  // ==========================================
+  "devops-gitlab": {
+    id: "devops-gitlab",
+    name: "Gestión Avanzada y CI/CD con GitLab",
+    description: "Configura tableros, automatiza pruebas y despliegues seguros.",
+    image: imgDevopsGitlab.src,
+    startDate: "Por definir",
+    duration: "Por definir",
+    modality: "Online en vivo",
+    price: "Por definir",
+    categorySlug: "devops",
+    courseSlug: "gitlab-cicd",
+  },
+  "devops-intro": {
+    id: "devops-intro",
+    name: "DevOps, Continuous Testing y CI/CD",
+    description: "Inmersión completa en la cultura, prácticas y herramientas de DevOps.",
+    image: imgDevopsIntro.src,
+    startDate: "Por definir",
+    duration: "Por definir",
+    modality: "Online en vivo",
+    price: "Por definir",
+    categorySlug: "devops",
+    courseSlug: "intro-devops",
+  },
+
+  // ==========================================
+  // AGILE
+  // ==========================================
+  "agile-scrum": {
+    id: "agile-scrum",
+    name: "Agile Mastery: El Camino del Scrum Master",
+    description: "Facilita, asesora y mentoriza a los equipos de desarrollo.",
+    image: imgAgileScrum.src,
+    startDate: "Por definir",
+    duration: "Por definir",
+    modality: "Online en vivo",
+    price: "Por definir",
+    categorySlug: "agile",
+    courseSlug: "scrum-master",
+  },
+
+  // ==========================================
+  // DESARROLLO (Mantenidos con Unsplash)
+  // ==========================================
+  "dev-fullstack": {
+    id: "dev-fullstack",
     name: "Fullstack Development",
     description: "Conviértete en desarrollador Full Stack desde cero a profesional.",
     image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1470&auto=format&fit=crop",
@@ -152,8 +268,8 @@ const courseCatalog: Record<
     categorySlug: "dev",
     courseSlug: "fullstack",
   },
-  "individual-frontend": {
-    id: "individual-frontend",
+  "dev-frontend": {
+    id: "dev-frontend",
     name: "Frontend (React/Vue)",
     description: "Crea interfaces de usuario dinámicas y modernas.",
     image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1470&auto=format&fit=crop",
@@ -164,8 +280,8 @@ const courseCatalog: Record<
     categorySlug: "dev",
     courseSlug: "frontend-react",
   },
-  "individual-backend": {
-    id: "individual-backend",
+  "dev-backend": {
+    id: "dev-backend",
     name: "Backend (Node.js/Java)",
     description: "Aprende a construir la lógica y bases de datos del servidor.",
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1470&auto=format&fit=crop",
@@ -176,77 +292,27 @@ const courseCatalog: Record<
     categorySlug: "dev",
     courseSlug: "backend-node",
   },
-  "individual-cloud": {
-    id: "individual-cloud",
-    name: "Arquitectura Cloud",
-    description: "Domina el despliegue y arquitectura en AWS/Azure.",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1472&auto=format&fit=crop",
+  "dev-java": {
+    id: "dev-java",
+    name: "Java & Spring Boot",
+    description: "Desarrolla aplicaciones robustas y seguras para grandes organizaciones.",
+    image: "https://images.unsplash.com/photo-1537884944318-390069bb8665?q=80&w=1470&auto=format&fit=crop",
     startDate: "A consultar",
-    duration: "40 horas",
+    duration: "80 horas",
     modality: "Online en vivo",
-    price: "500 €",
+    price: "695 €",
     categorySlug: "dev",
-    courseSlug: "cloud",
+    courseSlug: "java-spring",
   },
 
   // ==========================================
-  // PILAR 4: PROJECT MANAGEMENT
+  // EMPRESAS (B2B Mantenidos con Unsplash)
   // ==========================================
-  "individual-scrum": {
-    id: "individual-scrum",
-    name: "Scrum Master",
-    description: "Lidera equipos ágiles y maximiza la entrega de valor.",
-    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1470&auto=format&fit=crop",
-    startDate: "Próximamente",
-    duration: "25 horas",
-    modality: "Online en vivo",
-    price: "350 €",
-    categorySlug: "pm",
-    courseSlug: "scrum-master",
-  },
-  "individual-po": {
-    id: "individual-po",
-    name: "Product Owner",
-    description: "Aprende a gestionar el backlog y definir productos de éxito.",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1470&auto=format&fit=crop",
-    startDate: "Próximamente",
-    duration: "25 horas",
-    modality: "Online en vivo",
-    price: "350 €",
-    categorySlug: "pm",
-    courseSlug: "product-owner",
-  },
-  "individual-kanban": {
-    id: "individual-kanban",
-    name: "Gestión Ágil (Kanban)",
-    description: "Optimiza el flujo de trabajo y elimina cuellos de botella.",
-    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=1339&auto=format&fit=crop",
-    startDate: "Próximamente",
-    duration: "20 horas",
-    modality: "Online en vivo",
-    price: "290 €",
-    categorySlug: "pm",
-    courseSlug: "kanban",
-  },
-  "individual-leadership": {
-    id: "individual-leadership",
-    name: "Liderazgo de Equipos",
-    description: "Desarrolla habilidades blandas para liderar equipos tecnológicos.",
-    image: "https://images.unsplash.com/photo-1552581234-26160f608093?q=80&w=1470&auto=format&fit=crop",
-    startDate: "Próximamente",
-    duration: "30 horas",
-    modality: "Online en vivo",
-    price: "390 €",
-    categorySlug: "pm",
-    courseSlug: "leadership",
-  },
-
-  // (Se mantienen los de empresas por si se usan en B2B)
   "enterprise-frontend": { id: "enterprise-frontend", name: "Curso Frontend Moderno", description: "Domina React, Vue y las últimas tecnologías frontend.", image: "https://images.unsplash.com/photo-1610563166150-b34df4f3bcd6?auto=format&fit=crop&w=1470&q=80", startDate: "A consultar", duration: "Personalizable", modality: "Online / Presencial", price: "447 €" },
   "enterprise-backend": { id: "enterprise-backend", name: "Curso Backend Escalable", description: "Aprende a construir APIs robustas y escalables.", image: "https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=1470&q=80", startDate: "A consultar", duration: "Personalizable", modality: "Online / Presencial", price: "525 €" },
   "enterprise-fullstack": { id: "enterprise-fullstack", name: "Curso Full Stack Development", description: "Conviértete en desarrollador Full Stack completo.", image: "https://images.unsplash.com/photo-1519241047957-be31d7379a5d?auto=format&fit=crop&w=1470&q=80", startDate: "A consultar", duration: "Personalizable", modality: "Online / Presencial", price: "597 €" },
   "enterprise-automation": { id: "enterprise-automation", name: "Automatización QA", description: "Automatiza pruebas con las mejores herramientas del mercado.", image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1470&q=80", startDate: "A consultar", duration: "Personalizable", modality: "Online / Presencial", price: "547 €" },
-  "enterprise-devops": { id: "enterprise-devops", name: "DevOps para QA", description: "Integra DevOps en tu proceso de testing.", image: "https://media.istockphoto.com/id/1309642115/es/foto/concepto-devops.webp?a=1&b=1&s=612x612&w=0&k=20&c=bYiNrKpJKZ6Myf1YGlhqCK-n6bRMPvBt4i_0-CmrDYw=", startDate: "A consultar", duration: "Personalizable", modality: "Online / Presencial", price: "547 €" },
+  "enterprise-devops": { id: "enterprise-devops", name: "DevOps para QA", description: "Integra DevOps en tu proceso de testing.", image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80", startDate: "A consultar", duration: "Personalizable", modality: "Online / Presencial", price: "547 €" },
   "enterprise-quality": { id: "enterprise-quality", name: "Gestión de Calidad del Software", description: "Gestiona la calidad en proyectos empresariales.", image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1470&q=80", startDate: "A consultar", duration: "Personalizable", modality: "Online / Presencial", price: "497 €" },
   "enterprise-dashboards": { id: "enterprise-dashboards", name: "Dashboards y Visualización", description: "Crea dashboards impactantes con Power BI.", image: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=1470&q=80", startDate: "A consultar", duration: "Personalizable", modality: "Online / Presencial", price: "497 €" },
   "enterprise-analytics": { id: "enterprise-analytics", name: "Data Analytics Fundamentals", description: "Fundamentos de análisis de datos empresariales.", image: "https://images.unsplash.com/photo-1640158615573-cd28feb1bf4e?auto=format&fit=crop&w=1470&q=80", startDate: "A consultar", duration: "Personalizable", modality: "Online / Presencial", price: "450 €" },
@@ -261,12 +327,15 @@ const courses = Object.values(courseCatalog).map((course) => ({
   name: course.name,
 }));
 
-// Formateamos la categoría para los breadcrumbs ("qa" -> "QA & Testing")
+// Formateamos la categoría para los breadcrumbs
 const formatCategoryName = (slug: string) => {
   if (slug === 'qa') return 'QA & Testing';
   if (slug === 'dev') return 'Desarrollo';
   if (slug === 'pm') return 'Project Management';
-  if (slug === 'microsoft') return 'Microsoft & Data';
+  if (slug === 'microsoft' || slug === 'data') return 'Data & BI';
+  if (slug === 'tools') return 'Herramientas';
+  if (slug === 'devops') return 'DevOps & CI/CD';
+  if (slug === 'agile') return 'Agile & Scrum';
   return 'Formación';
 };
 

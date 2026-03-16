@@ -1,0 +1,84 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courseDescription = "Imagina tener una herramienta mágica que conecte tus aplicaciones favoritas y actúe como un asistente personal que trabaja 24/7 para que seas más productivo. Ese es el poder de Make. Este curso eminentemente práctico enseñará a los alumnos a crear flujos de trabajo automatizados para gestionar bandejas de correo, clasificar mensajes y generar respuestas automáticas apoyadas en Inteligencia Artificial.";
+
+const prerequisites = "Manejo fluido de correo electrónico (Gmail) y herramientas ofimáticas en la nube (Google Forms). Nociones básicas sobre herramientas de Inteligencia Artificial como ChatGPT.";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Introducción a Make",
+    description: "Adéntrate en el mundo de la automatización No-Code.",
+    topics: [
+      "¿Qué es Make? Conceptos básicos de la automatización visual sin código (No-Code).",
+      "Cómo la automatización transforma el trabajo diario y ahorra horas de tareas repetitivas."
+    ],
+    icon: "Zap",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Configuración de Make con Gmail y otras Apps",
+    description: "Conecta tus aplicaciones principales para que hablen entre sí.",
+    topics: [
+      "Configuración inicial del entorno y conexión de cuentas.",
+      "Vinculación de Make con Gmail para la lectura ('Watch Emails') y gestión de la bandeja de entrada.",
+      "Integración con herramientas de entrada de datos como Google Forms."
+    ],
+    icon: "Mail",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Automatización Avanzada e IA (Ejercicio de Prueba)",
+    description: "Crea tu primer asistente de correo impulsado por IA.",
+    topics: [
+      "Mapeo de datos: conectando los campos de un formulario con los campos de envío.",
+      "Programación de escenarios (ejecución por horas, días o minutos).",
+      "Integración con IA: Uso de modelos como GPT-3.5 o GPT-4 para obtener clasificaciones de correos y generar respuestas.",
+      "Movimiento automático de correos a carpetas específicas y validación de salidas."
+    ],
+    icon: "Bot",
+  }
+];
+
+const courseDetails = {
+  startDate: "Por definir",
+  duration: "Por definir",
+  schedule: "Por definir",
+  regularPrice: "Por definir",
+  earlyBirdPrice: "Por definir", 
+};
+
+const courseId = "tools-make";
+const courseName = "Productividad a través de Correos Electrónicos con Make";
+---
+
+<Layout title={`${courseName} - Qualisophy`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      {courseName}
+    </h1>
+    <Course 
+      client:load 
+      modules={modules} 
+      instructor={null} 
+      courseDetails={courseDetails} 
+      courseId={courseId}
+      courseDescription={courseDescription}
+      prerequisites={prerequisites}
+    />
+    <EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
+  </div>
+</Layout>

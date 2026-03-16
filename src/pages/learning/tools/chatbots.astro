@@ -1,0 +1,84 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courseDescription = "En la era digital actual, la inmediatez es clave. Los chatbots son una herramienta poderosa que permite a los comercios automatizar tareas repetitivas, mejorar drásticamente la atención al cliente y optimizar la experiencia general del usuario. En este curso, los alumnos aprenderán a diseñar, crear e integrar asistentes virtuales conversacionales para aumentar la eficiencia de su negocio.";
+
+const prerequisites = "Conocimientos básicos de manejo de redes sociales a nivel corporativo y familiaridad con el entorno de comercio electrónico. No es necesario saber programar.";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "¿Qué son los Chatbots?",
+    description: "Comprende el impacto y funcionamiento de los asistentes virtuales.",
+    topics: [
+      "Definición y funcionamiento básico de un chatbot en la era digital.",
+      "Beneficios principales para el comercio electrónico y la atención al cliente.",
+      "Casos de uso más habituales en redes sociales y tiendas online."
+    ],
+    icon: "MessageSquare",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Creando Chatbots",
+    description: "Aprende a diseñar flujos conversacionales sin código.",
+    topics: [
+      "Pasos fundamentales para diseñar el flujo de conversación.",
+      "Análisis de las herramientas disponibles en el mercado para la creación de chatbots.",
+      "Uso de bloques de contenido (como la 'Galería' para mostrar imágenes con enlaces a la web)."
+    ],
+    icon: "GitMerge",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Integrando Chatbots",
+    description: "Despliega tu chatbot en entornos reales de producción.",
+    topics: [
+      "Plataformas de integración y canales de despliegue.",
+      "Paso a paso práctico de integración utilizando ManyChat.",
+      "Pruebas de funcionamiento (función de 'Vista previa'), promoción mediante códigos QR y análisis de rendimiento para optimización."
+    ],
+    icon: "Share2",
+  }
+];
+
+const courseDetails = {
+  startDate: "Por definir",
+  duration: "Por definir",
+  schedule: "Por definir",
+  regularPrice: "Por definir",
+  earlyBirdPrice: "Por definir", 
+};
+
+const courseId = "tools-chatbots";
+const courseName = "Chatbots para Comercios Electrónicos y Redes Sociales";
+---
+
+<Layout title={`${courseName} - Qualisophy`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      {courseName}
+    </h1>
+    <Course 
+      client:load 
+      modules={modules} 
+      instructor={null} 
+      courseDetails={courseDetails} 
+      courseId={courseId}
+      courseDescription={courseDescription}
+      prerequisites={prerequisites}
+    />
+    <EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
+  </div>
+</Layout>

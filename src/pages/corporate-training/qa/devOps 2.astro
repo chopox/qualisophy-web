@@ -1,0 +1,127 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos de DevOps para Testers",
+    description:
+      "Introduce los conceptos esenciales de DevOps, cultura de colaboración y cómo los testers se integran en el ciclo de entrega continua.",
+    topics: [
+      "Cultura DevOps y transformación del rol del tester",
+      "Ciclo de vida DevOps: CI/CD/CD explicado",
+      "Infraestructura como código (IaC) básica",
+      "Control de versiones con Git para testers",
+      "Ambientes de testing y gestión de configuraciones",
+    ],
+    icon: "Users",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Integración Continua y Testing Automatizado",
+    description:
+      "Aprende a integrar pruebas automatizadas en pipelines de CI para detectar problemas tempranamente y garantizar la calidad del código.",
+    topics: [
+      "Configuración de Jenkins, GitHub Actions y GitLab CI",
+      "Integración de pruebas unitarias y de integración",
+      "Estrategias de ejecución: paralela, secuencial y condicional",
+      "Manejo de artifacts y reportes de testing",
+      "Análisis de fallos y notificaciones automáticas",
+    ],
+    icon: "GitBranch",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Calidad Continua y Shift-Left Testing",
+    description:
+      "Implementa prácticas de calidad continua, análisis estático de código y testing temprano en el ciclo de desarrollo.",
+    topics: [
+      "Static code analysis con SonarQube",
+      "Security testing en pipelines (SAST/DAST)",
+      "Test coverage y quality gates",
+      "Performance testing automatizado",
+      "Monitorización de métricas de calidad",
+    ],
+    icon: "Shield",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Despliegue Continuo y Testing en Producción",
+    description:
+      "Domina estrategias de despliegue automatizado, testing en producción y técnicas avanzadas como blue-green y canary deployments.",
+    topics: [
+      "Estrategias de despliegue: blue-green, canary, rolling",
+      "Smoke tests y health checks automatizados",
+      "Feature flags y testing en producción",
+      "Containerización con Docker para testing",
+      "Orquestación básica con Kubernetes",
+    ],
+    icon: "Rocket",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Monitorización, Observabilidad y Feedback Loops",
+    description:
+      "Aprende a implementar monitorización continua, observabilidad de sistemas y crear ciclos de retroalimentación efectivos.",
+    topics: [
+      "Logging centralizado y análisis de logs",
+      "Métricas y dashboards con Grafana y Prometheus",
+      "Distributed tracing y APM tools",
+      "Alertas inteligentes y incident response",
+      "Proyecto final: Pipeline DevOps completo con testing integrado",
+    ],
+    icon: "Activity",
+  },
+];
+
+const instructor = {
+  name: "Nombre Apellido",
+  title: "DevOps Engineer & QA Lead",
+  description:
+    "Nombre Apellido es ingeniero DevOps con más de 12 años de experiencia construyendo pipelines de CI/CD y promoviendo la cultura de calidad continua en organizaciones tecnológicas. Especialista en integración de testing automatizado, infraestructura como código y prácticas de Site Reliability Engineering.",
+  certifications: [
+    "AWS Certified DevOps Engineer - Professional",
+    "Certified Kubernetes Administrator (CKA)",
+    "ISTQB Advanced Test Manager",
+  ],
+  experience: "12+ años de experiencia",
+};
+
+const courseDetails = {
+  startDate: "17 de Febrero de 2025",
+  duration: "45 horas (8 semanas)",
+  schedule: "Martes y Jueves / 18:00 - 21:00",
+  regularPrice: "547 €",
+  earlyBirdPrice: "497 €",
+};
+
+const courseId = "enterprise-devops";
+const courseName = "DevOps para QA";
+---
+
+<Layout title="DevOps para Testers">
+  <div class="mb-6">
+      <Breadcrumbs />
+    </div>
+  <h1
+    class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16"
+  >
+    DevOps para Testers
+  </h1>
+  <Course
+    client:load
+    modules={modules}
+    instructor={instructor}
+    courseDetails={courseDetails}
+    courseId={courseId}
+  />
+  <EnrollButton client:load courseId={courseId} courseName={courseName} />
+</Layout>

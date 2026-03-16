@@ -74,7 +74,7 @@ const courseDetails = {
   earlyBirdPrice: "por definir", 
 };
 
-const courseId = "introduccion-powerbi";
+const courseId = "data-powerbi";
 const courseName = "Introducción a la Analítica de datos con Power BI";
 ---
 
@@ -93,6 +93,11 @@ const courseName = "Introducción a la Analítica de datos con Power BI";
       courseDescription={courseDescription}
       prerequisites={prerequisites}
     />
-    <EnrollButton client:load courseId={courseId} courseName={courseName} />
+   <EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
   </div>
 </Layout>

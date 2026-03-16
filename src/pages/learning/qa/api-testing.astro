@@ -1,0 +1,99 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courseDescription = "En la arquitectura de software actual, las APIs son la columna vertebral de cualquier aplicación. Este curso está diseñado para dominar la validación del backend antes de que exista una interfaz gráfica, ahorrando tiempo y costes en el ciclo de desarrollo. Los alumnos aprenderán a utilizar Postman no solo como cliente HTTP, sino como una potente herramienta de automatización, validación de datos y monitorización, integrándola en procesos de integración continua (CI/CD).";
+
+const prerequisites = "Conocimientos básicos de arquitectura web (HTML/JSON) y nociones fundamentales de QA. No se requiere experiencia previa en programación, aunque nociones de JavaScript son recomendables.";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos de APIs y Entorno de Postman",
+    description: "Comprende la base de las comunicaciones web.",
+    topics: [
+      "Arquitectura cliente-servidor y verbos HTTP (GET, POST, PUT, DELETE).",
+      "Estructura de peticiones: cabeceras, parámetros, body y códigos de estado.",
+      "Creación y gestión de Colecciones y Entornos en Postman."
+    ],
+    icon: "Globe",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Scripting y Automatización de Validaciones",
+    description: "Usa código para automatizar tus pruebas de API.",
+    topics: [
+      "Uso de Tests y Pre-request scripts en JavaScript.",
+      "Validación de esquemas JSON y extracción de variables dinámicas.",
+      "Uso de aserciones avanzadas (Chai Assertion Library)."
+    ],
+    icon: "Code",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Estrategia, Datos y Estructuración",
+    description: "Diseña pruebas robustas y mantenibles.",
+    topics: [
+      "Pruebas basadas en datos (Data-Driven Testing) usando archivos CSV y JSON.",
+      "Flujos de trabajo avanzados (Postman Flows) y encadenamiento de peticiones.",
+      "Estrategias de nomenclatura y mantenimiento de suites escalables."
+    ],
+    icon: "Database",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Colaboración y CI/CD con Newman",
+    description: "Ejecuta tus colecciones de Postman en la nube.",
+    topics: [
+      "Espacios de trabajo compartidos y control de versiones de colecciones.",
+      "Ejecución de pruebas por línea de comandos utilizando Newman.",
+      "Integración de pruebas automatizadas en pipelines de CI/CD (Jenkins, GitLab CI)."
+    ],
+    icon: "Terminal",
+  }
+];
+
+const courseDetails = {
+  startDate: "Por definir",
+  duration: "Por definir",
+  schedule: "Por definir",
+  regularPrice: "Por definir",
+  earlyBirdPrice: "Por definir",
+};
+
+const courseId = "qa-api";
+const courseName = "API Testing con Postman";
+---
+
+<Layout title={`${courseName} - Qualisophy`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      {courseName}
+    </h1>
+    
+    {/* AQUI PASAMOS null COMO INSTRUCTOR */}
+    <Course 
+      client:load 
+      modules={modules} 
+      instructor={null} 
+      courseDetails={courseDetails} 
+      courseId={courseId}
+      courseDescription={courseDescription}
+      prerequisites={prerequisites}
+    />
+    
+    <EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
+  </div>
+</Layout>

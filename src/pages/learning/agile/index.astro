@@ -6,18 +6,17 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
 import { courseCategories } from "@/data/courseCatalog";
 
-// Buscamos automáticamente los cursos de esta categoría
-const categoryData = courseCategories.find(c => c.id === "qa");
+const categoryData = courseCategories.find(c => c.id === "agile");
 const courses = categoryData?.courses || [];
 ---
 
-<Layout title="Cursos de QA & Testing - Qualisophy" fullWidth={true}>
+<Layout title="Cursos Agile & Scrum - Qualisophy" fullWidth={true}>
   <ProgramHero
     client:load
-    title="Escuela de"
-    highlight="QA & Testing"
-    subtitle="Formación especializada para asegurar la calidad del software. Desde fundamentos manuales hasta automatización avanzada e IA."
-    backgroundImage="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80"
+    title="Escuela"
+    highlight="Agile & Scrum"
+    subtitle="Lidera equipos hacia el éxito. Domina los frameworks Scrum, Kanban y asume roles clave para la entrega de valor constante."
+    backgroundImage="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80"
     ctaText="Ver Itinerarios"
     onCtaClick={() => document.getElementById('courses-grid')?.scrollIntoView({ behavior: 'smooth' })}
   />
@@ -31,8 +30,8 @@ const courses = categoryData?.courses || [];
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4 border-b border-gray-200 pb-6">
                 <div class="max-w-2xl">
-                    <h2 class="text-3xl font-bold font-heading text-secondary mb-2">Formación en Aseguramiento de Calidad</h2>
-                    <p class="text-gray-600 font-primary">Especialízate en una de las áreas más demandadas del desarrollo de software.</p>
+                    <h2 class="text-3xl font-bold font-heading text-secondary mb-2">Metodologías Ágiles y Liderazgo</h2>
+                    <p class="text-gray-600 font-primary">Facilita, gestiona y mentoriza equipos de alto rendimiento.</p>
                 </div>
                 <div class="hidden md:block text-sm text-gray-400 font-medium">Mostrando {courses.length} cursos</div>
             </div>

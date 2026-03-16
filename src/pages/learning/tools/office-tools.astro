@@ -1,0 +1,120 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courseDescription = "Basado en los 6 módulos de estudio estandarizados, este curso ofrece una capacitación completa en las herramientas ofimáticas esenciales del mercado. El objetivo es que cualquier profesional mejore radicalmente su velocidad, organización y capacidad para generar documentos, presentar ideas y estructurar presupuestos o inventarios en el entorno corporativo, eliminando fricciones tecnológicas del día a día.";
+
+const prerequisites = "Manejo básico del ordenador y conexión a internet.";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Entorno de Trabajo y Gestión Documental",
+    description: "Organiza tus archivos y trabaja en la nube de forma segura.",
+    topics: [
+      "Gestión eficiente de archivos en el sistema operativo y uso del almacenamiento en la nube.",
+      "Navegación segura, configuración de perfiles y atajos generales del sistema.",
+      "Organización de carpetas, permisos y colaboración de archivos básicos."
+    ],
+    icon: "Folder",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Procesamiento de Textos Avanzado (Word / Google Docs)",
+    description: "Crea documentos profesionales y estandarizados.",
+    topics: [
+      "Edición, formato corporativo y configuración de plantillas estándar.",
+      "Uso de estilos, generación de índices automáticos y tablas de contenido.",
+      "Combinación de correspondencia y revisión colaborativa (control de cambios)."
+    ],
+    icon: "FileText",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Hojas de Cálculo - Nivel Básico e Intermedio",
+    description: "Fundamentos para trabajar con datos estructurados.",
+    topics: [
+      "Interfaz de la hoja de cálculo, formato de celdas y tipos de datos.",
+      "Fórmulas matemáticas básicas, porcentajes y referencias (absolutas y relativas).",
+      "Configuración óptima de impresión y protección de celdas."
+    ],
+    icon: "Grid",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Hojas de Cálculo - Organización de Datos",
+    description: "Ordena, filtra y visualiza tu información.",
+    topics: [
+      "Ordenación multinivel y aplicación de filtros avanzados.",
+      "Creación de gráficos básicos (barras, líneas, circulares) para reportes rápidos.",
+      "Introducción a funciones condicionales simples (SUMAR.SI, CONTAR.SI)."
+    ],
+    icon: "Filter",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Presentaciones de Alto Impacto (PowerPoint / Google Slides)",
+    description: "Comunica tus ideas de manera efectiva y visual.",
+    topics: [
+      "Estructuración visual de ideas, uso del patrón de diapositivas y guías.",
+      "Integración de elementos multimedia (vídeo, audio, formas inteligentes).",
+      "Transiciones, animaciones no intrusivas y consejos para exponer eficazmente."
+    ],
+    icon: "Monitor",
+  },
+  {
+    id: "6",
+    number: 6,
+    title: "Gestión del Correo y Calendario (Outlook / Entornos Colaborativos)",
+    description: "Optimiza tu tiempo y comunicación diaria.",
+    topics: [
+      "Organización de la bandeja de entrada, creación de reglas y respuestas automáticas.",
+      "Gestión experta de calendarios, envío de convocatorias y programación de reuniones.",
+      "Integración de tareas pendientes y administración eficaz del tiempo laboral."
+    ],
+    icon: "Calendar",
+  }
+];
+
+const courseDetails = {
+  startDate: "Por definir",
+  duration: "Por definir",
+  schedule: "Por definir",
+  regularPrice: "Por definir",
+  earlyBirdPrice: "Por definir", 
+};
+
+const courseId = "tools-office";
+const courseName = "Ofimática Integral";
+---
+
+<Layout title={`${courseName} - Qualisophy`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      {courseName}
+    </h1>
+    <Course 
+      client:load 
+      modules={modules} 
+      instructor={null} 
+      courseDetails={courseDetails} 
+      courseId={courseId}
+      courseDescription={courseDescription}
+      prerequisites={prerequisites}
+    />
+    <EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
+  </div>
+</Layout>

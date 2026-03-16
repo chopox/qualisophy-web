@@ -1,185 +1,54 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { CourseCatalogGrid } from "@/components/react/course/CourseCatalogGrid";
+import { Newsletter } from "@/components/react/shared/Newsletter";
 
-// --- DATOS DE CATEGORÍAS Y CURSOS ---
-const categories = [
-  {
-    id: "qa",
-    title: "QA & Testing",
-    subtitle: "ASEGURAMIENTO DE CALIDAD",
-    icon: "bug_report",
-    headerColor: "bg-[#325886]",
-    textColor: "text-[#1B2341]", 
-    hoverBorder: "hover:border-[#325886]", 
-    hoverText: "group-hover:text-[#325886]", 
-    courses: [
-      { title: "Testing Manual & QA", href: "/learning/qa/software-quality-testing-course" },
-      { title: "Automatización con Cypress", href: "/learning/qa/cypress-bootcamp" },
-      { title: "DevOps for Testers", href: "/learning/qa/devops-for-testers-course" },
-      { title: "Gestión de Calidad (TQM)", href: "/learning/qa/quality-management" },
-    ],
-    link: "/learning/qa"
-  },
-  {
-    id: "data",
-    title: "Microsoft & Data",
-    subtitle: "BUSINESS INTELLIGENCE",
-    icon: "bar_chart",
-    headerColor: "bg-[#4B7BB5]",
-    textColor: "text-[#4B7BB5]",
-    hoverBorder: "hover:border-[#4B7BB5]",
-    hoverText: "group-hover:text-[#4B7BB5]",
-    courses: [
-      { title: "Analítica de datos con Power BI", href: "/learning/microsoft/powerbi" },
-      { title: "Data Analytics & SQL", href: "/learning/microsoft/data-analytics" },
-      { title: "Excel Avanzado Business", href: "/learning/microsoft/excel-advanced" },
-      { title: "Power Automate Flows", href: "/learning/microsoft/power-automate" },
-    ],
-    link: "/learning/microsoft"
-  },
-  {
-    id: "dev",
-    title: "Desarrollo",
-    subtitle: "INGENIERÍA DE SOFTWARE",
-    icon: "code",
-    headerColor: "bg-[#6296CE]",
-    textColor: "text-[#6296CE]",
-    hoverBorder: "hover:border-[#6296CE]",
-    hoverText: "group-hover:text-[#6296CE]",
-    courses: [
-      { title: "Fullstack Development", href: "/learning/dev/fullstack" },
-      { title: "Frontend (React/Vue)", href: "/learning/dev/frontend-react" },
-      { title: "Backend (Node.js/Java)", href: "/learning/dev/backend-node" },
-      { title: "Arquitectura Cloud", href: "/learning/dev/java-spring" },
-    ],
-    link: "/learning/dev"
-  },
-  {
-    id: "pm",
-    title: "Project Management",
-    subtitle: "LIDERAZGO Y AGILIDAD",
-    icon: "manage_accounts",
-    headerColor: "bg-[#70A0D2]",
-    textColor: "text-[#70A0D2]",
-    hoverBorder: "hover:border-[#70A0D2]",
-    hoverText: "group-hover:text-[#70A0D2]",
-    courses: [
-      { title: "Scrum Master", href: "/learning/pm/scrum-master" },
-      { title: "Product Owner", href: "/learning/pm/product-owner" },
-      { title: "Gestión Ágil (Kanban)", href: "/learning/pm/kanban" },
-      { title: "Liderazgo de Equipos", href: "/learning/pm/leadership" },
-    ],
-    link: "/learning/pm"
-  }
-];
+const heroBg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80";
 ---
 
-<Layout title="Catálogo de Cursos - Formación Individual | Qualisophy" fullWidth={true}>
+<Layout 
+  title="Catálogo de Cursos - Formación Individual | Qualisophy"
+  description="Domina las herramientas de QA, Testing, DevOps y Data más demandadas."
+  fullWidth={true}
+>
   
-  <ProgramHero
-    client:load
-    title="Formación"
-    highlight="Individual"
-    subtitle="Impulsa tu carrera con nuestros itinerarios especializados. Domina las herramientas de QA, Testing, DevOps y Desarrollo más demandadas."
-    backgroundImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80"
-    ctaText="Ver Itinerarios"
-    onCtaClick={() => document.getElementById('catalog-grid')?.scrollIntoView({ behavior: 'smooth' })}
-    hasCourseTree={true} 
-  />
+  {/* HERO CATALOGO (Estilo Blog) */}
+  <section class="relative w-full overflow-hidden min-h-[600px] flex items-center justify-center">
+    <div class="absolute inset-0 z-0">
+      <img
+        src={heroBg}
+        alt="Catálogo Formación Qualisophy"
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+    </div>
+    {/* Overlay azul corporativo */}
+    <div class="absolute inset-0 z-0 bg-secondary/90 mix-blend-multiply"></div>
 
-  <div class="bg-gray-50/30 min-h-screen">
-    
-    {/* CABECERA DE SECCIÓN */}
-    <section class="pt-8 pb-4 bg-white border-b border-gray-100">
-        <div class="container mx-auto px-6">
-            <div class="mb-6">
-                <Breadcrumbs />
-            </div>
-            <div class="text-center max-w-3xl mx-auto mb-8">
-                <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">
-                    CATÁLOGO FORMATIVO
-                </span>
-                <h1 class="text-4xl font-bold font-heading text-slate-800 mb-4">
-                    Formación para Particulares
-                </h1>
-                <p class="text-slate-600 text-lg">
-                    Visualiza nuestros itinerarios formativos estándar. Elige tu especialización y comienza a aprender hoy mismo.
-                </p>
-            </div>
-        </div>
-    </section>
+    <div class="relative z-10 container mx-auto px-6 text-center">
+      <div class="max-w-4xl mx-auto flex flex-col gap-6">
+        <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block drop-shadow-md">
+          CATÁLOGO FORMATIVO
+        </span>
+        <h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight font-heading drop-shadow-md">
+          Formación <span class="text-primary">Individual</span>
+        </h1>
+        <p class="text-gray-100 text-lg md:text-xl font-light leading-relaxed font-primary drop-shadow-sm max-w-2xl mx-auto">
+          Impulsa tu carrera con nuestros itinerarios especializados. Domina las herramientas de QA, Datos, DevOps y Gestión Ágil.
+        </p>
+      </div>
+    </div>
+  </section>
 
-    {/* GRID DE ITINERARIOS */}
-    <section id="catalog-grid" class="py-16">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {categories.map((cat) => (
-                    // IMPORTANTE: Eliminada la clase 'group' de aquí para evitar que el hover de la cabecera afecte a los botones
-                    <div class="flex flex-col h-full">
-                        
-                        {/* 1. CABECERA DE CATEGORÍA */}
-                        <div class={`
-                            rounded-2xl p-6 text-center shadow-lg mb-6 relative overflow-hidden transition-transform duration-300 
-                            ${cat.headerColor} text-white
-                        `}>
-                            <div class="relative z-10 flex flex-col items-center gap-2">
-                                <div class="p-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/20">
-                                    <span class="material-symbols-outlined text-2xl">
-                                        {cat.icon}
-                                    </span>
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-xl font-heading leading-tight">
-                                        {cat.title}
-                                    </h3>
-                                    <p class="text-xs text-white/90 font-medium uppercase tracking-wide opacity-90 mt-1">
-                                        {cat.subtitle}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
-                        </div>
-
-                        {/* CONECTOR VISUAL */}
-                        <div class="block w-px h-8 border-l-2 border-dashed border-gray-300 mx-auto -mt-6 mb-2 relative z-0"></div>
-
-                        {/* 2. LISTA DE CURSOS */}
-                        <div class="flex flex-col gap-3 flex-1">
-                            {cat.courses.map((course) => (
-                                <a
-                                    href={course.href}
-                                    class={`
-                                        group block p-4 rounded-xl border-2  border-gray-100 
-                                        text-center transition-all duration-200 relative
-                                        bg-white hover:shadow-md
-                                        ${cat.hoverBorder}
-                                    `}
-                                >
-                                    {/* Texto cambia de color al hacer hover sobre SU PROPIO padre (el enlace) */}
-                                    <span class={`text-sm font-bold text-slate-700 transition-colors ${cat.hoverText}`}>
-                                        {course.title}
-                                    </span>
-                                </a>
-                            ))}
-
-                            {/* Enlace "Ver Sección Completa" */}
-                            <div class="mt-auto pt-4 text-center">
-                                <a 
-                                    href={cat.link} 
-                                    class={`inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider ${cat.textColor} hover:underline`}
-                                >
-                                    VER SECCIÓN COMPLETA
-                                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
+  <div class="container mx-auto px-6 pt-10">
+    <Breadcrumbs />
   </div>
+
+  {/* GRID INTERACTIVO DE CURSOS */}
+  <CourseCatalogGrid client:load />
+
+  {/* Newsletter */}
+  <Newsletter client:visible />
+
 </Layout>

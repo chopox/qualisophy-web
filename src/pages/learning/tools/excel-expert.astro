@@ -1,0 +1,96 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courseDescription = "Eleva tus habilidades ofimáticas al nivel experto. Este curso está diseñado para profesionales financieros, analistas y gestores que necesitan manejar grandes volúmenes de datos. Los estudiantes dominarán desde fórmulas condicionales complejas y matrices, hasta la automatización de procesos mediante macros y la transición hacia el modelado de datos avanzado integrado en el propio Excel (Power Pivot).";
+
+const prerequisites = "Dominio sólido de funciones básicas/intermedias de Excel y manejo habitual de tablas de datos.";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Funciones Complejas y Manipulación Ágil",
+    description: "Trabaja más rápido y resuelve problemas complejos con fórmulas.",
+    topics: [
+      "Atajos de teclado avanzados y técnicas de navegación exprés.",
+      "Funciones lógicas anidadas, funciones de búsqueda dinámica (BUSCARX, ÍNDICE/COINCIDIR) y matrices dinámicas.",
+      "Formato condicional formulado y validación de datos avanzada."
+    ],
+    icon: "Command",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Tablas Dinámicas Nivel Experto",
+    description: "Saca todo el partido a la herramienta más potente de Excel.",
+    topics: [
+      "Agrupación avanzada de campos, campos y elementos calculados.",
+      "Conexión de múltiples tablas dinámicas con segmentos de datos (Slicers).",
+      "Extracción de informes dinámicos y técnicas de diseño de dashboards estáticos en Excel."
+    ],
+    icon: "Table",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Modelado de Datos con Power Pivot y DAX",
+    description: "Supera el límite de filas de Excel con modelos de datos.",
+    topics: [
+      "Introducción al complemento Power Pivot para superar el límite del millón de filas.",
+      "Relación entre múltiples tablas sin utilizar funciones de búsqueda.",
+      "Creación de medidas (KPIs) directamente en Excel utilizando lenguaje DAX básico."
+    ],
+    icon: "Database",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Automatización de Procesos (Macros)",
+    description: "Haz que Excel trabaje por ti automatizando tareas repetitivas.",
+    topics: [
+      "Introducción a la grabadora de Macros: referencias relativas vs. absolutas.",
+      "Principios básicos del entorno de Visual Basic for Applications (VBA).",
+      "Asignación de macros a botones y automatización de tareas repetitivas diarias."
+    ],
+    icon: "Settings",
+  }
+];
+
+const courseDetails = {
+  startDate: "Por definir",
+  duration: "Por definir",
+  schedule: "Por definir",
+  regularPrice: "Por definir",
+  earlyBirdPrice: "Por definir", 
+};
+
+const courseId = "tools-excel";
+const courseName = "Microsoft Excel Expert";
+---
+
+<Layout title={`${courseName} - Qualisophy`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      {courseName}
+    </h1>
+    <Course 
+      client:load 
+      modules={modules} 
+      instructor={null} 
+      courseDetails={courseDetails} 
+      courseId={courseId}
+      courseDescription={courseDescription}
+      prerequisites={prerequisites}
+    />
+    <EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
+  </div>
+</Layout>

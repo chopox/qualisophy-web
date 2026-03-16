@@ -1,0 +1,96 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courseDescription = "El desarrollo moderno exige plataformas integrales. Este curso, basado en la filosofía learning by doing, capacita a usuarios avanzados, administradores y DevOps en el uso exhaustivo de GitLab. Lejos de ser un simple repositorio de código, los estudiantes configurarán tableros ágiles, automatizarán flujos de pruebas y despliegues, e implementarán estrictas políticas de seguridad y cumplimiento para proyectos a gran escala.";
+
+const prerequisites = "Conocimientos sólidos de Git y control de versiones, fundamentos de metodologías ágiles y nociones básicas de integración continua.";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Gestión de Proyectos, Equipos y Planificación Ágil",
+    description: "Organiza el trabajo y los equipos dentro de GitLab.",
+    topics: [
+      "Uso avanzado de GitLab Boards, Milestones e Issues para seguimiento de trabajo.",
+      "Configuración de repositorios, roles de acceso y ramificaciones estratégicas (Git Flow).",
+      "Integración bidireccional con herramientas de comunicación como Slack o Microsoft Teams."
+    ],
+    icon: "Layout",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Integración y Despliegue Continuo (CI/CD)",
+    description: "Automatiza tu ciclo de vida de desarrollo.",
+    topics: [
+      "Arquitectura del archivo .gitlab-ci.yml: stages, jobs y runners.",
+      "Automatización de pruebas unitarias y de calidad integradas en cada commit.",
+      "Estrategias de despliegue automatizado, manejo de entornos (staging/production) y simulaciones de rollback."
+    ],
+    icon: "RefreshCw",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Seguridad, Auditoría y Compliance (DevSecOps)",
+    description: "Protege tu código y cumple las normativas.",
+    topics: [
+      "Configuración de análisis estático (SAST) y dinámico (DAST) del código fuente.",
+      "Integración de escaneo de vulnerabilidades y revisión de dependencias.",
+      "Implementación de políticas de compliance, auditorías de acciones y registros de actividad."
+    ],
+    icon: "Shield",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Monitorización, Mantenimiento y Casos Prácticos",
+    description: "Observabilidad y proyectos a gran escala.",
+    topics: [
+      "Integración de métricas de salud del proyecto con herramientas como Prometheus.",
+      "Configuración de alertas de rendimiento y generación de reportes personalizados.",
+      "Taller Práctico Integrador: despliegue, securización y monitorización de un proyecto monolítico y su transición a microservicios."
+    ],
+    icon: "Activity",
+  }
+];
+
+const courseDetails = {
+  startDate: "Por definir",
+  duration: "Por definir",
+  schedule: "Por definir",
+  regularPrice: "Por definir",
+  earlyBirdPrice: "Por definir", 
+};
+
+const courseId = "devops-gitlab";
+const courseName = "Gestión Avanzada y CI/CD con GitLab";
+---
+
+<Layout title={`${courseName} - Qualisophy`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      {courseName}
+    </h1>
+    <Course 
+      client:load 
+      modules={modules} 
+      instructor={null} 
+      courseDetails={courseDetails} 
+      courseId={courseId}
+      courseDescription={courseDescription}
+      prerequisites={prerequisites}
+    />
+    <EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
+  </div>
+</Layout>

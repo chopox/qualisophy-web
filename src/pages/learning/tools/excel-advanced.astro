@@ -86,6 +86,11 @@ const courseName = "Excel Avanzado";
       Curso Excel Avanzado
     </h1>
     <Course client:load modules={modules} instructor={instructor} courseDetails={courseDetails} courseId={courseId} />
-    <EnrollButton client:load courseId={courseId} courseName={courseName} />
+    <EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
   </div>
 </Layout>

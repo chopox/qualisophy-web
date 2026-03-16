@@ -17,7 +17,6 @@ interface CourseInfoProps {
   className?: string;
 }
 
-// Modificamos CourseInfoBar para que acepte ReactNode en vez de solo string
 export const CourseInfoBar = ({
   icon,
   content,
@@ -42,12 +41,15 @@ export const CourseInfo = ({
 }: CourseInfoProps) => {
   const t = useTranslations();
 
-  // TRUCO NINJA: Si un curso específico no tiene el texto en su .astro, se pone este por defecto en TODOS.
+  // Detectamos si el curso está disponible analizando la fecha de inicio
+  const isComingSoon = courseDetails.startDate
+    .toLowerCase()
+    .includes("por definir");
+
   const discountMessage =
     courseDetails.oldStudentsDiscount ||
     "25% de descuento extra para antiguos alumnos";
 
-  // Función para formatear el horario en dos líneas: Días y Horario
   const formatSchedule = (scheduleStr: string) => {
     if (scheduleStr.includes("/")) {
       const parts = scheduleStr.split("/");
@@ -58,7 +60,6 @@ export const CourseInfo = ({
         </div>
       );
     }
-    // Si por algún casual no tuviera la barra "/", lo pinta normal
     return (
       <span className="font-semibold text-xs xl:text-sm 2xl:text-base">
         Horario: {scheduleStr}
@@ -127,7 +128,6 @@ export const CourseInfo = ({
             </span>
           </div>
 
-          {/* DESCUENTO ANTIGUOS ALUMNOS CENTRADO EN TODOS LOS CURSOS */}
           <div className="flex justify-center w-full pt-5 mt-3 border-t border-gray-100">
             <span className="font-bold text-green-700 text-sm text-center">
               {discountMessage}
@@ -136,12 +136,23 @@ export const CourseInfo = ({
         </div>
       </div>
 
-      {/* Inscription Button */}
+      {/* Inscription Button Dinámico */}
       {courseId && (
         <div className="flex justify-center mt-6">
-          <a href={`/course-enrollment?course=${courseId}`}>
-            <Button variant="primary" size="md">
-              {t("button.enroll")}
+          <a
+            href={isComingSoon ? "#" : `/course-enrollment?course=${courseId}`}
+            className={isComingSoon ? "pointer-events-none" : ""}
+          >
+            <Button
+              variant={isComingSoon ? "secondary" : "primary"}
+              size="md"
+              className={
+                isComingSoon
+                  ? "bg-slate-400 border-slate-400 hover:bg-slate-400 cursor-not-allowed opacity-70"
+                  : ""
+              }
+            >
+              {isComingSoon ? "Próximamente" : t("button.enroll")}
             </Button>
           </a>
         </div>

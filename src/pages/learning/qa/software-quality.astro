@@ -1,0 +1,126 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+// Imagen del instructor (Fran Guerrero según tu knowledge base)
+import instructorImg from "@/assets/instructor/instructor-fran.png";
+
+const courseDescription = "El Testing es la parte del Desarrollo de Software que se encarga de verificar que las aplicaciones, servicios y soluciones informáticas funcionan correctamente, y validar que su cometido es el que requieren los usuarios. El Testing se engloba como una de las actividades principales dentro de la Calidad del Software, y con esta formación recibirás todo lo necesario para llevar a cabo esta actividad vital.";
+
+const prerequisites = "La formación está enfocada a personas con conocimientos básicos de herramientas de ofimática así como el uso del ordenador personal. El conocimiento de algún lenguaje de programación no es necesario pero sí recomendable. Especialmente dirigida a personas que quieren introducirse en el mundo del Testing o reciclar su profesión.";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Introducción a la Calidad del Software",
+    description: "Conocerás los conceptos básicos del Testing.",
+    topics: [
+      "Testing y Pruebas.",
+      "El rol de QA.",
+      "Tipos y Niveles de Pruebas."
+    ],
+    icon: "BookOpen",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Testing dentro del Ciclo de Vida de un Desarrollo",
+    description: "Aprende cómo se integra el testing en las distintas fases del desarrollo de software.",
+    topics: [
+      "Tareas relacionadas con el Testing durante el desarrollo, desde la planificación hasta el uso final.",
+      "Diseño y Ejecución de Pruebas.",
+      "Reporte de Errores o Defectos.",
+      "Herramientas para la gestión del Testing."
+    ],
+    icon: "RefreshCw",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Automatización de Pruebas",
+    description: "Da el salto a las pruebas automáticas.",
+    topics: [
+      "Importancia de automatizar las pruebas manuales y profundización en diferentes frameworks.",
+      "Control de Versiones y Repositorios de Pruebas Automáticas.",
+      "Pruebas Unitarias con Jest y Pruebas de API con Postman/Newman.",
+      "Pruebas de UI con Cypress usando entornos de programación con IA integrada."
+    ],
+    icon: "Terminal",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Inteligencia Artificial Generativa para Testing",
+    description: "Aplica la revolución de la IA a tu trabajo diario como QA.",
+    topics: [
+      "Mejora de la productividad del tester mediante el uso de Modelos de Lenguaje (LLMs).",
+      "Creación de activos: Generación automática de planes de prueba, casos de uso, scripts de automatización y datos sintéticos."
+    ],
+    icon: "Bot",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "DevOps y Testing Continuo",
+    description: "Asegura la calidad en entornos de entrega continua.",
+    topics: [
+      "Integración de pruebas automáticas en un sistema de CI/CD para mantener un estado de Testing Continuo.",
+      "Conceptos de DevOps, Integración Continua y Entrega Continua.",
+      "Herramientas de CI/CD.",
+      "Reportes y Métricas."
+    ],
+    icon: "Server",
+  }
+];
+
+const instructor = {
+  name: "Fran Guerrero",
+  title: "Instructor Tech · Aseguramiento de Calidad",
+  experience: "Más de 14 años de experiencia en QA",
+  description: "Especialista certificado en Agile ISTQB. Implementa procesos de prueba, estrategias de control de calidad y herramientas innovadoras para asegurar el éxito del software.",
+  image: instructorImg.src, 
+  certifications: [
+    "ISTQB Agile Tester",
+    "ISTQB Foundation Level",
+    "Certified Scrum Master"
+  ],
+};
+
+const courseDetails = {
+  startDate: "17 de Febrero de 2025",
+  duration: "40 horas",
+  schedule: "Por definir",
+  regularPrice: "497 €",
+  earlyBirdPrice: "447 €", 
+};
+
+const courseId = "qa-software";
+const courseName = "Curso Calidad de Software (QA) y Testing";
+---
+
+<Layout title={`${courseName} - Qualisophy`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      {courseName}
+    </h1>
+    <Course 
+      client:load 
+      modules={modules} 
+      instructor={instructor} 
+      courseDetails={courseDetails} 
+      courseId={courseId}
+      courseDescription={courseDescription}
+      prerequisites={prerequisites}
+    />
+    <EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
+  </div>
+</Layout>

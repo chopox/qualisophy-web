@@ -1,0 +1,107 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courseDescription = "La filosofía DevOps ha transformado la manera en que se construye, prueba y despliega el software, rompiendo los silos tradicionales entre desarrollo y operaciones. Este curso proporciona una inmersión completa en la cultura, prácticas y herramientas de DevOps. Los alumnos aprenderán a automatizar procesos clave mediante pipelines de Integración y Despliegue Continuo (CI/CD), asegurando la calidad del producto en cada etapa gracias al Testing Continuo y la monitorización activa.";
+
+const prerequisites = "Conocimientos básicos sobre el ciclo de vida del desarrollo de software (SDLC) y familiaridad general con conceptos de testing. Es recomendable tener nociones básicas de navegación por línea de comandos.";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Fundamentos de DevOps",
+    description: "Descubre la cultura que une desarrollo y operaciones.",
+    topics: [
+      "Introducción a la cultura DevOps: integración de procesos, prácticas y herramientas clave.",
+      "Beneficios tangibles de adoptar DevOps en el ciclo de vida del desarrollo de software (SDLC).",
+      "El rol crítico del Continuous Testing (Pruebas Continuas) dentro del ecosistema DevOps."
+    ],
+    icon: "Users",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Herramientas de Gestión y Configuración",
+    description: "Domina las bases del control de versiones y entornos.",
+    topics: [
+      "Sistemas de Control de Versiones: dominio fundamental de Git.",
+      "Gestión de la configuración para estandarizar y automatizar la infraestructura y los entornos de desarrollo."
+    ],
+    icon: "Settings",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Integración Continua (CI)",
+    description: "Automatiza la construcción y pruebas de tu código.",
+    topics: [
+      "Conceptos básicos y arquitectura de la Integración Continua.",
+      "Exploración de las herramientas de CI más demandadas del mercado (Jenkins, GitLab CI, entre otras).",
+      "Creación y configuración paso a paso de pipelines de CI efectivos."
+    ],
+    icon: "GitMerge",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Entrega y Despliegue Continuo (CD)",
+    description: "Lleva tu código a producción de forma segura.",
+    topics: [
+      "Diferencias estructurales y estratégicas entre Entrega Continua y Despliegue Continuo.",
+      "Técnicas para la automatización segura de despliegues en distintos entornos.",
+      "Implementación de estrategias avanzadas de despliegue para mitigar riesgos (Despliegues Blue/Green, Canary Releases)."
+    ],
+    icon: "Send",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Testing Continuo y Monitorización",
+    description: "Cierra el ciclo asegurando calidad y observabilidad.",
+    topics: [
+      "Integración estratégica de pruebas automatizadas directamente en los pipelines de CI/CD.",
+      "Implementación de herramientas de monitorización y logging para lograr una observabilidad total.",
+      "Gestión del ciclo de retroalimentación (Feedback Loop) para asegurar la mejora continua."
+    ],
+    icon: "Activity",
+  }
+];
+
+const courseDetails = {
+  startDate: "Por definir",
+  duration: "Por definir",
+  schedule: "Por definir",
+  regularPrice: "Por definir",
+  earlyBirdPrice: "Por definir", 
+};
+
+const courseId = "devops-intro";
+const courseName = "Introducción a DevOps, Continuous Testing y CI/CD";
+---
+
+<Layout title={`${courseName} - Qualisophy`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      {courseName}
+    </h1>
+    <Course 
+      client:load 
+      modules={modules} 
+      instructor={null} 
+      courseDetails={courseDetails} 
+      courseId={courseId}
+      courseDescription={courseDescription}
+      prerequisites={prerequisites}
+    />
+    <EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
+  </div>
+</Layout>

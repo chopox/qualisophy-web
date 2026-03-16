@@ -1,0 +1,96 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courseDescription = "La calidad del software comienza desde la línea de código más pequeña. Este curso profundiza en la creación de pruebas unitarias robustas utilizando el estándar de la industria para Java: JUnit. Los desarrolladores y QA técnicos aprenderán a crear código testeable, aplicar dobles de prueba y asegurar que los cambios de código futuros no rompan la funcionalidad existente, adoptando una cultura de Shift-Left Testing.";
+
+const prerequisites = "Experiencia sólida en Programación Orientada a Objetos, preferiblemente en Java o lenguajes similares (C#, C++).";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Introducción a la Calidad del Código",
+    description: "Fundamentos del testing a nivel de código.",
+    topics: [
+      "Diferencia entre pruebas unitarias, de integración y E2E.",
+      "Los principios FIRST (Fast, Independent, Repeatable, Self-Validating, Timely).",
+      "Configuración del entorno, dependencias (Maven/Gradle) y ciclo de vida de JUnit."
+    ],
+    icon: "BookOpen",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Fundamentos de JUnit y Aserciones",
+    description: "Dominando la validación de estados y comportamientos.",
+    topics: [
+      "Uso de anotaciones clave (@Test, @BeforeEach, @AfterAll, etc.).",
+      "Tipos de aserciones para validación de estados.",
+      "Agrupación, filtrado de pruebas mediante etiquetas (@Tag) y ejecución selectiva."
+    ],
+    icon: "CheckCircle",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Pruebas Avanzadas y Aislamiento",
+    description: "Uso de dobles de prueba para aislar el código.",
+    topics: [
+      "Pruebas parametrizadas para validación de múltiples conjuntos de datos.",
+      "Uso de Mocks, Stubs y Spies para aislar componentes (integración con Mockito).",
+      "Gestión de excepciones, timeouts y asunciones (Assumptions)."
+    ],
+    icon: "Box",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "TDD, BDD y Cultura DevOps",
+    description: "Integrando las pruebas en el ciclo de vida moderno.",
+    topics: [
+      "Desarrollo guiado por pruebas (TDD): Red-Green-Refactor.",
+      "Generación de informes de cobertura de código (ej. JaCoCo).",
+      "Automatización de ejecución en entornos de Integración Continua."
+    ],
+    icon: "RefreshCw",
+  }
+];
+
+const courseDetails = {
+  startDate: "Por definir",
+  duration: "Por definir",
+  schedule: "Por definir",
+  regularPrice: "Por definir",
+  earlyBirdPrice: "Por definir"
+};
+
+const courseId = "qa-junit";
+const courseName = "Test Unitarios con JUnit";
+---
+
+<Layout title={`${courseName} - Qualisophy`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      {courseName}
+    </h1>
+    <Course 
+      client:load 
+      modules={modules} 
+      instructor={null} 
+      courseDetails={courseDetails} 
+      courseId={courseId}
+      courseDescription={courseDescription}
+      prerequisites={prerequisites}
+    />
+    <EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
+  </div>
+</Layout>

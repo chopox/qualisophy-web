@@ -1,0 +1,129 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Course } from "@/components/react/course/Course";
+import { EnrollButton } from "@/components/react/shared/EnrollButton";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const courseDescription = "La figura del Scrum Master hace referencia a un profesional especializado que facilita, asesora y mentoriza a los equipos de desarrollo de un producto o proyecto. Colabora estrechamente con la empresa para que mejoren de forma constante, consiguiendo así una entrega de valor sólida. Con este curso, los alumnos aprenderán el marco de trabajo de Scrum, junto con las herramientas y prácticas que harán al equipo y a la organización expertos en su objetivo principal: entregar valor.";
+
+const prerequisites = "No es necesario ningún conocimiento técnico, lenguaje de programación o experiencia previa en puestos de management o gestión. Scrum puede aplicarse en cualquier entorno de trabajo complejo.";
+
+const modules = [
+  {
+    id: "1",
+    number: 1,
+    title: "Introducción a Agile y Scrum",
+    description: "Comprende por qué la agilidad es vital hoy en día.",
+    topics: [
+      "Entender las bases de la agilidad y por qué surge en el desarrollo de proyectos complejos."
+    ],
+    icon: "Compass",
+  },
+  {
+    id: "2",
+    number: 2,
+    title: "Marco Scrum",
+    description: "Las reglas del juego del framework más usado.",
+    topics: [
+      "Definición del marco de trabajo.",
+      "Pilares y valores fundamentales.",
+      "Roles, artefactos y eventos de Scrum."
+    ],
+    icon: "Target",
+  },
+  {
+    id: "3",
+    number: 3,
+    title: "Herramientas Ágiles",
+    description: "Lleva la teoría a la práctica visual.",
+    topics: [
+      "Uso de herramientas de gestión que facilitan la transparencia y la inspección.",
+      "Jira y Trello.",
+      "Conjunto de herramientas complementarias para el equipo Scrum."
+    ],
+    icon: "Trello",
+  },
+  {
+    id: "4",
+    number: 4,
+    title: "Conociendo el Product Backlog",
+    description: "Gestión efectiva de los requisitos del producto.",
+    topics: [
+      "Apoyo activo al Product Owner.",
+      "Estrategias para ordenar, desglosar y refinar el Product Backlog."
+    ],
+    icon: "List",
+  },
+  {
+    id: "5",
+    number: 5,
+    title: "Métodos de Planificación",
+    description: "Organiza los Sprints con éxito.",
+    topics: [
+      "Ayudar al equipo a planificar el trabajo de forma iterativa y aumentar la predictibilidad.",
+      "Sistemas de puntuación y estimación.",
+      "Prácticas efectivas de Sprint Planning."
+    ],
+    icon: "Calendar",
+  },
+  {
+    id: "6",
+    number: 6,
+    title: "Base de Mejoras Constantes: Retrospectivas",
+    description: "El corazón de la mejora continua.",
+    topics: [
+      "Bases para realizar una retrospectiva sana y adecuada.",
+      "Métodos de facilitación de una retrospectiva.",
+      "Soft skills de inspección para asegurar que el equipo mejore realmente."
+    ],
+    icon: "RefreshCcw",
+  },
+  {
+    id: "7",
+    number: 7,
+    title: "Apoyo a la Organización",
+    description: "Escalando la agilidad en la empresa.",
+    topics: [
+      "El papel del Scrum Master no solo como líder servicial, sino como agente del cambio.",
+      "Las 3 bandas: Pods, bottom to top, top to bottom.",
+      "Conceptos básicos de Scrum Escalado."
+    ],
+    icon: "Users",
+  }
+];
+
+const courseDetails = {
+  startDate: "Por definir",
+  duration: "Por definir",
+  schedule: "Por definir",
+  regularPrice: "Por definir",
+  earlyBirdPrice: "Por definir", 
+};
+
+const courseId = "agile-scrum";
+const courseName = "Agile Mastery: El Camino del Scrum Master";
+---
+
+<Layout title={`${courseName} - Qualisophy`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6"><Breadcrumbs /></div>
+    <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
+      {courseName}
+    </h1>
+    <Course 
+      client:load 
+      modules={modules} 
+      instructor={null} 
+      courseDetails={courseDetails} 
+      courseId={courseId}
+      courseDescription={courseDescription}
+      prerequisites={prerequisites}
+    />
+<EnrollButton 
+      client:load 
+      courseId={courseId} 
+      courseName={courseName} 
+      isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
+    />
+  </div>
+</Layout>
