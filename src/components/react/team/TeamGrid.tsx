@@ -23,19 +23,6 @@ const teamMembers = [
       "Alianzas de impacto social",
     ],
   },
-
-  {
-    name: "Francisco Guerrero",
-    role: "Instructor Tech",
-    image: imgFran.src,
-    position: "object-top",
-    scale: "scale-100",
-    highlights: [
-      "Estrategia y Liderazgo Tech",
-      "Docencia especializada sector TI",
-      "Visión global de la plataforma",
-    ],
-  },
   {
     name: "Patricia Beyet",
     role: "Project Manager & Agile Coach",
@@ -59,6 +46,18 @@ const teamMembers = [
       "Arquitectura de la plataforma",
       "Desarrollo Fullstack (Web)",
       "Experiencia de Usuario (UX/UI)",
+    ],
+  },
+  {
+    name: "Francisco Guerrero",
+    role: "Instructor Tech",
+    image: imgFran.src,
+    position: "object-top",
+    scale: "scale-100",
+    highlights: [
+      "Estrategia y Liderazgo Tech",
+      "Docencia especializada sector TI",
+      "Visión global de la plataforma",
     ],
   },
   {
