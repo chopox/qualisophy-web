@@ -47,7 +47,7 @@ const courseTreeData = [
     borderColor: "border-amber-200",
     subBranches: [
       {
-        title: "Power BI Dashboards",
+        title: "Analítica de datos con Power BI",
         href: "/learning/microsoft/powerbi",
         icon: "leaderboard",
       },

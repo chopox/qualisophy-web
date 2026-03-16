@@ -25,7 +25,7 @@ NUEVO: ¡Todos los antiguos alumnos de Qualisophy cuentan con un 25% de descuent
 
 ## 2. ÁREA DE MICROSOFT & DATA (PARTICULARES)
 
-- Power BI Dashboards: 30h. 450€ (395€ pronto pago). Inicia: 10 Mar 2025. URL: /learning/microsoft/powerbi
+- Analítica de datos con Power BI: 30h. 450€ (395€ pronto pago). Inicia: 10 Mar 2025. URL: /learning/microsoft/powerbi
 - Data Analytics & SQL: 40h. 495€ (450€ pronto pago). Inicia: 17 Mar 2025. URL: /learning/microsoft/data-analytics
 - Excel Avanzado Business: 25h. Flexible. 350€ (299€ pronto pago). URL: /learning/microsoft/excel-advanced
 - Power Automate Flows: 15h. Flexible. 295€ (250€ pronto pago). URL: /learning/microsoft/power-automate
