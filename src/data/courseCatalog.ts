@@ -3,12 +3,12 @@
 // ==========================================
 
 // QA
-import imgQaSoftware from "@/assets/imagenes-cursos/qa/qa-curso.png";
-import imgQaApi from "@/assets/imagenes-cursos/qa/postman.png";
-import imgQaCypress from "@/assets/imagenes-cursos/qa/cypress-bootcamp.png";
-import imgQaJunit from "@/assets/imagenes-cursos/qa/junit.png";
-import imgQaAgile from "@/assets/imagenes-cursos/qa/agile-testing.png";
-import imgQaGenai from "@/assets/imagenes-cursos/qa/testing-ia.png";
+import imgQaSoftware from "@/assets/imagenes-cursos/qa/qa-curso.jpeg";
+import imgQaApi from "@/assets/imagenes-cursos/qa/postman.jpeg";
+import imgQaCypress from "@/assets/imagenes-cursos/qa/cypress-bootcamp.jpeg";
+import imgQaJunit from "@/assets/imagenes-cursos/qa/junit.jpeg";
+import imgQaAgile from "@/assets/imagenes-cursos/qa/agile-testing.jpeg";
+import imgQaGenai from "@/assets/imagenes-cursos/qa/testing-ia.jpeg";
 
 // DATA
 import imgDataSql from "@/assets/imagenes-cursos/data/sql-powerbi.png";
