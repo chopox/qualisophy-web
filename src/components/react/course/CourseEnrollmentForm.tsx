@@ -12,9 +12,9 @@ interface Course {
 interface CourseEnrollmentFormProps {
   courses: Course[];
   initialCourseId?: string;
+  enrollmentType?: string;
 }
 
-// Ampliamos la interfaz para incluir Municipio, Provincia y Privacidad
 export interface EnrollmentFormDataExtended {
   firstName: string;
   lastName: string;
@@ -23,13 +23,14 @@ export interface EnrollmentFormDataExtended {
   dni: string;
   address: string;
   zipCode: string;
-  city: string; // Municipio
+  city: string;
   province: string;
   course: string;
   privacyAccepted: boolean;
+  type: string;
 }
 
-const initialFormDataBase: EnrollmentFormDataExtended = {
+const initialFormDataBase: Omit<EnrollmentFormDataExtended, "type"> = {
   firstName: "",
   lastName: "",
   email: "",
@@ -46,10 +47,12 @@ const initialFormDataBase: EnrollmentFormDataExtended = {
 export const CourseEnrollmentForm = ({
   courses,
   initialCourseId = "",
+  enrollmentType = "enrollment",
 }: CourseEnrollmentFormProps) => {
   const [formData, setFormData] = useState<EnrollmentFormDataExtended>({
     ...initialFormDataBase,
     course: initialCourseId || "",
+    type: enrollmentType,
   });
 
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
@@ -67,13 +70,18 @@ export const CourseEnrollmentForm = ({
 
     const urlParams = new URLSearchParams(window.location.search);
     const courseFromUrl = urlParams.get("course");
+    const typeFromUrl = urlParams.get("type") || "enrollment";
 
     if (
       courseFromUrl &&
       courseFromUrl !== initialCourseId &&
       courses.some((c) => c.id === courseFromUrl)
     ) {
-      setFormData((prev) => ({ ...prev, course: courseFromUrl }));
+      setFormData((prev) => ({
+        ...prev,
+        course: courseFromUrl,
+        type: typeFromUrl,
+      }));
       setIsPreselected(true);
     }
   }, [courses, initialCourseId]);
@@ -97,7 +105,6 @@ export const CourseEnrollmentForm = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validación de Privacidad
     if (!formData.privacyAccepted) {
       setFormErrors({
         general: "Debes aceptar la Política de Privacidad de Qualisophy.",
@@ -139,6 +146,7 @@ export const CourseEnrollmentForm = ({
         setFormData({
           ...initialFormDataBase,
           course: isPreSelected ? formData.course : "",
+          type: enrollmentType,
         });
 
         setTimeout(() => setFormSuccess(false), 5000);
@@ -152,7 +160,7 @@ export const CourseEnrollmentForm = ({
     } catch (error: any) {
       console.error("Submission error:", error);
       setFormErrors({
-        general: error.message || "Hubo un error procesando tu inscripción.",
+        general: error.message || "Hubo un error procesando tu solicitud.",
       });
     } finally {
       setIsSubmitting(false);
@@ -181,7 +189,9 @@ export const CourseEnrollmentForm = ({
         <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
           <div className="flex items-center">
             <span className="text-green-800 text-sm font-medium">
-              {t("enrollment.successMessage")}
+              {enrollmentType === "interest"
+                ? "¡Genial! Hemos anotado tu interés. Te avisaremos en cuanto haya novedades."
+                : t("enrollment.successMessage")}
             </span>
           </div>
         </div>
@@ -432,7 +442,6 @@ export const CourseEnrollmentForm = ({
           )}
         </div>
 
-        {/* ALINEACIÓN CORREGIDA AQUÍ */}
         <div className="flex items-start space-x-3 pt-4">
           <div className="flex h-5 items-center">
             <input
@@ -456,14 +465,18 @@ export const CourseEnrollmentForm = ({
 
         <Button
           type="submit"
-          variant="primary"
+          variant={enrollmentType === "interest" ? "secondary" : "primary"}
           size="md"
           fullWidth
           loading={isSubmitting}
           disabled={isSubmitting || !formData.privacyAccepted}
           className="mt-2"
         >
-          {isSubmitting ? "Enviando..." : "Inscríbete"}
+          {isSubmitting
+            ? "Enviando..."
+            : enrollmentType === "interest"
+              ? "Avísame de novedades"
+              : "Inscríbete"}
         </Button>
 
         <p className="font-bold border-b border-slate-100 pb-1 mb-2 text-slate-800">
