@@ -41,7 +41,7 @@ export const CourseInfo = ({
 }: CourseInfoProps) => {
   const t = useTranslations();
 
-  // Detectamos si el curso está disponible analizando la fecha de inicio
+  // Detectamos si el curso está "Por definir"
   const isComingSoon = courseDetails.startDate
     .toLowerCase()
     .includes("por definir");
@@ -69,7 +69,6 @@ export const CourseInfo = ({
 
   return (
     <div className={`bg-white ${className}`}>
-      {/* Course Info Bars */}
       <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-8 md:mb-12">
         <CourseInfoBar
           className="bg-primary"
@@ -87,7 +86,6 @@ export const CourseInfo = ({
         />
       </div>
 
-      {/* Course Details Card */}
       <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
         <h2 className="text-lg font-bold text-slate-800 mb-4">
           Detalles del Curso
@@ -119,40 +117,44 @@ export const CourseInfo = ({
               {courseDetails.regularPrice}
             </span>
           </div>
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center">
-            <span className="text-slate-600 text-sm font-medium">
-              Inscripción anticipada:
-            </span>
-            <span className="font-semibold text-green-700 text-sm">
-              {courseDetails.earlyBirdPrice}
-            </span>
-          </div>
 
-          <div className="flex justify-center w-full pt-5 mt-3 border-t border-gray-100">
-            <span className="font-bold text-green-700 text-sm text-center">
-              {discountMessage}
-            </span>
-          </div>
+          {/* Ocultamos inscripción anticipada y descuento si está por definir */}
+          {!isComingSoon && (
+            <>
+              <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center">
+                <span className="text-slate-600 text-sm font-medium">
+                  Inscripción anticipada:
+                </span>
+                <span className="font-semibold text-green-700 text-sm">
+                  {courseDetails.earlyBirdPrice}
+                </span>
+              </div>
+              <div className="flex justify-center w-full pt-5 mt-3 border-t border-gray-100">
+                <span className="font-bold text-green-700 text-sm text-center">
+                  {discountMessage}
+                </span>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
-      {/* Inscription Button Dinámico */}
       {courseId && (
         <div className="flex justify-center mt-6">
+          {/* Si está por definir, pasamos un type=interest por la URL */}
           <a
-            href={isComingSoon ? "#" : `/course-enrollment?course=${courseId}`}
-            className={isComingSoon ? "pointer-events-none" : ""}
+            href={
+              isComingSoon
+                ? `/course-enrollment?course=${courseId}&type=interest`
+                : `/course-enrollment?course=${courseId}`
+            }
           >
             <Button
-              variant={isComingSoon ? "secondary" : "primary"}
+              variant="primary" // variante 'primary' mapea a sólido Primary celeste
               size="md"
-              className={
-                isComingSoon
-                  ? "bg-slate-400 border-slate-400 hover:bg-slate-400 cursor-not-allowed opacity-70"
-                  : ""
-              }
+              className="font-bold shadow-md bg-primary hover:bg-secondary text-white border-primary transition-colors duration-200"
             >
-              {isComingSoon ? "Próximamente" : t("button.enroll")}
+              {isComingSoon ? "Me interesa el curso" : t("button.enroll")}
             </Button>
           </a>
         </div>

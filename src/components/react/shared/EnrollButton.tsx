@@ -5,7 +5,7 @@ import { useTranslations } from "@/hooks/useTranslations";
 interface EnrollButtonProps {
   courseId: string;
   courseName: string;
-  isComingSoon?: boolean; // NUEVO: Prop para saber si está disponible
+  isComingSoon?: boolean;
 }
 
 export const EnrollButton = ({
@@ -42,9 +42,13 @@ export const EnrollButton = ({
   }, []);
 
   const handleClick = () => {
-    // Si está "Próximamente", no hace nada. Si no, lleva al formulario.
-    if (!isComingSoon && typeof window !== "undefined") {
-      window.location.href = `/course-enrollment?course=${courseId}`;
+    if (typeof window !== "undefined") {
+      // Si es coming soon, le mandamos al formulario pero marcándolo como "Interesado"
+      const url = isComingSoon
+        ? `/course-enrollment?course=${courseId}&type=interest`
+        : `/course-enrollment?course=${courseId}`;
+
+      window.location.href = url;
     }
   };
 
@@ -53,19 +57,16 @@ export const EnrollButton = ({
   return (
     <motion.button
       onClick={handleClick}
-      disabled={isComingSoon}
-      title={isComingSoon ? "Próximamente" : `Inscribirse en ${courseName}`}
+      title={
+        isComingSoon
+          ? `Me interesa: ${courseName}`
+          : `Inscribirse en ${courseName}`
+      }
       animate={{ bottom: bottomOffset }}
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
-      className={`fixed left-4 lg:left-auto lg:right-24 px-5 lg:px-6 h-12 lg:h-14 rounded-full shadow-lg flex items-center justify-center text-xs lg:text-sm font-semibold z-40 transition-colors duration-200 
-        ${
-          isComingSoon
-            ? "bg-slate-400 text-white cursor-not-allowed opacity-80" // Estilo deshabilitado
-            : "bg-[#16223f] hover:bg-primary text-white cursor-pointer" // Estilo normal
-        }
-      `}
+      className={`fixed left-4 lg:left-auto lg:right-24 px-5 lg:px-6 h-12 lg:h-14 rounded-full shadow-lg flex items-center justify-center text-xs lg:text-sm font-semibold z-40 transition-colors duration-200 cursor-pointer bg-secondary hover:bg-primary text-white border-none`}
     >
-      {isComingSoon ? "Próximamente" : t("button.enroll")}
+      {isComingSoon ? "Me interesa" : t("button.enroll")}
     </motion.button>
   );
 };
