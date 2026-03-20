@@ -80,7 +80,7 @@ export const courseCategories = [
       },
       {
         id: "qa-junit",
-        title: "Test Unitarios con JUnit",
+        title: "Tests Unitarios con JUnit",
         description:
           "Creación de pruebas robustas usando el estándar de la industria para Java.",
         image: imgQaJunit.src,
