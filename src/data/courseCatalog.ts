@@ -11,21 +11,21 @@ import imgQaAgile from "@/assets/imagenes-cursos/qa/agile-testing.jpeg";
 import imgQaGenai from "@/assets/imagenes-cursos/qa/testing-ia.jpeg";
 
 // DATA
-import imgDataSql from "@/assets/imagenes-cursos/data/sql-powerbi.png";
-import imgDataPowerbi from "@/assets/imagenes-cursos/data/powerbi.png";
+import imgDataSql from "@/assets/imagenes-cursos/data/sql-powerbi.jpeg";
+import imgDataPowerbi from "@/assets/imagenes-cursos/data/powerbi.jpeg";
 
 // HERRAMIENTAS
-import imgToolsExcel from "@/assets/imagenes-cursos/tools/excel.png";
-import imgToolsOffice from "@/assets/imagenes-cursos/tools/ofimatica.png";
-import imgToolsChatbots from "@/assets/imagenes-cursos/tools/chatbots.png";
-import imgToolsMake from "@/assets/imagenes-cursos/tools/make.png";
+import imgToolsExcel from "@/assets/imagenes-cursos/tools/excel.jpeg";
+import imgToolsOffice from "@/assets/imagenes-cursos/tools/ofimatica.jpeg";
+import imgToolsChatbots from "@/assets/imagenes-cursos/tools/chatbots.jpeg";
+import imgToolsMake from "@/assets/imagenes-cursos/tools/make.jpeg";
 
 // DEVOPS
-import imgDevopsGitlab from "@/assets/imagenes-cursos/devops/gitlab.png";
-import imgDevopsIntro from "@/assets/imagenes-cursos/devops/ci-cd.png";
+import imgDevopsGitlab from "@/assets/imagenes-cursos/devops/gitlab.jpeg";
+import imgDevopsIntro from "@/assets/imagenes-cursos/devops/ci-cd.jpeg";
 
 // AGILE
-import imgAgileScrum from "@/assets/imagenes-cursos/agile/agile-mastery.png";
+import imgAgileScrum from "@/assets/imagenes-cursos/agile/agile-mastery.jpeg";
 
 // ==========================================
 // CATÁLOGO DE CURSOS
