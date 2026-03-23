@@ -26,6 +26,7 @@ export interface EnrollmentFormDataExtended {
   city: string;
   province: string;
   course: string;
+  courseName: string; // AÑADIDO: Para enviar el nombre bonito a Make
   privacyAccepted: boolean;
   type: string;
 }
@@ -41,6 +42,7 @@ const initialFormDataBase: Omit<EnrollmentFormDataExtended, "type"> = {
   city: "",
   province: "",
   course: "",
+  courseName: "", // Inicializado vacío
   privacyAccepted: false,
 };
 
@@ -49,9 +51,15 @@ export const CourseEnrollmentForm = ({
   initialCourseId = "",
   enrollmentType = "enrollment",
 }: CourseEnrollmentFormProps) => {
+  // Encontrar el nombre inicial si hay un curso preseleccionado
+  const initialCourseName = initialCourseId
+    ? courses.find((c) => c.id === initialCourseId)?.name || ""
+    : "";
+
   const [formData, setFormData] = useState<EnrollmentFormDataExtended>({
     ...initialFormDataBase,
     course: initialCourseId || "",
+    courseName: initialCourseName,
     type: enrollmentType,
   });
 
@@ -77,9 +85,12 @@ export const CourseEnrollmentForm = ({
       courseFromUrl !== initialCourseId &&
       courses.some((c) => c.id === courseFromUrl)
     ) {
+      const courseNameFromUrl =
+        courses.find((c) => c.id === courseFromUrl)?.name || "";
       setFormData((prev) => ({
         ...prev,
         course: courseFromUrl,
+        courseName: courseNameFromUrl,
         type: typeFromUrl,
       }));
       setIsPreselected(true);
@@ -92,10 +103,20 @@ export const CourseEnrollmentForm = ({
     const { name, value, type } = e.target as HTMLInputElement;
     const checked = (e.target as HTMLInputElement).checked;
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+    setFormData((prev) => {
+      const newData = {
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      };
+
+      // Si el campo modificado es el select de cursos, actualizamos también el courseName
+      if (name === "course") {
+        const selectedCourseObj = courses.find((c) => c.id === value);
+        newData.courseName = selectedCourseObj ? selectedCourseObj.name : "";
+      }
+
+      return newData;
+    });
 
     if (formErrors[name]) {
       setFormErrors((prev) => ({ ...prev, [name]: "" }));
@@ -146,6 +167,7 @@ export const CourseEnrollmentForm = ({
         setFormData({
           ...initialFormDataBase,
           course: isPreSelected ? formData.course : "",
+          courseName: isPreSelected ? formData.courseName : "",
           type: enrollmentType,
         });
 
@@ -414,28 +436,41 @@ export const CourseEnrollmentForm = ({
           {isPreSelected ? (
             <>
               <div className="w-full px-3 py-2 border border-slate-300 rounded-md bg-gray-50 text-sm text-slate-700">
-                {courses.find((c) => c.id === formData.course)?.name ||
-                  "Curso Seleccionado"}
+                {formData.courseName || "Curso Seleccionado"}
               </div>
               <input type="hidden" name="course" value={formData.course} />
+              {/* Enviamos también el nombre bonito oculto */}
+              <input
+                type="hidden"
+                name="courseName"
+                value={formData.courseName}
+              />
             </>
           ) : (
-            <select
-              id="course"
-              name="course"
-              value={formData.course}
-              onChange={handleInputChange}
-              className={getInputClasses("course")}
-            >
-              <option value="" disabled>
-                Selecciona un curso
-              </option>
-              {courses.map((course) => (
-                <option key={course.id} value={course.id}>
-                  {course.name}
+            <>
+              <select
+                id="course"
+                name="course"
+                value={formData.course}
+                onChange={handleInputChange}
+                className={getInputClasses("course")}
+              >
+                <option value="" disabled>
+                  Selecciona un curso
                 </option>
-              ))}
-            </select>
+                {courses.map((course) => (
+                  <option key={course.id} value={course.id}>
+                    {course.name}
+                  </option>
+                ))}
+              </select>
+              {/* Enviamos también el nombre bonito oculto */}
+              <input
+                type="hidden"
+                name="courseName"
+                value={formData.courseName}
+              />
+            </>
           )}
           {formErrors.course && (
             <p className="text-red-600 text-xs mt-2">{formErrors.course}</p>
