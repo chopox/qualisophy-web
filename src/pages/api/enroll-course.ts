@@ -94,13 +94,13 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // 6. Enviar TODOS los datos sanitizados a Make.com con el tipo 'enrollment'
+    // 6. Enviar TODOS los datos sanitizados a Make.com
+    // Ya no forzamos el type="enrollment" aquí, porque el frontend ya nos manda el type correcto (interest o enrollment)
     const response = await fetch(makeWebhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        type: "enrollment", // CLAVE: Esto enviará los datos por la rama de Inscripciones en Make
-        ...sanitizedData, // Extendemos city, province, zipCode, address, dni, phone, etc.
+        ...sanitizedData, // Extendemos todo, incluyendo el type dinámico y el nuevo courseName
         submittedAt: new Date().toISOString(),
       }),
     });
