@@ -3,6 +3,7 @@ import { useTranslations } from "@/hooks/useTranslations";
 import { validateEnrollmentForm } from "@/lib/validation";
 import { Button } from "@/components/react/shared/Button";
 import { Card } from "@/components/react/shared/Card";
+import { provinces } from "@/data/provincesDensity"; // IMPORTAMOS LA LISTA DE PROVINCIAS
 
 interface Course {
   id: string;
@@ -26,7 +27,7 @@ export interface EnrollmentFormDataExtended {
   city: string;
   province: string;
   course: string;
-  courseName: string; // AÑADIDO: Para enviar el nombre bonito a Make
+  courseName: string;
   privacyAccepted: boolean;
   type: string;
 }
@@ -42,7 +43,7 @@ const initialFormDataBase: Omit<EnrollmentFormDataExtended, "type"> = {
   city: "",
   province: "",
   course: "",
-  courseName: "", // Inicializado vacío
+  courseName: "",
   privacyAccepted: false,
 };
 
@@ -51,7 +52,6 @@ export const CourseEnrollmentForm = ({
   initialCourseId = "",
   enrollmentType = "enrollment",
 }: CourseEnrollmentFormProps) => {
-  // Encontrar el nombre inicial si hay un curso preseleccionado
   const initialCourseName = initialCourseId
     ? courses.find((c) => c.id === initialCourseId)?.name || ""
     : "";
@@ -72,6 +72,11 @@ export const CourseEnrollmentForm = ({
   );
 
   const t = useTranslations();
+
+  // Ordenamos las provincias alfabéticamente para el selector
+  const sortedProvinces = [...provinces].sort((a, b) =>
+    a.name.localeCompare(b.name, "es", { sensitivity: "base" }),
+  );
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -109,7 +114,6 @@ export const CourseEnrollmentForm = ({
         [name]: type === "checkbox" ? checked : value,
       };
 
-      // Si el campo modificado es el select de cursos, actualizamos también el courseName
       if (name === "course") {
         const selectedCourseObj = courses.find((c) => c.id === value);
         newData.courseName = selectedCourseObj ? selectedCourseObj.name : "";
@@ -411,15 +415,22 @@ export const CourseEnrollmentForm = ({
             >
               Provincia <span className="text-red-600">*</span>
             </label>
-            <input
-              type="text"
+            <select
               id="province"
               name="province"
               value={formData.province}
               onChange={handleInputChange}
               className={getInputClasses("province")}
-              placeholder="Ej: Málaga"
-            />
+            >
+              <option value="" disabled>
+                Selecciona una provincia
+              </option>
+              {sortedProvinces.map((prov) => (
+                <option key={prov.id} value={prov.name}>
+                  {prov.name}
+                </option>
+              ))}
+            </select>
             {formErrors.province && (
               <p className="text-red-600 text-xs mt-2">{formErrors.province}</p>
             )}
@@ -439,7 +450,6 @@ export const CourseEnrollmentForm = ({
                 {formData.courseName || "Curso Seleccionado"}
               </div>
               <input type="hidden" name="course" value={formData.course} />
-              {/* Enviamos también el nombre bonito oculto */}
               <input
                 type="hidden"
                 name="courseName"
@@ -464,7 +474,6 @@ export const CourseEnrollmentForm = ({
                   </option>
                 ))}
               </select>
-              {/* Enviamos también el nombre bonito oculto */}
               <input
                 type="hidden"
                 name="courseName"
