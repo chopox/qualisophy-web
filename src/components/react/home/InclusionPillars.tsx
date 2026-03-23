@@ -48,7 +48,7 @@ const pillarsData = [
   {
     id: "reskilling",
     category: "Reskilling",
-    title: "Reciclaje Laboral",
+    title: "Reconversión Laboral",
     description:
       "Transformación de perfiles profesionales para adaptarse a las demandas tecnológicas.",
     icon: "model_training",
