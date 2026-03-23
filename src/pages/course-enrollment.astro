@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import { CourseEnrollmentForm } from "@/components/react/course/CourseEnrollmentForm";
 import { InstructorCard } from "@/components/react/course/InstructorCard";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
 // ==========================================
 // IMPORTACIÓN DE IMÁGENES LOCALES
@@ -28,9 +29,10 @@ import imgDevopsIntro from "@/assets/imagenes-cursos/devops/ci-cd.jpeg";
 import imgAgileScrum from "@/assets/imagenes-cursos/agile/agile-mastery.jpeg";
 
 
-// Get course ID from URL params
+// Obtener ID del curso y TIPO de la URL
 const url = new URL(Astro.request.url);
 const courseId = url.searchParams.get("course") || "";
+const enrollmentType = url.searchParams.get("type") || "enrollment"; // 'enrollment' o 'interest'
 
 // DICCIONARIO COMPLETO DE CURSOS
 const courseCatalog: Record<
@@ -93,7 +95,7 @@ const courseCatalog: Record<
   },
   "qa-junit": {
     id: "qa-junit",
-    name: "Test Unitarios con JUnit",
+    name: "Tests Unitarios con JUnit",
     description: "Creación de pruebas robustas usando el estándar de la industria para Java.",
     image: imgQaJunit.src,
     startDate: "Por definir",
@@ -186,7 +188,7 @@ const courseCatalog: Record<
   },
   "tools-chatbots": {
     id: "tools-chatbots",
-    name: "Chatbots para Comercios Electrónicos",
+    name: "Chatbots para E-commerce",
     description: "Diseña e integra asistentes virtuales conversacionales automatizados.",
     image: imgToolsChatbots.src,
     startDate: "Por definir",
@@ -372,7 +374,7 @@ const courseCardData = selectedCourse
   : null;
 ---
 
-<Layout title="Inscripción a Cursos - Qualisophy">
+<Layout title={enrollmentType === "interest" ? "Me interesa el curso - Qualisophy" : "Inscripción a Cursos - Qualisophy"}>
   <div class="min-h-screen bg-gradient-to-b to-white py-12 px-4">
     <div class="max-w-7xl mx-auto">
       
@@ -401,7 +403,9 @@ const courseCardData = selectedCourse
         )}
 
         <span class="mx-2 text-slate-400">/</span>
-        <span class="text-slate-800 font-medium">Inscripción</span>
+        <span class="text-slate-800 font-medium">
+          {enrollmentType === "interest" ? "Me interesa" : "Inscripción"}
+        </span>
       </nav>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -409,16 +413,18 @@ const courseCardData = selectedCourse
           <h1
             class="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-slate-800"
           >
-            Inscripción al Curso
+            {enrollmentType === "interest" ? "Me interesa este curso" : "Inscripción al Curso"}
           </h1>
           <p class="text-slate-600 mb-8">
-            Estás a un paso de comenzar tu aprendizaje. Completa tus datos para
-            reservar tu plaza.
+            {enrollmentType === "interest" 
+              ? "Déjanos tus datos para ser el primero en enterarte cuando abramos plazas o confirmemos fechas."
+              : "Estás a un paso de comenzar tu aprendizaje. Completa tus datos para reservar tu plaza."}
           </p>
           <CourseEnrollmentForm 
             client:load 
             courses={courses} 
             initialCourseId={courseId} 
+            enrollmentType={enrollmentType}
           />
         </div>
 

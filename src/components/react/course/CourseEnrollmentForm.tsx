@@ -12,9 +12,9 @@ interface Course {
 interface CourseEnrollmentFormProps {
   courses: Course[];
   initialCourseId?: string;
+  enrollmentType?: string;
 }
 
-// Ampliamos la interfaz para incluir Municipio, Provincia y Privacidad
 export interface EnrollmentFormDataExtended {
   firstName: string;
   lastName: string;
@@ -23,13 +23,15 @@ export interface EnrollmentFormDataExtended {
   dni: string;
   address: string;
   zipCode: string;
-  city: string; // Municipio
+  city: string;
   province: string;
   course: string;
+  courseName: string; // AÑADIDO: Para enviar el nombre bonito a Make
   privacyAccepted: boolean;
+  type: string;
 }
 
-const initialFormDataBase: EnrollmentFormDataExtended = {
+const initialFormDataBase: Omit<EnrollmentFormDataExtended, "type"> = {
   firstName: "",
   lastName: "",
   email: "",
@@ -40,16 +42,25 @@ const initialFormDataBase: EnrollmentFormDataExtended = {
   city: "",
   province: "",
   course: "",
+  courseName: "", // Inicializado vacío
   privacyAccepted: false,
 };
 
 export const CourseEnrollmentForm = ({
   courses,
   initialCourseId = "",
+  enrollmentType = "enrollment",
 }: CourseEnrollmentFormProps) => {
+  // Encontrar el nombre inicial si hay un curso preseleccionado
+  const initialCourseName = initialCourseId
+    ? courses.find((c) => c.id === initialCourseId)?.name || ""
+    : "";
+
   const [formData, setFormData] = useState<EnrollmentFormDataExtended>({
     ...initialFormDataBase,
     course: initialCourseId || "",
+    courseName: initialCourseName,
+    type: enrollmentType,
   });
 
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
@@ -67,13 +78,21 @@ export const CourseEnrollmentForm = ({
 
     const urlParams = new URLSearchParams(window.location.search);
     const courseFromUrl = urlParams.get("course");
+    const typeFromUrl = urlParams.get("type") || "enrollment";
 
     if (
       courseFromUrl &&
       courseFromUrl !== initialCourseId &&
       courses.some((c) => c.id === courseFromUrl)
     ) {
-      setFormData((prev) => ({ ...prev, course: courseFromUrl }));
+      const courseNameFromUrl =
+        courses.find((c) => c.id === courseFromUrl)?.name || "";
+      setFormData((prev) => ({
+        ...prev,
+        course: courseFromUrl,
+        courseName: courseNameFromUrl,
+        type: typeFromUrl,
+      }));
       setIsPreselected(true);
     }
   }, [courses, initialCourseId]);
@@ -84,10 +103,20 @@ export const CourseEnrollmentForm = ({
     const { name, value, type } = e.target as HTMLInputElement;
     const checked = (e.target as HTMLInputElement).checked;
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+    setFormData((prev) => {
+      const newData = {
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      };
+
+      // Si el campo modificado es el select de cursos, actualizamos también el courseName
+      if (name === "course") {
+        const selectedCourseObj = courses.find((c) => c.id === value);
+        newData.courseName = selectedCourseObj ? selectedCourseObj.name : "";
+      }
+
+      return newData;
+    });
 
     if (formErrors[name]) {
       setFormErrors((prev) => ({ ...prev, [name]: "" }));
@@ -97,7 +126,6 @@ export const CourseEnrollmentForm = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validación de Privacidad
     if (!formData.privacyAccepted) {
       setFormErrors({
         general: "Debes aceptar la Política de Privacidad de Qualisophy.",
@@ -139,6 +167,8 @@ export const CourseEnrollmentForm = ({
         setFormData({
           ...initialFormDataBase,
           course: isPreSelected ? formData.course : "",
+          courseName: isPreSelected ? formData.courseName : "",
+          type: enrollmentType,
         });
 
         setTimeout(() => setFormSuccess(false), 5000);
@@ -152,7 +182,7 @@ export const CourseEnrollmentForm = ({
     } catch (error: any) {
       console.error("Submission error:", error);
       setFormErrors({
-        general: error.message || "Hubo un error procesando tu inscripción.",
+        general: error.message || "Hubo un error procesando tu solicitud.",
       });
     } finally {
       setIsSubmitting(false);
@@ -181,7 +211,9 @@ export const CourseEnrollmentForm = ({
         <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
           <div className="flex items-center">
             <span className="text-green-800 text-sm font-medium">
-              {t("enrollment.successMessage")}
+              {enrollmentType === "interest"
+                ? "¡Genial! Hemos anotado tu interés. Te avisaremos en cuanto haya novedades."
+                : t("enrollment.successMessage")}
             </span>
           </div>
         </div>
@@ -404,35 +436,47 @@ export const CourseEnrollmentForm = ({
           {isPreSelected ? (
             <>
               <div className="w-full px-3 py-2 border border-slate-300 rounded-md bg-gray-50 text-sm text-slate-700">
-                {courses.find((c) => c.id === formData.course)?.name ||
-                  "Curso Seleccionado"}
+                {formData.courseName || "Curso Seleccionado"}
               </div>
               <input type="hidden" name="course" value={formData.course} />
+              {/* Enviamos también el nombre bonito oculto */}
+              <input
+                type="hidden"
+                name="courseName"
+                value={formData.courseName}
+              />
             </>
           ) : (
-            <select
-              id="course"
-              name="course"
-              value={formData.course}
-              onChange={handleInputChange}
-              className={getInputClasses("course")}
-            >
-              <option value="" disabled>
-                Selecciona un curso
-              </option>
-              {courses.map((course) => (
-                <option key={course.id} value={course.id}>
-                  {course.name}
+            <>
+              <select
+                id="course"
+                name="course"
+                value={formData.course}
+                onChange={handleInputChange}
+                className={getInputClasses("course")}
+              >
+                <option value="" disabled>
+                  Selecciona un curso
                 </option>
-              ))}
-            </select>
+                {courses.map((course) => (
+                  <option key={course.id} value={course.id}>
+                    {course.name}
+                  </option>
+                ))}
+              </select>
+              {/* Enviamos también el nombre bonito oculto */}
+              <input
+                type="hidden"
+                name="courseName"
+                value={formData.courseName}
+              />
+            </>
           )}
           {formErrors.course && (
             <p className="text-red-600 text-xs mt-2">{formErrors.course}</p>
           )}
         </div>
 
-        {/* ALINEACIÓN CORREGIDA AQUÍ */}
         <div className="flex items-start space-x-3 pt-4">
           <div className="flex h-5 items-center">
             <input
@@ -456,14 +500,18 @@ export const CourseEnrollmentForm = ({
 
         <Button
           type="submit"
-          variant="primary"
+          variant={enrollmentType === "interest" ? "secondary" : "primary"}
           size="md"
           fullWidth
           loading={isSubmitting}
           disabled={isSubmitting || !formData.privacyAccepted}
           className="mt-2"
         >
-          {isSubmitting ? "Enviando..." : "Inscríbete"}
+          {isSubmitting
+            ? "Enviando..."
+            : enrollmentType === "interest"
+              ? "Avísame de novedades"
+              : "Inscríbete"}
         </Button>
 
         <p className="font-bold border-b border-slate-100 pb-1 mb-2 text-slate-800">
