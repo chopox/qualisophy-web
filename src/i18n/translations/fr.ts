@@ -112,7 +112,7 @@ export default {
   // Footer
   'footer.follow': 'Suivez-nous',
   'footer.contact': 'Contactez-nous',
-  'footer.rights': 'Tous droits réservés',
+  'footer.rights': 'Marque déposée',
   'footer.slogan': 'Formations professionnelles, Conseils personnalisés aux entreprises et entrepreneurs, Coaching individualisé.',
   'footer.navigation': 'Navigation',
 
