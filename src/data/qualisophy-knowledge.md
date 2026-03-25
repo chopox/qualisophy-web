@@ -81,7 +81,7 @@ Ofrecemos las siguientes formaciones corporativas adaptadas a las necesidades de
 
 - Javier Flores: Instructor Tech especialista en Automatización QA y Cypress. QA Lead y Cypress Ambassador. Destaca por su enfoque en la creación de frameworks mantenibles y la integración de la automatización en entornos Agile y CI/CD.
 - Enrique Román Peláez: Instructor Tech especialista en Power BI & Analítica de Datos. Cuenta con más de 8 años de experiencia en Business Intelligence. Ofrece una formación práctica orientada al negocio, especializándose en modelado de datos y ofreciendo una visión integral para la toma de decisiones. Microsoft Data Analyst Associate y MCT.
-- Fran Guerrero: Instructor del curso de Testing y Calidad del Software. Especialista certificado en Agile ISTQB con más de 14 años de experiencia en el campo de la calidad del software. Implementa procesos de prueba, estrategias de control de calidad y herramientas innovadoras. Certificaciones: ISTQB Agile Tester, ISTQB Foundation Level, Certified Scrum Master.
+- Fran Guerrero: Instructor del curso de Testing y Calidad del Software. Especialista certificado en Agile ISTQB con más de 15 años de experiencia en el campo de la calidad del software. Implementa procesos de prueba, estrategias de control de calidad y herramientas innovadoras. Certificaciones: ISTQB Agile Tester, ISTQB Foundation Level, Certified Scrum Master.
 
 # BLOG Y NEWSLETTER
 
