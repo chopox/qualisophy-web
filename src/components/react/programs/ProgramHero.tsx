@@ -19,18 +19,25 @@ export const ProgramHero: React.FC<ProgramHeroProps> = ({
   ctaText = "Ver detalles del programa",
   backgroundImage = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2069&auto=format&fit=crop",
   hasCourseTree = false,
+  onCtaClick,
   scrollToId,
 }) => {
   const [isTreeModalOpen, setIsTreeModalOpen] = useState(false);
 
   const handleButtonClick = () => {
-    if (hasCourseTree) {
+    // Si pasamos una función directamente (solo útil si React llama a React)
+    if (onCtaClick) {
+      onCtaClick();
+    }
+    // Si tiene modal de árbol de cursos
+    else if (hasCourseTree) {
       setIsTreeModalOpen(true);
-    } else if (scrollToId) {
-      // LÓGICA DE SCROLL INTERNA
+    }
+    // Si le pasamos un ID para hacer scroll suave (Perfecto para Astro)
+    else if (scrollToId) {
       const element = document.getElementById(scrollToId);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
   };
