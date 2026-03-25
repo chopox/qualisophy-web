@@ -36,10 +36,10 @@ export const courseCategories = [
     title: "QA & Automatización",
     subtitle: "ASEGURAMIENTO DE CALIDAD",
     icon: "bug_report",
-    headerColor: "bg-[#325886]",
-    textColor: "text-[#1B2341]",
-    hoverBorder: "hover:border-[#325886]",
-    hoverText: "group-hover:text-[#325886]",
+    headerColor: "bg-[#6296CE]",
+    textColor: "text-[#6296CE]",
+    hoverBorder: "hover:border-[#6296CE]",
+    hoverText: "group-hover:text-[#6296CE]",
     link: "/learning/qa",
     courses: [
       {
@@ -121,10 +121,10 @@ export const courseCategories = [
     title: "Data & BI",
     subtitle: "BUSINESS INTELLIGENCE",
     icon: "bar_chart",
-    headerColor: "bg-[#4B7BB5]",
-    textColor: "text-[#4B7BB5]",
-    hoverBorder: "hover:border-[#4B7BB5]",
-    hoverText: "group-hover:text-[#4B7BB5]",
+    headerColor: "bg-[#6296CE]",
+    textColor: "text-[#6296CE]",
+    hoverBorder: "hover:border-[#6296CE]",
+    hoverText: "group-hover:text-[#6296CE]",
     link: "/learning/data",
     courses: [
       {
