@@ -61,7 +61,7 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 p-2 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors z-50 cursor-pointer"
+            className="absolute top-6 right-6 p-2 rounded-full  hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors z-50 cursor-pointer"
           >
             <span className="material-symbols-outlined text-2xl">close</span>
           </button>
