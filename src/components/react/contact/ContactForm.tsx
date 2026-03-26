@@ -110,12 +110,29 @@ export const ContactForm = ({
     setFormErrors({});
     setFormSuccess(false);
 
+    // ------------------------------------------------------------------
+    // VALIDACIÓN BASE Y EXTRA: Bloquear números/caracteres en Nombre
+    // ------------------------------------------------------------------
     const validation = validateContactForm(formData);
-    if (!validation.success) {
-      setFormErrors(validation.errors);
-      setIsSubmitting(false);
-      return;
+    let finalErrors: Record<string, string> = validation.success
+      ? {}
+      : validation.errors || {};
+    let hasCustomErrors = false;
+
+    // Regex para nombre: Letras (con acentos/ñ), espacios y guiones
+    const textOnlyRegex = /^[a-zA-ZÀ-ÿ\s\-]+$/;
+
+    if (formData.name && !textOnlyRegex.test(formData.name)) {
+      finalErrors.name = "Este campo no puede contener números.";
+      hasCustomErrors = true;
     }
+
+    if (!validation.success || hasCustomErrors) {
+      setFormErrors(finalErrors);
+      setIsSubmitting(false);
+      return; // Detenemos la ejecución y mostramos errores
+    }
+    // ------------------------------------------------------------------
 
     try {
       const response = await fetch(endpoint, {
@@ -253,7 +270,7 @@ export const ContactForm = ({
               placeholder={t("contact.messagePlaceholder")}
             />
             {formErrors.message && (
-              <p className="text-red-600 text-xs">{formErrors.message}</p>
+              <p className="text-red-600 text-xs mt-2">{formErrors.message}</p>
             )}
           </div>
 
