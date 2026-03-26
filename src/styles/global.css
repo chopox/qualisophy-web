@@ -191,31 +191,44 @@ body.chat-open {
 }
 
 /* --- COOKIEYES OVERRIDES --- */
-/* Respetamos su forma original, solo tocamos posición y colores */
+/* Posicionamiento y choque con el footer (Mantenido) */
 .cky-btn-revisit-wrapper {
   position: fixed !important;
-  bottom: 32px !important; /* Igual que el bottomOffset base del ChatBox */
-  left: 32px !important; /* Lo separamos del borde izquierdo igual que el chat de la derecha */
+  bottom: 32px !important;
+  left: 32px !important;
   z-index: 40 !important;
   transition: bottom 0.15s ease-out !important;
   margin: 0 !important;
 }
 
-.cky-btn-revisit-wrapper .cky-btn-revisit {
-  background-color: #1b2341 !important; /* Fondo Secondary */
-  border: none !important; /* Quitamos el borde */
+/* Colores del botón - Usamos "body" para darle máxima prioridad sobre el CSS inyectado */
+body .cky-btn-revisit-wrapper .cky-btn-revisit {
+  background: #1b2341 !important; /* Forzamos el shorthand 'background' para pisar el de CookieYes */
+  background-color: #1b2341 !important;
+  border: none !important;
   box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.2),
     0 4px 6px -2px rgba(0, 0, 0, 0.1) !important;
-  transition: all 0.3s ease !important;
 }
 
-.cky-btn-revisit-wrapper .cky-btn-revisit:hover {
-  background-color: #6296ce !important; /* Fondo Primary en hover */
+/* Color en Hover */
+body .cky-btn-revisit-wrapper .cky-btn-revisit:hover {
+  background: #6296ce !important;
+  background-color: #6296ce !important;
 }
 
-/* Forzar el icono de CookieYes a blanco */
-.cky-btn-revisit-wrapper .cky-btn-revisit img,
-.cky-btn-revisit-wrapper .cky-btn-revisit svg {
+/* Tooltip ("Preferencias de consentimiento") */
+body .cky-btn-revisit-wrapper .cky-btn-tooltip,
+body .cky-btn-revisit-wrapper .cky-tooltip {
+  background: #1b2341 !important;
+  background-color: #1b2341 !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+/* Forzar icono a blanco puro sin alterar su tamaño original */
+body .cky-btn-revisit-wrapper .cky-btn-revisit img,
+body .cky-btn-revisit-wrapper .cky-btn-revisit svg {
   filter: brightness(0) invert(1) !important;
+  background: transparent !important;
 }
