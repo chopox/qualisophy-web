@@ -99,6 +99,34 @@ const {
       {!hideChatBox && <ChatBox client:load />}
     </div>
 
+    {/* SCRIPT PARA DETECTAR FOOTER Y EMPUJAR EL BOTÓN DE COOKIEYES */}
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", () => {
+        const checkFooterCollision = () => {
+          const footer = document.getElementById("site-footer");
+          const cookieBtn = document.querySelector(".cky-btn-revisit-wrapper");
+          
+          if (footer && cookieBtn) {
+            const footerRect = footer.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            // Si el footer entra en la zona visible de la pantalla
+            if (footerRect.top < windowHeight) {
+              // Calculamos cuánto ha subido el footer y se lo sumamos a los 20px base
+              const offset = (windowHeight - footerRect.top) + 20;
+              cookieBtn.style.setProperty("bottom", `${offset}px`, "important");
+            } else {
+              // Si el footer no se ve, el botón vuelve a su posición original flotante
+              cookieBtn.style.setProperty("bottom", "20px", "important");
+            }
+          }
+        };
+
+        // Escuchamos el evento de scroll y redimensionado de pantalla
+        window.addEventListener("scroll", checkFooterCollision, { passive: true });
+        window.addEventListener("resize", checkFooterCollision, { passive: true });
+      });
+    </script>
   </body>
 </html>
 
