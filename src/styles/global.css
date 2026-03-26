@@ -191,42 +191,47 @@ body.chat-open {
 }
 
 /* --- COOKIEYES OVERRIDES --- */
-/* Posicionamiento y choque con el footer (Mantenido) */
-.cky-btn-revisit-wrapper {
+/* 1. Contenedor principal: Color, posición y sin bordes */
+body .cky-btn-revisit-wrapper {
   position: fixed !important;
-  bottom: 32px !important;
-  left: 32px !important;
+  bottom: 32px !important; /* Script de Astro controla el rebote */
+  left: 16px !important; /* Pegadito a la izquierda como querías */
   z-index: 40 !important;
-  transition: bottom 0.15s ease-out !important;
+  transition:
+    bottom 0.15s ease-out,
+    background-color 0.3s ease !important;
   margin: 0 !important;
-}
-
-/* Colores del botón - Usamos "body" para darle máxima prioridad sobre el CSS inyectado */
-body .cky-btn-revisit-wrapper .cky-btn-revisit {
-  background: #1b2341 !important; /* Forzamos el shorthand 'background' para pisar el de CookieYes */
-  background-color: #1b2341 !important;
+  background-color: #1b2341 !important; /* Azul oscuro corporativo */
   border: none !important;
   box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.2),
     0 4px 6px -2px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Color en Hover */
-body .cky-btn-revisit-wrapper .cky-btn-revisit:hover {
-  background: #6296ce !important;
-  background-color: #6296ce !important;
-}
-
-/* Tooltip ("Preferencias de consentimiento") */
-body .cky-btn-revisit-wrapper .cky-btn-tooltip,
-body .cky-btn-revisit-wrapper .cky-tooltip {
-  background: #1b2341 !important;
-  background-color: #1b2341 !important;
-  color: #ffffff !important;
+/* 2. Botón interior: Lo hacemos transparente para que mande el contenedor */
+body .cky-btn-revisit-wrapper .cky-btn-revisit {
+  background: transparent !important;
+  background-color: transparent !important;
   border: none !important;
 }
 
-/* Forzar icono a blanco puro sin alterar su tamaño original */
+/* 3. Hover: Cambiamos al azul claro (Primary) */
+body .cky-btn-revisit-wrapper:hover {
+  background-color: #6296ce !important;
+}
+
+/* 4. ¡MATAR EL TOOLTIP! (Adiós a los pseudo-elementos ::before y ::after) */
+body .cky-btn-revisit-wrapper:hover::before,
+body .cky-btn-revisit-wrapper:hover::after,
+body .cky-revisit-bottom-left:hover::before,
+body .cky-revisit-bottom-left:hover::after {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* 5. Forzar icono a blanco puro sin alterar su tamaño */
 body .cky-btn-revisit-wrapper .cky-btn-revisit img,
 body .cky-btn-revisit-wrapper .cky-btn-revisit svg {
   filter: brightness(0) invert(1) !important;
