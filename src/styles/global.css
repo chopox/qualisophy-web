@@ -191,25 +191,19 @@ body.chat-open {
 }
 
 /* --- COOKIEYES OVERRIDES --- */
+/* Respetamos su forma original, solo tocamos posición y colores */
 .cky-btn-revisit-wrapper {
   position: fixed !important;
-  bottom: 20px !important;
-  left: 20px !important; /* Lo mandamos a la izquierda para no pisar el chat */
+  bottom: 32px !important; /* Igual que el bottomOffset base del ChatBox */
+  left: 32px !important; /* Lo separamos del borde izquierdo igual que el chat de la derecha */
   z-index: 40 !important;
-  transition: bottom 0.15s ease-out !important; /* Transición suave al chocar con el footer */
+  transition: bottom 0.15s ease-out !important;
   margin: 0 !important;
-  padding: 0 !important;
 }
 
 .cky-btn-revisit-wrapper .cky-btn-revisit {
   background-color: #1b2341 !important; /* Fondo Secondary */
-  border: 2px solid #6296ce !important; /* Borde Primary */
-  border-radius: 50% !important; /* Lo hacemos completamente circular */
-  width: 56px !important;
-  height: 56px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  border: none !important; /* Quitamos el borde */
   box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.2),
     0 4px 6px -2px rgba(0, 0, 0, 0.1) !important;
@@ -218,15 +212,10 @@ body.chat-open {
 
 .cky-btn-revisit-wrapper .cky-btn-revisit:hover {
   background-color: #6296ce !important; /* Fondo Primary en hover */
-  border-color: #1b2341 !important; /* Borde Secondary en hover */
-  transform: scale(1.05) !important;
 }
 
-/* Forzar el icono de CookieYes a blanco, por si por defecto lo pinta oscuro */
+/* Forzar el icono de CookieYes a blanco */
 .cky-btn-revisit-wrapper .cky-btn-revisit img,
 .cky-btn-revisit-wrapper .cky-btn-revisit svg {
   filter: brightness(0) invert(1) !important;
-  width: 24px !important;
-  height: 24px !important;
-  margin: 0 !important;
 }
