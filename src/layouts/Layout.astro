@@ -99,7 +99,7 @@ const {
       {!hideChatBox && <ChatBox client:load />}
     </div>
 
-    {/* SCRIPT PARA DETECTAR FOOTER Y EMPUJAR EL BOTÓN DE COOKIEYES IGUAL QUE EL CHAT */}
+    {/* SCRIPT PARA DETECTAR FOOTER Y EMPUJAR EL BOTÓN DE COOKIEYES */}
     <script is:inline>
       document.addEventListener("DOMContentLoaded", () => {
         const checkFooterCollision = () => {
@@ -110,7 +110,8 @@ const {
             const footerRect = footer.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             
-            let newBottom = 32; // Base offset idéntico al del ChatBox
+            // 32px es la altura base, igual que el chat
+            let newBottom = 32; 
             const overlap = windowHeight - footerRect.top;
             
             if (overlap > 0) {
@@ -118,15 +119,24 @@ const {
             }
             
             cookieBtn.style.setProperty("bottom", `${newBottom}px`, "important");
+            cookieBtn.style.setProperty("left", "16px", "important"); // Lo forzamos a la izquierda por JS
           }
         };
 
-        window.addEventListener("scroll", checkFooterCollision, { passive: true });
-        window.addEventListener("resize", checkFooterCollision, { passive: true });
-        
-        // Ejecutar inmediatamente y tras un pequeño delay para asegurar renderizado
-        checkFooterCollision();
-        setTimeout(checkFooterCollision, 500);
+        // Como CookieYes carga asíncronamente, vigilamos hasta que aparezca el botón
+        const waitForCookieBtn = setInterval(() => {
+          const cookieBtn = document.querySelector(".cky-btn-revisit-wrapper");
+          if (cookieBtn) {
+            // El botón ya existe, calculamos posición inicial y añadimos los listeners
+            checkFooterCollision();
+            window.addEventListener("scroll", checkFooterCollision, { passive: true });
+            window.addEventListener("resize", checkFooterCollision, { passive: true });
+            clearInterval(waitForCookieBtn); // Paramos el vigilante
+          }
+        }, 300);
+
+        // Por seguridad, si a los 10 segundos no ha cargado, paramos el intervalo
+        setTimeout(() => clearInterval(waitForCookieBtn), 10000);
       });
     </script>
   </body>
