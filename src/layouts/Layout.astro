@@ -143,11 +143,17 @@ const {
 </html>
 
 <style is:global>
+
   body.menu-open #chatbox-container {
     display: none !important;
-    pointer-events: none;
   }
-  body.menu-open {
-    overflow: hidden;
+
+  body[style*="overflow: hidden"] #chatbox-container {
+    display: none !important;
   }
+
+  body.modal-open #chatbox-container {
+    display: none !important;
+  }
+
 </style>
