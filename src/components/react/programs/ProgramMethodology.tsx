@@ -101,10 +101,9 @@ export const ProgramMethodology: React.FC<MethodologyProps> = ({
             {checks.map((check, index) => (
               <div
                 key={index}
-                // Si el fondo es blanco (con mesh), las tarjetas deben ser semitransparentes para integrarse.
-                // Si el fondo es gris, las tarjetas son blancas sólidas.
+                // FIX APLICADO AQUÍ: Cambiamos items-start por items-center para centrado vertical perfecto
                 className={`
-                  flex items-start gap-4 p-4 rounded-xl border transition-all duration-300 hover:shadow-md
+                  flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 hover:shadow-md
                   ${
                     isGrayVariant
                       ? "bg-white border-gray-200" // Fondo Gris -> Tarjeta Blanca sólida
@@ -112,7 +111,8 @@ export const ProgramMethodology: React.FC<MethodologyProps> = ({
                   }
                 `}
               >
-                <span className="material-symbols-outlined text-2xl mt-0.5 text-primary">
+                {/* FIX APLICADO AQUÍ: Quitamos el mt-0.5 innecesario y aseguramos que no se encoja (shrink-0) */}
+                <span className="material-symbols-outlined text-2xl text-primary shrink-0">
                   check_circle
                 </span>
                 <span className="text-base lg:text-lg font-medium font-primary text-secondary">
