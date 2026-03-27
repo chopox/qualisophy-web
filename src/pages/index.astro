@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 
 // Componentes React
 import { HeroSection } from "@/components/react/home/HeroSection";
+import { AboutSection } from "@/components/react/home/AboutSection"; // NUEVO
 import { MissionSection } from "@/components/react/home/MissionSection";
 import { InclusionPillars } from "@/components/react/home/InclusionPillars";
 import { ValuesSection } from "@/components/react/home/ValuesSection";
@@ -17,16 +18,19 @@ import { Newsletter } from "@/components/react/shared/Newsletter";
   {/* 1. HERO (Imagen Completa) */}
   <HeroSection client:load />
 
-  {/* 2. MISIÓN (Fondo Blanco) */}
-  <MissionSection imageSrc="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" />
+  {/* 2. IDENTIDAD / QUIÉNES SOMOS (Fondo Blanco - Imagen Izquierda) */}
+  <AboutSection />
 
-  {/* 3. VALORES (Fondo Gris Claro) */}
+  {/* 3. MISIÓN / OBJETO SOCIAL (Fondo Blanco - Imagen Derecha) */}
+  <MissionSection />
+
+  {/* 4. VALORES (Fondo Gris Claro) */}
   <ValuesSection />
 
-  {/* 4. PILARES (Fondo Blanco) */}
+  {/* 5. PILARES (Fondo Blanco) */}
   <InclusionPillars client:visible />
 
-  {/* 4. NEWSLETTER (Fondo Gris claro) */}
-  <Newsletter client:visible />
+{/* 6. NEWSLETTER (Fondo Blanco) */}
+<Newsletter client:visible variant="white" />
 
 </Layout>

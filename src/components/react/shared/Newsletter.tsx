@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 
-export const Newsletter = () => {
+// NUEVO: Añadida prop 'variant' para controlar el color de fondo dinámicamente
+interface NewsletterProps {
+  variant?: "white" | "gray";
+}
+
+export const Newsletter: React.FC<NewsletterProps> = ({ variant = "gray" }) => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -37,8 +42,11 @@ export const Newsletter = () => {
     }
   };
 
+  // CAMBIO: Asignamos el fondo basado en la prop 'variant'
+  const bgColor = variant === "white" ? "bg-white" : "bg-gray-50";
+
   return (
-    <section className="bg-gray-50 py-16 border-t border-gray-200">
+    <section className={`${bgColor} py-16 border-t border-gray-200`}>
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="md:w-1/2 text-center md:text-left">

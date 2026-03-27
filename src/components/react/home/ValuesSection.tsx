@@ -40,8 +40,8 @@ const valuesData: ValueItem[] = [
 
 export const ValuesSection: React.FC = () => {
   return (
-    // CAMBIO: Fondo cambiado a bg-gray-50 para crear la alternancia
-    <section className="bg-gray-50 py-16 md:py-28 w-full border-y border-gray-100">
+    // CAMBIO: Fondo devuelto a bg-white para la alternancia
+    <section className="bg-white py-16 md:py-28 w-full border-y border-gray-100">
       <div className="flex justify-center w-full">
         <div className="w-full md:max-w-[96%] px-4 md:px-8 lg:px-12">
           {/* Cabecera de la Sección */}
@@ -67,15 +67,15 @@ export const ValuesSection: React.FC = () => {
             {valuesData.map((value) => (
               <div
                 key={value.id}
-                // Las tarjetas se mantienen blancas (bg-white) para resaltar sobre el fondo gris
-                className="group flex flex-col items-center text-center p-8 lg:p-12 rounded-[2rem] transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-200 hover:border-primary/30 bg-white relative z-10"
+                // CAMBIO: Las tarjetas ahora tienen fondo gris claro para resaltar sobre el fondo blanco del componente
+                className="group flex flex-col items-center text-center p-8 lg:p-12 rounded-[2rem] transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-200 hover:border-primary/30 bg-gray-50 relative z-10"
               >
                 {/* Fondo sutil al hacer hover */}
-                <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[2rem] -z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[2rem] -z-10"></div>
 
                 {/* Círculo del Icono */}
                 <div className="mb-8 relative">
-                  <div className="size-24 rounded-2xl bg-primary/5 group-hover:bg-primary text-primary group-hover:text-white flex items-center justify-center transition-all duration-500 ease-out transform group-hover:rotate-3 group-hover:scale-110 shadow-sm group-hover:shadow-lg ring-1 ring-primary/10 group-hover:ring-primary/0">
+                  <div className="size-24 rounded-2xl bg-white group-hover:bg-primary text-primary group-hover:text-white flex items-center justify-center transition-all duration-500 ease-out transform group-hover:rotate-3 group-hover:scale-110 shadow-sm group-hover:shadow-lg ring-1 ring-primary/10 group-hover:ring-primary/0">
                     <span className="material-symbols-outlined text-[40px] md:text-[48px] transition-colors duration-300">
                       {value.icon}
                     </span>
@@ -88,7 +88,7 @@ export const ValuesSection: React.FC = () => {
                 </h3>
 
                 {/* Separador */}
-                <div className="w-12 h-1 bg-gray-100 group-hover:bg-primary/30 rounded-full mb-6 transition-colors duration-300"></div>
+                <div className="w-12 h-1 bg-gray-200 group-hover:bg-primary/30 rounded-full mb-6 transition-colors duration-300"></div>
 
                 <p className="text-gray-500 leading-relaxed font-primary text-base md:text-lg group-hover:text-gray-600">
                   {value.description}

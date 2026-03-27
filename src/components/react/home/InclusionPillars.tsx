@@ -62,7 +62,8 @@ export const InclusionPillars: React.FC = () => {
   const [activeId, setActiveId] = useState<string>("neurodivergence");
 
   return (
-    <section className="bg-white py-16 w-full">
+    // CAMBIO APLICADO: bg-gray-50 y borde superior para la alternancia de color
+    <section className="bg-gray-50 py-16 w-full border-t border-gray-100">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-10">
           <h2 className="text-secondary text-3xl md:text-4xl font-bold font-heading">
