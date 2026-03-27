@@ -1,6 +1,6 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "src/**/*"],
+  "include": [".astro/types.d.ts", "src/**/*", "cypress/**/*.ts"],
   "exclude": ["dist"],
   "compilerOptions": {
     "baseUrl": ".",
@@ -11,6 +11,13 @@
       "@/styles/*": ["src/styles/*"],
       "@/pages/*": ["src/pages/*"],
       "@/lib/*": ["src/lib/*"]
-    }
-  }
+    },
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["cypress", "node"]
+  },
 }
