@@ -35,11 +35,12 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               </h2>
 
               <p className="text-gray-600 text-lg lg:text-xl leading-relaxed font-primary">
-                Somos el puente entre la teoría y la práctica en la diversidad
-                tecnológica. Nacemos con la firme convicción de que la
-                tecnología es el lenguaje universal capaz de superar cualquier
-                barrera social, territorial o personal, permitiendo potenciar el
-                talento oculto que el mercado tradicional suele pasar por alto.
+                Somos el nexo estratégico entre el talento diverso y el sector
+                tecnológico. Ayudamos a profesionales en transición y a empresas
+                innovadoras a conectar, eliminando la escasez de talento
+                especializado y las barreras de exclusión. A través de una
+                formación tecnológica 100% personalizada y un acompañamiento,
+                garantizamos un empleo de calidad y un impacto social medible.
               </p>
 
               {/* Botón hacia la página de equipo */}
