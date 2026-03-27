@@ -31,7 +31,7 @@ export const TalentImpact: React.FC<TalentImpactProps> = ({
 
             <ul className="space-y-6">
               {items.map((item, i) => (
-                <li key={i} className="flex gap-4">
+                <li key={i} className="flex items-center gap-4">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">
                     ✓
                   </span>
