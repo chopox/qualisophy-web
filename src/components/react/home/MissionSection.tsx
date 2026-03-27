@@ -16,7 +16,7 @@ export const MissionSection: React.FC<MissionSectionProps> = ({
             <div className="w-full md:flex-1 flex flex-col gap-6 order-1">
               <div className="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider font-primary">
                 <span className="w-8 h-[2px] bg-primary"></span>
-                Ojeto social
+                Objeto social
               </div>
 
               <h2 className="text-secondary text-3xl md:text-4xl lg:text-5xl font-bold leading-tight font-heading">
