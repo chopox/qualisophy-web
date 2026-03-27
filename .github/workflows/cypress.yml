@@ -1,0 +1,49 @@
+name: Cypress CI Pipeline
+
+on:
+  push:
+    branches: [main, qw-187-tests-cypress]
+  pull_request:
+    branches: [main, qw-187-tests-cypress]
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-24.14.0-chrome-145.0.7632.116-1-ff-148.0-edge-145.0.3800.70-1
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Instalar pnpm
+        run: npm install -g pnpm
+
+      - name: Caché de pnpm
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: Asegurar binary de Cypress
+        run: pnpm exec cypress install
+
+      - name: Build del proyecto
+        run: pnpm run build
+
+      - name: Instalar servidor estático local
+        run: pnpm add -D serve
+
+      - name: Levantar servidor y esperar HTTP 200
+        run: pnpm exec start-server-and-test "pnpm exec serve -s dist -l 4321" http://localhost:4321 "pnpm run cypress:run"
+
+      - name: Guardar artefactos de Cypress
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts
+          path:
+            cypress/screenshots
+            cypress/videos
