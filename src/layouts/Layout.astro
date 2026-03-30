@@ -23,8 +23,8 @@ export interface Props {
 
 const {
   title,
-  description = "Qualisophy - Formación práctica y oportunidades reales.",
-  image = "/assets/logomark-white.jpg",
+  description = "Qualisophy - Formación práctica y oportunidades reales para el crecimiento profesional.",
+  image = "/assets/logomark-white.jpg", // Imagen por defecto
   bodyClass = "",
   showHeader = true,
   hideChatBox = false,
@@ -32,7 +32,7 @@ const {
   fullWidth = false,
 } = Astro.props;
 
-// Configuración de URLs absolutas para WhatsApp
+// Configuración de URLs absolutas para WhatsApp (Requisito indispensable)
 const siteUrl = "https://www.qualisophy.com";
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const ogImageURL = new URL(image, siteUrl).href;
@@ -66,6 +66,7 @@ const ogImageURL = new URL(image, siteUrl).href;
     <meta name="twitter:image" content={ogImageURL} />
 
     <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/50976a705c95b786f0c0e37b8938643c/script.js"></script> 
+    
     {/* Preload Fonts */}
     <link
       rel="preload"
@@ -94,7 +95,7 @@ const ogImageURL = new URL(image, siteUrl).href;
     class={`font-primary antialiased min-h-screen flex flex-col ${bodyClass || "bg-white"}`}
   >
 
-    {/* HEADER: Con ID 'site-header' y sticky para que el script del chat lo detecte */}
+    {/* HEADER */}
     <div id="site-header" class="sticky top-0 z-40 w-full bg-white shadow-sm">
         {showHeader && <Header />}
     </div>
@@ -111,7 +112,7 @@ const ogImageURL = new URL(image, siteUrl).href;
       }
     </main>
 
-    {/* FOOTER: Con ID 'site-footer' para que el chat 'rebote' sobre él */}
+    {/* FOOTER */}
     <div id="site-footer" class="relative z-30 bg-white">
         {showFooter && <Footer />}
     </div>
@@ -122,61 +123,55 @@ const ogImageURL = new URL(image, siteUrl).href;
       {!hideChatBox && <ChatBox client:load />}
     </div>
 
-    {/* SCRIPT PARA DETECTAR FOOTER Y EMPUJAR EL BOTÓN DE COOKIEYES */}
+    {/* SCRIPT PARA DETECTAR FOOTER Y EVITAR COLISIÓN CON COOKIEYES / BOTÓN INSCRIPCIÓN */}
     <script is:inline>
       document.addEventListener("DOMContentLoaded", () => {
         const checkFooterCollision = () => {
           const footer = document.getElementById("site-footer");
           const cookieBtn = document.querySelector(".cky-btn-revisit-wrapper");
+          const enrollBtn = document.getElementById("floating-enroll-btn");
           
           if (footer && cookieBtn) {
             const footerRect = footer.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             
-            // 32px es la altura base, igual que el chat
             let newBottom = 32; 
             const overlap = windowHeight - footerRect.top;
             
             if (overlap > 0) {
               newBottom = overlap + 32;
             }
+
+            // Si el botón de inscripción existe en móvil, subimos el de cookies encima
+            if (enrollBtn && window.innerWidth < 1024) {
+               const enrollBtnHeight = enrollBtn.offsetHeight || 48;
+               newBottom += (enrollBtnHeight + 12);
+            }
             
             cookieBtn.style.setProperty("bottom", `${newBottom}px`, "important");
-            cookieBtn.style.setProperty("left", "16px", "important"); // Lo forzamos a la izquierda por JS
+            cookieBtn.style.setProperty("left", "16px", "important");
+            cookieBtn.style.setProperty("z-index", "999", "important");
           }
         };
 
-        // Como CookieYes carga asíncronamente, vigilamos hasta que aparezca el botón
-        const waitForCookieBtn = setInterval(() => {
+        const waitForElements = setInterval(() => {
           const cookieBtn = document.querySelector(".cky-btn-revisit-wrapper");
           if (cookieBtn) {
-            // El botón ya existe, calculamos posición inicial y añadimos los listeners
             checkFooterCollision();
             window.addEventListener("scroll", checkFooterCollision, { passive: true });
             window.addEventListener("resize", checkFooterCollision, { passive: true });
-            clearInterval(waitForCookieBtn); // Paramos el vigilante
+            clearInterval(waitForElements);
           }
         }, 300);
 
-        // Por seguridad, si a los 10 segundos no ha cargado, paramos el intervalo
-        setTimeout(() => clearInterval(waitForCookieBtn), 10000);
+        setTimeout(() => clearInterval(waitForElements), 10000);
       });
     </script>
   </body>
 </html>
 
 <style is:global>
-
-  body.menu-open #chatbox-container {
-    display: none !important;
-  }
-
-  body[style*="overflow: hidden"] #chatbox-container {
-    display: none !important;
-  }
-
-  body.modal-open #chatbox-container {
-    display: none !important;
-  }
-
+  body.menu-open #chatbox-container { display: none !important; }
+  body[style*="overflow: hidden"] #chatbox-container { display: none !important; }
+  body.modal-open #chatbox-container { display: none !important; }
 </style>
