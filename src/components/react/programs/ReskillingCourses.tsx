@@ -9,7 +9,7 @@ const courseCards = [
     description:
       "Domina los fundamentos del testing, diseño de casos de prueba y metodologías ágiles.",
     icon: "bug_report",
-    href: "/learning/software-quality-testing-course",
+    href: "/cursos/qa/calidad-software", // FIX: Actualizado a la ruta en español
     color: "bg-emerald-50 text-emerald-600",
   },
   {
@@ -19,7 +19,7 @@ const courseCards = [
     description:
       "Aprende a automatizar pruebas con Cucumber, Gherkin y Cypress en entornos CI/CD.",
     icon: "playlist_add_check",
-    href: "/learning/bdd-automation-e2e-course",
+    href: "/cursos/qa/bootcamp-cypress", // FIX: Actualizado a la ruta en español
     color: "bg-blue-50 text-blue-600",
   },
   {
@@ -29,7 +29,7 @@ const courseCards = [
     description:
       "Da el salto técnico: JavaScript, Git, Docker y Pipelines de CI/CD para testers.",
     icon: "terminal",
-    href: "/learning/devops-for-testers-course",
+    href: "/cursos/devops/introduccion-devops", // FIX: Actualizado a la ruta en español
     color: "bg-amber-50 text-amber-600",
   },
   {
@@ -39,7 +39,7 @@ const courseCards = [
     description:
       "Explora toda nuestra oferta formativa y encuentra tu próximo reto profesional.",
     icon: "school",
-    href: "/learning",
+    href: "/cursos", // FIX: Mantenido a /cursos general
     color: "bg-purple-50 text-purple-600",
   },
 ];
@@ -86,7 +86,7 @@ export const ReskillingCourses: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2">
               {/* Botón 1: Abrir Modal de Cursos */}
               <a
-                href="/learning"
+                href="/cursos"
                 className="flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all transform text-lg min-w-[240px] cursor-pointer"
               >
                 Empieza tu Transformación

@@ -7,7 +7,7 @@ const paths = Astro.url.pathname.split("/").filter(Boolean);
 const routeNameMap: Record<string, string> = {
   // Main routes
   "corporate-training": "Formación Empresas",
-  learning: "Cursos",
+  cursos: "Cursos",
   partnership: "Partnership",
   contact: "Contacto",
   "talent-inclusion": "Inclusión Laboral",
@@ -15,22 +15,39 @@ const routeNameMap: Record<string, string> = {
   "course-enrollment": "Matriculación",
 
   // Categories
-  dev: "Desarrollo",
+  desarrollo: "Desarrollo",
   qa: "QA & Testing",
-  powerbi: "Data & Analytics",
+  data: "Data & Analytics",
+  herramientas: "Herramientas Empresariales",
+  devops: "DevOps",
+  agile: "Agile & Scrum",
 
   // Specific Courses (File names -> Pretty Title)
   "backend-course": "Backend",
   "frontend-course": "Frontend",
   "fullstack-course": "Fullstack Development",
-  "automation-course": "Automatización de pruebas",
-  "quality-management": "Gestión de calidad del software",
-  devops: "DevOps para QA",
-  "dashboards-course": "Dashboards y visualización",
-  "data-analytics": "Introdución a la analítica de datos con PowerBI",
+  "automation-course": "Automatización de Pruebas",
+  "quality-management": "Gestión de Calidad del Software",
+  "dashboards-course": "Dashboards y Visualización",
+  "data-analytics": "Introducción a la Analítica de Datos con PowerBI",
   "bdd-automation-e2e-course": "Curso BDD y Automatización E2E",
   "devops-for-testers-course": "Coding and DevOps for Testers",
-  "software-quality-testing-course": "Testing y calidad del software",
+  "software-quality-testing-course": "Testing y Calidad del Software",
+  "software-quality": "Calidad de Software (QA) y Testing",
+  "api-testing": "API Testing con Postman",
+  "cypress-bootcamp": "Cypress Automation Bootcamp",
+  "junit-testing": "Tests Unitarios con JUnit",
+  "agile-testing": "Agile Testing",
+  "genai-testing": "Generative AI para Software Testing",
+  "sql-powerbi": "Introducción a SQL para Power BI",
+  powerbi: "Analítica de Datos con Power BI",
+  "excel-expert": "Microsoft Excel Expert",
+  "office-tools": "Ofimática Integral",
+  chatbots: "Chatbots para E-commerce",
+  "make-productivity": "Productividad con Make",
+  "gitlab-cicd": "Gestión Avanzada y CI/CD con GitLab",
+  "intro-devops": "DevOps, Continuous Testing y CI/CD",
+  "scrum-master": "Agile Mastery: El Camino del Scrum Master",
 };
 
 // Function to format names if they are not in the map

@@ -10,7 +10,7 @@ const services = [
       "Aprende tecnología sin barreras, con cursos claros y prácticos hechos para ti.",
     imageUrl:
       "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1080&q=80",
-    url: "/learning",
+    url: "/cursos",
   },
   {
     title: "Formación Empresas",
@@ -45,12 +45,13 @@ export const CoreServiceIntro: React.FC = () => {
           humano, diseñado para que avances con confianza y sin barreras.
           Acompañamos a profesionales y empresas: tú desarrollas tu potencial,
           nosotros te apoyamos para que tu futuro tecnológico sea real, práctico
-          y transformador. </p>
+          y transformador.{" "}
+        </p>
         <div className="mt-6 pt-4 border-t border-primary-DEFAULT/30">
-  <p className="font-heading text-primary-DEFAULT text-l font-semibold italic">
-    “Tecnología que te transforma. Futuro que construimos.”
-  </p>
-</div>
+          <p className="font-heading text-primary-DEFAULT text-l font-semibold italic">
+            “Tecnología que te transforma. Futuro que construimos.”
+          </p>
+        </div>
       </div>
 
       {/* Services (The 3 Cards) */}

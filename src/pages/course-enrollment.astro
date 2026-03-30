@@ -384,12 +384,12 @@ const courseCardData = selectedCourse
       <nav class="text-sm text-slate-500 mb-8 flex flex-wrap items-center">
         <a href="/" class="hover:text-primary transition-colors">Inicio</a>
         <span class="mx-2 text-slate-400">/</span>
-        <a href="/learning" class="hover:text-primary transition-colors">Cursos</a>
+        <a href="/cursos" class="hover:text-primary transition-colors">Cursos</a>
         
         {selectedCourse?.categorySlug && (
           <>
             <span class="mx-2 text-slate-400">/</span>
-            <a href={`/learning/${selectedCourse.categorySlug}`} class="hover:text-primary transition-colors">
+            <a href={`/cursos/${selectedCourse.categorySlug}`} class="hover:text-primary transition-colors">
               {formatCategoryName(selectedCourse.categorySlug)}
             </a>
           </>
@@ -398,7 +398,7 @@ const courseCardData = selectedCourse
         {selectedCourse?.courseSlug && (
           <>
             <span class="mx-2 text-slate-400">/</span>
-            <a href={`/learning/${selectedCourse.categorySlug}/${selectedCourse.courseSlug}`} class="hover:text-primary transition-colors truncate max-w-[200px] sm:max-w-xs">
+            <a href={`/cursos/${selectedCourse.categorySlug}/${selectedCourse.courseSlug}`} class="hover:text-primary transition-colors truncate max-w-[200px] sm:max-w-xs">
               {selectedCourse.name}
             </a>
           </>

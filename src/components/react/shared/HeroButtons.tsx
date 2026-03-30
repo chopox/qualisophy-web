@@ -1,13 +1,13 @@
-import React from 'react';
-import { useTranslations } from '@/hooks/useTranslations';
-import { Button } from '@/components/react/shared/Button';
+import React from "react";
+import { useTranslations } from "@/hooks/useTranslations";
+import { Button } from "@/components/react/shared/Button";
 
 export const HeroButtons = () => {
-  const  t  = useTranslations(); 
+  const t = useTranslations();
 
   return (
     <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-      <a href="/learning">
+      <a href="/cursos">
         <Button variant="primary" size="sm">
           {t("button.viewCourses")}
         </Button>

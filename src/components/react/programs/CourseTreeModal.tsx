@@ -209,8 +209,9 @@ export const CourseTreeModal: React.FC<CourseTreeModalProps> = ({
         </div>
 
         <div className="p-5 bg-gray-50 border-t border-gray-100 text-center shrink-0 rounded-b-3xl">
+          {/* FIX: Cambiado el enlace de /learning a /cursos */}
           <a
-            href="/learning"
+            href="/cursos"
             className="inline-flex items-center gap-2 text-primary font-bold text-base group"
           >
             <span className="group-hover:underline">Ver Catálogo Completo</span>
