@@ -94,7 +94,7 @@ const ogImageURL = new URL(image, siteUrl).href;
     class={`font-primary antialiased min-h-screen flex flex-col ${bodyClass || "bg-white"}`}
   >
 
-    {/* HEADER */}
+    {/* HEADER: Con ID 'site-header' y sticky para que el script del chat lo detecte */}
     <div id="site-header" class="sticky top-0 z-40 w-full bg-white shadow-sm">
         {showHeader && <Header />}
     </div>
@@ -111,7 +111,7 @@ const ogImageURL = new URL(image, siteUrl).href;
       }
     </main>
 
-    {/* FOOTER */}
+    {/* FOOTER: Con ID 'site-footer' para que el chat 'rebote' sobre él */}
     <div id="site-footer" class="relative z-30 bg-white">
         {showFooter && <Footer />}
     </div>
@@ -122,7 +122,11 @@ const ogImageURL = new URL(image, siteUrl).href;
       {!hideChatBox && <ChatBox client:load />}
     </div>
 
+<<<<<<< HEAD
     {/* SCRIPT PARA DETECTAR FOOTER Y EMPUJAR EL BOTÓN DE COOKIEYES / INSCRIPCIÓN */}
+=======
+    {/* SCRIPT PARA DETECTAR FOOTER Y EMPUJAR EL BOTÓN DE COOKIEYES */}
+>>>>>>> 76f5f879a2766a06c2e138ffcec7bc3eee36b03c
     <script is:inline>
       document.addEventListener("DOMContentLoaded", () => {
         const checkFooterCollision = () => {
@@ -134,6 +138,7 @@ const ogImageURL = new URL(image, siteUrl).href;
             const footerRect = footer.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             
+            // 32px es la altura base, igual que el chat
             let newBottom = 32; 
             const overlap = windowHeight - footerRect.top;
             
@@ -141,27 +146,44 @@ const ogImageURL = new URL(image, siteUrl).href;
               newBottom = overlap + 32;
             }
 
+<<<<<<< HEAD
+=======
+            // Si el botón de inscripción está presente en pantallas móviles, subimos el de cookies encima
+>>>>>>> 76f5f879a2766a06c2e138ffcec7bc3eee36b03c
             if (enrollBtn && window.innerWidth < 1024) {
                const enrollBtnHeight = enrollBtn.offsetHeight || 48;
                newBottom += (enrollBtnHeight + 12);
             }
             
             cookieBtn.style.setProperty("bottom", `${newBottom}px`, "important");
-            cookieBtn.style.setProperty("left", "16px", "important");
+            cookieBtn.style.setProperty("left", "16px", "important"); // Lo forzamos a la izquierda por JS
             cookieBtn.style.setProperty("z-index", "999", "important");
           }
         };
 
+<<<<<<< HEAD
+=======
+        // Como CookieYes carga asíncronamente, vigilamos hasta que aparezca el botón
+>>>>>>> 76f5f879a2766a06c2e138ffcec7bc3eee36b03c
         const waitForCookieBtn = setInterval(() => {
           const cookieBtn = document.querySelector(".cky-btn-revisit-wrapper");
           if (cookieBtn) {
+            // El botón ya existe, calculamos posición inicial y añadimos los listeners
             checkFooterCollision();
             window.addEventListener("scroll", checkFooterCollision, { passive: true });
             window.addEventListener("resize", checkFooterCollision, { passive: true });
+<<<<<<< HEAD
             clearInterval(waitForCookieBtn);
           }
         }, 300);
 
+=======
+            clearInterval(waitForCookieBtn); // Paramos el vigilante
+          }
+        }, 300);
+
+        // Por seguridad, si a los 10 segundos no ha cargado, paramos el intervalo
+>>>>>>> 76f5f879a2766a06c2e138ffcec7bc3eee36b03c
         setTimeout(() => clearInterval(waitForCookieBtn), 10000);
       });
     </script>
@@ -169,7 +191,17 @@ const ogImageURL = new URL(image, siteUrl).href;
 </html>
 
 <style is:global>
-  body.menu-open #chatbox-container { display: none !important; }
-  body[style*="overflow: hidden"] #chatbox-container { display: none !important; }
-  body.modal-open #chatbox-container { display: none !important; }
+
+  body.menu-open #chatbox-container {
+    display: none !important;
+  }
+
+  body[style*="overflow: hidden"] #chatbox-container {
+    display: none !important;
+  }
+
+  body.modal-open #chatbox-container {
+    display: none !important;
+  }
+
 </style>
