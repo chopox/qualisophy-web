@@ -89,16 +89,19 @@ export const BlogSection = () => {
                   {post.excerpt}
                 </p>
 
-                {/* Enlace en el botón */}
+                {/* Enlace en el botón - FIX: Flecha sin subrayado */}
                 <a
                   href={`/blog/${post.slug}`}
-                  className="inline-flex items-center text-primary font-bold text-sm hover:underline mt-auto"
+                  className="group inline-flex items-center text-primary font-bold text-sm no-underline mt-auto"
                 >
-                  Leer artículo
-                  <span className="material-symbols-outlined text-sm ml-1">
+                  <span className="group-hover:underline">
+                    Leer artículo completo
+                  </span>
+                  <span className="material-symbols-outlined text-sm ml-1 inline-block transition-transform group-hover:translate-x-1">
                     arrow_forward
                   </span>
                 </a>
+
               </div>
             </article>
           ))}
