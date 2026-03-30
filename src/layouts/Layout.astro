@@ -122,11 +122,7 @@ const ogImageURL = new URL(image, siteUrl).href;
       {!hideChatBox && <ChatBox client:load />}
     </div>
 
-<<<<<<< HEAD
-    {/* SCRIPT PARA DETECTAR FOOTER Y EMPUJAR EL BOTÓN DE COOKIEYES / INSCRIPCIÓN */}
-=======
     {/* SCRIPT PARA DETECTAR FOOTER Y EMPUJAR EL BOTÓN DE COOKIEYES */}
->>>>>>> 76f5f879a2766a06c2e138ffcec7bc3eee36b03c
     <script is:inline>
       document.addEventListener("DOMContentLoaded", () => {
         const checkFooterCollision = () => {
@@ -146,10 +142,7 @@ const ogImageURL = new URL(image, siteUrl).href;
               newBottom = overlap + 32;
             }
 
-<<<<<<< HEAD
-=======
             // Si el botón de inscripción está presente en pantallas móviles, subimos el de cookies encima
->>>>>>> 76f5f879a2766a06c2e138ffcec7bc3eee36b03c
             if (enrollBtn && window.innerWidth < 1024) {
                const enrollBtnHeight = enrollBtn.offsetHeight || 48;
                newBottom += (enrollBtnHeight + 12);
@@ -161,10 +154,7 @@ const ogImageURL = new URL(image, siteUrl).href;
           }
         };
 
-<<<<<<< HEAD
-=======
         // Como CookieYes carga asíncronamente, vigilamos hasta que aparezca el botón
->>>>>>> 76f5f879a2766a06c2e138ffcec7bc3eee36b03c
         const waitForCookieBtn = setInterval(() => {
           const cookieBtn = document.querySelector(".cky-btn-revisit-wrapper");
           if (cookieBtn) {
@@ -172,18 +162,11 @@ const ogImageURL = new URL(image, siteUrl).href;
             checkFooterCollision();
             window.addEventListener("scroll", checkFooterCollision, { passive: true });
             window.addEventListener("resize", checkFooterCollision, { passive: true });
-<<<<<<< HEAD
-            clearInterval(waitForCookieBtn);
-          }
-        }, 300);
-
-=======
             clearInterval(waitForCookieBtn); // Paramos el vigilante
           }
         }, 300);
 
         // Por seguridad, si a los 10 segundos no ha cargado, paramos el intervalo
->>>>>>> 76f5f879a2766a06c2e138ffcec7bc3eee36b03c
         setTimeout(() => clearInterval(waitForCookieBtn), 10000);
       });
     </script>
