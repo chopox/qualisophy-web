@@ -4,7 +4,8 @@ import { Course } from "@/components/react/course/Course";
 import { EnrollButton } from "@/components/react/shared/EnrollButton";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
-// Imagen del instructor Javi
+// Importamos la imagen del curso para redes sociales y la imagen del instructor
+import courseImg from "@/assets/imagenes-cursos/qa/cypress-bootcamp.jpeg";
 import instructorImg from "@/assets/instructor/instructor-javi.jpeg";
 
 const courseDescription = "El Automation Testing permite a los equipos de QA mejorar radicalmente la eficiencia, la precisión y la velocidad de sus pruebas, reduciendo el time-to-market. Cypress se ha consolidado como la herramienta del momento gracias a su arquitectura moderna. En este bootcamp, los alumnos aprenderán Cypress desde cero, dominando desde los conceptos básicos hasta las técnicas de automatización y patrones de diseño más avanzados del mercado.";
@@ -88,7 +89,12 @@ const courseId = "qa-cypress";
 const courseName = "Cypress Automation Bootcamp";
 ---
 
-<Layout title={`${courseName} - Qualisophy`}>
+<Layout 
+  title={`${courseName} - Qualisophy`}
+  description={courseDescription.substring(0, 160) + "..."}
+  image={courseImg.src}
+  fullWidth={true}
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="mb-6"><Breadcrumbs /></div>
     <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">
@@ -109,4 +115,5 @@ const courseName = "Cypress Automation Bootcamp";
       courseName={courseName} 
       isComingSoon={courseDetails.startDate.toLowerCase().includes("por definir")}
     />
+  </div>
 </Layout>
