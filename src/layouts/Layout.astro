@@ -122,7 +122,7 @@ const ogImageURL = new URL(image, siteUrl).href;
       {!hideChatBox && <ChatBox client:load />}
     </div>
 
-    {/* SCRIPT ACTUALIZADO PARA EVITAR COLISIÓN CON EL BOTÓN DE INSCRIPCIÓN */}
+    {/* SCRIPT PARA DETECTAR FOOTER Y EMPUJAR EL BOTÓN DE COOKIEYES */}
     <script is:inline>
       document.addEventListener("DOMContentLoaded", () => {
         const checkFooterCollision = () => {
@@ -134,7 +134,7 @@ const ogImageURL = new URL(image, siteUrl).href;
             const footerRect = footer.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             
-            // 32px es la altura base de margen
+            // 32px es la altura base, igual que el chat
             let newBottom = 32; 
             const overlap = windowHeight - footerRect.top;
             
@@ -142,30 +142,32 @@ const ogImageURL = new URL(image, siteUrl).href;
               newBottom = overlap + 32;
             }
 
-            // CORRECCIÓN: Si el botón de inscripción está presente (especialmente en móvil), nos movemos arriba
+            // Si el botón de inscripción está presente en pantallas móviles, subimos el de cookies encima
             if (enrollBtn && window.innerWidth < 1024) {
-               // Sumamos la altura del botón de inscripción (48px aprox) + un margen extra (12px)
                const enrollBtnHeight = enrollBtn.offsetHeight || 48;
                newBottom += (enrollBtnHeight + 12);
             }
             
             cookieBtn.style.setProperty("bottom", `${newBottom}px`, "important");
-            cookieBtn.style.setProperty("left", "16px", "important");
-            cookieBtn.style.setProperty("z-index", "999", "important"); // Aseguramos que esté por encima visualmente
+            cookieBtn.style.setProperty("left", "16px", "important"); // Lo forzamos a la izquierda por JS
+            cookieBtn.style.setProperty("z-index", "999", "important");
           }
         };
 
-        const waitForElements = setInterval(() => {
+        // Como CookieYes carga asíncronamente, vigilamos hasta que aparezca el botón
+        const waitForCookieBtn = setInterval(() => {
           const cookieBtn = document.querySelector(".cky-btn-revisit-wrapper");
           if (cookieBtn) {
+            // El botón ya existe, calculamos posición inicial y añadimos los listeners
             checkFooterCollision();
             window.addEventListener("scroll", checkFooterCollision, { passive: true });
             window.addEventListener("resize", checkFooterCollision, { passive: true });
-            clearInterval(waitForElements);
+            clearInterval(waitForCookieBtn); // Paramos el vigilante
           }
         }, 300);
 
-        setTimeout(() => clearInterval(waitForElements), 10000);
+        // Por seguridad, si a los 10 segundos no ha cargado, paramos el intervalo
+        setTimeout(() => clearInterval(waitForCookieBtn), 10000);
       });
     </script>
   </body>

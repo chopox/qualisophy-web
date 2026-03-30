@@ -4,7 +4,8 @@ import { Course } from "@/components/react/course/Course";
 import { EnrollButton } from "@/components/react/shared/EnrollButton";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
-// Imagen del instructor (Fran Guerrero según tu knowledge base)
+// Importamos la imagen del curso para redes sociales y la imagen del instructor
+import courseImg from "@/assets/imagenes-cursos/qa/qa-curso.jpeg";
 import instructorImg from "@/assets/instructor/instructor-fran.png";
 
 const courseDescription = "El Testing es la parte del Desarrollo de Software que se encarga de verificar que las aplicaciones, servicios y soluciones informáticas funcionan correctamente, y validar que su cometido es el que requieren los usuarios. El Testing se engloba como una de las actividades principales dentro de la Calidad del Software, y con esta formación recibirás todo lo necesario para llevar a cabo esta actividad vital.";
@@ -101,7 +102,12 @@ const courseId = "qa-software";
 const courseName = "Calidad de Software (QA) y Testing";
 ---
 
-<Layout title={`${courseName} - Qualisophy`}>
+<Layout 
+  title={`${courseName} - Qualisophy`}
+  description={courseDescription.substring(0, 160) + "..."}
+  image={courseImg.src}
+  fullWidth={true}
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="mb-6"><Breadcrumbs /></div>
     <h1 class="text-center text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-16">

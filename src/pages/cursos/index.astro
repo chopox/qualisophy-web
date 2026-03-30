@@ -4,12 +4,16 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { CourseCatalogGrid } from "@/components/react/course/CourseCatalogGrid";
 import { Newsletter } from "@/components/react/shared/Newsletter";
 
+// Imagen del logo para redes sociales
+import companyLogo from "@/assets/logo-q.png";
+
 const heroBg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80";
 ---
 
 <Layout 
   title="Catálogo de Cursos - Formación Individual | Qualisophy"
-  description="Domina las herramientas de QA, Testing, DevOps y Data más demandadas."
+  description="Impulsa tu carrera con nuestros itinerarios especializados. Domina las herramientas de QA, Datos, DevOps y Gestión Ágil con formación inclusiva y práctica."
+  image={companyLogo.src}
   fullWidth={true}
 >
   
