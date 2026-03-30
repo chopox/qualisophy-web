@@ -23,8 +23,8 @@ export interface Props {
 
 const {
   title,
-  description = "Qualisophy - Formación práctica y oportunidades reales para el crecimiento profesional.",
-  image = "/assets/logomark-white.jpg", // Imagen por defecto
+  description = "Qualisophy - Formación práctica y oportunidades reales.",
+  image = "/assets/logomark-white.jpg",
   bodyClass = "",
   showHeader = true,
   hideChatBox = false,
@@ -32,7 +32,7 @@ const {
   fullWidth = false,
 } = Astro.props;
 
-// Configuración de URLs absolutas para WhatsApp (Requisito indispensable)
+// Configuración de URLs absolutas para WhatsApp
 const siteUrl = "https://www.qualisophy.com";
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const ogImageURL = new URL(image, siteUrl).href;
@@ -66,7 +66,6 @@ const ogImageURL = new URL(image, siteUrl).href;
     <meta name="twitter:image" content={ogImageURL} />
 
     <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/50976a705c95b786f0c0e37b8938643c/script.js"></script> 
-    
     {/* Preload Fonts */}
     <link
       rel="preload"
@@ -123,7 +122,7 @@ const ogImageURL = new URL(image, siteUrl).href;
       {!hideChatBox && <ChatBox client:load />}
     </div>
 
-    {/* SCRIPT PARA DETECTAR FOOTER Y EVITAR COLISIÓN CON COOKIEYES / BOTÓN INSCRIPCIÓN */}
+    {/* SCRIPT PARA DETECTAR FOOTER Y EMPUJAR EL BOTÓN DE COOKIEYES / INSCRIPCIÓN */}
     <script is:inline>
       document.addEventListener("DOMContentLoaded", () => {
         const checkFooterCollision = () => {
@@ -142,7 +141,6 @@ const ogImageURL = new URL(image, siteUrl).href;
               newBottom = overlap + 32;
             }
 
-            // Si el botón de inscripción existe en móvil, subimos el de cookies encima
             if (enrollBtn && window.innerWidth < 1024) {
                const enrollBtnHeight = enrollBtn.offsetHeight || 48;
                newBottom += (enrollBtnHeight + 12);
@@ -154,17 +152,17 @@ const ogImageURL = new URL(image, siteUrl).href;
           }
         };
 
-        const waitForElements = setInterval(() => {
+        const waitForCookieBtn = setInterval(() => {
           const cookieBtn = document.querySelector(".cky-btn-revisit-wrapper");
           if (cookieBtn) {
             checkFooterCollision();
             window.addEventListener("scroll", checkFooterCollision, { passive: true });
             window.addEventListener("resize", checkFooterCollision, { passive: true });
-            clearInterval(waitForElements);
+            clearInterval(waitForCookieBtn);
           }
         }, 300);
 
-        setTimeout(() => clearInterval(waitForElements), 10000);
+        setTimeout(() => clearInterval(waitForCookieBtn), 10000);
       });
     </script>
   </body>

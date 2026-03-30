@@ -43,7 +43,6 @@ export const EnrollButton = ({
 
   const handleClick = () => {
     if (typeof window !== "undefined") {
-      // Si es coming soon, le mandamos al formulario pero marcándolo como "Interesado"
       const url = isComingSoon
         ? `/course-enrollment?course=${courseId}&type=interest`
         : `/course-enrollment?course=${courseId}`;
@@ -56,6 +55,7 @@ export const EnrollButton = ({
 
   return (
     <motion.button
+      id="floating-enroll-btn" // AÑADIDO: ID para detección desde el Layout
       onClick={handleClick}
       title={
         isComingSoon

@@ -4,18 +4,15 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { CourseCatalogGrid } from "@/components/react/course/CourseCatalogGrid";
 import { Newsletter } from "@/components/react/shared/Newsletter";
 
-// Importamos el logo para usarlo como imagen de previsualización en redes sociales
+// Imagen del logo para redes sociales
 import companyLogo from "@/assets/logo-q.png";
 
 const heroBg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80";
-
-// Descripción basada en la propuesta de valor oficial
-const siteDescription = "Ayudamos a personas en transición profesional y empresas tecnológicas a acceder a talento diverso y cualificado, evitando la exclusión para conseguir un empleo de calidad.";
 ---
 
 <Layout 
-  title="Qualisophy - Formación Tecnológica Inclusiva con IA"
-  description={siteDescription}
+  title="Catálogo de Cursos - Formación Individual | Qualisophy"
+  description="Impulsa tu carrera con nuestros itinerarios especializados. Domina las herramientas de QA, Datos, DevOps y Gestión Ágil con formación inclusiva y práctica."
   image={companyLogo.src}
   fullWidth={true}
 >
