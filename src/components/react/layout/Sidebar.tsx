@@ -99,7 +99,7 @@ export const Sidebar = () => {
             </a>
 
             <a
-              href="/learning"
+              href="/cursos"
               className={`block py-3 px-4 rounded-lg transition-colors ${
                 isLearning
                   ? "bg-teal-500 text-white"

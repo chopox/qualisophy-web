@@ -40,7 +40,7 @@ export const courseCategories = [
     textColor: "text-[#6296CE]",
     hoverBorder: "hover:border-[#6296CE]",
     hoverText: "group-hover:text-[#6296CE]",
-    link: "/learning/qa",
+    link: "/cursos/qa",
     courses: [
       {
         id: "qa-software",
@@ -52,7 +52,7 @@ export const courseCategories = [
         level: "Principiante",
         modality: "Online",
         categoryName: "QA",
-        href: "/learning/qa/software-quality",
+        href: "/cursos/qa/calidad-software",
       },
       {
         id: "qa-api",
@@ -64,7 +64,7 @@ export const courseCategories = [
         level: "Intermedio",
         modality: "Online",
         categoryName: "QA",
-        href: "/learning/qa/api-testing",
+        href: "/cursos/qa/pruebas-api",
       },
       {
         id: "qa-cypress",
@@ -76,7 +76,7 @@ export const courseCategories = [
         level: "Intermedio",
         modality: "Online",
         categoryName: "QA",
-        href: "/learning/qa/cypress-bootcamp",
+        href: "/cursos/qa/bootcamp-cypress",
       },
       {
         id: "qa-junit",
@@ -88,7 +88,7 @@ export const courseCategories = [
         level: "Avanzado",
         modality: "Online",
         categoryName: "QA",
-        href: "/learning/qa/junit-testing",
+        href: "/cursos/qa/pruebas-junit",
       },
       {
         id: "qa-agile",
@@ -100,7 +100,7 @@ export const courseCategories = [
         level: "Intermedio",
         modality: "Online",
         categoryName: "QA",
-        href: "/learning/qa/agile-testing",
+        href: "/cursos/qa/pruebas-agiles",
       },
       {
         id: "qa-genai",
@@ -112,7 +112,7 @@ export const courseCategories = [
         level: "Avanzado",
         modality: "Online",
         categoryName: "QA",
-        href: "/learning/qa/genai-testing",
+        href: "/cursos/qa/pruebas-ia-generativa",
       },
     ],
   },
@@ -125,7 +125,7 @@ export const courseCategories = [
     textColor: "text-[#6296CE]",
     hoverBorder: "hover:border-[#6296CE]",
     hoverText: "group-hover:text-[#6296CE]",
-    link: "/learning/data",
+    link: "/cursos/data",
     courses: [
       {
         id: "data-sql",
@@ -137,7 +137,7 @@ export const courseCategories = [
         level: "Principiante",
         modality: "Online",
         categoryName: "Data & BI",
-        href: "/learning/data/sql-powerbi",
+        href: "/cursos/data/sql-powerbi",
       },
       {
         id: "data-powerbi",
@@ -149,7 +149,7 @@ export const courseCategories = [
         level: "Intermedio",
         modality: "Online",
         categoryName: "Data & BI",
-        href: "/learning/data/powerbi",
+        href: "/cursos/data/analitica-powerbi",
       },
     ],
   },
@@ -162,7 +162,7 @@ export const courseCategories = [
     textColor: "text-[#6296CE]",
     hoverBorder: "hover:border-[#6296CE]",
     hoverText: "group-hover:text-[#6296CE]",
-    link: "/learning/tools",
+    link: "/cursos/herramientas",
     courses: [
       {
         id: "tools-excel",
@@ -173,7 +173,7 @@ export const courseCategories = [
         level: "Avanzado",
         modality: "Online",
         categoryName: "Herramientas",
-        href: "/learning/tools/excel-expert",
+        href: "/cursos/herramientas/excel-experto",
       },
       {
         id: "tools-office",
@@ -185,7 +185,7 @@ export const courseCategories = [
         level: "Principiante",
         modality: "Online",
         categoryName: "Herramientas",
-        href: "/learning/tools/office-tools",
+        href: "/cursos/herramientas/ofimatica-integral",
       },
       {
         id: "tools-chatbots",
@@ -197,7 +197,7 @@ export const courseCategories = [
         level: "Intermedio",
         modality: "Online",
         categoryName: "Herramientas",
-        href: "/learning/tools/chatbots",
+        href: "/cursos/herramientas/chatbots",
       },
       {
         id: "tools-make",
@@ -209,7 +209,7 @@ export const courseCategories = [
         level: "Intermedio",
         modality: "Online",
         categoryName: "Herramientas",
-        href: "/learning/tools/make-productivity",
+        href: "/cursos/herramientas/productividad-make",
       },
     ],
   },
@@ -222,7 +222,7 @@ export const courseCategories = [
     textColor: "text-[#70A0D2]",
     hoverBorder: "hover:border-[#70A0D2]",
     hoverText: "group-hover:text-[#70A0D2]",
-    link: "/learning/devops",
+    link: "/cursos/devops",
     courses: [
       {
         id: "devops-gitlab",
@@ -234,7 +234,7 @@ export const courseCategories = [
         level: "Avanzado",
         modality: "Online",
         categoryName: "DevOps",
-        href: "/learning/devops/gitlab-cicd",
+        href: "/cursos/devops/gitlab-cicd",
       },
       {
         id: "devops-intro",
@@ -246,7 +246,7 @@ export const courseCategories = [
         level: "Principiante",
         modality: "Online",
         categoryName: "DevOps",
-        href: "/learning/devops/intro-devops",
+        href: "/cursos/devops/introduccion-devops",
       },
     ],
   },
@@ -259,7 +259,7 @@ export const courseCategories = [
     textColor: "text-[#8CAED8]",
     hoverBorder: "hover:border-[#8CAED8]",
     hoverText: "group-hover:text-[#8CAED8]",
-    link: "/learning/agile",
+    link: "/cursos/agile",
     courses: [
       {
         id: "agile-scrum",
@@ -271,7 +271,7 @@ export const courseCategories = [
         level: "Intermedio",
         modality: "Online",
         categoryName: "Agile",
-        href: "/learning/agile/scrum-master",
+        href: "/cursos/agile/scrum-master",
       },
     ],
   },

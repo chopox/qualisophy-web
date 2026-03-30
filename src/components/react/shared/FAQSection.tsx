@@ -189,7 +189,7 @@ export const FAQSection = ({ alwaysExpanded = false }: FAQSectionProps) => {
           },
           {
             label: "Ver Formaciones",
-            href: "/learning",
+            href: "/cursos",
             variant: "outline",
           },
         ]}
