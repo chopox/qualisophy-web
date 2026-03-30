@@ -21,4 +21,8 @@ export default defineConfig({
       noExternal: ["@vercel/analytics", "@vercel/speed-insights"],
     },
   },
+  // Añadimos la redirección 301 para salvar la campaña de Cypress
+  redirects: {
+    "/learning/qa/cypress-bootcamp": "/cursos/qa/bootcamp-cypress",
+  },
 });
