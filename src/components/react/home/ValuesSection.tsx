@@ -4,7 +4,7 @@ interface ValueItem {
   id: string;
   title: string;
   description: string;
-  icon: string; // Material Symbols name
+  icon: string;
 }
 
 const valuesData: ValueItem[] = [
@@ -40,12 +40,11 @@ const valuesData: ValueItem[] = [
 
 export const ValuesSection: React.FC = () => {
   return (
-    // CAMBIO: Fondo devuelto a bg-white para la alternancia
-    <section className="bg-white py-16 md:py-28 w-full border-y border-gray-100">
+    <section className="bg-gray-50/50 py-20 md:py-28 w-full border-y border-gray-100">
       <div className="flex justify-center w-full">
-        <div className="w-full md:max-w-[96%] px-4 md:px-8 lg:px-12">
-          {/* Cabecera de la Sección */}
-          <div className="text-center mb-16 md:mb-24">
+        <div className="w-full md:max-w-[96%] px-4 md:px-8 lg:px-12 max-w-7xl">
+          {/* 1. Cabecera */}
+          <div className="text-center mb-16 md:mb-20">
             <h2 className="text-secondary text-3xl md:text-5xl font-bold mb-6 font-heading">
               Nuestra Filosofía
             </h2>
@@ -62,39 +61,59 @@ export const ValuesSection: React.FC = () => {
             </p>
           </div>
 
-          {/* Grid de Cuadrícula 2x2 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
-            {valuesData.map((value) => (
-              <div
-                key={value.id}
-                // CAMBIO: Las tarjetas ahora tienen fondo gris claro para resaltar sobre el fondo blanco del componente
-                className="group flex flex-col items-center text-center p-8 lg:p-12 rounded-[2rem] transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-200 hover:border-primary/30 bg-gray-50 relative z-10"
-              >
-                {/* Fondo sutil al hacer hover */}
-                <div className="absolute inset-0 bg-gradient-to-b from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[2rem] -z-10"></div>
+          {/* 2. Ecosistema Horizontal (Línea Temporal) */}
+          <div className="relative pt-4">
+            {/* CORRECCIÓN 1: Línea horizontal de fondo CENTRADA (solo visible en lg) */}
+            {/* top es 16px (pt-4) + 40px (centro de md:size-20 que es 80px) = 56px */}
+            {/* left y right están al 12.5% para conectar de centro a centro de 4 columnas */}
+            <div className="hidden lg:block absolute top-[56px] left-[12.5%] right-[12.5%] h-px bg-gray-200 z-0"></div>
 
-                {/* Círculo del Icono */}
-                <div className="mb-8 relative">
-                  <div className="size-24 rounded-2xl bg-white group-hover:bg-primary text-primary group-hover:text-white flex items-center justify-center transition-all duration-500 ease-out transform group-hover:rotate-3 group-hover:scale-110 shadow-sm group-hover:shadow-lg ring-1 ring-primary/10 group-hover:ring-primary/0">
-                    <span className="material-symbols-outlined text-[40px] md:text-[48px] transition-colors duration-300">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 relative z-10">
+              {valuesData.map((value) => (
+                <div
+                  key={value.id}
+                  className="flex flex-col items-center text-center group"
+                >
+                  <div className="size-16 md:size-20 rounded-full bg-white border border-gray-200 text-gray-400 group-hover:text-primary group-hover:border-primary/40 flex items-center justify-center mb-6 shadow-sm transition-all duration-300 group-hover:-translate-y-1">
+                    <span className="material-symbols-outlined text-[32px] md:text-[40px] transition-transform duration-300 group-hover:scale-110">
                       {value.icon}
                     </span>
                   </div>
+                  <h3 className="text-secondary text-xl font-bold mb-3 font-heading group-hover:text-primary transition-colors">
+                    {value.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed font-primary text-sm md:text-base px-2">
+                    {value.description}
+                  </p>
                 </div>
+              ))}
+            </div>
+          </div>
 
-                {/* Contenido de Texto */}
-                <h3 className="text-secondary text-xl md:text-2xl font-bold mb-4 font-heading group-hover:text-primary transition-colors duration-300">
-                  {value.title}
-                </h3>
+          {/* 3. Banner de Compromiso - CORRECCIÓN 2: Tono ligero y diseño refinado */}
+          {/* Se ha cambiado bg-secondary por bg-white y text-white por text-secondary, añadiendo borde y sombra */}
+          <div className="mt-20 md:mt-28 bg-white text-secondary rounded-[2rem] p-8 md:p-12 lg:p-16 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 relative overflow-hidden border border-gray-100 shadow-sm transition-shadow hover:shadow-lg">
+            <div className="relative z-10 md:w-2/3 text-center md:text-left">
+              <h3 className="text-2xl md:text-3xl font-bold font-heading mb-4 lg:mb-6">
+                El Compromiso Qualisophy
+              </h3>
+              {/* Se ha cambiado text-gray-300 por text-gray-600 */}
+              <p className="text-gray-600 text-lg md:text-xl leading-relaxed font-primary">
+                No nos conformamos con llenar vacantes. Nuestro objetivo es
+                elevar los estándares de la industria, demostrando que los
+                equipos diversos e inclusivos no solo son éticamente necesarios,
+                sino técnicamente superiores.
+              </p>
+            </div>
 
-                {/* Separador */}
-                <div className="w-12 h-1 bg-gray-200 group-hover:bg-primary/30 rounded-full mb-6 transition-colors duration-300"></div>
-
-                <p className="text-gray-500 leading-relaxed font-primary text-base md:text-lg group-hover:text-gray-600">
-                  {value.description}
-                </p>
+            <div className="relative z-10 md:w-1/3 flex justify-center md:justify-end">
+              {/* Se ha cambiado el contenedor del icono de bg-white/10 a bg-gray-50 con borde para integrarse perfectamente */}
+              <div className="size-24 md:size-28 rounded-[2rem] bg-gray-50 flex items-center justify-center border border-gray-100 shadow-inner group transition-transform duration-500 hover:scale-105 cursor-default">
+                <span className="material-symbols-outlined text-[48px] md:text-[56px] text-primary">
+                  workspace_premium
+                </span>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>
