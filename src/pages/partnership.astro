@@ -2,11 +2,12 @@
 import Layout from "@/layouts/Layout.astro";
 
 // Reutilizamos los componentes del sistema de diseño actual
-import { ProgramHero } from "@/components/react/programs/ProgramHero";
 import { ProgramMethodology } from "@/components/react/programs/ProgramMethodology";
 import { ProgramFeatures } from "@/components/react/programs/ProgramFeatures";
 import { ProgramCurriculum } from "@/components/react/programs/ProgramCurriculum";
-// CAMBIO: Importamos el CTA específico para Partnership
+
+// Importamos los componentes específicos para Partnership
+import { PartnershipHero } from "@/components/react/partnership/PartnershipHero";
 import { PartnershipCTA } from "@/components/react/partnership/PartnershipCTA";
 
 // --- DATOS: PARTNERSHIP / B2B ---
@@ -77,14 +78,7 @@ const partnershipProcess = [
 >
   
   {/* 1. HERO - Fondo Azul */}
-  <ProgramHero 
-    client:load
-    title={"Talento que Transforma:"}
-    highlight={"Alianzas Corporativas"}
-    subtitle="Ayudamos a empresas visionarias a integrar diversidad real en sus equipos tecnológicos, impulsando la innovación y el impacto social."
-    backgroundImage="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80"
-    ctaText="Agendar Reunión"
-  />
+  <PartnershipHero client:load />
 
   {/* 2. PROPUESTA DE VALOR - Fondo BLANCO */}
   <ProgramMethodology 
@@ -95,7 +89,6 @@ const partnershipProcess = [
   />
 
   {/* 3. MODELOS DE COLABORACIÓN - Fondo GRIS */}
-  {/* variant="dark" renderiza bg-gray-50 en el nuevo sistema */}
   <ProgramFeatures 
     client:visible
     title="Modelos de Colaboración Flexible"
@@ -115,7 +108,6 @@ const partnershipProcess = [
   />
 
   {/* 5. CTA FINAL - Fondo GRIS */}
-  {/* CAMBIO: Usamos PartnershipCTA con variant="gray" */}
   <PartnershipCTA 
     client:visible 
     variant="gray"

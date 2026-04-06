@@ -3,6 +3,7 @@ import { useTranslations } from "@/hooks/useTranslations";
 import { validateEnrollmentForm } from "@/lib/validation";
 import { Button } from "@/components/react/shared/Button";
 import { Card } from "@/components/react/shared/Card";
+import { provinces } from "@/data/provincesDensity"; // IMPORTAMOS LA LISTA DE PROVINCIAS
 
 interface Course {
   id: string;
@@ -26,7 +27,7 @@ export interface EnrollmentFormDataExtended {
   city: string;
   province: string;
   course: string;
-  courseName: string; // AÑADIDO: Para enviar el nombre bonito a Make
+  courseName: string;
   privacyAccepted: boolean;
   type: string;
 }
@@ -42,7 +43,7 @@ const initialFormDataBase: Omit<EnrollmentFormDataExtended, "type"> = {
   city: "",
   province: "",
   course: "",
-  courseName: "", // Inicializado vacío
+  courseName: "",
   privacyAccepted: false,
 };
 
@@ -51,7 +52,6 @@ export const CourseEnrollmentForm = ({
   initialCourseId = "",
   enrollmentType = "enrollment",
 }: CourseEnrollmentFormProps) => {
-  // Encontrar el nombre inicial si hay un curso preseleccionado
   const initialCourseName = initialCourseId
     ? courses.find((c) => c.id === initialCourseId)?.name || ""
     : "";
@@ -72,6 +72,11 @@ export const CourseEnrollmentForm = ({
   );
 
   const t = useTranslations();
+
+  // Ordenamos las provincias alfabéticamente para el selector
+  const sortedProvinces = [...provinces].sort((a, b) =>
+    a.name.localeCompare(b.name, "es", { sensitivity: "base" }),
+  );
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -109,7 +114,6 @@ export const CourseEnrollmentForm = ({
         [name]: type === "checkbox" ? checked : value,
       };
 
-      // Si el campo modificado es el select de cursos, actualizamos también el courseName
       if (name === "course") {
         const selectedCourseObj = courses.find((c) => c.id === value);
         newData.courseName = selectedCourseObj ? selectedCourseObj.name : "";
@@ -151,34 +155,90 @@ export const CourseEnrollmentForm = ({
         course: formData.course,
       });
 
-      if (validation.success) {
-        const response = await fetch("/api/enroll-course", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
+      // ------------------------------------------------------------------
+      // VALIDACIÓN EXTRA: Bloquear números/caracteres y validar formatos
+      // ------------------------------------------------------------------
+      let finalErrors: Record<string, string> = validation.success
+        ? {}
+        : validation.errors || {};
+      let hasCustomErrors = false;
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || "Error del servidor");
-        }
+      // Regex para nombres y localizaciones: Letras (con acentos/ñ), espacios y guiones
+      const textOnlyRegex = /^[a-zA-ZÀ-ÿ\s\-]+$/;
 
-        setFormSuccess(true);
-        setFormData({
-          ...initialFormDataBase,
-          course: isPreSelected ? formData.course : "",
-          courseName: isPreSelected ? formData.courseName : "",
-          type: enrollmentType,
-        });
-
-        setTimeout(() => setFormSuccess(false), 5000);
-      } else {
-        setFormErrors(
-          validation.errors || {
-            general: "Error de validación en el formulario.",
-          },
-        );
+      if (formData.firstName && !textOnlyRegex.test(formData.firstName)) {
+        finalErrors.firstName = "Este campo no puede contener números.";
+        hasCustomErrors = true;
       }
+      if (formData.lastName && !textOnlyRegex.test(formData.lastName)) {
+        finalErrors.lastName = "Este campo no puede contener números.";
+        hasCustomErrors = true;
+      }
+      if (formData.city && !textOnlyRegex.test(formData.city)) {
+        finalErrors.city = "Este campo no puede contener números.";
+        hasCustomErrors = true;
+      }
+      if (formData.province && !textOnlyRegex.test(formData.province)) {
+        finalErrors.province = "Este campo no puede contener números.";
+        hasCustomErrors = true;
+      }
+
+      // Dirección: No puede ser solo números (debe contener al menos una letra)
+      if (formData.address && !/[a-zA-ZÀ-ÿ]/.test(formData.address)) {
+        finalErrors.address =
+          "La dirección no puede estar formada solo por números.";
+        hasCustomErrors = true;
+      }
+
+      // Teléfono: Exactamente 9 dígitos, o prefijo internacional (+) seguido de 10-15 dígitos
+      if (formData.phone) {
+        const phoneClean = formData.phone.replace(/[\s-]/g, "");
+        const phoneRegex = /^([0-9]{9}|\+[0-9]{10,15})$/;
+        if (!phoneRegex.test(phoneClean)) {
+          finalErrors.phone =
+            "Teléfono inválido. Introduce 9 dígitos (o incluye + para números internacionales).";
+          hasCustomErrors = true;
+        }
+      }
+
+      // DNI / NIE: Exactamente 8 números + 1 letra (DNI) o X/Y/Z + 7 números + 1 letra (NIE)
+      if (formData.dni) {
+        const dniClean = formData.dni.toUpperCase().replace(/[^0-9A-Z]/g, "");
+        const dniRegex = /^([0-9]{8}[A-Z]|[XYZ][0-9]{7}[A-Z])$/;
+        if (!dniRegex.test(dniClean)) {
+          finalErrors.dni =
+            "Formato de DNI o NIE inválido. Ej: 12345678X o Y1234567Z.";
+          hasCustomErrors = true;
+        }
+      }
+
+      if (!validation.success || hasCustomErrors) {
+        setFormErrors(finalErrors);
+        setIsSubmitting(false);
+        return; // Detenemos la ejecución y mostramos errores
+      }
+      // ------------------------------------------------------------------
+
+      const response = await fetch("/api/enroll-course", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error del servidor");
+      }
+
+      setFormSuccess(true);
+      setFormData({
+        ...initialFormDataBase,
+        course: isPreSelected ? formData.course : "",
+        courseName: isPreSelected ? formData.courseName : "",
+        type: enrollmentType,
+      });
+
+      setTimeout(() => setFormSuccess(false), 5000);
     } catch (error: any) {
       console.error("Submission error:", error);
       setFormErrors({
@@ -411,15 +471,22 @@ export const CourseEnrollmentForm = ({
             >
               Provincia <span className="text-red-600">*</span>
             </label>
-            <input
-              type="text"
+            <select
               id="province"
               name="province"
               value={formData.province}
               onChange={handleInputChange}
               className={getInputClasses("province")}
-              placeholder="Ej: Málaga"
-            />
+            >
+              <option value="" disabled>
+                Selecciona una provincia
+              </option>
+              {sortedProvinces.map((prov) => (
+                <option key={prov.id} value={prov.name}>
+                  {prov.name}
+                </option>
+              ))}
+            </select>
             {formErrors.province && (
               <p className="text-red-600 text-xs mt-2">{formErrors.province}</p>
             )}
@@ -439,7 +506,6 @@ export const CourseEnrollmentForm = ({
                 {formData.courseName || "Curso Seleccionado"}
               </div>
               <input type="hidden" name="course" value={formData.course} />
-              {/* Enviamos también el nombre bonito oculto */}
               <input
                 type="hidden"
                 name="courseName"
@@ -464,7 +530,6 @@ export const CourseEnrollmentForm = ({
                   </option>
                 ))}
               </select>
-              {/* Enviamos también el nombre bonito oculto */}
               <input
                 type="hidden"
                 name="courseName"

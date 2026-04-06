@@ -48,7 +48,7 @@ const pillarsData = [
   {
     id: "reskilling",
     category: "Reskilling",
-    title: "Reciclaje Laboral",
+    title: "Reconversión Laboral",
     description:
       "Transformación de perfiles profesionales para adaptarse a las demandas tecnológicas.",
     icon: "model_training",
@@ -62,7 +62,8 @@ export const InclusionPillars: React.FC = () => {
   const [activeId, setActiveId] = useState<string>("neurodivergence");
 
   return (
-    <section className="bg-white py-16 w-full">
+    // CAMBIO APLICADO: bg-gray-50 y borde superior para la alternancia de color
+    <section className="bg-gray-50 py-16 w-full border-t border-gray-100">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-10">
           <h2 className="text-secondary text-3xl md:text-4xl font-bold font-heading">
@@ -98,7 +99,7 @@ export const InclusionPillars: React.FC = () => {
                    ================================================== */}
                 <div
                   className={`
-                  absolute bottom-0 left-0 right-0 p-6 md:p-10 flex flex-col justify-end
+                  absolute bottom-0 left-0 right-0 p-6 md:p-8 lg:p-10 flex flex-col justify-end
                   transition-all ease-in-out
                   ${
                     isActive
@@ -119,11 +120,13 @@ export const InclusionPillars: React.FC = () => {
                     </span>
                   </div>
 
-                  <h3 className="text-white text-2xl md:text-4xl font-bold font-heading mb-3 leading-tight">
+                  {/* APLICAMOS EL FIX AQUÍ: Tamaño adaptable y forzado de salto de palabra */}
+                  <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold font-heading mb-3 leading-tight break-words hyphens-auto pr-2">
                     {pillar.title}
                   </h3>
 
-                  <p className="text-white/90 text-sm md:text-lg mb-6 max-w-lg font-primary leading-relaxed hidden md:block">
+                  {/* Descripción adaptable */}
+                  <p className="text-white/90 text-sm md:text-base lg:text-lg mb-6 max-w-lg font-primary leading-relaxed hidden md:block">
                     {pillar.description}
                   </p>
 
@@ -160,9 +163,10 @@ export const InclusionPillars: React.FC = () => {
                     </h3>
                   </div>
 
-                  {/* --- DESKTOP: SOLO TÍTULO GRANDE VERTICAL (2rem) --- */}
+                  {/* --- DESKTOP: SOLO TÍTULO GRANDE VERTICAL --- */}
                   <div className="hidden md:flex flex-col items-center justify-center h-full w-full">
-                    <h3 className="text-white font-bold text-[2rem] uppercase tracking-widest whitespace-nowrap -rotate-90 origin-center">
+                    {/* APLICAMOS FIX AQUÍ: Evitar desbordamiento vertical en zoom bajando a text-2xl en md */}
+                    <h3 className="text-white font-bold text-2xl lg:text-[2rem] uppercase tracking-widest whitespace-nowrap -rotate-90 origin-center transition-all duration-300">
                       {pillar.title}
                     </h3>
                   </div>

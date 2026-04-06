@@ -6,19 +6,19 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
 import { courseCategories } from "@/data/courseCatalog";
 
-const categoryData = courseCategories.find(c => c.id === "devops");
+const categoryData = courseCategories.find(c => c.id === "tools");
 const courses = categoryData?.courses || [];
 ---
 
-<Layout title="Cursos DevOps & CI/CD - Qualisophy" fullWidth={true}>
+<Layout title="Herramientas Empresariales - Qualisophy" fullWidth={true}>
   <ProgramHero
     client:load
-    title="Escuela de"
-    highlight="DevOps & Gestión"
-    subtitle="Rompe los silos entre desarrollo y operaciones. Aprende integración continua, automatización de despliegues y observabilidad."
-    backgroundImage="https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&q=80"
+    title="Formación en"
+    highlight="Herramientas Empresariales"
+    subtitle="Aumenta tu productividad. Domina la ofimática nivel experto, automatización con Make y chatbots para tu día a día corporativo."
+    backgroundImage="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80"
     ctaText="Ver Itinerarios"
-    onCtaClick={() => document.getElementById('courses-grid')?.scrollIntoView({ behavior: 'smooth' })}
+    scrollToId="courses-grid"
   />
 
   <div class="bg-gray-50/50 min-h-screen">
@@ -30,8 +30,8 @@ const courses = categoryData?.courses || [];
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4 border-b border-gray-200 pb-6">
                 <div class="max-w-2xl">
-                    <h2 class="text-3xl font-bold font-heading text-secondary mb-2">Cultura e Integración Continua</h2>
-                    <p class="text-gray-600 font-primary">Domina las herramientas que aceleran la entrega de software de alta calidad.</p>
+                    <h2 class="text-3xl font-bold font-heading text-secondary mb-2">Ofimática y Automatización</h2>
+                    <p class="text-gray-600 font-primary">Elimina tareas repetitivas y potencia tu eficiencia profesional.</p>
                 </div>
                 <div class="hidden md:block text-sm text-gray-400 font-medium">Mostrando {courses.length} cursos</div>
             </div>

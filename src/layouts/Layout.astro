@@ -13,6 +13,7 @@ import { ChatBox } from "@/components/react/shared/ChatBox";
 export interface Props {
   title: string;
   description?: string;
+  image?: string; // Propiedad para la imagen de redes sociales
   bodyClass?: string;
   showHeader?: boolean;
   hideChatBox?: boolean;
@@ -23,22 +24,46 @@ export interface Props {
 const {
   title,
   description = "Qualisophy - Formación práctica y oportunidades reales.",
+  image = "/assets/logo-q-2.png",
   bodyClass = "",
   showHeader = true,
   hideChatBox = false,
   showFooter = true,
   fullWidth = false,
 } = Astro.props;
+
+// Configuración de URLs absolutas para WhatsApp
+const siteUrl = "https://www.qualisophy.com";
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const ogImageURL = new URL(image, siteUrl).href;
+
 ---
 
 <!doctype html>
 <html lang="es" class="min-h-screen scroll-smooth">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/x-icon" href="/fonts/favicon.ico" />
+    <link rel="icon" href="/fonts/favicon-white.ico" media="(prefers-color-scheme: dark)">
+    <link rel="icon" href="/fonts/favicon-black.ico" media="(prefers-color-scheme: light)">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    
+    {/* ETIQUETAS OPEN GRAPH (WHATSAPP, LINKEDIN, FACEBOOK) */}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    {/* ETIQUETAS TWITTER CARDS */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
 
     <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/50976a705c95b786f0c0e37b8938643c/script.js"></script> 
     {/* Preload Fonts */}
@@ -97,15 +122,69 @@ const {
       {!hideChatBox && <ChatBox client:load />}
     </div>
 
+    {/* SCRIPT PARA DETECTAR FOOTER Y EMPUJAR EL BOTÓN DE COOKIEYES */}
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", () => {
+        const checkFooterCollision = () => {
+          const footer = document.getElementById("site-footer");
+          const cookieBtn = document.querySelector(".cky-btn-revisit-wrapper");
+          const enrollBtn = document.getElementById("floating-enroll-btn");
+          
+          if (footer && cookieBtn) {
+            const footerRect = footer.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            // 32px es la altura base, igual que el chat
+            let newBottom = 32; 
+            const overlap = windowHeight - footerRect.top;
+            
+            if (overlap > 0) {
+              newBottom = overlap + 32;
+            }
+
+            // Si el botón de inscripción está presente en pantallas móviles, subimos el de cookies encima
+            if (enrollBtn && window.innerWidth < 1024) {
+               const enrollBtnHeight = enrollBtn.offsetHeight || 48;
+               newBottom += (enrollBtnHeight + 12);
+            }
+            
+            cookieBtn.style.setProperty("bottom", `${newBottom}px`, "important");
+            cookieBtn.style.setProperty("left", "16px", "important"); // Lo forzamos a la izquierda por JS
+            cookieBtn.style.setProperty("z-index", "999", "important");
+          }
+        };
+
+        // Como CookieYes carga asíncronamente, vigilamos hasta que aparezca el botón
+        const waitForCookieBtn = setInterval(() => {
+          const cookieBtn = document.querySelector(".cky-btn-revisit-wrapper");
+          if (cookieBtn) {
+            // El botón ya existe, calculamos posición inicial y añadimos los listeners
+            checkFooterCollision();
+            window.addEventListener("scroll", checkFooterCollision, { passive: true });
+            window.addEventListener("resize", checkFooterCollision, { passive: true });
+            clearInterval(waitForCookieBtn); // Paramos el vigilante
+          }
+        }, 300);
+
+        // Por seguridad, si a los 10 segundos no ha cargado, paramos el intervalo
+        setTimeout(() => clearInterval(waitForCookieBtn), 10000);
+      });
+    </script>
   </body>
 </html>
 
 <style is:global>
+
   body.menu-open #chatbox-container {
     display: none !important;
-    pointer-events: none;
   }
-  body.menu-open {
-    overflow: hidden;
+
+  body[style*="overflow: hidden"] #chatbox-container {
+    display: none !important;
   }
+
+  body.modal-open #chatbox-container {
+    display: none !important;
+  }
+
 </style>

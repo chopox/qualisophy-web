@@ -1,7 +1,7 @@
 import React from "react";
 
 interface PartnershipCTAProps {
-  variant?: "white" | "gray"; // "gray" = fondo gris claro
+  variant?: "white" | "gray";
 }
 
 export const PartnershipCTA: React.FC<PartnershipCTAProps> = ({
@@ -39,7 +39,7 @@ export const PartnershipCTA: React.FC<PartnershipCTAProps> = ({
         <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full sm:w-auto">
           {/* Botón Principal (Redirige a Contacto con contexto) */}
           <a
-            href="/contact?type=partnership" // <--- CAMBIO AQUÍ
+            href="/contact?type=partnership"
             className="flex items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-lg hover:bg-primary/90 transition-all min-w-[240px]"
           >
             Hablemos de una Alianza
@@ -47,7 +47,7 @@ export const PartnershipCTA: React.FC<PartnershipCTAProps> = ({
 
           {/* Botón Secundario (Agenda) */}
           <a
-            href="https://calendar.app.google/6TZSzsQn4q9kATzMA"
+            href="https://calendar.app.google/CJSbUs95RLyvXCJZ7"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center rounded-xl h-14 px-8 border-2 border-gray-200 text-secondary text-lg font-bold hover:border-primary hover:text-primary transition-all min-w-[240px] bg-transparent"

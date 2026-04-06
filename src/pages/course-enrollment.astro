@@ -60,10 +60,12 @@ const courseCatalog: Record<
     name: "Calidad de Software (QA) y Testing",
     description: "Verifica que las aplicaciones funcionan correctamente y valida requerimientos.",
     image: imgQaSoftware.src, 
-    startDate: "17 de Febrero, 2025",
+    startDate: "4 de Mayo, 2026",
     duration: "40 horas (7 semanas)",
     modality: "Online en vivo",
-    price: "497 €",
+    price: "397 €",
+    priceSubtext: "reservando antes del 20 de Abril de 2026 (347 €)",
+    formerStudentDiscount: "25% de descuento extra para antiguos alumnos",
     categorySlug: "qa",
     courseSlug: "software-quality",
   },
@@ -382,12 +384,12 @@ const courseCardData = selectedCourse
       <nav class="text-sm text-slate-500 mb-8 flex flex-wrap items-center">
         <a href="/" class="hover:text-primary transition-colors">Inicio</a>
         <span class="mx-2 text-slate-400">/</span>
-        <a href="/learning" class="hover:text-primary transition-colors">Cursos</a>
+        <a href="/cursos" class="hover:text-primary transition-colors">Cursos</a>
         
         {selectedCourse?.categorySlug && (
           <>
             <span class="mx-2 text-slate-400">/</span>
-            <a href={`/learning/${selectedCourse.categorySlug}`} class="hover:text-primary transition-colors">
+            <a href={`/cursos/${selectedCourse.categorySlug}`} class="hover:text-primary transition-colors">
               {formatCategoryName(selectedCourse.categorySlug)}
             </a>
           </>
@@ -396,7 +398,7 @@ const courseCardData = selectedCourse
         {selectedCourse?.courseSlug && (
           <>
             <span class="mx-2 text-slate-400">/</span>
-            <a href={`/learning/${selectedCourse.categorySlug}/${selectedCourse.courseSlug}`} class="hover:text-primary transition-colors truncate max-w-[200px] sm:max-w-xs">
+            <a href={`/cursos/${selectedCourse.categorySlug}/${selectedCourse.courseSlug}`} class="hover:text-primary transition-colors truncate max-w-[200px] sm:max-w-xs">
               {selectedCourse.name}
             </a>
           </>

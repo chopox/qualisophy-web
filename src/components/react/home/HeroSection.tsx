@@ -1,36 +1,5 @@
-import React, { useState, useEffect } from "react";
-
-// Definimos los programas disponibles
-const programs = [
-  {
-    title: "Neurodivergencia",
-    description: "Potenciando el talento de personas con TDAH y Autismo.",
-    icon: "psychology",
-    href: "/neurodivergence",
-    color: "bg-blue-50 text-blue-600",
-  },
-  {
-    title: "Talento Migrante",
-    description: "Validación de competencias para la integración global.",
-    icon: "public",
-    href: "/migrant-talent",
-    color: "bg-emerald-50 text-emerald-600",
-  },
-  {
-    title: "Riesgo de Exclusión",
-    description: "Oportunidades reales a través de capacitación digital.",
-    icon: "volunteer_activism",
-    href: "/social-impact",
-    color: "bg-rose-50 text-rose-600",
-  },
-  {
-    title: "Reciclaje Laboral",
-    description: "Reinvención profesional para el mercado actual.",
-    icon: "model_training",
-    href: "/reskilling",
-    color: "bg-amber-50 text-amber-600",
-  },
-];
+import React, { useState } from "react";
+import { ProgramsModal } from "@/components/react/shared/ProgramsModal";
 
 export const HeroSection: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,32 +7,6 @@ export const HeroSection: React.FC = () => {
   // Imagen de fondo
   const bgImage =
     "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80";
-
-  // Lógica para cerrar con ESC y bloquear scroll
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsModalOpen(false);
-    };
-
-    if (isModalOpen) {
-      document.body.style.overflow = "hidden"; // Bloquea el scroll de la página
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "auto"; // Restaura el scroll
-    }
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "auto";
-    };
-  }, [isModalOpen]);
-
-  // Cerrar al hacer clic en el fondo oscuro
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      setIsModalOpen(false);
-    }
-  };
 
   return (
     <>
@@ -113,80 +56,11 @@ export const HeroSection: React.FC = () => {
         </div>
       </section>
 
-      {/* --- VENTANA MODAL --- */}
-      {isModalOpen && (
-        <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-secondary/90 backdrop-blur-sm animate-in fade-in duration-200 p-4"
-          onClick={handleBackdropClick}
-        >
-          <div className="bg-white rounded-3xl w-full max-w-4xl shadow-2xl relative animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
-            {/* Botón Cerrar */}
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition-colors"
-            >
-              <span className="material-symbols-outlined text-2xl">close</span>
-            </button>
-
-            {/* Cabecera del Modal */}
-            <div className="p-6 md:p-8 pb-2 text-center shrink-0">
-              <h2 className="text-2xl md:text-3xl font-bold text-secondary font-heading mb-2">
-                Nuestros Programas
-              </h2>
-              <p className="text-gray-500 font-primary text-sm md:text-base">
-                Selecciona el programa que mejor se adapte a tu perfil o
-                necesidades
-              </p>
-            </div>
-
-            {/* Grid de Programas */}
-            <div className="p-6 md:p-8 pt-2 overflow-y-auto custom-scrollbar">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {programs.map((program) => (
-                  <a
-                    key={program.href}
-                    href={program.href}
-                    onClick={() => setIsModalOpen(false)}
-                    className="group flex items-start gap-4 p-5 rounded-2xl border border-gray-100 hover:border-primary/30 hover:shadow-lg hover:bg-gray-50 transition-all duration-300"
-                  >
-                    <div
-                      className={`shrink-0 size-12 rounded-xl flex items-center justify-center ${program.color}`}
-                    >
-                      <span className="material-symbols-outlined text-2xl">
-                        {program.icon}
-                      </span>
-                    </div>
-                    <div className="flex flex-col text-left">
-                      <h3 className="text-lg font-bold text-secondary group-hover:text-primary transition-colors font-heading flex items-center gap-2">
-                        {program.title}
-                        <span className="material-symbols-outlined text-lg opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-primary hidden md:block">
-                          arrow_forward
-                        </span>
-                      </h3>
-                      <p className="text-sm text-gray-500 font-primary leading-relaxed mt-1">
-                        {program.description}
-                      </p>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Footer del Modal */}
-            <div className="p-4 md:p-6 bg-gray-50 text-center border-t border-gray-100 rounded-b-3xl shrink-0">
-              <p className="text-xs md:text-sm text-gray-500 font-primary">
-                ¿No sabes cuál elegir?{" "}
-                <a
-                  href="/contact"
-                  className="text-primary font-bold hover:underline"
-                >
-                  Contáctanos para orientación gratuita
-                </a>
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Usamos el nuevo componente extraído */}
+      <ProgramsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 };

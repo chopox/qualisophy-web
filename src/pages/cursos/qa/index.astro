@@ -14,12 +14,12 @@ const courses = categoryData?.courses || [];
 <Layout title="Cursos de QA & Testing - Qualisophy" fullWidth={true}>
   <ProgramHero
     client:load
-    title="Escuela de"
+    title="Formación en"
     highlight="QA & Testing"
     subtitle="Formación especializada para asegurar la calidad del software. Desde fundamentos manuales hasta automatización avanzada e IA."
     backgroundImage="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80"
     ctaText="Ver Itinerarios"
-    onCtaClick={() => document.getElementById('courses-grid')?.scrollIntoView({ behavior: 'smooth' })}
+    scrollToId="courses-grid"
   />
 
   <div class="bg-gray-50/50 min-h-screen">

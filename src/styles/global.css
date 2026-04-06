@@ -158,8 +158,6 @@
 }
 
 /* --- CHATBOT ANIMACIONES --- */
-
-/* Animación del Robot Saludando */
 @keyframes wave {
   0% {
     transform: rotate(0deg);
@@ -190,4 +188,9 @@
 /* Bloquear scroll cuando el modal está abierto (móvil) */
 body.chat-open {
   overflow: hidden;
+}
+
+/* --- COOKIEYES OVERRIDES --- */
+.cky-btn-revisit-wrapper {
+  transition: bottom 0.15s ease-out !important;
 }
