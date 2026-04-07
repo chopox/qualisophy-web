@@ -46,6 +46,9 @@ jobs:
       - name: Instalar dependencias
         run: pnpm install --frozen-lockfile
 
+      - name: Descargar binario de Cypress
+        run: pnpm exec cypress install
+
       - name: Build del proyecto
         if: steps.cache-dist.outputs.cache-hit != 'true'
         run: pnpm run build
