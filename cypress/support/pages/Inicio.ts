@@ -1,5 +1,3 @@
-import { FailedToFetchRemoteImageDimensions } from "astro/dist/core/errors/errors-data";
-
 export class Inicio {
     // WEB //
     web = 'http://localhost:4321/'
