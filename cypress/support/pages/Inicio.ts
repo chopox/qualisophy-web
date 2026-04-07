@@ -1,6 +1,12 @@
 export class Inicio {
-    // WEB //
+    // ENLACES //
     web = 'http://localhost:4321/'
+    webNeurodivergencia = 'http://localhost:4321/pilares-de-inclusion/neurodivergencia';
+    webParticulares = 'http://localhost:4321/formaciones/particulares';
+    webContacto = 'http://localhost:4321/contacto';
+    webInstagram = 'https://www.instagram.com/qualisophy/';
+    webTwitter = 'https://x.com/qualisophy';
+    webLinkedIn = 'https://www.linkedin.com/company/qualisophy/';
     
     // MENÚ //
     // programas = trigger('mouseover');
@@ -52,14 +58,17 @@ export class Inicio {
     }
 
     gotoPilaresNeurodivergencia() {
-        cy.get(this.pilarNeurodivergencia)
-          .scrollIntoView()
-          .click();
+        // cy.get(this.pilarNeurodivergencia)
+        //   .scrollIntoView()
+        //   .click();
 
-        cy.get('[data-test="pillar-neurodivergence"] a', { timeout: 10000 })
-          .should('be.visible')
-          .and('not.have.css', 'opacity', '0')
-          .click();
+        // cy.get('[data-test="pillar-neurodivergence"] a', { timeout: 10000 })
+        //   .should('be.visible')
+        //   .and('not.have.css', 'opacity', '0')
+        //   .click();
+        cy.get(this.pilarNeurodivergencia).click();
+        cy.get(this.pilarNeurodivergencia).find('a').click();
+        cy.url().should('eq', this.webNeurodivergencia);
     }
 
     gotoPilaresEntornoRural() {

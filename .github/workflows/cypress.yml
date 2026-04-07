@@ -52,7 +52,7 @@ jobs:
         if: steps.cache-dist.outputs.cache-hit != 'true'
         run: pnpm run build
 
-      - name: Levantar servidor y ejecutar tests
+      - name: Levantar servidor y ejecutar los tests
         run: |
           set -e
           pnpm run preview > /dev/null 2>&1 &
@@ -70,6 +70,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cypress-artifacts
-          path: |
+          path:
             screenshots
             videos

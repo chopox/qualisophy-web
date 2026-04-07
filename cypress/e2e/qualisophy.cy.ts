@@ -9,6 +9,7 @@ describe('Test de la Web Qualisophy - Página "Inicio"', () => {
     // REVISIÓN DE ENLACES
     it('Validar navegación a "Neurodivergencia" desde "Nuestros Pilares de Inclusión" (Carrusel)', () => {
         inicio.gotoPilaresNeurodivergencia();
+        
     })
 
     it('Validar navegación a "Para Particulares" desde "Formaciones" (Footer)', () => {
