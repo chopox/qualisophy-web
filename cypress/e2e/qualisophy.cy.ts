@@ -53,6 +53,7 @@ describe('Test de la Web Qualisophy - Página "Inicio"', () => {
 
     it('Validar que el formulario de contacto muestra error si el formato del email es incorrecto.', () => {
         inicio.gotoWeb();
+        cy.wait(2000);
     })
 
 })
