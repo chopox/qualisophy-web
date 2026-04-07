@@ -6,7 +6,6 @@ describe('Test de la Web Qualisophy - Página "Inicio"', () => {
         inicio.gotoWeb();
     })
 
-
     // REVISIÓN DE ENLACES
     it('1. Validar navegación a "Neurodivergencia" desde "Nuestros Pilares de Inclusión" (Carrusel)', () => {
         inicio.gotoPilaresNeurodivergencia();

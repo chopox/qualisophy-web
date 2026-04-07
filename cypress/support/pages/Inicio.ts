@@ -52,8 +52,13 @@ export class Inicio {
     }
 
     gotoPilaresNeurodivergencia() {
-        cy.get(this.pilarNeurodivergencia).click();
-        cy.get(this.pilarNeurodivergencia).find('a').click();
+        cy.get(this.pilarNeurodivergencia, { timeout: 10000 })
+          .should('be.visible')
+          .click();
+        cy.get(this.pilarNeurodivergencia)
+          .find('a')
+          .should('be.visible')
+          .click();
     }
 
     gotoPilaresEntornoRural() {
@@ -77,7 +82,10 @@ export class Inicio {
     }
 
     gotoFooterParticulares() {
-        cy.get(this.footerParticulares).click();
+        cy.get(this.footerParticulares, { timeout: 10000 })
+          .scrollIntoView()
+          .should('be.visible')
+          .click();
     }
 
     gotoFooterContacto() {
