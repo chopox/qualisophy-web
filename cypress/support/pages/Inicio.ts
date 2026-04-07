@@ -1,83 +1,152 @@
 export class Inicio {
+    // WEB //
     web = 'http://localhost:4321/'
-    programas = cy.contains('button', 'Programas Inclusivos');
+    
+    // MENÚ //
+    // programas = trigger('mouseover');
 
+    // CARRUSEL //
+    pilares = '[data-test="pillars"]';
+    pilarNeurodivergencia = '[data-test="pillar-neurodivergence"]';
+    pilarEntornoRural = '[data-test="pillar-rural-environment"]';
+    pilarTalentoMigrante = '[data-test="pillar-migrant-talent"]';
+    pilarRiesgoExclusion = '[data-test="pillar-social-impact"]';
+    pilarReconversionLaboral = '[data-test="pillar-reskilling"]';
+
+    // FOOTER //
+    // Bloque Izquierdo: Logo y Eslogan
+    footerLogoLink = '[data-test="footer-link-logo"]';
+
+    // Bloque Derecho: Datos de Contacto
+    footerCorreo = '[data-test="footer-link-email"]';
+    footerTelefono = '[data-test="footer-link-phone"]';
+    footerDireccion = '[data-test="footer-link-address"]';
+
+    // Inclusión
+    footerNeurodivergencia = '[data-test="footer-link-neurodivergence"]';
+    footerEntornoRural = '[data-test="footer-link-rural-environment"]';
+    footerTalentoMigrante = '[data-test="footer-link-migrant-talent"]';
+    footerRiesgoExclusión = '[data-test="footer-link-social-impact"]';
+
+    // Formaciones
+    footerParticulares = '[data-test="footer-link-particulares"]';    
+    footerEmpresas = '[data-test="footer-link-empresas"]';
+
+    // ¿Colaboramos?
+    footerPartnership = '[data-test="footer-link-partnership"]';
+
+    // Conócenos
+    footerEquipo = '[data-test="footer-link-team"]';
+    footerBlog = '[data-test="footer-link-blog"]';
+    footerContacto = '[data-test="footer-link-contact"]';
+
+    // Redes Sociales
+    footerInstagram = '[data-test="footer-link-instagram"]';
+    footerTwitter = '[data-test="footer-link-twitter"]';
+    footerLinkedIn = '[data-test="footer-link-linkedin"]';    
+
+
+    // MÉTODOS //
     gotoWeb() {
         cy.visit(this.web);
     }
 
-    gotoNeurodivergencia() {
-        this.programas.trigger('mouseover');
+    gotoPilaresNeurodivergencia() {
+        cy.get(this.pilarNeurodivergencia).click();
+        cy.get(this.pilarNeurodivergencia).find('a').click();
     }
 
-    crear(nombre: string) {
-        cy.get(this.crearTarea).type(nombre + '{enter}');
-        cy.get(this.nombreTarea).eq(0).should('contain', nombre);
+    gotoPilaresEntornoRural() {
+        cy.get(this.pilarEntornoRural).click();
+        cy.get(this.pilarEntornoRural).find('a').click();
     }
 
-    crearMultiple(nombre: string, id: number) {
-        cy.get(this.crearTarea).type(nombre + '{enter}');
-        cy.get(this.nombreTarea).eq(id).should('contain', nombre);
+    gotoPilaresTalentoMigrante() {
+        cy.get(this.pilarTalentoMigrante).click();
+        cy.get(this.pilarTalentoMigrante).find('a').click();
     }
 
-    completar() {
-        this.crear('Tarea 1');
-        cy.get(this.indiceTarea).eq(0).should('not.have.class', 'completed');
-        cy.get(this.checkTarea).eq(0).click();
-        cy.get(this.indiceTarea).eq(0).should('have.class', 'completed');
+    gotoPilaresRiesgoExclusion() {
+        cy.get(this.pilarRiesgoExclusion).click();
+        cy.get(this.pilarRiesgoExclusion).find('a').click();
     }
 
-    descompletar() {
-        this.completar();
-        cy.get(this.checkTarea).eq(0).click();
-        cy.get(this.indiceTarea).eq(0).should('not.have.class', 'completed');
-    }
-
-    editar() {
-        this.crear('Tarea 1');
-        cy.get(this.indiceTarea).eq(0).dblclick();
-        cy.get(this.indiceTarea).eq(0).find(this.editarTarea).type('La tarea ha sido modificada{enter}');
-        cy.get(this.nombreTarea).eq(0).should('contain', 'La tarea ha sido modificada');
-    }
-
-    borrar() {
-        this.crear('Tarea 1');
-        cy.get(this.eliminarTarea).click({ force: true });
-        cy.get(this.nombreTarea).should('not.exist');
-    }
-
-    filtrar() {
-        this.crearMultiple('Tarea 1', 0);
-        this.crearMultiple('Tarea 2', 1);
-        this.crearMultiple('Tarea 3', 2);
-        this.crearMultiple('Tarea 4', 3);
-        cy.get(this.checkTarea).eq(0).click();
-        cy.get(this.checkTarea).eq(1).click();
-        cy.get(this.filtroCompletadas).click();
-        cy.get(this.nombreTarea).eq(0).should('contain', 'Tarea 1');
-        cy.get(this.nombreTarea).eq(1).should('contain', 'Tarea 2');
-        cy.get(this.indiceTarea).eq(0).should('have.class', 'completed');
-        cy.get(this.indiceTarea).eq(1).should('have.class', 'completed');
-        cy.get(this.indiceTarea).eq(2).should('not.exist');
-        cy.get(this.indiceTarea).eq(3).should('not.exist');
-        cy.get(this.filtroActivas).click();
-        cy.get(this.nombreTarea).eq(0).should('contain', 'Tarea 3');
-        cy.get(this.nombreTarea).eq(1).should('contain', 'Tarea 4');
-        cy.get(this.indiceTarea).eq(0).should('not.have.class', 'completed');
-        cy.get(this.indiceTarea).eq(1).should('not.have.class', 'completed');
-        cy.get(this.indiceTarea).eq(2).should('not.exist');
-        cy.get(this.indiceTarea).eq(3).should('not.exist');
-        cy.get(this.filtroTodas).click();
+    gotoPilaresReconversionLaboral() {
+        cy.get(this.pilarReconversionLaboral).click();
+        cy.get(this.pilarReconversionLaboral).find('a').click();
     }
 
 }
 
 export const inicio = new Inicio();
 
+
+
 // import { Login } from './Login';
 
 // export class Inventory {
     
+// crear(nombre: string) {
+//         cy.get(this.crearTarea).type(nombre + '{enter}');
+//         cy.get(this.nombreTarea).eq(0).should('contain', nombre);
+//     }
+
+//     crearMultiple(nombre: string, id: number) {
+//         cy.get(this.crearTarea).type(nombre + '{enter}');
+//         cy.get(this.nombreTarea).eq(id).should('contain', nombre);
+//     }
+
+//     completar() {
+//         this.crear('Tarea 1');
+//         cy.get(this.indiceTarea).eq(0).should('not.have.class', 'completed');
+//         cy.get(this.checkTarea).eq(0).click();
+//         cy.get(this.indiceTarea).eq(0).should('have.class', 'completed');
+//     }
+
+//     descompletar() {
+//         this.completar();
+//         cy.get(this.checkTarea).eq(0).click();
+//         cy.get(this.indiceTarea).eq(0).should('not.have.class', 'completed');
+//     }
+
+//     editar() {
+//         this.crear('Tarea 1');
+//         cy.get(this.indiceTarea).eq(0).dblclick();
+//         cy.get(this.indiceTarea).eq(0).find(this.editarTarea).type('La tarea ha sido modificada{enter}');
+//         cy.get(this.nombreTarea).eq(0).should('contain', 'La tarea ha sido modificada');
+//     }
+
+//     borrar() {
+//         this.crear('Tarea 1');
+//         cy.get(this.eliminarTarea).click({ force: true });
+//         cy.get(this.nombreTarea).should('not.exist');
+//     }
+
+    // filtrar() {
+    //     this.crearMultiple('Tarea 1', 0);
+    //     this.crearMultiple('Tarea 2', 1);
+    //     this.crearMultiple('Tarea 3', 2);
+    //     this.crearMultiple('Tarea 4', 3);
+    //     cy.get(this.checkTarea).eq(0).click();
+    //     cy.get(this.checkTarea).eq(1).click();
+    //     cy.get(this.filtroCompletadas).click();
+    //     cy.get(this.nombreTarea).eq(0).should('contain', 'Tarea 1');
+    //     cy.get(this.nombreTarea).eq(1).should('contain', 'Tarea 2');
+    //     cy.get(this.indiceTarea).eq(0).should('have.class', 'completed');
+    //     cy.get(this.indiceTarea).eq(1).should('have.class', 'completed');
+    //     cy.get(this.indiceTarea).eq(2).should('not.exist');
+    //     cy.get(this.indiceTarea).eq(3).should('not.exist');
+    //     cy.get(this.filtroActivas).click();
+    //     cy.get(this.nombreTarea).eq(0).should('contain', 'Tarea 3');
+    //     cy.get(this.nombreTarea).eq(1).should('contain', 'Tarea 4');
+    //     cy.get(this.indiceTarea).eq(0).should('not.have.class', 'completed');
+    //     cy.get(this.indiceTarea).eq(1).should('not.have.class', 'completed');
+    //     cy.get(this.indiceTarea).eq(2).should('not.exist');
+    //     cy.get(this.indiceTarea).eq(3).should('not.exist');
+    //     cy.get(this.filtroTodas).click();
+    // }
+
+
 //     constructor(page) {
 //         // Links
 //         this.page = page;

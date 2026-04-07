@@ -71,12 +71,13 @@ export const InclusionPillars: React.FC = () => {
           </h2>
         </div>
 
-        <div className="flex flex-col md:flex-row h-[600px] md:h-[500px] lg:h-[600px] w-full gap-2 md:gap-4 items-stretch">
+        <div className="flex flex-col md:flex-row h-[600px] md:h-[500px] lg:h-[600px] w-full gap-2 md:gap-4 items-stretch" data-test="pillars">
           {pillarsData.map((pillar) => {
             const isActive = activeId === pillar.id;
 
             return (
               <div
+                data-test={`pillar-${pillar.id}`}
                 key={pillar.id}
                 onClick={() => setActiveId(pillar.id)}
                 className={`
