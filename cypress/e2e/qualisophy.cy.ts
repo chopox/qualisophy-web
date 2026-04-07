@@ -2,11 +2,12 @@ import { inicio } from "../support/pages/Inicio"
 
 describe('Test de la Web Qualisophy - Página "Inicio"', () => {
 
-    // REVISIÓN DE ENLACES
-    it('0. Comprobar que se puede acceder a la web', () => {
+    beforeEach(() => {
         inicio.gotoWeb();
     })
 
+
+    // REVISIÓN DE ENLACES
     it('1. Validar navegación a "Neurodivergencia" desde "Nuestros Pilares de Inclusión" (Carrusel)', () => {
         inicio.gotoPilaresNeurodivergencia();
     })
