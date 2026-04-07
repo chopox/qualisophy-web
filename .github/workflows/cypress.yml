@@ -33,8 +33,13 @@ jobs:
       - name: Build del proyecto
         run: pnpm run build
 
-      - name: Levantar servidor y esperar HTTP 200
-        run: pnpm exec start-server-and-test "pnpm run preview" http://localhost:4321 "pnpm run cypress:run"
+      - name: Levantar servidor y ejecutar tests
+        run: |
+          pnpm run preview &
+          SERVER_PID=$!
+          sleep 10
+          pnpm run cypress:run
+          kill $SERVER_PID
 
       - name: Guardar artefactos de Cypress
         if: always()
