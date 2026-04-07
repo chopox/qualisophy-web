@@ -8,19 +8,21 @@ describe('Test de la Web Qualisophy - Página "Inicio"', () => {
     })
 
     it('1. Validar navegación a "Neurodivergencia" desde "Nuestros Pilares de Inclusión" (Carrusel)', () => {
-        inicio.gotoWeb();
+        inicio.gotoPilaresNeurodivergencia();
     })
 
     it('2. Validar navegación a "Para Particulares" desde "Formaciones" (Footer)', () => {
-        inicio.gotoWeb();
+        inicio.gotoFooterParticulares();
     })
 
     it('3. Validar navegación a "Contacto" desde "Conócenos" (Footer)', () => {
-        inicio.gotoWeb();
+        inicio.gotoFooterContacto();
     })
 
     it('4. Comprobar el funcionamiento de los enlaces de las redes sociales (Footer)', () => {
-        inicio.gotoWeb();
+        inicio.gotoFooterInstagram();
+        inicio.gotoFooterTwitter();
+        inicio.gotoFooterLinkedIn();
     })
 
     it('5. Comprobar que los enlaces de email y teléfono abren las aplicaciones correctas (Footer)', () => {

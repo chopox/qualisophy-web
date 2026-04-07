@@ -1,3 +1,5 @@
+import { FailedToFetchRemoteImageDimensions } from "astro/dist/core/errors/errors-data";
+
 export class Inicio {
     // WEB //
     web = 'http://localhost:4321/'
@@ -74,6 +76,26 @@ export class Inicio {
     gotoPilaresReconversionLaboral() {
         cy.get(this.pilarReconversionLaboral).click();
         cy.get(this.pilarReconversionLaboral).find('a').click();
+    }
+
+    gotoFooterParticulares() {
+        cy.get(this.footerParticulares).click();
+    }
+
+    gotoFooterContacto() {
+        cy.get(this.footerContacto).click();
+    }
+
+    gotoFooterInstagram() {
+        cy.get(this.footerInstagram).click();
+    }
+
+    gotoFooterTwitter() {
+        cy.get(this.footerTwitter).click();
+    }
+
+    gotoFooterLinkedIn() {
+        cy.get(this.footerLinkedIn).click();
     }
 
 }
