@@ -1,9 +1,16 @@
 export class Inicio {
     // ENLACES //
-    web = 'http://localhost:4321/'
-    webNeurodivergencia = 'http://localhost:4321/pilares-de-inclusion/neurodivergencia';
-    webParticulares = 'http://localhost:4321/formaciones/particulares';
-    webContacto = 'http://localhost:4321/contacto';
+    webInicio = 'http://localhost:4321/'
+    webNeurodivergencia = 'http://localhost:4321/neurodivergence';
+    webEntornoRural = 'http://localhost:4321/rural-area';
+    webTalentoMigrante = 'http://localhost:4321/migrant-talent';
+    webRiesgoExclusion = 'http://localhost:4321/social-impact';
+    webReconversionLaboral = 'http://localhost:4321/reskilling';
+    webParticulares = 'http://localhost:4321/cursos';
+    webPartnership = 'http://localhost:4321/partnership';
+    webEquipo = 'http://localhost:4321/team';
+    webBlog = 'http://localhost:4321/blog';
+    webContacto = 'http://localhost:4321/contact';
     webInstagram = 'https://www.instagram.com/qualisophy/';
     webTwitter = 'https://x.com/qualisophy';
     webLinkedIn = 'https://www.linkedin.com/company/qualisophy/';
@@ -54,7 +61,7 @@ export class Inicio {
 
     // MÉTODOS //
     gotoWeb() {
-        cy.visit(this.web);
+        cy.visit(this.webInicio);
     }
 
     gotoPilaresNeurodivergencia() {
