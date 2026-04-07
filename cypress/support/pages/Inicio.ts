@@ -52,15 +52,14 @@ export class Inicio {
     }
 
     gotoPilaresNeurodivergencia() {
-        cy.get(this.pilarNeurodivergencia, { timeout: 10000 })
-          .should('exist')
+        cy.get(this.pilarNeurodivergencia)
           .scrollIntoView()
-          .click();       
+          .click();
 
         cy.get(this.pilarNeurodivergencia)
-          .find('a')     
-          .should('be.visible')     
-          .click();                 
+          .find('a', { timeout: 10000 })
+          .should('be.visible')
+          .click();              
         }
 
     gotoPilaresEntornoRural() {
