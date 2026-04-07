@@ -25,13 +25,30 @@ jobs:
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: ${{ runner.os }}-pnpm-
 
+      - name: Caché de Cypress
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-cypress-
+
+      - name: Caché de build (dist)
+        uses: actions/cache@v3
+        id: cache-dist
+        with:
+          path: dist
+          key: ${{ runner.os }}-dist-${{ hashFiles('src/**', 'astro.config.mjs', 'package.json') }}
+          restore-keys: ${{ runner.os }}-dist-
+
       - name: Instalar dependencias
         run: pnpm install --frozen-lockfile
 
       - name: Asegurar binary de Cypress
+        if: steps.cache-dist.outputs.cache-hit != 'true'
         run: pnpm exec cypress install
 
       - name: Build del proyecto
+        if: steps.cache-dist.outputs.cache-hit != 'true'
         run: pnpm run build
 
       - name: Levantar servidor y ejecutar tests
