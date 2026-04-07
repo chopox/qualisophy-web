@@ -41,7 +41,6 @@ jobs:
           path: dist
           key: ${{ runner.os }}-dist-${{ hashFiles('src/**', 'astro.config.mjs', 'package.json') }}
           restore-keys: ${{ runner.os }}-dist-
-        continue-on-error: true
 
       - name: Instalar dependencias
         run: pnpm install --frozen-lockfile
