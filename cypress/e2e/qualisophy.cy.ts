@@ -6,12 +6,6 @@ describe('Test de la Web Qualisophy - Página "Inicio"', () => {
         inicio.gotoWeb();
     })
 
-    it('PRUEBA', () => {
-        cy.visit('http://localhost:4321/');
-        cy.wait(2000);
-        cy.get('[data-test="pillar-neurodivergence"]', { timeout: 10000 }).should('exist');
-    })
-
     // REVISIÓN DE ENLACES
     it('1. Validar navegación a "Neurodivergencia" desde "Nuestros Pilares de Inclusión" (Carrusel)', () => {
         inicio.gotoPilaresNeurodivergencia();
