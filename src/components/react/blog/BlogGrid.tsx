@@ -161,10 +161,12 @@ export const BlogGrid = () => {
                   <div className="pt-4 border-t border-gray-50 mt-auto">
                     <a
                       href={`/blog/${post.slug}`}
-                      className="inline-flex items-center text-primary font-bold text-sm hover:underline"
+                      className="group inline-flex items-center text-primary font-bold text-sm no-underline mt-auto"
                     >
+                      <span className="group-hover:underline">
                       Leer artículo completo
-                      <span className="material-symbols-outlined text-sm ml-1">
+                      </span>
+                      <span className="material-symbols-outlined text-sm ml-1 inline-block !no-underline transition-transform group-hover:translate-x-1">
                         arrow_forward
                       </span>
                     </a>

@@ -97,7 +97,7 @@ export const BlogSection = () => {
                   <span className="group-hover:underline">
                     Leer artículo completo
                   </span>
-                  <span className="material-symbols-outlined text-sm ml-1 inline-block transition-transform group-hover:translate-x-1">
+                  <span className="material-symbols-outlined text-sm ml-1 inline-block !no-underline transition-transform group-hover:translate-x-1">
                     arrow_forward
                   </span>
                 </a>
