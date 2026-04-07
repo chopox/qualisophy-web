@@ -34,7 +34,7 @@ jobs:
         run: pnpm run build
 
       - name: Levantar servidor y esperar HTTP 200
-        run: pnpm exec start-server-and-test "pnpm exec astro preview" http://localhost:4321 "pnpm run cypress:run"
+        run: pnpm exec start-server-and-test "pnpm run preview" http://localhost:4321 "pnpm run cypress:run"
 
       - name: Guardar artefactos de Cypress
         if: always()
