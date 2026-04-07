@@ -8,7 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "start": "node dist/server/entry.mjs",
-    "test:cypress": "start-server-and-test start http://localhost:4321 cypress:run",
+    "test:cypress": "start-server-and-test 'pnpm exec astro preview' http://localhost:4321 cypress:run",
     "cypress:run": "cypress run"
   },
   "dependencies": {
@@ -28,6 +28,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@astrojs/node": "^8.3.4",
     "@astrojs/tailwind": "^6.0.0",
     "@types/node": "^25.5.0",
     "@types/react": "^19.1.12",

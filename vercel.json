@@ -1,5 +1,15 @@
 {
-  "buildCommand": "pnpm build",
-  "outputDirectory": "dist",
-  "framework": "astro"
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/server/entry.mjs",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/server/entry.mjs"
+    }
+  ]
 }

@@ -59,7 +59,7 @@ export class Inicio {
         cy.get('[data-test="pillar-neurodivergence"] a', { timeout: 10000 })
           .should('be.visible')
           .and('not.have.css', 'opacity', '0')
-          .click();         
+          .click();
     }
 
     gotoPilaresEntornoRural() {

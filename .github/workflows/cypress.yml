@@ -33,11 +33,8 @@ jobs:
       - name: Build del proyecto
         run: pnpm run build
 
-      - name: Instalar servidor estático local
-        run: pnpm add -D serve
-
       - name: Levantar servidor y esperar HTTP 200
-        run: pnpm exec start-server-and-test "pnpm exec serve -s dist -l 4321" http://localhost:4321 "pnpm run cypress:run"
+        run: pnpm exec start-server-and-test "pnpm exec astro preview" http://localhost:4321 "pnpm run cypress:run"
 
       - name: Guardar artefactos de Cypress
         if: always()
