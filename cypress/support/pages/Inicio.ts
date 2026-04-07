@@ -52,10 +52,10 @@ export class Inicio {
     }
 
     gotoPilaresNeurodivergencia() {
-        cy.get(this.pilarNeurodivergencia)
-          .scrollIntoView()           
-          .should('be.visible')    
-          .click();             
+        cy.get(this.pilarNeurodivergencia, { timeout: 10000 })
+          .should('exist')
+          .scrollIntoView()
+          .click();       
 
         cy.get(this.pilarNeurodivergencia)
           .find('a')     
@@ -95,15 +95,21 @@ export class Inicio {
     }
 
     gotoFooterInstagram() {
-        cy.get(this.footerInstagram).click();
+        cy.get(this.footerInstagram)
+          .should('have.attr', 'href')
+          .and('include', 'https://www.instagram.com/qualisophy/');
     }
 
     gotoFooterTwitter() {
-        cy.get(this.footerTwitter).click();
+        cy.get(this.footerTwitter)
+          .should('have.attr', 'href')
+          .and('include', 'https://x.com/qualisophy');
     }
 
     gotoFooterLinkedIn() {
-        cy.get(this.footerLinkedIn).click();
+        cy.get(this.footerLinkedIn)
+          .should('have.attr', 'href')
+          .and('include', 'https://www.linkedin.com/company/qualisophy/');
     }
 
 }
