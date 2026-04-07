@@ -39,7 +39,7 @@ export class Inicio {
     footerNeurodivergencia = '[data-test="footer-link-neurodivergence"]';
     footerEntornoRural = '[data-test="footer-link-rural-environment"]';
     footerTalentoMigrante = '[data-test="footer-link-migrant-talent"]';
-    footerRiesgoExclusión = '[data-test="footer-link-social-impact"]';
+    footerRiesgoExclusion = '[data-test="footer-link-social-impact"]';
 
     // Formaciones
     footerParticulares = '[data-test="footer-link-particulares"]';    
@@ -65,14 +65,6 @@ export class Inicio {
     }
 
     gotoPilaresNeurodivergencia() {
-        // cy.get(this.pilarNeurodivergencia)
-        //   .scrollIntoView()
-        //   .click();
-
-        // cy.get('[data-test="pillar-neurodivergence"] a', { timeout: 10000 })
-        //   .should('be.visible')
-        //   .and('not.have.css', 'opacity', '0')
-        //   .click();
         cy.get(this.pilarNeurodivergencia).click();
         cy.get(this.pilarNeurodivergencia).find('a').click();
         cy.url().should('eq', this.webNeurodivergencia);
@@ -81,32 +73,70 @@ export class Inicio {
     gotoPilaresEntornoRural() {
         cy.get(this.pilarEntornoRural).click();
         cy.get(this.pilarEntornoRural).find('a').click();
+        cy.url().should('eq', this.webEntornoRural);
     }
 
     gotoPilaresTalentoMigrante() {
         cy.get(this.pilarTalentoMigrante).click();
         cy.get(this.pilarTalentoMigrante).find('a').click();
+        cy.url().should('eq', this.webTalentoMigrante);
     }
 
     gotoPilaresRiesgoExclusion() {
         cy.get(this.pilarRiesgoExclusion).click();
         cy.get(this.pilarRiesgoExclusion).find('a').click();
+        cy.url().should('eq', this.webRiesgoExclusion);
     }
 
     gotoPilaresReconversionLaboral() {
         cy.get(this.pilarReconversionLaboral).click();
         cy.get(this.pilarReconversionLaboral).find('a').click();
+        cy.url().should('eq', this.webReconversionLaboral);
+    }
+
+    gotoFooterNeurodivergencia() {
+        cy.get(this.footerNeurodivergencia).click();
+        cy.url().should('eq', this.webNeurodivergencia);
+    }
+
+    gotoFooterEntornoRural() {
+        cy.get(this.footerEntornoRural).click();
+        cy.url().should('eq', this.webEntornoRural);
+    }
+
+    gotoFooterTalentoMigrante() {
+        cy.get(this.footerTalentoMigrante).click();
+        cy.url().should('eq', this.webTalentoMigrante);
+    }
+
+    gotoFooterRiesgoExclusion() {
+        cy.get(this.footerRiesgoExclusion).click();
+        cy.url().should('eq', this.webRiesgoExclusion);
     }
 
     gotoFooterParticulares() {
-        cy.get(this.footerParticulares, { timeout: 10000 })
-          .scrollIntoView()
-          .should('be.visible')
-          .click();
+        cy.get(this.footerParticulares).click();
+        cy.url().should('eq', this.webParticulares);
+    }
+
+    gotoFooterPartnership() {
+        cy.get(this.footerPartnership).click();
+        cy.url().should('eq', this.webPartnership);
+    }
+
+   gotoFooterEquipo() {
+        cy.get(this.footerEquipo).click();
+        cy.url().should('eq', this.webEquipo);
+    }
+
+   gotoFooterBlog() {
+        cy.get(this.footerBlog).click();
+        cy.url().should('eq', this.webBlog);
     }
 
     gotoFooterContacto() {
         cy.get(this.footerContacto).click();
+        cy.url().should('eq', this.webContacto);
     }
 
     gotoFooterInstagram() {
