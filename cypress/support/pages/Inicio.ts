@@ -56,11 +56,11 @@ export class Inicio {
           .scrollIntoView()
           .click();
 
-        cy.get(this.pilarNeurodivergencia)
-          .find('a', { timeout: 10000 })
+        cy.get('[data-test="pillar-neurodivergence"] a', { timeout: 10000 })
           .should('be.visible')
-          .click();              
-        }
+          .and('not.have.css', 'opacity', '0')
+          .click();         
+    }
 
     gotoPilaresEntornoRural() {
         cy.get(this.pilarEntornoRural).click();
