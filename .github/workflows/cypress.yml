@@ -24,6 +24,7 @@ jobs:
           path: ~/.pnpm-store/v3
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: ${{ runner.os }}-pnpm-
+        continue-on-error: true
 
       - name: Caché de Cypress
         uses: actions/cache@v3
@@ -31,6 +32,7 @@ jobs:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: ${{ runner.os }}-cypress-
+        continue-on-error: true
 
       - name: Caché de build (dist)
         uses: actions/cache@v3
@@ -39,6 +41,7 @@ jobs:
           path: dist
           key: ${{ runner.os }}-dist-${{ hashFiles('src/**', 'astro.config.mjs', 'package.json') }}
           restore-keys: ${{ runner.os }}-dist-
+        continue-on-error: true
 
       - name: Instalar dependencias
         run: pnpm install --frozen-lockfile
