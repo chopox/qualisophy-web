@@ -36,11 +36,16 @@ jobs:
 
       - name: Levantar servidor y ejecutar tests
         run: |
-          pnpm run preview &
+          set -e
+          pnpm run preview > /dev/null 2>&1 &
           SERVER_PID=$!
           sleep 10
+          set +e
           pnpm run cypress:run
-          kill $SERVER_PID
+          TEST_RESULT=$?
+          set -e
+          kill $SERVER_PID 2>/dev/null || pkill -f "astro preview" 2>/dev/null || true
+          exit $TEST_RESULT
 
       - name: Guardar artefactos de Cypress
         if: always()
