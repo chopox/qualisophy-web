@@ -4,15 +4,7 @@ import { footer } from "../support/pages/Footer";
 describe('Test de la Web Qualisophy - Página "Inicio"', () => {
 
     beforeEach(() => {
-        footer.gotoInicio();
-    })
-
-    it('TEST DE FUNCIONES DE PILARES', () => {
-        pilares.gotoNeurodivergencia();
-        pilares.gotoEntornoRural();
-        pilares.gotoTalentoMigrante();
-        pilares.gotoRiesgoExclusion();
-        pilares.gotoReconversionLaboral();
+        cy.visit('http://localhost:4321/');
     })
 
     // REVISIÓN DE ENLACES
@@ -65,6 +57,14 @@ describe('Test de la Web Qualisophy - Página "Inicio"', () => {
     it('Validar que el formulario de contacto muestra error si el formato del email es incorrecto.', () => {
         footer.gotoInicio();
         cy.wait(2000);
+    })
+
+    it('TEST DE FUNCIONES DE PILARES', () => {
+        pilares.gotoNeurodivergencia();
+        pilares.gotoEntornoRural();
+        pilares.gotoTalentoMigrante();
+        pilares.gotoRiesgoExclusion();
+        pilares.gotoReconversionLaboral();
     })
 
 })
