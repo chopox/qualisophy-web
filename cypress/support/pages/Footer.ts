@@ -6,7 +6,7 @@ export class Footer {
     webInicio = 'http://localhost:4321/';
     webCorreo = 'mailto:hello@qualisophy.com';
     webTelefono = 'tel:+34951768789';
-    webDireccion = 'https://maps.google.com/?q=Calle+Esteban+Salazar+Chapela+11,+M%C3%A1laga';
+    webDireccion = 'https://maps.google.com/?q=Calle+Esteban+Salazar+Chapela+11,+Málaga';
     webNeurodivergencia = 'http://localhost:4321/neurodivergence';
     webEntornoRural = 'http://localhost:4321/rural-area';
     webTalentoMigrante = 'http://localhost:4321/migrant-talent';
