@@ -38,7 +38,7 @@ describe('Test de la Web Qualisophy - Página "Inicio"', () => {
         formulario.escribirNombre("Daniel García");
         formulario.escribirCorreo("test@gmail.com");
         formulario.escribirMensaje("Mensaje de prueba realizado autónomamente por Cypress para validar el formulario de contacto general.");
-        formulario.enviarMensaje();
+        formulario.enviar();
     })
 
     it('Validar que el formulario de inscripción muestra error si faltan campos obligatorios', () => {

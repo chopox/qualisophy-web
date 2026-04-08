@@ -15,21 +15,21 @@ export class Formulario {
     envioCorrectoMensaje = '[data-test="contact-success-message"]';
     envioFallidoMensaje = '[data-test="contact-error-message"]';
 
-    
+
     /// MÉTODOS ///
     escribirNombre(name: string) {
-        cy.get(this.nombreInput).type(name);
+        cy.get(this.nombreInput).click().type(name);
     }
 
     escribirCorreo(email: string) {
-        cy.get(this.correoInput).type(email);
+        cy.get(this.correoInput).click().type(email);
     }
 
     escribirMensaje(message: string) {
-        cy.get(this.mensajeInput).type(message);
+        cy.get(this.mensajeInput).click().type(message);
     }
 
-    enviarMensaje() {
+    enviar() {
         cy.intercept('POST', '/api/send-email', {
             statusCode: 200,
             body: { success: true }
