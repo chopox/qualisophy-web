@@ -43,8 +43,8 @@ export class Formulario {
             }).as('sendEmail');
 
         cy.get(this.botonEnviar)
-          .should('have.attr', 'type')
-          .and('include', 'submit').click();
+          .should('have.attr', 'type', 'submit')
+          .click();
 
         cy.wait('@sendEmail');
 
