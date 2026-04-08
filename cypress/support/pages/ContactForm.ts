@@ -1,6 +1,8 @@
 export class Formulario {
 
     /// ATRIBUTOS ///
+    web = 'http://localhost:4321/contact';
+
     nombreTitulo = '[data-test="contact-title-name"]';
     nombreInput = '[data-test="contact-input-name"]';
 
@@ -19,14 +21,17 @@ export class Formulario {
     /// MÉTODOS ///
     escribirNombre(name: string) {
         cy.get(this.nombreInput).click().type(name);
+        cy.get(this.nombreInput).should('contain', name);
     }
 
     escribirCorreo(email: string) {
         cy.get(this.correoInput).click().type(email);
+        cy.get(this.correoInput).should('contain', email);
     }
 
     escribirMensaje(message: string) {
         cy.get(this.mensajeInput).click().type(message);
+        cy.get(this.mensajeInput).should('contain', message);
     }
 
     enviar() {
