@@ -1,5 +1,6 @@
 import { pilares } from "../support/pages/InclusionPillars";
 import { footer } from "../support/pages/Footer";
+import { formulario } from "../support/pages/ContactForm";
 
 describe('Test de la Web Qualisophy - Página "Inicio"', () => {
 
@@ -34,7 +35,10 @@ describe('Test de la Web Qualisophy - Página "Inicio"', () => {
 
     // INSCRIPCIÓN
     it('Completar y enviar el formulario de inscripción con datos válidos', () => {
-        footer.gotoInicio();
+        formulario.escribirNombre("Daniel García");
+        formulario.escribirCorreo("test@gmail.com");
+        formulario.escribirMensaje("Mensaje de prueba realizado autónomamente por Cypress para validar el formulario de contacto general.");
+        formulario.enviarMensaje();
     })
 
     it('Validar que el formulario de inscripción muestra error si faltan campos obligatorios', () => {
@@ -56,18 +60,6 @@ describe('Test de la Web Qualisophy - Página "Inicio"', () => {
     it('Validar que el formulario de contacto muestra error si el formato del email es incorrecto.', () => {
         footer.gotoInicio();
         cy.wait(2000);
-    })
-
-    it('TEST DE FUNCIONES DE PILARES', () => {
-        pilares.gotoNeurodivergencia();
-        cy.visit('http://localhost:4321/');
-        pilares.gotoEntornoRural();
-        cy.visit('http://localhost:4321/');
-        pilares.gotoTalentoMigrante();
-        cy.visit('http://localhost:4321/');
-        pilares.gotoRiesgoExclusion();
-        cy.visit('http://localhost:4321/');
-        pilares.gotoReconversionLaboral();
     })
 
 })

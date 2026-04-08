@@ -171,7 +171,7 @@ export const ContactForm = ({
         {formSuccess && (
           <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
             <div className="flex items-center">
-              <span className="text-green-800 text-sm font-medium">
+              <span data-test="contact-success-message" className="text-green-800 text-sm font-medium">
                 {t("contact.successMessage")}
               </span>
             </div>
@@ -181,7 +181,7 @@ export const ContactForm = ({
         {formErrors.general && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
             <div className="flex items-center">
-              <span className="text-red-800 text-sm font-medium">
+              <span data-test="contact-error-message" className="text-red-800 text-sm font-medium">
                 {formErrors.general}
               </span>
             </div>
@@ -199,12 +199,14 @@ export const ContactForm = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label
+                data-test="contact-title-name"
                 htmlFor="name"
                 className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
               >
                 {t("contact.nameLabel")} <span className="text-red-600">*</span>
               </label>
               <input
+                data-test="contact-input-name"
                 type="text"
                 id="name"
                 name="name"
@@ -223,6 +225,7 @@ export const ContactForm = ({
             </div>
             <div>
               <label
+                data-test="contact-title-email"
                 htmlFor="email"
                 className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
               >
@@ -230,6 +233,7 @@ export const ContactForm = ({
                 <span className="text-red-600">*</span>
               </label>
               <input
+                data-test="contact-input-email"
                 id="email"
                 name="email"
                 type="email"
@@ -250,6 +254,7 @@ export const ContactForm = ({
 
           <div>
             <label
+              data-test="contact-title-message"
               htmlFor="message"
               className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5"
             >
@@ -257,6 +262,7 @@ export const ContactForm = ({
               <span className="text-red-600">*</span>
             </label>
             <textarea
+              data-test="contact-input-message"
               id="message"
               name="message"
               rows={4}
@@ -275,6 +281,7 @@ export const ContactForm = ({
           </div>
 
           <Button
+            data-test="contact-submit-button"
             type="submit"
             variant="secondary"
             size="md"
