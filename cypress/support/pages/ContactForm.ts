@@ -52,7 +52,7 @@ export class Formulario {
           .should('be.visible');
 
         cy.get(this.envioFallidoMensaje)
-          .should('not.be.visible');
+          .should('not.exist');
     
     }
 
