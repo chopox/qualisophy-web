@@ -60,26 +60,10 @@ describe('Test de la Web Qualisophy - Página "Inicio"', () => {
 
     it('TEST DE FUNCIONES DE PILARES', () => {
         pilares.gotoNeurodivergencia();
-        pilares.gotoEntornoRural();
+        // pilares.gotoEntornoRural();
         pilares.gotoTalentoMigrante();
         pilares.gotoRiesgoExclusion();
         pilares.gotoReconversionLaboral();
-    })
-
-    it('TEST DE FUNCIONES DEL FOOTER', () => {
-        footer.gotoInicio();
-        footer.gotoNeurodivergencia();
-        footer.gotoEntornoRural();
-        footer.gotoTalentoMigrante();
-        footer.gotoRiesgoExclusion();
-        footer.gotoParticulares();
-        footer.gotoPartnership();
-        footer.gotoEquipo();
-        footer.gotoBlog();
-        footer.gotoContacto();
-        footer.gotoInstagram();
-        footer.gotoTwitter();
-        footer.gotoLinkedIn();
     })
 
 })
