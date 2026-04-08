@@ -64,25 +64,25 @@ export class Pilares {
 
     gotoEntornoRural() {
         cy.get(this.pilarEntornoRural).click();
-        cy.get(this.entornoRuralLink).click();
+        cy.get(this.entornoRuralLink).should('be.visible').click();
         cy.url().should('eq', this.webEntornoRural);
     }
 
     gotoTalentoMigrante() {
         cy.get(this.pilarTalentoMigrante).click();
-        cy.get(this.talentoMigranteLink).click();
+        cy.get(this.talentoMigranteLink).should('be.visible').click();
         cy.url().should('eq', this.webTalentoMigrante);
     }
 
     gotoRiesgoExclusion() {
         cy.get(this.pilarRiesgoExclusion).click();
-        cy.get(this.riesgoExclusionLink).click();
+        cy.get(this.riesgoExclusionLink).should('be.visible').click();
         cy.url().should('eq', this.webRiesgoExclusion);
     }
 
     gotoReconversionLaboral() {
         cy.get(this.pilarReconversionLaboral).click();
-        cy.get(this.reconversionLaboralLink).click();
+        cy.get(this.reconversionLaboralLink).should('be.visible').click();
         cy.url().should('eq', this.webReconversionLaboral);
     }
 }

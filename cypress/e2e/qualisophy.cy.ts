@@ -60,9 +60,13 @@ describe('Test de la Web Qualisophy - Página "Inicio"', () => {
 
     it('TEST DE FUNCIONES DE PILARES', () => {
         pilares.gotoNeurodivergencia();
-        // pilares.gotoEntornoRural();
+        cy.visit('http://localhost:4321/');
+        pilares.gotoEntornoRural();
+        cy.visit('http://localhost:4321/');
         pilares.gotoTalentoMigrante();
+        cy.visit('http://localhost:4321/');
         pilares.gotoRiesgoExclusion();
+        cy.visit('http://localhost:4321/');
         pilares.gotoReconversionLaboral();
     })
 
