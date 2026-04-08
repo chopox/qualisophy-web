@@ -21,17 +21,17 @@ export class Formulario {
     /// MÉTODOS ///
     escribirNombre(name: string) {
         cy.get(this.nombreInput).type(name);
-        cy.get(this.nombreInput).should('contain', name);
+        cy.get(this.nombreInput).should('have.value', name);
     }
 
     escribirCorreo(email: string) {
         cy.get(this.correoInput).type(email);
-        cy.get(this.correoInput).should('contain', email);
+        cy.get(this.correoInput).should('have.value', email);
     }
 
     escribirMensaje(message: string) {
         cy.get(this.mensajeInput).type(message);
-        cy.get(this.mensajeInput).should('contain', message);
+        cy.get(this.mensajeInput).should('have.value', message);
     }
 
     enviar() {
