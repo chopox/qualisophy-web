@@ -1,4 +1,5 @@
 import { inicio } from "../support/pages/Inicio"
+import { footer } from "../support/pages/Footer";
 
 describe('Test de la Web Qualisophy - Página "Inicio"', () => {
 
@@ -6,10 +7,25 @@ describe('Test de la Web Qualisophy - Página "Inicio"', () => {
         inicio.gotoWeb();
     })
 
+    it('TEST DE FUNCIONES DEL FOOTER', () => {
+        footer.gotoInicio();
+        footer.gotoNeurodivergencia();
+        footer.gotoEntornoRural();
+        footer.gotoTalentoMigrante();
+        footer.gotoRiesgoExclusion();
+        footer.gotoParticulares();
+        footer.gotoPartnership();
+        footer.gotoEquipo();
+        footer.gotoBlog();
+        footer.gotoContacto();
+        footer.gotoInstagram();
+        footer.gotoTwitter();
+        footer.gotoLinkedIn();
+    })
+
     // REVISIÓN DE ENLACES
     it('Validar navegación a "Neurodivergencia" desde "Nuestros Pilares de Inclusión" (Carrusel)', () => {
         inicio.gotoPilaresNeurodivergencia();
-        
     })
 
     it('Validar navegación a "Para Particulares" desde "Formaciones" (Footer)', () => {
