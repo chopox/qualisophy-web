@@ -21,112 +21,131 @@ export class Footer {
     webLinkedIn = 'https://www.linkedin.com/company/qualisophy/';
     
     // Bloque Izquierdo: Logo y Eslogan
-    Logo = '[data-test="footer-link-logo"]';
-    Eslogan = '[data-test="footer-slogan"]';
+    logo = '[data-test="footer-link-logo"]';
+    eslogan = '[data-test="footer-slogan"]';
 
     // Bloque Derecho: Datos de Contacto
-    Correo = '[data-test="footer-link-email"]';
-    Telefono = '[data-test="footer-link-phone"]';
-    Direccion = '[data-test="footer-link-address"]';
+    correo = '[data-test="footer-link-email"]';
+    telefono = '[data-test="footer-link-phone"]';
+    direccion = '[data-test="footer-link-address"]';
 
     // Inclusión
-    TituloInclusion = '[data-test="footer-title-inclusion"]';
-    Neurodivergencia = '[data-test="footer-link-neurodivergence"]';
-    EntornoRural = '[data-test="footer-link-rural-environment"]';
-    TalentoMigrante = '[data-test="footer-link-migrant-talent"]';
-    RiesgoExclusion = '[data-test="footer-link-social-impact"]';
+    tituloInclusion = '[data-test="footer-title-inclusion"]';
+    neurodivergencia = '[data-test="footer-link-neurodivergence"]';
+    entornoRural = '[data-test="footer-link-rural-environment"]';
+    talentoMigrante = '[data-test="footer-link-migrant-talent"]';
+    riesgoExclusion = '[data-test="footer-link-social-impact"]';
 
     // Formaciones
-    TituloFormaciones = '[data-test="footer-title-formaciones"]';
-    Particulares = '[data-test="footer-link-particulares"]';    
-    Empresas = '[data-test="footer-link-empresas"]';
+    tituloFormaciones = '[data-test="footer-title-formaciones"]';
+    particulares = '[data-test="footer-link-particulares"]';    
+    empresas = '[data-test="footer-link-empresas"]';
 
     // ¿Colaboramos?
-    TituloColaboramos = '[data-test="footer-title-colaboramos"]';
-    Partnership = '[data-test="footer-link-partnership"]';
+    tituloColaboramos = '[data-test="footer-title-colaboramos"]';
+    partnership = '[data-test="footer-link-partnership"]';
 
     // Conócenos
-    TituloConocenos = '[data-test="footer-title-conocenos"]';
-    Equipo = '[data-test="footer-link-team"]';
-    Blog = '[data-test="footer-link-blog"]';
-    Contacto = '[data-test="footer-link-contact"]';
+    tituloConocenos = '[data-test="footer-title-conocenos"]';
+    equipo = '[data-test="footer-link-team"]';
+    blog = '[data-test="footer-link-blog"]';
+    contacto = '[data-test="footer-link-contact"]';
 
     // Marca Registada y Redes Sociales
-    MarcaRegistrada = '[data-test="footer-registered-trademark"]';
-    Instagram = '[data-test="footer-link-instagram"]';
-    Twitter = '[data-test="footer-link-twitter"]';
-    LinkedIn = '[data-test="footer-link-linkedin"]';    
+    marcaRegistrada = '[data-test="footer-registered-trademark"]';
+    instagram = '[data-test="footer-link-instagram"]';
+    twitter = '[data-test="footer-link-twitter"]';
+    linkedIn = '[data-test="footer-link-linkedin"]';    
 
 
     /// MÉTODOS ///
 
     // Navegación
     gotoInicio() {
-        cy.get(this.Logo).click();
+        cy.get(this.logo).click();
         cy.url().should('eq', this.webInicio);
     }
 
     gotoNeurodivergencia() {
-        cy.get(this.Neurodivergencia).click();
+        cy.get(this.neurodivergencia).click();
         cy.url().should('eq', this.webNeurodivergencia);
     }
 
     gotoEntornoRural() {
-        cy.get(this.EntornoRural).click();
+        cy.get(this.entornoRural).click();
         cy.url().should('eq', this.webEntornoRural);
     }
 
     gotoTalentoMigrante() {
-        cy.get(this.TalentoMigrante).click();
+        cy.get(this.talentoMigrante).click();
         cy.url().should('eq', this.webTalentoMigrante);
     }
 
     gotoRiesgoExclusion() {
-        cy.get(this.RiesgoExclusion).click();
+        cy.get(this.riesgoExclusion).click();
         cy.url().should('eq', this.webRiesgoExclusion);
     }
 
     gotoParticulares() {
-        cy.get(this.Particulares).click();
+        cy.get(this.particulares).click();
         cy.url().should('eq', this.webParticulares);
     }
 
     gotoPartnership() {
-        cy.get(this.Partnership).click();
+        cy.get(this.partnership).click();
         cy.url().should('eq', this.webPartnership);
     }
 
    gotoEquipo() {
-        cy.get(this.Equipo).click();
+        cy.get(this.equipo).click();
         cy.url().should('eq', this.webEquipo);
     }
 
    gotoBlog() {
-        cy.get(this.Blog).click();
+        cy.get(this.blog).click();
         cy.url().should('eq', this.webBlog);
     }
 
     gotoContacto() {
-        cy.get(this.Contacto).click();
+        cy.get(this.contacto).click();
         cy.url().should('eq', this.webContacto);
     }
 
     gotoInstagram() {
-        cy.get(this.Instagram)
+        cy.get(this.instagram)
           .should('have.attr', 'href')
           .and('include', this.webInstagram);
     }
 
     gotoTwitter() {
-        cy.get(this.Twitter)
+        cy.get(this.twitter)
           .should('have.attr', 'href')
           .and('include', this.webTwitter);
     }
 
     gotoLinkedIn() {
-        cy.get(this.LinkedIn)
+        cy.get(this.linkedIn)
           .should('have.attr', 'href')
           .and('include', this.webLinkedIn);
+    }
+
+    // Contacto
+    enviarCorreo() {
+        cy.get(this.correo)
+          .should('have.attr', 'href')
+          .and('include', this.webCorreo);
+    }
+
+    realizarLlamada() {
+        cy.get(this.telefono)
+          .should('have.attr', 'href')
+          .and('include', this.webTelefono);
+    }
+
+    abrirDireccion() {
+        cy.get(this.direccion)
+          .should('have.attr', 'href')
+          .and('include', this.webDireccion);
     }
 
 }

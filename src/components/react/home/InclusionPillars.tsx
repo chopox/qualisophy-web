@@ -66,7 +66,7 @@ export const InclusionPillars: React.FC = () => {
     <section className="bg-gray-50 py-16 w-full border-t border-gray-100">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-10">
-          <h2 className="text-secondary text-3xl md:text-4xl font-bold font-heading">
+          <h2 data-test="title-pillars" className="text-secondary text-3xl md:text-4xl font-bold font-heading">
             Nuestros Pilares de Inclusión
           </h2>
         </div>
@@ -111,28 +111,29 @@ export const InclusionPillars: React.FC = () => {
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-10 h-10 flex items-center justify-center bg-white/20 backdrop-blur-md rounded-full text-white flex-shrink-0">
-                      <span className="material-symbols-outlined text-xl">
+                      <span data-test={`pillar-${pillar.id}-icon`} className="material-symbols-outlined text-xl">
                         {pillar.icon}
                       </span>
                     </div>
 
-                    <span className="text-white/90 uppercase tracking-widest text-xs font-bold font-primary">
+                    <span data-test={`pillar-${pillar.id}-category`} className="text-white/90 uppercase tracking-widest text-xs font-bold font-primary">
                       {pillar.category}
                     </span>
                   </div>
 
                   {/* APLICAMOS EL FIX AQUÍ: Tamaño adaptable y forzado de salto de palabra */}
-                  <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold font-heading mb-3 leading-tight break-words hyphens-auto pr-2">
+                  <h3 data-test={`pillar-${pillar.id}-title`} className="text-white text-2xl md:text-3xl lg:text-4xl font-bold font-heading mb-3 leading-tight break-words hyphens-auto pr-2">
                     {pillar.title}
                   </h3>
 
                   {/* Descripción adaptable */}
-                  <p className="text-white/90 text-sm md:text-base lg:text-lg mb-6 max-w-lg font-primary leading-relaxed hidden md:block">
+                  <p data-test={`pillar-${pillar.id}-description`} className="text-white/90 text-sm md:text-base lg:text-lg mb-6 max-w-lg font-primary leading-relaxed hidden md:block">
                     {pillar.description}
                   </p>
 
                   <div>
                     <a
+                      data-test={`pillar-${pillar.id}-link`}
                       href={pillar.link}
                       className="inline-flex items-center gap-2 bg-white text-secondary hover:bg-primary hover:text-white px-6 py-3 rounded-xl font-bold text-sm transition-colors shadow-lg"
                     >
