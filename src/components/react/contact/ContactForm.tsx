@@ -191,7 +191,7 @@ export const ContactForm = ({
         <form onSubmit={handleSubmit} className="space-y-4 bg-white">
           {/* Mostramos el contexto si existe */}
           {currentSource !== "Contacto General" && (
-            <div className="bg-blue-50 text-blue-800 text-xs px-3 py-2 rounded border border-blue-100 mb-4 font-medium">
+            <div data-test="contact-title-subject" className="bg-blue-50 text-blue-800 text-xs px-3 py-2 rounded border border-blue-100 mb-4 font-medium">
               📋 Asunto: {currentSource}
             </div>
           )}

@@ -3,6 +3,8 @@ export class Formulario {
     /// ATRIBUTOS ///
     web = 'http://localhost:4321/contact';
 
+    asunto = '[data-test="contact-title-subject"]';
+
     nombreTitulo = '[data-test="contact-title-name"]';
     nombreInput = '[data-test="contact-input-name"]';
 

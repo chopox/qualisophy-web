@@ -11,6 +11,7 @@ interface ButtonProps {
   onClick?: () => void;
   href?: string;
   className?: string;
+  dataTest?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -24,6 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
   href,
   className = "",
+  dataTest,
 }) => {
   const baseClasses =
     "font-semibold rounded-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2";
@@ -55,6 +57,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled || loading}
       onClick={onClick}
       className={classes}
+      data-test={dataTest}
     >
       {children}
     </button>
