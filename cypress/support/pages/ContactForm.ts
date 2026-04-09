@@ -58,4 +58,4 @@ export class Formulario {
 
 }
 
-export const formulario = new Formulario();
+export const formularioGeneral = new Formulario();

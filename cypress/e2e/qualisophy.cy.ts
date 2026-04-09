@@ -1,6 +1,6 @@
 import { pilares } from "../support/pages/InclusionPillars";
 import { footer } from "../support/pages/Footer";
-import { formulario } from "../support/pages/ContactForm";
+import { formularioGeneral } from "../support/pages/ContactForm";
 
 describe('Test de la Web Qualisophy - Página "Inicio"', () => {
 
@@ -35,11 +35,11 @@ describe('Test de la Web Qualisophy - Página "Inicio"', () => {
 
     // INSCRIPCIÓN
     it('Completar y enviar el formulario de inscripción con datos válidos', () => {
-        cy.visit(formulario.web);
-        formulario.escribirNombre("Daniel García");
-        formulario.escribirCorreo("test@gmail.com");
-        formulario.escribirMensaje("Mensaje de prueba realizado autónomamente por Cypress para validar el formulario de contacto general.");
-        formulario.enviar();
+        cy.visit(formularioGeneral.web);
+        formularioGeneral.escribirNombre("Daniel García");
+        formularioGeneral.escribirCorreo("test@gmail.com");
+        formularioGeneral.escribirMensaje("Mensaje de prueba realizado autónomamente por Cypress para validar el formulario de contacto general.");
+        formularioGeneral.enviar();
     })
 
     it('Validar que el formulario de inscripción muestra error si faltan campos obligatorios', () => {
